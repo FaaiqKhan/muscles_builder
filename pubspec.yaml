@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
+  flame: ^1.21.0
+  flame_audio: ^2.10.5
 
 dev_dependencies:
   flutter_test:
