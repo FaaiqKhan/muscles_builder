@@ -40,7 +40,7 @@ class GameOverScreen extends StatelessWidget {
                   gameRef.overlays.remove(GameOverScreen.id);
                 },
                 child: const Text(
-                  "Exercise again",
+                  "Again",
                   style: TextStyle(fontSize: 25),
                 ),
               ),
