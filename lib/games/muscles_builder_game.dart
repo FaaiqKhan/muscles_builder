@@ -35,9 +35,7 @@ class MusclesBuilderGame extends FlameGame
   ];
 
   // Vaccine components
-  final VaccineComponent _vaccineComponent = VaccineComponent(
-    startPosition: Vector2(200, 200),
-  );
+  late VaccineComponent _vaccineComponent;
 
   // Vaccine will give immunity only for 4 seconds
   int _vaccineImmunityTimer = 4;
@@ -49,12 +47,12 @@ class MusclesBuilderGame extends FlameGame
   late int _vaccineTimerAppearance;
 
   // Protein components
-  final ProteinComponent _proteinComponent = ProteinComponent(
-    startPosition: Vector2(200, 400),
-  );
+  late ProteinComponent _proteinComponent;
 
   // Protein will automatically disappear after 4 seconds
   int _proteinTimerLeft = 4;
+
+  // Timer object
   late Timer proteinTimer;
 
   // Random time for the protein to appear
@@ -76,6 +74,23 @@ class MusclesBuilderGame extends FlameGame
     final double vy = sinAngle * speed;
 
     return Vector2(vx, vy);
+  }
+
+  Vector2 generateRandomPosition(Vector2 size) {
+    final x = random.nextInt(size.x.toInt()).toDouble();
+    final y = random.nextInt(size.y.toInt()).toDouble();
+    return Vector2(x, y);
+  }
+
+  @override
+  void onGameResize(Vector2 size) {
+    _vaccineComponent = VaccineComponent(
+      startPosition: generateRandomPosition(size),
+    );
+    _proteinComponent = ProteinComponent(
+      startPosition: generateRandomPosition(size),
+    );
+    super.onGameResize(size);
   }
 
   @override
