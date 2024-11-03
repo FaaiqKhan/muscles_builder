@@ -9,11 +9,18 @@ import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class DumbbellComponent extends SpriteComponent
     with HasGameRef<MusclesBuilderGame>, CollisionCallbacks {
-  final double _spriteHeight = 60;
+  final double _spriteWidthHeight = 60.0;
 
   Vector2 _getRandomDumbbellPosition() {
-    double x = gameRef.random.nextInt(gameRef.size.x.toInt()).toDouble();
-    double y = gameRef.random.nextInt(gameRef.size.y.toInt()).toDouble();
+    final int width = (gameRef.size.x - _spriteWidthHeight).toInt();
+    double calculatedX = gameRef.random.nextInt(width).toDouble();
+    double calculatedY =
+        gameRef.random.nextInt(gameRef.size.y.toInt()).toDouble();
+    final x =
+        calculatedX < _spriteWidthHeight ? _spriteWidthHeight : calculatedX;
+    final y = calculatedY < _spriteWidthHeight
+        ? _spriteWidthHeight + (gameRef.statusBarHeight ?? 60.0)
+        : calculatedY;
     return Vector2(x, y);
   }
 
@@ -24,7 +31,7 @@ class DumbbellComponent extends SpriteComponent
     final dumbbell = gameRef.dumbbells[randomValue];
 
     sprite = await gameRef.loadSprite(dumbbell);
-    height = width = _spriteHeight;
+    height = width = _spriteWidthHeight;
     position = _getRandomDumbbellPosition();
     anchor = Anchor.center;
 
