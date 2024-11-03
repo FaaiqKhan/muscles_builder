@@ -6,6 +6,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:muscles_builder/components/player_component.dart';
+import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
 import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/globals.dart';
@@ -34,11 +35,29 @@ class MusclesBuilderGame extends FlameGame
   // Random time for the vaccine to appear
   late int _vaccineTimerAppearance;
 
+  // Protein components
+  final ProteinComponent _proteinComponent = ProteinComponent(
+    startPosition: Vector2(200, 400),
+  );
+
+  // Protein will automatically disappear after 4 seconds
+  int _proteinTimerLeft = 4;
+  late Timer proteinTimer;
+
+  // Random time for the protein to appear
+  late int _proteinTimerAppearance;
+
+  // Keep track of any bonus
+  int proteinBonus = 0;
+
   @override
   FutureOr<void> onLoad() async {
     super.onLoad();
     // Generate random number between 0 to 20
     _vaccineTimerAppearance = _random.nextInt(_remainingTime - 20) + 20;
+
+    // Time should be grater then 5 seconds and less then 10 seconds
+    _proteinTimerAppearance = _random.nextInt(_remainingTime - 5) + 5;
 
     // Load all the required audio in cache
     FlameAudio.audioCache.loadAll(
@@ -82,6 +101,9 @@ class MusclesBuilderGame extends FlameGame
           pauseEngine();
         } else if (_remainingTime == _vaccineTimerAppearance) {
           add(_vaccineComponent);
+        } else if (_remainingTime == _proteinTimerAppearance) {
+          add(_proteinComponent);
+          proteinTimer.start();
         }
         _remainingTime -= 1;
       },
@@ -102,6 +124,20 @@ class MusclesBuilderGame extends FlameGame
         }
       },
     );
+
+    proteinTimer = Timer(
+      1,
+      repeat: true,
+      onTick: () {
+        if (_proteinTimerLeft == 0) {
+          remove(_proteinComponent);
+          _proteinTimerLeft = 4;
+          proteinTimer.stop();
+        } else {
+          _proteinTimerLeft -= 1;
+        }
+      },
+    );
   }
 
   @override
@@ -111,8 +147,11 @@ class MusclesBuilderGame extends FlameGame
     if (playerComponent.isVaccinated) {
       vaccineTimer.update(dt);
     } else if (_vaccineTimerAppearance == 0 && _remainingTime > 3) {
-      _vaccineTimerAppearance = Random().nextInt(_remainingTime - 3) +
-          3; // New vaccine appearance time
+      // New vaccine appearance time
+      _vaccineTimerAppearance = Random().nextInt(_remainingTime - 3) + 3;
+    }
+    if (_proteinComponent.isLoaded) {
+      proteinTimer.update(dt);
     }
   }
 }
