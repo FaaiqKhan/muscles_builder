@@ -20,5 +20,9 @@ class Globals {
   static const String dumbbellLightSprite = "assets/images/dumbbell_light.png";
   static const String dumbbellHeavySprite = "assets/images/dumbbell_light.png";
   static const String dumbbellMediumSprite = "assets/images/dumbbell_light.png";
-  static const String playerMuscularSprite = "assets/images/player_muscular.png";
+  static const String playerMuscularSprite =
+      "assets/images/player_muscular.png";
+
+  // Gifs
+  static const String splashScreenLoadingGIF = "assets/gifs/loading.gif";
 }
