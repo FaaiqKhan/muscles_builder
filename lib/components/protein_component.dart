@@ -20,7 +20,7 @@ class ProteinComponent extends SpriteComponent
 
   Vector2 _moveSprite() {
     // Generate a random angle in radius
-    final randomAngle = Random().nextDouble() * 2 * pi;
+    final randomAngle = gameRef.random.nextDouble() * 2 * pi;
     // Calculate the sine and cosine of the angle
     final sinAngle = sin(randomAngle);
     final cosAngle = cos(randomAngle);
@@ -72,7 +72,8 @@ class ProteinComponent extends SpriteComponent
     } else if (other is PlayerComponent) {
       removeFromParent();
       // Generate number from 0 to 8
-      int randomBonusScore = Random().nextInt(9);
+      int randomBonusScore = gameRef.random.nextInt(9);
+      gameRef.score += randomBonusScore;
       FlameAudio.play(Globals.proteinSound);
       gameRef.proteinTimer.stop();
       gameRef.proteinBonus = randomBonusScore;
