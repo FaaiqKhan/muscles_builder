@@ -32,6 +32,9 @@ class PlayerComponent extends SpriteComponent
   bool isVaccinated = false;
   final Timer _timer = Timer(3);
 
+  late double oneHalfOfSpriteWidth;
+  late double oneHalfOfSpriteHeight;
+
   void _freezePlayer() {
     if (!_virusAttacked) {
       FlameAudio.play(Globals.virusSound);
@@ -74,13 +77,8 @@ class PlayerComponent extends SpriteComponent
     height = width = _spriteWidthHeight;
     anchor = Anchor.center;
 
-    final x = size.x / 1.5;
-    final y = size.y / 1.5;
-
-    _leftBounds = x;
-    _topBounds = y;
-    _rightBounds = gameRef.size.x - x;
-    _bottomBounds = gameRef.size.y - y;
+    oneHalfOfSpriteWidth = size.x / 1.5;
+    oneHalfOfSpriteHeight = size.y / 1.5;
 
     add(RectangleHitbox());
   }
@@ -88,9 +86,12 @@ class PlayerComponent extends SpriteComponent
   @override
   void onMount() {
     final context = gameRef.buildContext!;
-    _topBounds = size.y / 1.5 +
+    _leftBounds = oneHalfOfSpriteWidth;
+    _topBounds = oneHalfOfSpriteHeight +
         MediaQuery.of(context).viewPadding.top +
         Theme.of(context).textTheme.displaySmall!.fontSize!;
+    _rightBounds = gameRef.size.x - oneHalfOfSpriteWidth;
+    _bottomBounds = gameRef.size.y - oneHalfOfSpriteHeight;
     super.onMount();
   }
 
