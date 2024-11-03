@@ -230,5 +230,15 @@ class MusclesBuilderGame extends FlameGame
     _proteinComponent.removeFromParent();
     _proteinTimerAppearance = random.nextInt(_remainingTime - 5) + 5;
     playerComponent.sprite = await loadSprite(Globals.playerSkinnySprite);
+    _timer.stop();
+    vaccineTimer.stop();
+    proteinTimer.stop();
+  }
+
+  @override
+  void onRemove() {
+    FlameAudio.audioCache.clearAll();
+    reset();
+    super.onRemove();
   }
 }
