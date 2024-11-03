@@ -55,6 +55,7 @@ class HomeScreen extends StatelessWidget {
                     /// Settings screen should include the following settings
                     /// 1. Sound on/off
                     /// 2. Application version
+                    /// 3. Difficulty (add virus quantity and increase speed over time)
                   },
                   child: const Text("Settings"),
                 ),
