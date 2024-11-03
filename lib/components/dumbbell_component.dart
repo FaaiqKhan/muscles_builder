@@ -19,7 +19,7 @@ class DumbbellComponent extends SpriteComponent
     final x =
         calculatedX < _spriteWidthHeight ? _spriteWidthHeight : calculatedX;
     final y = calculatedY < _spriteWidthHeight
-        ? _spriteWidthHeight + (gameRef.statusBarHeight ?? 60.0)
+        ? _spriteWidthHeight + gameRef.statusBarHeight
         : calculatedY;
     return Vector2(x, y);
   }

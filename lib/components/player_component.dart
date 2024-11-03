@@ -77,7 +77,7 @@ class PlayerComponent extends SpriteComponent
     final y = size.y / 1.5;
 
     _leftBounds = x;
-    _topBounds = y + (gameRef.statusBarHeight ?? 60.0);
+    _topBounds = y + gameRef.statusBarHeight;
     _rightBounds = gameRef.size.x - x;
     _bottomBounds = gameRef.size.y - y;
 

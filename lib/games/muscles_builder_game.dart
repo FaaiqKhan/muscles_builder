@@ -63,6 +63,21 @@ class MusclesBuilderGame extends FlameGame
   // Keep track of any bonus
   int proteinBonus = 0;
 
+  double statusBarHeight = 60;
+
+  Vector2 moveSprite(double speed) {
+    // Generate a random angle in radius
+    final randomAngle = random.nextDouble() * 2 * pi;
+    // Calculate the sine and cosine of the angle
+    final sinAngle = sin(randomAngle);
+    final cosAngle = cos(randomAngle);
+
+    final double vx = cosAngle * speed;
+    final double vy = sinAngle * speed;
+
+    return Vector2(vx, vy);
+  }
+
   @override
   FutureOr<void> onLoad() async {
     super.onLoad();
@@ -153,7 +168,7 @@ class MusclesBuilderGame extends FlameGame
 
     _scoreText = TextComponent(
       text: "Score: $score",
-      position: Vector2(40, 40),
+      position: Vector2(40, statusBarHeight),
       anchor: Anchor.topLeft,
       textRenderer: TextPaint(
         style: TextStyle(
@@ -166,7 +181,7 @@ class MusclesBuilderGame extends FlameGame
 
     _timerText = TextComponent(
       text: "Time: $_remainingTime secs",
-      position: Vector2(size.x - 40, 40),
+      position: Vector2(size.x - 40, statusBarHeight),
       anchor: Anchor.topRight,
       textRenderer: TextPaint(
         style: TextStyle(
@@ -193,6 +208,12 @@ class MusclesBuilderGame extends FlameGame
     if (_proteinComponent.isLoaded) {
       proteinTimer.update(dt);
     }
+  }
+
+  @override
+  void onAttach() {
+    super.onAttach();
+    statusBarHeight = MediaQuery.of(buildContext!).viewPadding.top;
   }
 
   @override
