@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flame/palette.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
@@ -189,24 +188,12 @@ class MusclesBuilderGame extends FlameGame
     _scoreText = TextComponent(
       text: "Score: $score",
       anchor: Anchor.topLeft,
-      textRenderer: TextPaint(
-        style: TextStyle(
-          color: BasicPalette.black.color,
-          fontSize: 25,
-        ),
-      ),
     );
     add(_scoreText);
 
     _timerText = TextComponent(
       text: "Time: $_remainingTime secs",
       anchor: Anchor.topRight,
-      textRenderer: TextPaint(
-        style: TextStyle(
-          color: BasicPalette.black.color,
-          fontSize: 25,
-        ),
-      ),
     );
     add(_timerText);
   }
@@ -230,14 +217,21 @@ class MusclesBuilderGame extends FlameGame
 
   @override
   void onAttach() {
-    final statusBarHeight = MediaQuery.of(buildContext!).viewPadding.top;
+    final context = buildContext!;
+    final statusBarHeight = MediaQuery.of(context).viewPadding.top;
     _scoreText.position = Vector2(
       Spacings.contentSpacingOf12,
       statusBarHeight,
     );
+    _scoreText.textRenderer = TextPaint(
+      style: Theme.of(context).textTheme.displaySmall,
+    );
     _timerText.position = Vector2(
       size.x - Spacings.contentSpacingOf12,
       statusBarHeight,
+    );
+    _timerText.textRenderer = TextPaint(
+      style: Theme.of(context).textTheme.displaySmall,
     );
     super.onAttach();
   }
