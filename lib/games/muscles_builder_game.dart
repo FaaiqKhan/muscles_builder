@@ -13,6 +13,7 @@ import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
 import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/globals.dart';
+import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/inputs/joystick.dart';
 import 'package:muscles_builder/screens/game_over_screen.dart';
 
@@ -138,18 +139,22 @@ class MusclesBuilderGame extends FlameGame
     // Any collision on the bounds of the view port
     add(ScreenHitbox());
 
-    _timer = Timer(1, repeat: true, onTick: () {
-      if (_remainingTime == 0) {
-        pauseEngine();
-        overlays.add(GameOverScreen.id);
-      } else if (_remainingTime == _vaccineTimerAppearance) {
-        add(_vaccineComponent);
-      } else if (_remainingTime == _proteinTimerAppearance) {
-        add(_proteinComponent);
-        proteinTimer.start();
-      }
-      _remainingTime -= 1;
-    });
+    _timer = Timer(
+      1,
+      repeat: true,
+      onTick: () {
+        if (_remainingTime == 0) {
+          pauseEngine();
+          overlays.add(GameOverScreen.id);
+        } else if (_remainingTime == _vaccineTimerAppearance) {
+          add(_vaccineComponent);
+        } else if (_remainingTime == _proteinTimerAppearance) {
+          add(_proteinComponent);
+          proteinTimer.start();
+        }
+        _remainingTime -= 1;
+      },
+    );
     _timer.start();
 
     vaccineTimer = Timer(
@@ -183,7 +188,6 @@ class MusclesBuilderGame extends FlameGame
 
     _scoreText = TextComponent(
       text: "Score: $score",
-      position: Vector2(40, statusBarHeight),
       anchor: Anchor.topLeft,
       textRenderer: TextPaint(
         style: TextStyle(
@@ -196,7 +200,6 @@ class MusclesBuilderGame extends FlameGame
 
     _timerText = TextComponent(
       text: "Time: $_remainingTime secs",
-      position: Vector2(size.x - 40, statusBarHeight),
       anchor: Anchor.topRight,
       textRenderer: TextPaint(
         style: TextStyle(
@@ -227,8 +230,16 @@ class MusclesBuilderGame extends FlameGame
 
   @override
   void onAttach() {
+    final statusBarHeight = MediaQuery.of(buildContext!).viewPadding.top;
+    _scoreText.position = Vector2(
+      Spacings.contentSpacingOf12,
+      statusBarHeight,
+    );
+    _timerText.position = Vector2(
+      size.x - Spacings.contentSpacingOf12,
+      statusBarHeight,
+    );
     super.onAttach();
-    statusBarHeight = MediaQuery.of(buildContext!).viewPadding.top;
   }
 
   @override
@@ -245,9 +256,6 @@ class MusclesBuilderGame extends FlameGame
     _proteinComponent.removeFromParent();
     _proteinTimerAppearance = random.nextInt(_remainingTime - 5) + 5;
     playerComponent.sprite = await loadSprite(Globals.playerSkinnySprite);
-    _timer.stop();
-    vaccineTimer.stop();
-    proteinTimer.stop();
   }
 
   @override
