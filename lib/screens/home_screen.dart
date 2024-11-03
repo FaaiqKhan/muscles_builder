@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/quotes.dart';
 import 'package:muscles_builder/constants/spacings.dart';
+import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -40,9 +41,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    // TODO: Start game
-                  },
+                  onPressed: () => Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (_) => const MusclesBuilderGameScreen(),
+                    ),
+                  ),
                   child: const Text("Start Exercise"),
                 ),
                 const SizedBox(height: Spacings.contentSpacingOf12),
@@ -52,6 +55,7 @@ class HomeScreen extends StatelessWidget {
                     /// Settings screen should include the following settings
                     /// 1. Sound on/off
                     /// 2. Application version
+                    /// 3. Difficulty (add virus quantity and increase speed over time)
                   },
                   child: const Text("Settings"),
                 ),
