@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
 import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/globals.dart';
@@ -13,7 +14,7 @@ class PlayerComponent extends SpriteComponent
   PlayerComponent({required this.joystick});
 
   final double _speed = 500;
-  final double _spriteHeight = 100;
+  final double _spriteWidthHeight = 100;
 
   final JoystickComponent joystick;
 
@@ -70,18 +71,27 @@ class PlayerComponent extends SpriteComponent
 
     playerSprite();
     position = gameRef.size / 2;
-    height = width = _spriteHeight;
+    height = width = _spriteWidthHeight;
     anchor = Anchor.center;
 
     final x = size.x / 1.5;
     final y = size.y / 1.5;
 
     _leftBounds = x;
-    _topBounds = y + gameRef.statusBarHeight;
+    _topBounds = y;
     _rightBounds = gameRef.size.x - x;
     _bottomBounds = gameRef.size.y - y;
 
     add(RectangleHitbox());
+  }
+
+  @override
+  void onMount() {
+    final context = gameRef.buildContext!;
+    _topBounds = size.y / 1.5 +
+        MediaQuery.of(context).viewPadding.top +
+        Theme.of(context).textTheme.displaySmall!.fontSize!;
+    super.onMount();
   }
 
   @override

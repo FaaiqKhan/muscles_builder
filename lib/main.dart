@@ -36,15 +36,15 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           headlineLarge: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-          headlineMedium: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
-          headlineSmall: TextStyle(
+          headlineMedium: TextStyle(
             fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
+          headlineSmall: TextStyle(
+            fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
