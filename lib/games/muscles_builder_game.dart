@@ -14,6 +14,7 @@ import 'package:muscles_builder/components/vaccine_component.dart';
 import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/inputs/joystick.dart';
+import 'package:muscles_builder/screens/game_over_screen.dart';
 
 class MusclesBuilderGame extends FlameGame
     with DragCallbacks, HasCollisionDetection {
@@ -110,6 +111,7 @@ class MusclesBuilderGame extends FlameGame
     _timer = Timer(1, repeat: true, onTick: () {
       if (_remainingTime == 0) {
         pauseEngine();
+        overlays.add(GameOverScreen.id);
       } else if (_remainingTime == _vaccineTimerAppearance) {
         add(_vaccineComponent);
       } else if (_remainingTime == _proteinTimerAppearance) {
