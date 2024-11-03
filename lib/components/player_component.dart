@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
 import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/globals.dart';
@@ -74,15 +73,11 @@ class PlayerComponent extends SpriteComponent
     height = width = _spriteHeight;
     anchor = Anchor.center;
 
-    final statusBarHeight =
-        MediaQuery.of(gameRef.buildContext!).viewPadding.top +
-            MediaQuery.of(gameRef.buildContext!).viewPadding.bottom;
-
     final x = size.x / 1.5;
     final y = size.y / 1.5;
 
     _leftBounds = x;
-    _topBounds = y + statusBarHeight;
+    _topBounds = y + (gameRef.statusBarHeight ?? 60.0);
     _rightBounds = gameRef.size.x - x;
     _bottomBounds = gameRef.size.y - y;
 
