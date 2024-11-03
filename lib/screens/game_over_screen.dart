@@ -16,7 +16,7 @@ class GameOverScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Game Over",
+              "I'm tired",
               style: TextStyle(fontSize: 50),
             ),
             Text(
@@ -40,7 +40,7 @@ class GameOverScreen extends StatelessWidget {
                   gameRef.overlays.remove(GameOverScreen.id);
                 },
                 child: const Text(
-                  "Play again",
+                  "Exercise again",
                   style: TextStyle(fontSize: 25),
                 ),
               ),
@@ -52,18 +52,18 @@ class GameOverScreen extends StatelessWidget {
               width: 200,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {
-                  gameRef.reset();
-                  gameRef.resumeEngine();
-                  gameRef.overlays.remove(GameOverScreen.id);
-                  Navigator.of(context).pushReplacement(
+                onPressed: () async {
+                  await Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (_) => const HomeScreen(),
                     ),
                   );
+                  gameRef.reset();
+                  gameRef.resumeEngine();
+                  gameRef.overlays.remove(GameOverScreen.id);
                 },
                 child: const Text(
-                  "Main menu",
+                  "Home",
                   style: TextStyle(fontSize: 25),
                 ),
               ),
