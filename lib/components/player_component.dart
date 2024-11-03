@@ -37,6 +37,9 @@ class PlayerComponent extends SpriteComponent
       FlameAudio.play(Globals.virusSound);
       _virusAttacked = true;
       playerSprite();
+      if (gameRef.score > 0) {
+        gameRef.score -= 1;
+      }
       _timer.start();
     }
   }
@@ -49,6 +52,10 @@ class PlayerComponent extends SpriteComponent
   void playerSprite() {
     if (_virusAttacked) {
       sprite = playerFever;
+    } else if (gameRef.score > 10 && gameRef.score <= 20) {
+      sprite = playerFit;
+    } else if (gameRef.score > 20) {
+      sprite = playerMuscular;
     } else {
       sprite = playerSkinny;
     }

@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flame/palette.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
@@ -17,8 +18,11 @@ import 'package:muscles_builder/inputs/joystick.dart';
 class MusclesBuilderGame extends FlameGame
     with DragCallbacks, HasCollisionDetection {
   late Timer _timer;
+  late TextComponent _scoreText;
+  late TextComponent _timerText;
   late PlayerComponent playerComponent;
 
+  int score = 0;
   int _remainingTime = 30;
 
   final Random random = Random();
@@ -103,21 +107,17 @@ class MusclesBuilderGame extends FlameGame
     // Any collision on the bounds of the view port
     add(ScreenHitbox());
 
-    _timer = Timer(
-      1,
-      repeat: true,
-      onTick: () {
-        if (_remainingTime == 0) {
-          pauseEngine();
-        } else if (_remainingTime == _vaccineTimerAppearance) {
-          add(_vaccineComponent);
-        } else if (_remainingTime == _proteinTimerAppearance) {
-          add(_proteinComponent);
-          proteinTimer.start();
-        }
-        _remainingTime -= 1;
-      },
-    );
+    _timer = Timer(1, repeat: true, onTick: () {
+      if (_remainingTime == 0) {
+        pauseEngine();
+      } else if (_remainingTime == _vaccineTimerAppearance) {
+        add(_vaccineComponent);
+      } else if (_remainingTime == _proteinTimerAppearance) {
+        add(_proteinComponent);
+        proteinTimer.start();
+      }
+      _remainingTime -= 1;
+    });
     _timer.start();
 
     vaccineTimer = Timer(
@@ -148,17 +148,45 @@ class MusclesBuilderGame extends FlameGame
         }
       },
     );
+
+    _scoreText = TextComponent(
+      text: "Score: $score",
+      position: Vector2(40, 40),
+      anchor: Anchor.topLeft,
+      textRenderer: TextPaint(
+        style: TextStyle(
+          color: BasicPalette.black.color,
+          fontSize: 25,
+        ),
+      ),
+    );
+    add(_scoreText);
+
+    _timerText = TextComponent(
+      text: "Time: $_remainingTime secs",
+      position: Vector2(size.x - 40, 40),
+      anchor: Anchor.topRight,
+      textRenderer: TextPaint(
+        style: TextStyle(
+          color: BasicPalette.black.color,
+          fontSize: 25,
+        ),
+      ),
+    );
+    add(_timerText);
   }
 
   @override
   void update(double dt) {
     super.update(dt);
     _timer.update(dt);
+    _scoreText.text = "Score: $score";
+    _timerText.text = "Time: $_remainingTime secs";
     if (playerComponent.isVaccinated) {
       vaccineTimer.update(dt);
     } else if (_vaccineTimerAppearance == 0 && _remainingTime > 3) {
       // New vaccine appearance time
-      _vaccineTimerAppearance = Random().nextInt(_remainingTime - 3) + 3;
+      _vaccineTimerAppearance = random.nextInt(_remainingTime - 3) + 3;
     }
     if (_proteinComponent.isLoaded) {
       proteinTimer.update(dt);
@@ -168,5 +196,16 @@ class MusclesBuilderGame extends FlameGame
   @override
   Color backgroundColor() {
     return Colors.white;
+  }
+
+  void reset() async {
+    score = 0;
+    _remainingTime = 30;
+    _vaccineImmunityTimer = 4;
+    _vaccineComponent.removeFromParent();
+    _proteinTimerLeft = 4;
+    _proteinComponent.removeFromParent();
+    _proteinTimerAppearance = random.nextInt(_remainingTime - 5) + 5;
+    playerComponent.sprite = await loadSprite(Globals.playerSkinnySprite);
   }
 }
