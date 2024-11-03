@@ -5,6 +5,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'package:muscles_builder/components/dumbbell_component.dart';
 import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
@@ -19,7 +20,13 @@ class MusclesBuilderGame extends FlameGame
 
   int _remainingTime = 30;
 
-  final Random _random = Random();
+  final Random random = Random();
+
+  final List<String> dumbbells = [
+    Globals.dumbbellLightSprite,
+    Globals.dumbbellMediumSprite,
+    Globals.dumbbellHeavySprite,
+  ];
 
   // Vaccine components
   final VaccineComponent _vaccineComponent = VaccineComponent(
@@ -54,10 +61,10 @@ class MusclesBuilderGame extends FlameGame
   FutureOr<void> onLoad() async {
     super.onLoad();
     // Generate random number between 0 to 20
-    _vaccineTimerAppearance = _random.nextInt(_remainingTime - 20) + 20;
+    _vaccineTimerAppearance = random.nextInt(_remainingTime - 20) + 20;
 
     // Time should be grater then 5 seconds and less then 10 seconds
-    _proteinTimerAppearance = _random.nextInt(_remainingTime - 5) + 5;
+    _proteinTimerAppearance = random.nextInt(_remainingTime - 5) + 5;
 
     // Load all the required audio in cache
     FlameAudio.audioCache.loadAll(
@@ -72,6 +79,8 @@ class MusclesBuilderGame extends FlameGame
     playerComponent = PlayerComponent(joystick: joystick);
     add(playerComponent);
     add(joystick);
+
+    add(DumbbellComponent());
 
     add(
       VirusComponent(
