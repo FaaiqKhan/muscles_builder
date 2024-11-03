@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
 import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
@@ -162,5 +164,10 @@ class MusclesBuilderGame extends FlameGame
     if (_proteinComponent.isLoaded) {
       proteinTimer.update(dt);
     }
+  }
+
+  @override
+  Color backgroundColor() {
+    return Colors.white;
   }
 }
