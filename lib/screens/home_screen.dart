@@ -41,8 +41,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => Navigator.of(context).pushReplacement(
+                  onPressed: () => Navigator.of(context).push(
                     MaterialPageRoute(
+                      maintainState: false,
                       builder: (_) => const MusclesBuilderGameScreen(),
                     ),
                   ),
