@@ -36,16 +36,37 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           headlineLarge: TextStyle(
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
           headlineMedium: TextStyle(
-            fontSize: 14,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
           headlineSmall: TextStyle(
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: FontWeight.bold,
+          ),
+          titleLarge: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+          titleMedium: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+          titleSmall: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 18,
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 18,
+          ),
+          bodySmall: TextStyle(
+            fontSize: 18,
           ),
         ),
         scaffoldBackgroundColor: Colors.white,
