@@ -140,7 +140,7 @@ class PlayerComponent extends SpriteComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
     if (other is VirusComponent) {
-      if (!isVaccinated) {
+      if (!isVaccinated && !_virusAttacked) {
         _freezePlayer();
       }
     }
