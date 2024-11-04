@@ -5,6 +5,7 @@ import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/quotes.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
+import 'package:muscles_builder/screens/settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -56,7 +57,15 @@ class HomeScreen extends StatelessWidget {
                     /// Settings screen should include the following settings
                     /// 1. Sound on/off
                     /// 2. Application version
-                    /// 3. Difficulty (add virus quantity and increase speed over time)
+                    /// 3. Difficulties [Easy, Medium, and Hard]
+                    /// 4. Change background color
+                    /// 5. Change time of game
+                    /// 6. Change gesture [Joystick or Drag]
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const SettingsScreen(),
+                      ),
+                    );
                   },
                   child: const Text("Settings"),
                 ),
