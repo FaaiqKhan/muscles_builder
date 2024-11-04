@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/constants/enums.dart';
+import 'package:muscles_builder/constants/key_value_storage_keys.dart';
 import 'package:muscles_builder/constants/spacings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+// TODO: Set properties of games according to game difficulty
 
 class DifficultyLevel extends StatefulWidget {
   const DifficultyLevel({super.key});
@@ -10,7 +14,22 @@ class DifficultyLevel extends StatefulWidget {
 }
 
 class _DifficultyLevelState extends State<DifficultyLevel> {
-  GameDifficultyLevel gameDifficultyLevel = GameDifficultyLevel.hard;
+  GameDifficultyLevel gameDifficultyLevel = GameDifficultyLevel.easy;
+
+  @override
+  void initState() {
+    SharedPreferences.getInstance().then(
+      (instance) {
+        setState(() {
+          final level = instance.getString(
+            KeyValueStorageKeys.gameDifficultyLevel,
+          )!;
+          gameDifficultyLevel = GameDifficultyLevel.values.byName(level);
+        });
+      },
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +48,14 @@ class _DifficultyLevelState extends State<DifficultyLevel> {
             children: [
               TextButton(
                 onPressed: () {
+                  SharedPreferences.getInstance().then(
+                    (instance) {
+                      instance.setString(
+                        KeyValueStorageKeys.gameDifficultyLevel,
+                        GameDifficultyLevel.easy.name,
+                      );
+                    },
+                  );
                   setState(() {
                     gameDifficultyLevel = GameDifficultyLevel.easy;
                   });
@@ -44,6 +71,14 @@ class _DifficultyLevelState extends State<DifficultyLevel> {
               ),
               TextButton(
                 onPressed: () {
+                  SharedPreferences.getInstance().then(
+                    (instance) {
+                      instance.setString(
+                        KeyValueStorageKeys.gameDifficultyLevel,
+                        GameDifficultyLevel.medium.name,
+                      );
+                    },
+                  );
                   setState(() {
                     gameDifficultyLevel = GameDifficultyLevel.medium;
                   });
@@ -59,6 +94,14 @@ class _DifficultyLevelState extends State<DifficultyLevel> {
               ),
               TextButton(
                 onPressed: () {
+                  SharedPreferences.getInstance().then(
+                    (instance) {
+                      instance.setString(
+                        KeyValueStorageKeys.gameDifficultyLevel,
+                        GameDifficultyLevel.hard.name,
+                      );
+                    },
+                  );
                   setState(() {
                     gameDifficultyLevel = GameDifficultyLevel.hard;
                   });

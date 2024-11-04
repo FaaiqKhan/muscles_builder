@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
+import 'package:muscles_builder/constants/key_value_storage_keys.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/screens/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -11,6 +14,20 @@ class SplashScreen extends StatelessWidget {
     // TODO: Using delay to mimic loading data
     /// Will update this code in future after User details loading
     /// feature implementation.
+
+    SharedPreferences.getInstance().then(
+      (instance) {
+        final gameDifficultyLevel = instance.getString(
+          KeyValueStorageKeys.gameDifficultyLevel,
+        );
+        if (gameDifficultyLevel == null) {
+          instance.setString(
+            KeyValueStorageKeys.gameDifficultyLevel,
+            GameDifficultyLevel.easy.name,
+          );
+        }
+      },
+    );
     Future.delayed(
       const Duration(
         seconds: 2,
