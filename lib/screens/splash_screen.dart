@@ -9,59 +9,64 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
+  Future<bool> init() async {
+    final instance = await SharedPreferences.getInstance();
+    final gameDifficultyLevel = instance.getString(
+      KeyValueStorageKeys.gameDifficultyLevel,
+    );
+    if (gameDifficultyLevel == null) {
+      instance.setString(
+        KeyValueStorageKeys.gameDifficultyLevel,
+        GameDifficultyLevel.easy.name,
+      );
+    }
+
+    /// Shared preferences are so fast that splash screen comes for
+    /// less then a second that's way using delay to show splash screen for 2
+    /// seconds event after the data has been loaded.
+    await Future.delayed(const Duration(seconds: 2));
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: Using delay to mimic loading data
-    /// Will update this code in future after User details loading
-    /// feature implementation.
-
-    SharedPreferences.getInstance().then(
-      (instance) {
-        final gameDifficultyLevel = instance.getString(
-          KeyValueStorageKeys.gameDifficultyLevel,
-        );
-        if (gameDifficultyLevel == null) {
-          instance.setString(
-            KeyValueStorageKeys.gameDifficultyLevel,
-            GameDifficultyLevel.easy.name,
-          );
-        }
-      },
-    );
-    Future.delayed(
-      const Duration(
-        seconds: 2,
-      ),
-    ).then(
-      (_) {
-        if (context.mounted) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (_) => const HomeScreen(),
-            ),
-          );
-        }
-      },
-    );
     return Scaffold(
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              Globals.splashScreenLoadingGIF,
-              scale: 0.7,
-            ),
-            const SizedBox(
-              height: Spacings.contentSpacingOf32,
-            ),
-            Text(
-              "Warming up ...",
-              style: Theme.of(context).textTheme.displayMedium,
-            ),
-          ],
+        child: FutureBuilder(
+          future: init(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              /// Adding Widget post frame callback because when the status of
+              /// future builder changes the flutter engine re-render the UI
+              /// which causes error due on navigation when UI is rendering so,
+              /// using this function to navigate when frames are rendered.
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (_) => const HomeScreen(),
+                  ),
+                );
+              });
+            }
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  Globals.splashScreenLoadingGIF,
+                  scale: 0.7,
+                ),
+                const SizedBox(
+                  height: Spacings.contentSpacingOf32,
+                ),
+                Text(
+                  "Warming up ...",
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
