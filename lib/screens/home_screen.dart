@@ -52,21 +52,11 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: Spacings.contentSpacingOf12),
                 ElevatedButton(
-                  onPressed: () {
-                    // TODO: Open settings screen
-                    /// Settings screen should include the following settings
-                    /// 1. Sound on/off
-                    /// 2. Application version
-                    /// 3. Difficulties [Easy, Medium, and Hard]
-                    /// 4. Change background color
-                    /// 5. Change time of game
-                    /// 6. Change gesture [Joystick or Drag]
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const SettingsScreen(),
-                      ),
-                    );
-                  },
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const SettingsScreen(),
+                    ),
+                  ),
                   child: const Text("Settings"),
                 ),
               ],
