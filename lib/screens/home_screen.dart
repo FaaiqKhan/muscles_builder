@@ -15,6 +15,9 @@ class HomeScreen extends StatelessWidget {
     final int randomNumber = Random().nextInt(Quotes.quotes.length);
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Muscles Builder"),
+      ),
       body: SafeArea(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
