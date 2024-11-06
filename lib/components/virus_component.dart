@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -17,19 +16,6 @@ class VirusComponent extends SpriteComponent
 
   final Vector2 startPosition;
 
-  Vector2 _moveSprite() {
-    // Generate a random angle in radius
-    final randomAngle = Random().nextDouble() * 2 * pi;
-    // Calculate the sine and cosine of the angle
-    final sinAngle = sin(randomAngle);
-    final cosAngle = cos(randomAngle);
-
-    final double vx = cosAngle * _speed;
-    final double vy = sinAngle * _speed;
-
-    return Vector2(vx, vy);
-  }
-
   @override
   FutureOr<void> onLoad() async {
     await super.onLoad();
@@ -37,7 +23,7 @@ class VirusComponent extends SpriteComponent
     position = startPosition;
     width = height = _spriteHeight;
     anchor = Anchor.center;
-    _velocity = _moveSprite();
+    _velocity = gameRef.moveSprite(_speed);
     add(CircleHitbox());
   }
 

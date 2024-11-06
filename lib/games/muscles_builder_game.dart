@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flame/palette.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
@@ -13,6 +12,7 @@ import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
 import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/globals.dart';
+import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/inputs/joystick.dart';
 import 'package:muscles_builder/screens/game_over_screen.dart';
 
@@ -35,9 +35,7 @@ class MusclesBuilderGame extends FlameGame
   ];
 
   // Vaccine components
-  final VaccineComponent _vaccineComponent = VaccineComponent(
-    startPosition: Vector2(200, 200),
-  );
+  late VaccineComponent _vaccineComponent;
 
   // Vaccine will give immunity only for 4 seconds
   int _vaccineImmunityTimer = 4;
@@ -49,12 +47,12 @@ class MusclesBuilderGame extends FlameGame
   late int _vaccineTimerAppearance;
 
   // Protein components
-  final ProteinComponent _proteinComponent = ProteinComponent(
-    startPosition: Vector2(200, 400),
-  );
+  late ProteinComponent _proteinComponent;
 
   // Protein will automatically disappear after 4 seconds
   int _proteinTimerLeft = 4;
+
+  // Timer object
   late Timer proteinTimer;
 
   // Random time for the protein to appear
@@ -62,6 +60,38 @@ class MusclesBuilderGame extends FlameGame
 
   // Keep track of any bonus
   int proteinBonus = 0;
+
+  double statusBarHeight = 60;
+
+  Vector2 moveSprite(double speed) {
+    // Generate a random angle in radius
+    final randomAngle = random.nextDouble() * 2 * pi;
+    // Calculate the sine and cosine of the angle
+    final sinAngle = sin(randomAngle);
+    final cosAngle = cos(randomAngle);
+
+    final double vx = cosAngle * speed;
+    final double vy = sinAngle * speed;
+
+    return Vector2(vx, vy);
+  }
+
+  Vector2 generateRandomPosition(Vector2 size) {
+    final x = random.nextInt(size.x.toInt()).toDouble();
+    final y = random.nextInt(size.y.toInt()).toDouble();
+    return Vector2(x, y);
+  }
+
+  @override
+  void onGameResize(Vector2 size) {
+    _vaccineComponent = VaccineComponent(
+      startPosition: generateRandomPosition(size),
+    );
+    _proteinComponent = ProteinComponent(
+      startPosition: generateRandomPosition(size),
+    );
+    super.onGameResize(size);
+  }
 
   @override
   FutureOr<void> onLoad() async {
@@ -108,18 +138,22 @@ class MusclesBuilderGame extends FlameGame
     // Any collision on the bounds of the view port
     add(ScreenHitbox());
 
-    _timer = Timer(1, repeat: true, onTick: () {
-      if (_remainingTime == 0) {
-        pauseEngine();
-        overlays.add(GameOverScreen.id);
-      } else if (_remainingTime == _vaccineTimerAppearance) {
-        add(_vaccineComponent);
-      } else if (_remainingTime == _proteinTimerAppearance) {
-        add(_proteinComponent);
-        proteinTimer.start();
-      }
-      _remainingTime -= 1;
-    });
+    _timer = Timer(
+      1,
+      repeat: true,
+      onTick: () {
+        if (_remainingTime == 0) {
+          pauseEngine();
+          overlays.add(GameOverScreen.id);
+        } else if (_remainingTime == _vaccineTimerAppearance) {
+          add(_vaccineComponent);
+        } else if (_remainingTime == _proteinTimerAppearance) {
+          add(_proteinComponent);
+          proteinTimer.start();
+        }
+        _remainingTime -= 1;
+      },
+    );
     _timer.start();
 
     vaccineTimer = Timer(
@@ -153,27 +187,13 @@ class MusclesBuilderGame extends FlameGame
 
     _scoreText = TextComponent(
       text: "Score: $score",
-      position: Vector2(40, 40),
       anchor: Anchor.topLeft,
-      textRenderer: TextPaint(
-        style: TextStyle(
-          color: BasicPalette.black.color,
-          fontSize: 25,
-        ),
-      ),
     );
     add(_scoreText);
 
     _timerText = TextComponent(
       text: "Time: $_remainingTime secs",
-      position: Vector2(size.x - 40, 40),
       anchor: Anchor.topRight,
-      textRenderer: TextPaint(
-        style: TextStyle(
-          color: BasicPalette.black.color,
-          fontSize: 25,
-        ),
-      ),
     );
     add(_timerText);
   }
@@ -196,6 +216,27 @@ class MusclesBuilderGame extends FlameGame
   }
 
   @override
+  void onAttach() {
+    final context = buildContext!;
+    final statusBarHeight = MediaQuery.of(context).viewPadding.top;
+    _scoreText.position = Vector2(
+      Spacings.contentSpacingOf12,
+      statusBarHeight,
+    );
+    _scoreText.textRenderer = TextPaint(
+      style: Theme.of(context).textTheme.displaySmall,
+    );
+    _timerText.position = Vector2(
+      size.x - Spacings.contentSpacingOf12,
+      statusBarHeight,
+    );
+    _timerText.textRenderer = TextPaint(
+      style: Theme.of(context).textTheme.displaySmall,
+    );
+    super.onAttach();
+  }
+
+  @override
   Color backgroundColor() {
     return Colors.white;
   }
@@ -209,5 +250,13 @@ class MusclesBuilderGame extends FlameGame
     _proteinComponent.removeFromParent();
     _proteinTimerAppearance = random.nextInt(_remainingTime - 5) + 5;
     playerComponent.sprite = await loadSprite(Globals.playerSkinnySprite);
+    playerComponent.removeVaccine();
+  }
+
+  @override
+  void onRemove() {
+    FlameAudio.audioCache.clearAll();
+    reset();
+    super.onRemove();
   }
 }

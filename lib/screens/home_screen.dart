@@ -5,6 +5,7 @@ import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/quotes.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
+import 'package:muscles_builder/screens/settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -41,8 +42,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => Navigator.of(context).pushReplacement(
+                  onPressed: () => Navigator.of(context).push(
                     MaterialPageRoute(
+                      maintainState: false,
                       builder: (_) => const MusclesBuilderGameScreen(),
                     ),
                   ),
@@ -50,13 +52,11 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: Spacings.contentSpacingOf12),
                 ElevatedButton(
-                  onPressed: () {
-                    // TODO: Open settings screen
-                    /// Settings screen should include the following settings
-                    /// 1. Sound on/off
-                    /// 2. Application version
-                    /// 3. Difficulty (add virus quantity and increase speed over time)
-                  },
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const SettingsScreen(),
+                    ),
+                  ),
                   child: const Text("Settings"),
                 ),
               ],

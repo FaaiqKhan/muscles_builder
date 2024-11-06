@@ -14,7 +14,7 @@ class PlayerComponent extends SpriteComponent
   PlayerComponent({required this.joystick});
 
   final double _speed = 500;
-  final double _spriteHeight = 100;
+  final double _spriteWidthHeight = 100;
 
   final JoystickComponent joystick;
 
@@ -31,6 +31,9 @@ class PlayerComponent extends SpriteComponent
   bool _virusAttacked = false;
   bool isVaccinated = false;
   final Timer _timer = Timer(3);
+
+  late double oneHalfOfSpriteWidth;
+  late double oneHalfOfSpriteHeight;
 
   void _freezePlayer() {
     if (!_virusAttacked) {
@@ -71,22 +74,25 @@ class PlayerComponent extends SpriteComponent
 
     playerSprite();
     position = gameRef.size / 2;
-    height = width = _spriteHeight;
+    height = width = _spriteWidthHeight;
     anchor = Anchor.center;
 
-    final statusBarHeight =
-        MediaQuery.of(gameRef.buildContext!).viewPadding.top +
-            MediaQuery.of(gameRef.buildContext!).viewPadding.bottom;
-
-    final x = size.x / 1.5;
-    final y = size.y / 1.5;
-
-    _leftBounds = x;
-    _topBounds = y + statusBarHeight;
-    _rightBounds = gameRef.size.x - x;
-    _bottomBounds = gameRef.size.y - y;
+    oneHalfOfSpriteWidth = size.x / 1.5;
+    oneHalfOfSpriteHeight = size.y / 1.5;
 
     add(RectangleHitbox());
+  }
+
+  @override
+  void onMount() {
+    final context = gameRef.buildContext!;
+    _leftBounds = oneHalfOfSpriteWidth;
+    _topBounds = oneHalfOfSpriteHeight +
+        MediaQuery.of(context).viewPadding.top +
+        Theme.of(context).textTheme.displaySmall!.fontSize!;
+    _rightBounds = gameRef.size.x - oneHalfOfSpriteWidth;
+    _bottomBounds = gameRef.size.y - oneHalfOfSpriteHeight;
+    super.onMount();
   }
 
   @override
@@ -134,7 +140,7 @@ class PlayerComponent extends SpriteComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
     if (other is VirusComponent) {
-      if (!isVaccinated) {
+      if (!isVaccinated && !_virusAttacked) {
         _freezePlayer();
       }
     }
