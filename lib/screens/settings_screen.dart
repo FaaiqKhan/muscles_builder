@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/constants/spacings.dart';
-import 'package:muscles_builder/widgets/game_difficulty_level.dart';
 import 'package:muscles_builder/widgets/exercise_time_widget.dart';
+import 'package:muscles_builder/widgets/game_difficulty_level.dart';
 import 'package:muscles_builder/widgets/game_sound_widget.dart';
 import 'package:muscles_builder/widgets/player_movement_control_widget.dart';
 
