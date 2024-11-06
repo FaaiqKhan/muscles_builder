@@ -5,21 +5,25 @@ class SettingsState extends Equatable {
     this.gameSoundSwitch = true,
     this.gameDifficultyLevel = GameDifficultyLevel.easy,
     this.exerciseTime = ExerciseTime.threeMinutes,
+    this.playerControllerType = PlayerControllerType.joystick,
   });
 
   final bool gameSoundSwitch;
   final GameDifficultyLevel gameDifficultyLevel;
   final ExerciseTime exerciseTime;
+  final PlayerControllerType playerControllerType;
 
   SettingsState copyWith({
     bool? gameSoundSwitch,
     GameDifficultyLevel? gameDifficultyLevel,
     ExerciseTime? exerciseTime,
+    PlayerControllerType? playerControllerType,
   }) {
     return SettingsState(
       gameSoundSwitch: gameSoundSwitch ?? this.gameSoundSwitch,
       gameDifficultyLevel: gameDifficultyLevel ?? this.gameDifficultyLevel,
       exerciseTime: exerciseTime ?? this.exerciseTime,
+      playerControllerType: playerControllerType ?? this.playerControllerType,
     );
   }
 
@@ -28,5 +32,6 @@ class SettingsState extends Equatable {
         gameSoundSwitch,
         gameDifficultyLevel,
         exerciseTime,
+        playerControllerType
       ];
 }
