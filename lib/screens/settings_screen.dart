@@ -27,7 +27,7 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             children: [
               GameSoundWidget(),
-              DifficultyLevel(),
+              GameDifficultyLevelWidget(),
               ExerciseTimeWidget(),
               PlayerMovementControlWidget(),
             ],
