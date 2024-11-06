@@ -17,11 +17,17 @@ class SettingsCubit extends Cubit<SettingsState> {
       final gameDifficultyLevel =
           instance.getString(KeyValueStorageKeys.gameDifficultyLevel) ??
               GameDifficultyLevel.easy.name;
+      final exerciseTime =
+          instance.getString(KeyValueStorageKeys.exerciseTime) ??
+              ExerciseTime.threeMinutes.name;
       emit(
         state.copyWith(
           gameSoundSwitch: gameSound,
           gameDifficultyLevel: GameDifficultyLevel.values.byName(
             gameDifficultyLevel,
+          ),
+          exerciseTime: ExerciseTime.values.byName(
+            exerciseTime,
           ),
         ),
       );
@@ -49,6 +55,20 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(
       state.copyWith(
         gameDifficultyLevel: difficultyLevel,
+      ),
+    );
+  }
+
+  void updateExerciseTime(ExerciseTime exerciseTime) {
+    SharedPreferences.getInstance().then((instance) {
+      instance.setString(
+        KeyValueStorageKeys.exerciseTime,
+        exerciseTime.name,
+      );
+    });
+    emit(
+      state.copyWith(
+        exerciseTime: exerciseTime,
       ),
     );
   }

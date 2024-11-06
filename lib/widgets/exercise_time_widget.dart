@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/spacings.dart';
+import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 
-class ExerciseTimeWidget extends StatefulWidget {
+class ExerciseTimeWidget extends StatelessWidget {
   const ExerciseTimeWidget({super.key});
-
-  @override
-  State<ExerciseTimeWidget> createState() => _ExerciseTimeWidgetState();
-}
-
-class _ExerciseTimeWidgetState extends State<ExerciseTimeWidget> {
-  final Map<String, int> exerciseTime = {
-    "3 minutes": 3,
-    "5 minutes": 5,
-    "8 minutes": 8,
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +20,30 @@ class _ExerciseTimeWidgetState extends State<ExerciseTimeWidget> {
           padding: const EdgeInsets.only(
             left: Spacings.contentSpacingOf12,
           ),
-          child: Row(
-            children: exerciseTime.keys
-                .map(
-                  (key) => TextButton(
-                    onPressed: () {},
-                    child: Text(key),
-                  ),
-                )
-                .toList(),
+          child: BlocBuilder<SettingsCubit, SettingsState>(
+            buildWhen: (previous, current) =>
+                previous.exerciseTime != current.exerciseTime,
+            builder: (context, state) {
+              return Row(
+                children: ExerciseTime.values
+                    .map(
+                      (exerciseTime) => TextButton(
+                        onPressed: () => context
+                            .read<SettingsCubit>()
+                            .updateExerciseTime(exerciseTime),
+                        child: Text(
+                          exerciseTime.value,
+                          style: TextStyle(
+                            color: state.exerciseTime == exerciseTime
+                                ? Colors.amber
+                                : Colors.black,
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              );
+            },
           ),
         ),
       ],
