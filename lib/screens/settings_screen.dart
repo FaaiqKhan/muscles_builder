@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/widgets/difficulty_level.dart';
+import 'package:muscles_builder/widgets/exercise_time_widget.dart';
 import 'package:muscles_builder/widgets/game_sound_widget.dart';
+import 'package:muscles_builder/widgets/player_movement_control_widget.dart';
 
 // TODO: Open settings screen
 /// Settings screen should include the following settings
@@ -16,7 +18,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -26,6 +28,8 @@ class SettingsScreen extends StatelessWidget {
             children: [
               GameSoundWidget(),
               DifficultyLevel(),
+              ExerciseTimeWidget(),
+              PlayerMovementControlWidget(),
             ],
           ),
         ),
