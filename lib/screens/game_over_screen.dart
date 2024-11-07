@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
-import 'package:muscles_builder/screens/home_screen.dart';
 
 class GameOverScreen extends StatelessWidget {
   const GameOverScreen({super.key, required this.gameRef});
@@ -46,14 +45,10 @@ class GameOverScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () async {
-                await Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (_) => const HomeScreen(),
-                  ),
-                );
                 gameRef.reset();
                 gameRef.resumeEngine();
                 gameRef.overlays.remove(GameOverScreen.id);
+                Navigator.of(context).pop();
               },
               child: const Text("Home"),
             )
