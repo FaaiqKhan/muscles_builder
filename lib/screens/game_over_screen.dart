@@ -17,17 +17,17 @@ class GameOverScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               "I'm tired",
-              style: TextStyle(fontSize: 50),
+              style: Theme.of(context).textTheme.displayLarge,
             ),
             Text(
               "Score: ${gameRef.score}",
-              style: const TextStyle(fontSize: 50),
+              style: Theme.of(context).textTheme.displayMedium,
             ),
             Text(
               "(Protein Bonus: ${gameRef.proteinBonus})",
-              style: const TextStyle(fontSize: 20),
+              style: Theme.of(context).textTheme.displayMedium,
             ),
             const SizedBox(
               height: 200,
