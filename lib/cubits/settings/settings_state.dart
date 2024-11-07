@@ -4,7 +4,7 @@ class SettingsState extends Equatable {
   const SettingsState({
     this.gameSoundSwitch = true,
     this.gameDifficultyLevel = GameDifficultyLevel.easy,
-    this.exerciseTime = ExerciseTime.threeMinutes,
+    this.exerciseTime = ExerciseTime.thirtySeconds,
     this.playerControllerType = PlayerControllerType.joystick,
   });
 

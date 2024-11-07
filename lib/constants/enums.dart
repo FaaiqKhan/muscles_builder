@@ -1,9 +1,9 @@
 enum GameDifficultyLevel { easy, medium, hard }
 
 enum ExerciseTime {
-  threeMinutes("3 Minutes"),
-  fiveMinutes("5 Minutes"),
-  eightMinutes("8 Minutes");
+  thirtySeconds("30 Seconds"),
+  fortyFiveSeconds("45 Seconds"),
+  oneMinute("1 Minute");
 
   final String value;
 

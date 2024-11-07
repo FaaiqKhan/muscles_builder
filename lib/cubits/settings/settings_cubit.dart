@@ -19,7 +19,7 @@ class SettingsCubit extends Cubit<SettingsState> {
               GameDifficultyLevel.easy.name;
       final exerciseTime =
           instance.getString(KeyValueStorageKeys.exerciseTime) ??
-              ExerciseTime.threeMinutes.name;
+              ExerciseTime.thirtySeconds.name;
       final playerControllerType =
           instance.getString(KeyValueStorageKeys.playerControllerType) ??
               PlayerControllerType.joystick.name;
