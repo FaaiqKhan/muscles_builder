@@ -21,8 +21,8 @@ class SettingsCubit extends Cubit<SettingsState> {
           instance.getString(KeyValueStorageKeys.exerciseTime) ??
               ExerciseTime.thirtySeconds.name;
       final playerControllerType =
-          instance.getString(KeyValueStorageKeys.playerControllerType) ??
-              PlayerControllerType.joystick.name;
+          instance.getString(KeyValueStorageKeys.joystickPosition) ??
+              JoystickPosition.left.name;
       emit(
         state.copyWith(
           gameSoundSwitch: gameSound,
@@ -32,7 +32,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           exerciseTime: ExerciseTime.values.byName(
             exerciseTime,
           ),
-          playerControllerType: PlayerControllerType.values.byName(
+          joystickPosition: JoystickPosition.values.byName(
             playerControllerType,
           ),
         ),
@@ -79,16 +79,16 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
-  void updatePlayerControllerType(PlayerControllerType controllerType) {
+  void updatePlayerControllerType(JoystickPosition position) {
     SharedPreferences.getInstance().then((instance) {
       instance.setString(
-        KeyValueStorageKeys.playerControllerType,
-        controllerType.name,
+        KeyValueStorageKeys.joystickPosition,
+        position.name,
       );
     });
     emit(
       state.copyWith(
-        playerControllerType: controllerType,
+        joystickPosition: position,
       ),
     );
   }

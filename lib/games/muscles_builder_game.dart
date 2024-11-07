@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +18,7 @@ import 'package:muscles_builder/inputs/joystick.dart';
 import 'package:muscles_builder/screens/game_over_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MusclesBuilderGame extends FlameGame
-    with DragCallbacks, HasCollisionDetection {
+class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   late Timer _timer;
   late TextComponent _scoreText;
   late TextComponent _timerText;
@@ -134,6 +132,26 @@ class MusclesBuilderGame extends FlameGame
 
     playerComponent = PlayerComponent(joystick: joystick);
     add(playerComponent);
+    final String position = sharedPreferences.getString(
+          KeyValueStorageKeys.joystickPosition,
+        ) ??
+        JoystickPosition.left.name;
+
+    switch (JoystickPosition.values.byName(position)) {
+      case JoystickPosition.left:
+        joystick.position = Vector2(
+          size.x * 0.25,
+          size.y - (size.y * 0.12),
+        );
+        break;
+      case JoystickPosition.right:
+        joystick.position = Vector2(
+          size.x - size.x * 0.25,
+          size.y - size.y * 0.12,
+        );
+        break;
+    }
+
     add(joystick);
 
     add(DumbbellComponent());

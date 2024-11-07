@@ -4,8 +4,8 @@ import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 
-class PlayerMovementControlWidget extends StatelessWidget {
-  const PlayerMovementControlWidget({super.key});
+class JoystickPositionWidget extends StatelessWidget {
+  const JoystickPositionWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class PlayerMovementControlWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Player movement control",
+          "Joystick position",
           style: Theme.of(context).textTheme.headlineLarge,
         ),
         Padding(
@@ -23,7 +23,7 @@ class PlayerMovementControlWidget extends StatelessWidget {
           child: BlocBuilder<SettingsCubit, SettingsState>(
             builder: (context, state) {
               return Row(
-                children: PlayerControllerType.values
+                children: JoystickPosition.values
                     .map(
                       (controller) => TextButton(
                         onPressed: () => context
@@ -32,7 +32,7 @@ class PlayerMovementControlWidget extends StatelessWidget {
                         child: Text(
                           controller.name,
                           style: TextStyle(
-                            color: state.playerControllerType == controller
+                            color: state.joystickPosition == controller
                                 ? Colors.amber
                                 : Colors.black,
                           ),

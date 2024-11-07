@@ -1,6 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:flame/palette.dart';
-import 'package:flutter/material.dart';
 
 JoystickComponent joystick = JoystickComponent(
   knob: CircleComponent(
@@ -11,5 +10,4 @@ JoystickComponent joystick = JoystickComponent(
     radius: 80,
     paint: BasicPalette.gray.withAlpha(100).paint(),
   ),
-  margin: const EdgeInsets.only(left: 40, bottom: 40),
 );

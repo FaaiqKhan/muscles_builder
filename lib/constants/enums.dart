@@ -10,7 +10,7 @@ enum ExerciseTime {
   const ExerciseTime(this.value);
 }
 
-enum PlayerControllerType {
-  joystick,
-  drag,
+enum JoystickPosition {
+  left,
+  right,
 }
