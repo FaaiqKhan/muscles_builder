@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame_audio/flame_audio.dart';
-import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
@@ -55,14 +53,6 @@ class ProteinComponent extends SpriteComponent
         // at the very bottom side
         _velocity.y = -_velocity.y;
       }
-    } else if (other is PlayerComponent) {
-      removeFromParent();
-      // Generate number from 0 to 8
-      int randomBonusScore = gameRef.random.nextInt(9);
-      gameRef.score += randomBonusScore;
-      FlameAudio.play(Globals.proteinSound);
-      gameRef.proteinTimer.stop();
-      gameRef.proteinBonus = randomBonusScore;
     }
   }
 }
