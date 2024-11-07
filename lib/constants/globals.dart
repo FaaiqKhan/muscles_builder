@@ -19,8 +19,8 @@ class Globals {
   static const String playerFeverSprite = "player_fever.png";
   static const String playerSkinnySprite = "player_skinny.png";
   static const String dumbbellLightSprite = "dumbbell_light.png";
-  static const String dumbbellHeavySprite = "dumbbell_light.png";
-  static const String dumbbellMediumSprite = "dumbbell_light.png";
+  static const String dumbbellHeavySprite = "dumbbell_heavy.png";
+  static const String dumbbellMediumSprite = "dumbbell_medium.png";
   static const String playerMuscularSprite = "player_muscular.png";
 
   // Images for dart

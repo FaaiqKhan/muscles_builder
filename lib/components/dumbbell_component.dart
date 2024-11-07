@@ -10,18 +10,19 @@ import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class DumbbellComponent extends SpriteComponent
     with HasGameRef<MusclesBuilderGame>, CollisionCallbacks {
-  final double _spriteSize = 60.0;
+  final double desiredRatio = 0.13;
+  final double resizedWidth = 512;
+  final int fontGapping = 20;
+  late String dumbbell;
 
-  Vector2 _getRandomDumbbellPosition() {
+  Vector2 _getRandomDumbbellPosition(double spriteSize) {
     final context = gameRef.buildContext!;
-    final h = MediaQuery.of(context).viewPadding.top +
-        Theme.of(context).textTheme.displaySmall!.fontSize! +
-        _spriteSize;
-    final int width = (gameRef.size.x - _spriteSize).toInt();
-    final int height = (gameRef.size.y - h - _spriteSize).toInt();
+    final h = MediaQuery.of(context).viewPadding.top + fontGapping + spriteSize;
+    final int width = (gameRef.size.x - spriteSize).toInt();
+    final int height = (gameRef.size.y - h - spriteSize).toInt();
     double calculatedX = gameRef.random.nextInt(width).toDouble();
     double calculatedY = gameRef.random.nextInt(height).toDouble();
-    final x = calculatedX < _spriteSize ? _spriteSize : calculatedX;
+    final x = calculatedX < spriteSize ? spriteSize : calculatedX;
     final y = calculatedY <= h ? h + calculatedY : calculatedY;
     return Vector2(x, y);
   }
@@ -30,10 +31,13 @@ class DumbbellComponent extends SpriteComponent
   FutureOr<void> onLoad() async {
     super.onLoad();
     final randomValue = gameRef.random.nextInt(gameRef.dumbbells.length);
-    final dumbbell = gameRef.dumbbells[randomValue];
+    dumbbell = gameRef.dumbbells[randomValue];
 
     sprite = await gameRef.loadSprite(dumbbell);
-    height = width = _spriteSize;
+    final resizeRatio = sprite!.srcSize.x / sprite!.srcSize.y;
+
+    width = resizedWidth * desiredRatio;
+    height = (sprite!.srcSize.y / resizeRatio) * desiredRatio;
     anchor = Anchor.center;
 
     add(RectangleHitbox());
@@ -41,7 +45,7 @@ class DumbbellComponent extends SpriteComponent
 
   @override
   void onMount() {
-    position = _getRandomDumbbellPosition();
+    position = _getRandomDumbbellPosition(width);
     super.onMount();
   }
 
@@ -51,7 +55,16 @@ class DumbbellComponent extends SpriteComponent
     if (other is PlayerComponent) {
       FlameAudio.play(Globals.dumbbellSound);
       removeFromParent();
-      gameRef.score += 1;
+      switch (dumbbell) {
+        case Globals.dumbbellMediumSprite:
+          gameRef.score += 2;
+          break;
+        case Globals.dumbbellHeavySprite:
+          gameRef.score += 3;
+          break;
+        default:
+          gameRef.score += 1;
+      }
       gameRef.add(DumbbellComponent());
     }
   }
