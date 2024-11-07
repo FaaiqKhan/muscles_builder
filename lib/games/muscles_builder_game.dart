@@ -11,10 +11,13 @@ import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
 import 'package:muscles_builder/components/virus_component.dart';
+import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
+import 'package:muscles_builder/constants/key_value_storage_keys.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/inputs/joystick.dart';
 import 'package:muscles_builder/screens/game_over_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MusclesBuilderGame extends FlameGame
     with DragCallbacks, HasCollisionDetection {
@@ -22,9 +25,10 @@ class MusclesBuilderGame extends FlameGame
   late TextComponent _scoreText;
   late TextComponent _timerText;
   late PlayerComponent playerComponent;
+  late SharedPreferences sharedPreferences;
 
   int score = 0;
-  int _remainingTime = 30;
+  late int _remainingTime;
 
   final Random random = Random();
 
@@ -82,6 +86,20 @@ class MusclesBuilderGame extends FlameGame
     return Vector2(x, y);
   }
 
+  int getExerciseTime() {
+    final String exerciseTimeName =
+        sharedPreferences.getString(KeyValueStorageKeys.exerciseTime) ??
+            ExerciseTime.thirtySeconds.name;
+    switch (ExerciseTime.values.byName(exerciseTimeName)) {
+      case ExerciseTime.thirtySeconds:
+        return 30;
+      case ExerciseTime.fortyFiveSeconds:
+        return 45;
+      case ExerciseTime.oneMinute:
+        return 60;
+    }
+  }
+
   @override
   void onGameResize(Vector2 size) {
     _vaccineComponent = VaccineComponent(
@@ -96,6 +114,8 @@ class MusclesBuilderGame extends FlameGame
   @override
   FutureOr<void> onLoad() async {
     super.onLoad();
+    sharedPreferences = await SharedPreferences.getInstance();
+    _remainingTime = getExerciseTime();
     // Generate random number between 0 to 20
     _vaccineTimerAppearance = random.nextInt(_remainingTime - 20) + 20;
 
@@ -243,7 +263,7 @@ class MusclesBuilderGame extends FlameGame
 
   void reset() async {
     score = 0;
-    _remainingTime = 30;
+    _remainingTime = getExerciseTime();
     _vaccineImmunityTimer = 4;
     _vaccineComponent.removeFromParent();
     _proteinTimerLeft = 4;
