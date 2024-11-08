@@ -53,7 +53,9 @@ class DumbbellComponent extends SpriteComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
     if (other is PlayerComponent) {
-      FlameAudio.play(Globals.dumbbellSound);
+      if (gameRef.isGameSoundOn) {
+        FlameAudio.play(Globals.dumbbellSound);
+      }
       removeFromParent();
       switch (dumbbell) {
         case Globals.dumbbellMediumSprite:

@@ -38,7 +38,9 @@ class PlayerComponent extends SpriteComponent
 
   void _freezePlayer() {
     if (!_virusAttacked) {
-      FlameAudio.play(Globals.virusSound);
+      if (gameRef.isGameSoundOn) {
+        FlameAudio.play(Globals.virusSound);
+      }
       _virusAttacked = true;
       playerSprite();
       if (gameRef.score > 0) {
@@ -128,7 +130,9 @@ class PlayerComponent extends SpriteComponent
   void injectVaccine() {
     if (!_virusAttacked) {
       isVaccinated = true;
-      FlameAudio.play(Globals.vaccineSound);
+      if (gameRef.isGameSoundOn) {
+        FlameAudio.play(Globals.vaccineSound);
+      }
       gameRef.vaccineTimer.start();
     }
   }
@@ -149,7 +153,9 @@ class PlayerComponent extends SpriteComponent
       // Generate number from 0 to 8
       int randomBonusScore = gameRef.random.nextInt(9);
       gameRef.score += randomBonusScore;
-      FlameAudio.play(Globals.proteinSound);
+      if (gameRef.isGameSoundOn) {
+        FlameAudio.play(Globals.proteinSound);
+      }
       gameRef.proteinTimer.stop();
       gameRef.proteinBonus = randomBonusScore;
     }

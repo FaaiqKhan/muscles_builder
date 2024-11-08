@@ -27,6 +27,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   int score = 0;
   late int _remainingTime;
+  late bool isGameSoundOn;
 
   final Random random = Random();
 
@@ -120,15 +121,21 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     // Time should be grater then 5 seconds and less then 10 seconds
     _proteinTimerAppearance = random.nextInt(_remainingTime - 5) + 5;
 
+    isGameSoundOn = sharedPreferences.getBool(
+          KeyValueStorageKeys.gameSound,
+        ) ??
+        true;
     // Load all the required audio in cache
-    FlameAudio.audioCache.loadAll(
-      [
-        Globals.virusSound,
-        Globals.vaccineSound,
-        Globals.proteinSound,
-        Globals.dumbbellSound,
-      ],
-    );
+    if (isGameSoundOn) {
+      FlameAudio.audioCache.loadAll(
+        [
+          Globals.virusSound,
+          Globals.vaccineSound,
+          Globals.proteinSound,
+          Globals.dumbbellSound,
+        ],
+      );
+    }
 
     playerComponent = PlayerComponent(joystick: joystick);
     add(playerComponent);
@@ -293,7 +300,9 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   @override
   void onRemove() {
-    FlameAudio.audioCache.clearAll();
+    if (isGameSoundOn) {
+      FlameAudio.audioCache.clearAll();
+    }
     reset();
     super.onRemove();
   }
