@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/constants/spacings.dart';
+import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 import 'package:muscles_builder/widgets/exercise_time_widget.dart';
 import 'package:muscles_builder/widgets/game_difficulty_level.dart';
 import 'package:muscles_builder/widgets/game_sound_widget.dart';
@@ -10,7 +12,7 @@ import 'package:muscles_builder/widgets/joystick_position_widget.dart';
 /// 1. Sound on/off
 /// 2. Difficulties [Easy, Medium, and Hard]
 /// 3. Change time of game
-/// 4. Change gesture [Joystick or Drag]
+/// 4. Joystick position
 /// 5. Application version
 
 class SettingsScreen extends StatelessWidget {
@@ -22,17 +24,24 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Settings"),
       ),
-      body: const SafeArea(
+      body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: Spacings.contentSpacingOf12,
-          ),
+          padding: const EdgeInsets.all(Spacings.contentSpacingOf12),
           child: Column(
             children: [
-              GameSoundWidget(),
-              GameDifficultyLevelWidget(),
-              ExerciseTimeWidget(),
-              JoystickPositionWidget(),
+              const GameSoundWidget(),
+              const GameDifficultyLevelWidget(),
+              const ExerciseTimeWidget(),
+              const JoystickPositionWidget(),
+              const Spacer(),
+              ElevatedButton(
+                onPressed: () => context.read<SettingsCubit>().resetSettings(),
+                child: const Text("Reset settings"),
+              ),
+              const SizedBox(
+                height: Spacings.contentSpacingOf32,
+              ),
+              Text(context.read<SettingsCubit>().appVersion),
             ],
           ),
         ),

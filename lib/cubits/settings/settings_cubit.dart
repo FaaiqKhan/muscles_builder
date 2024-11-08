@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings_state.dart';
@@ -10,6 +11,8 @@ class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit() : super(const SettingsState()) {
     _init();
   }
+
+  String appVersion = "Version: ";
 
   void _init() {
     SharedPreferences.getInstance().then((instance) {
@@ -37,6 +40,9 @@ class SettingsCubit extends Cubit<SettingsState> {
           ),
         ),
       );
+    });
+    PackageInfo.fromPlatform().then((info) {
+      appVersion += info.version;
     });
   }
 
@@ -89,6 +95,35 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(
       state.copyWith(
         joystickPosition: position,
+      ),
+    );
+  }
+
+  void resetSettings() {
+    SharedPreferences.getInstance().then((instance) {
+      instance.setBool(
+        KeyValueStorageKeys.gameSound,
+        true,
+      );
+      instance.setString(
+        KeyValueStorageKeys.gameDifficultyLevel,
+        GameDifficultyLevel.easy.name,
+      );
+      instance.setString(
+        KeyValueStorageKeys.exerciseTime,
+        ExerciseTime.thirtySeconds.name,
+      );
+      instance.setString(
+        KeyValueStorageKeys.joystickPosition,
+        JoystickPosition.left.name,
+      );
+    });
+    emit(
+      state.copyWith(
+        gameSoundSwitch: true,
+        gameDifficultyLevel: GameDifficultyLevel.easy,
+        exerciseTime: ExerciseTime.thirtySeconds,
+        joystickPosition: JoystickPosition.left,
       ),
     );
   }

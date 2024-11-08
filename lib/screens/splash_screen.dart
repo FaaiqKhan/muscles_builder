@@ -11,13 +11,38 @@ class SplashScreen extends StatelessWidget {
 
   Future<bool> init() async {
     final instance = await SharedPreferences.getInstance();
+    final gameSound = instance.getBool(KeyValueStorageKeys.gameSound);
+    if (gameSound == null) {
+      await instance.setBool(
+        KeyValueStorageKeys.gameSound,
+        true,
+      );
+    }
     final gameDifficultyLevel = instance.getString(
       KeyValueStorageKeys.gameDifficultyLevel,
     );
     if (gameDifficultyLevel == null) {
-      instance.setString(
+      await instance.setString(
         KeyValueStorageKeys.gameDifficultyLevel,
         GameDifficultyLevel.easy.name,
+      );
+    }
+    final exerciseTime = instance.getString(
+      KeyValueStorageKeys.exerciseTime,
+    );
+    if (exerciseTime == null) {
+      await instance.setString(
+        KeyValueStorageKeys.exerciseTime,
+        ExerciseTime.thirtySeconds.name,
+      );
+    }
+    final joystickPosition = instance.getString(
+      KeyValueStorageKeys.joystickPosition,
+    );
+    if (joystickPosition == null) {
+      await instance.setString(
+        KeyValueStorageKeys.joystickPosition,
+        JoystickPosition.left.name,
       );
     }
 
