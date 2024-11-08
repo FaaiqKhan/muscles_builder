@@ -28,6 +28,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   int score = 0;
   late int _remainingTime;
   late bool isGameSoundOn;
+  late GameDifficultyLevel gameDifficultyLevel;
 
   final Random random = Random();
 
@@ -122,9 +123,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     _proteinTimerAppearance = random.nextInt(_remainingTime - 5) + 5;
 
     isGameSoundOn = sharedPreferences.getBool(
-          KeyValueStorageKeys.gameSound,
-        ) ??
-        true;
+      KeyValueStorageKeys.gameSound,
+    )!;
     // Load all the required audio in cache
     if (isGameSoundOn) {
       FlameAudio.audioCache.loadAll(
@@ -136,6 +136,9 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         ],
       );
     }
+
+    gameDifficultyLevel = GameDifficultyLevel.values.byName(
+        sharedPreferences.getString(KeyValueStorageKeys.gameDifficultyLevel)!);
 
     playerComponent = PlayerComponent(joystick: joystick);
     add(playerComponent);
@@ -163,19 +166,29 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
     add(DumbbellComponent());
 
+    if (gameDifficultyLevel == GameDifficultyLevel.hard) {
+      add(
+        VirusComponent(
+          startPosition: Vector2(
+            random.nextInt(size.x.toInt()).toDouble(),
+            random.nextInt(size.y.toInt()).toDouble(),
+          ),
+        ),
+      );
+    }
     add(
       VirusComponent(
         startPosition: Vector2(
-          100,
-          150,
+          size.x / 4,
+          size.y / 2,
         ),
       ),
     );
     add(
       VirusComponent(
         startPosition: Vector2(
-          size.x - 100,
-          size.y - 200,
+          size.x / 3,
+          size.y / 3,
         ),
       ),
     );

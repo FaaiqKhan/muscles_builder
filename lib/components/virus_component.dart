@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
@@ -9,7 +10,7 @@ class VirusComponent extends SpriteComponent
     with HasGameRef<MusclesBuilderGame>, CollisionCallbacks {
   VirusComponent({required this.startPosition});
 
-  final double _speed = 200;
+  late double _speed;
   final double _spriteHeight = 60;
 
   late Vector2 _velocity;
@@ -23,6 +24,17 @@ class VirusComponent extends SpriteComponent
     position = startPosition;
     width = height = _spriteHeight;
     anchor = Anchor.center;
+    switch (gameRef.gameDifficultyLevel) {
+      case GameDifficultyLevel.easy:
+        _speed = 200;
+        break;
+      case GameDifficultyLevel.medium:
+        _speed = 250;
+        break;
+      case GameDifficultyLevel.hard:
+        _speed = 300;
+        break;
+    }
     _velocity = gameRef.moveSprite(_speed);
     add(CircleHitbox());
   }
