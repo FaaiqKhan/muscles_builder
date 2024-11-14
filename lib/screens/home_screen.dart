@@ -1,19 +1,52 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/quotes.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
 import 'package:muscles_builder/screens/settings_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final int randomNumber = Random().nextInt(Quotes.quotes.length);
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
+class _HomeScreenState extends State<HomeScreen> {
+  final int randomNumber = Random().nextInt(Quotes.quotes.length);
+  late BannerAd _bannerAd;
+  bool _isBannerAdLoaded = false;
+
+  @override
+  void initState() {
+    _initBannerAds();
+    super.initState();
+  }
+
+  void _initBannerAds() {
+    _bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: const String.fromEnvironment("ad-unit-id"),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _isBannerAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          print(error);
+        },
+      ),
+      request: const AdRequest(),
+    );
+    _bannerAd.load();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Muscles Builder"),
@@ -67,6 +100,13 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: _isBannerAdLoaded
+          ? SizedBox(
+              width: _bannerAd.size.width.toDouble(),
+              height: _bannerAd.size.height.toDouble(),
+              child: AdWidget(ad: _bannerAd),
+            )
+          : const SizedBox.shrink(),
     );
   }
 }
