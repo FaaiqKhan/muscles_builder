@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         return MaterialApp(
-          color: Colors.white,
           theme: lightTheme,
+          color: Colors.white,
           darkTheme: darkTheme,
           themeMode: state.themeMode,
           home: const SplashScreen(),

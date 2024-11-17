@@ -1,31 +1,34 @@
 import 'package:flutter/material.dart';
 
+/// Use label for buttons text
+/// Use body for screen text
+
 final ThemeData _parentTheme = ThemeData(
   useMaterial3: true,
-  fontFamily: 'BonaNovaSC',
+  fontFamily: 'PressStart2P-Regular',
   textTheme: const TextTheme(
     displayLarge: TextStyle(
-      fontSize: 22,
+      fontSize: 28,
       fontWeight: FontWeight.bold,
     ),
     displayMedium: TextStyle(
-      fontSize: 20,
+      fontSize: 26,
       fontWeight: FontWeight.bold,
     ),
     displaySmall: TextStyle(
-      fontSize: 18,
+      fontSize: 24,
       fontWeight: FontWeight.bold,
     ),
     headlineLarge: TextStyle(
-      fontSize: 18,
+      fontSize: 22,
       fontWeight: FontWeight.bold,
     ),
     headlineMedium: TextStyle(
-      fontSize: 16,
+      fontSize: 20,
       fontWeight: FontWeight.bold,
     ),
     headlineSmall: TextStyle(
-      fontSize: 14,
+      fontSize: 18,
       fontWeight: FontWeight.bold,
     ),
     titleLarge: TextStyle(
@@ -41,14 +44,26 @@ final ThemeData _parentTheme = ThemeData(
       fontWeight: FontWeight.w500,
     ),
     bodyLarge: TextStyle(
-      fontSize: 18,
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
     ),
     bodyMedium: TextStyle(
-      fontSize: 18,
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
     ),
     bodySmall: TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.normal,
+    ),
+    labelLarge: TextStyle(
       fontSize: 18,
     ),
+    labelMedium: TextStyle(
+      fontSize: 16,
+    ),
+    labelSmall: TextStyle(
+      fontSize: 14,
+    )
   ),
   scaffoldBackgroundColor: Colors.white,
 );
@@ -63,7 +78,6 @@ final ThemeData lightTheme = _parentTheme.copyWith(
 
 final ThemeData darkTheme = _parentTheme.copyWith(
   brightness: Brightness.dark,
-
   colorScheme: ColorScheme.fromSwatch().copyWith(
     primary: Colors.orange,
     secondary: Colors.purple,

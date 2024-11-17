@@ -36,9 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
             _isBannerAdLoaded = true;
           });
         },
-        onAdFailedToLoad: (ad, error) {
-          print(error);
-        },
+        onAdFailedToLoad: (ad, error) {},
       ),
       request: const AdRequest(),
     );
@@ -73,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: Text(
                     Quotes.quotes[randomNumber],
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    style: Theme.of(context).textTheme.titleSmall,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -84,7 +82,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (_) => const MusclesBuilderGameScreen(),
                     ),
                   ),
-                  child: const Text("Start Exercise"),
+                  child: Text(
+                    "Start workout",
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
                 ),
                 const SizedBox(height: Spacings.contentSpacingOf12),
                 ElevatedButton(
@@ -93,7 +94,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (_) => const SettingsScreen(),
                     ),
                   ),
-                  child: const Text("Settings"),
+                  child: Text(
+                    "Settings",
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
                 ),
               ],
             ),

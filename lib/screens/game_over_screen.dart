@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class GameOverScreen extends StatelessWidget {
@@ -12,25 +13,22 @@ class GameOverScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Game Over"),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "I'm tired",
-              style: Theme.of(context).textTheme.displayLarge,
-            ),
-            Text(
               "Score: ${gameRef.score}",
-              style: Theme.of(context).textTheme.displayMedium,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             Text(
               "(Protein Bonus: ${gameRef.proteinBonus})",
-              style: Theme.of(context).textTheme.displayMedium,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             const SizedBox(
-              height: 200,
+              height: Spacings.contentSpacingOf32,
             ),
             ElevatedButton(
               onPressed: () {
@@ -38,19 +36,23 @@ class GameOverScreen extends StatelessWidget {
                 gameRef.resumeEngine();
                 gameRef.overlays.remove(GameOverScreen.id);
               },
-              child: const Text("Again"),
+              child: Text(
+                "Again",
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: Spacings.contentSpacingOf12),
             ElevatedButton(
-              onPressed: () async {
+              onPressed: () {
                 gameRef.reset();
                 gameRef.resumeEngine();
                 gameRef.overlays.remove(GameOverScreen.id);
                 Navigator.of(context).pop();
               },
-              child: const Text("Home"),
+              child: Text(
+                "I'm tired",
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
             )
           ],
         ),
