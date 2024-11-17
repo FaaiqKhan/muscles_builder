@@ -25,6 +25,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   late PlayerComponent playerComponent;
   late SharedPreferences sharedPreferences;
 
+  MusclesBuilderGame();
+
   int score = 0;
   late int _remainingTime;
   late bool isGameSoundOn;
@@ -282,14 +284,14 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       statusBarHeight,
     );
     _scoreText.textRenderer = TextPaint(
-      style: Theme.of(context).textTheme.displaySmall,
+      style: Theme.of(context).textTheme.titleSmall,
     );
     _timerText.position = Vector2(
       size.x - Spacings.contentSpacingOf12,
       statusBarHeight,
     );
     _timerText.textRenderer = TextPaint(
-      style: Theme.of(context).textTheme.displaySmall,
+      style: Theme.of(context).textTheme.titleSmall,
     );
     super.onAttach();
   }

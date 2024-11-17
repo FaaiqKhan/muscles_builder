@@ -49,7 +49,7 @@ class SplashScreen extends StatelessWidget {
     /// Shared preferences are so fast that splash screen comes for
     /// less then a second that's way using delay to show splash screen for 2
     /// seconds event after the data has been loaded.
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     return true;
   }
 
@@ -83,11 +83,11 @@ class SplashScreen extends StatelessWidget {
                   scale: 0.7,
                 ),
                 const SizedBox(
-                  height: Spacings.contentSpacingOf32,
+                  height: Spacings.contentSpacingOf12,
                 ),
                 Text(
                   "Warming up ...",
-                  style: Theme.of(context).textTheme.displayMedium,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],
             );
