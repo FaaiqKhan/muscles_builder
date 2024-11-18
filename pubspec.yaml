@@ -11,13 +11,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
   flame: ^1.21.0
   flame_audio: ^2.10.5
   shared_preferences: ^2.3.2
   bloc: ^8.1.4
   flutter_bloc: ^8.1.6
   equatable: ^2.0.5
+  package_info_plus: ^8.1.1
+  google_mobile_ads: ^5.2.0
 
 dev_dependencies:
   flutter_test:
@@ -33,8 +34,6 @@ flutter:
     - assets/images/
     - assets/gifs/
   fonts:
-    - family: BonaNovaSC
+    - family: PressStart2P-Regular
       fonts:
-        - asset: assets/google_fonts/BonaNovaSC-Bold.ttf
-        - asset: assets/google_fonts/BonaNovaSC-Italic.ttf
-        - asset: assets/google_fonts/BonaNovaSC-Regular.ttf
+        - asset: assets/google_fonts/PressStart2P-Regular.ttf

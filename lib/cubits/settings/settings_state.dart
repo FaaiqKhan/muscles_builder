@@ -4,26 +4,26 @@ class SettingsState extends Equatable {
   const SettingsState({
     this.gameSoundSwitch = true,
     this.gameDifficultyLevel = GameDifficultyLevel.easy,
-    this.exerciseTime = ExerciseTime.threeMinutes,
-    this.playerControllerType = PlayerControllerType.joystick,
+    this.exerciseTime = ExerciseTime.thirtySeconds,
+    this.joystickPosition = JoystickPosition.left,
   });
 
   final bool gameSoundSwitch;
   final GameDifficultyLevel gameDifficultyLevel;
   final ExerciseTime exerciseTime;
-  final PlayerControllerType playerControllerType;
+  final JoystickPosition joystickPosition;
 
   SettingsState copyWith({
     bool? gameSoundSwitch,
     GameDifficultyLevel? gameDifficultyLevel,
     ExerciseTime? exerciseTime,
-    PlayerControllerType? playerControllerType,
+    JoystickPosition? joystickPosition,
   }) {
     return SettingsState(
       gameSoundSwitch: gameSoundSwitch ?? this.gameSoundSwitch,
       gameDifficultyLevel: gameDifficultyLevel ?? this.gameDifficultyLevel,
       exerciseTime: exerciseTime ?? this.exerciseTime,
-      playerControllerType: playerControllerType ?? this.playerControllerType,
+      joystickPosition: joystickPosition ?? this.joystickPosition,
     );
   }
 
@@ -32,6 +32,6 @@ class SettingsState extends Equatable {
         gameSoundSwitch,
         gameDifficultyLevel,
         exerciseTime,
-        playerControllerType
+        joystickPosition
       ];
 }

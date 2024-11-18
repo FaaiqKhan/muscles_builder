@@ -4,8 +4,8 @@ import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 
-class PlayerMovementControlWidget extends StatelessWidget {
-  const PlayerMovementControlWidget({super.key});
+class JoystickPositionWidget extends StatelessWidget {
+  const JoystickPositionWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +13,10 @@ class PlayerMovementControlWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Player movement control",
-          style: Theme.of(context).textTheme.headlineLarge,
+          "Joystick position",
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(
@@ -23,7 +25,7 @@ class PlayerMovementControlWidget extends StatelessWidget {
           child: BlocBuilder<SettingsCubit, SettingsState>(
             builder: (context, state) {
               return Row(
-                children: PlayerControllerType.values
+                children: JoystickPosition.values
                     .map(
                       (controller) => TextButton(
                         onPressed: () => context
@@ -31,10 +33,10 @@ class PlayerMovementControlWidget extends StatelessWidget {
                             .updatePlayerControllerType(controller),
                         child: Text(
                           controller.name,
-                          style: TextStyle(
-                            color: state.playerControllerType == controller
-                                ? Colors.amber
-                                : Colors.black,
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: state.joystickPosition == controller
+                                ? Theme.of(context).colorScheme.onPrimaryFixed
+                                : Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                       ),

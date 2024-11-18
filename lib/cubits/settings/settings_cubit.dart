@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings_state.dart';
@@ -11,6 +12,8 @@ class SettingsCubit extends Cubit<SettingsState> {
     _init();
   }
 
+  String appVersion = "Version: ";
+
   void _init() {
     SharedPreferences.getInstance().then((instance) {
       final gameSound = instance.getBool(KeyValueStorageKeys.gameSound) ?? true;
@@ -19,10 +22,10 @@ class SettingsCubit extends Cubit<SettingsState> {
               GameDifficultyLevel.easy.name;
       final exerciseTime =
           instance.getString(KeyValueStorageKeys.exerciseTime) ??
-              ExerciseTime.threeMinutes.name;
+              ExerciseTime.thirtySeconds.name;
       final playerControllerType =
-          instance.getString(KeyValueStorageKeys.playerControllerType) ??
-              PlayerControllerType.joystick.name;
+          instance.getString(KeyValueStorageKeys.joystickPosition) ??
+              JoystickPosition.left.name;
       emit(
         state.copyWith(
           gameSoundSwitch: gameSound,
@@ -32,11 +35,14 @@ class SettingsCubit extends Cubit<SettingsState> {
           exerciseTime: ExerciseTime.values.byName(
             exerciseTime,
           ),
-          playerControllerType: PlayerControllerType.values.byName(
+          joystickPosition: JoystickPosition.values.byName(
             playerControllerType,
           ),
         ),
       );
+    });
+    PackageInfo.fromPlatform().then((info) {
+      appVersion += info.version;
     });
   }
 
@@ -79,16 +85,45 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
-  void updatePlayerControllerType(PlayerControllerType controllerType) {
+  void updatePlayerControllerType(JoystickPosition position) {
     SharedPreferences.getInstance().then((instance) {
       instance.setString(
-        KeyValueStorageKeys.playerControllerType,
-        controllerType.name,
+        KeyValueStorageKeys.joystickPosition,
+        position.name,
       );
     });
     emit(
       state.copyWith(
-        playerControllerType: controllerType,
+        joystickPosition: position,
+      ),
+    );
+  }
+
+  void resetSettings() {
+    SharedPreferences.getInstance().then((instance) {
+      instance.setBool(
+        KeyValueStorageKeys.gameSound,
+        true,
+      );
+      instance.setString(
+        KeyValueStorageKeys.gameDifficultyLevel,
+        GameDifficultyLevel.easy.name,
+      );
+      instance.setString(
+        KeyValueStorageKeys.exerciseTime,
+        ExerciseTime.thirtySeconds.name,
+      );
+      instance.setString(
+        KeyValueStorageKeys.joystickPosition,
+        JoystickPosition.left.name,
+      );
+    });
+    emit(
+      state.copyWith(
+        gameSoundSwitch: true,
+        gameDifficultyLevel: GameDifficultyLevel.easy,
+        exerciseTime: ExerciseTime.thirtySeconds,
+        joystickPosition: JoystickPosition.left,
       ),
     );
   }

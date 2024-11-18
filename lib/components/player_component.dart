@@ -4,6 +4,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
 import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/globals.dart';
@@ -37,7 +38,9 @@ class PlayerComponent extends SpriteComponent
 
   void _freezePlayer() {
     if (!_virusAttacked) {
-      FlameAudio.play(Globals.virusSound);
+      if (gameRef.isGameSoundOn) {
+        FlameAudio.play(Globals.virusSound);
+      }
       _virusAttacked = true;
       playerSprite();
       if (gameRef.score > 0) {
@@ -127,7 +130,9 @@ class PlayerComponent extends SpriteComponent
   void injectVaccine() {
     if (!_virusAttacked) {
       isVaccinated = true;
-      FlameAudio.play(Globals.vaccineSound);
+      if (gameRef.isGameSoundOn) {
+        FlameAudio.play(Globals.vaccineSound);
+      }
       gameRef.vaccineTimer.start();
     }
   }
@@ -139,13 +144,20 @@ class PlayerComponent extends SpriteComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (other is VirusComponent) {
-      if (!isVaccinated && !_virusAttacked) {
-        _freezePlayer();
-      }
-    }
-    if (other is VaccineComponent) {
+    if (other is VirusComponent && !isVaccinated && !_virusAttacked) {
+      _freezePlayer();
+    } else if (other is VaccineComponent && !_virusAttacked) {
       injectVaccine();
+    } else if (other is ProteinComponent && !_virusAttacked) {
+      gameRef.remove(other);
+      // Generate number from 0 to 8
+      int randomBonusScore = gameRef.random.nextInt(9);
+      gameRef.score += randomBonusScore;
+      if (gameRef.isGameSoundOn) {
+        FlameAudio.play(Globals.proteinSound);
+      }
+      gameRef.proteinTimer.stop();
+      gameRef.proteinBonus = randomBonusScore;
     }
   }
 }
