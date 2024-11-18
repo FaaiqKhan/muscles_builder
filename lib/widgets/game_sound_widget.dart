@@ -12,7 +12,9 @@ class GameSoundWidget extends StatelessWidget {
       children: [
         Text(
           "Game sound",
-          style: Theme.of(context).textTheme.headlineLarge,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
         ),
         BlocBuilder<SettingsCubit, SettingsState>(
           buildWhen: (previous, current) =>

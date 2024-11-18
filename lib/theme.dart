@@ -65,22 +65,23 @@ final ThemeData _parentTheme = ThemeData(
       fontSize: 14,
     )
   ),
-  scaffoldBackgroundColor: Colors.white,
 );
 
 final ThemeData lightTheme = _parentTheme.copyWith(
   brightness: Brightness.light,
   colorScheme: ColorScheme.fromSwatch().copyWith(
-    primary: Colors.red,
-    secondary: Colors.pink,
+    primary: const Color(0xFF2C3E50),
+    secondary: const Color(0xFF1B263B),
+    tertiary: const Color(0xFFBDC3C7),
+    onPrimaryFixed: const Color(0xFFF3AE54),
   ),
 );
 
 final ThemeData darkTheme = _parentTheme.copyWith(
   brightness: Brightness.dark,
   colorScheme: ColorScheme.fromSwatch().copyWith(
-    primary: Colors.orange,
-    secondary: Colors.purple,
+    primary: const Color(0xFF1B263B),
+    secondary: const Color(0xFF2C3E50),
   ),
   // Define additional theme properties
 );

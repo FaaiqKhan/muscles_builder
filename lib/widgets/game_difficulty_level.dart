@@ -14,7 +14,9 @@ class GameDifficultyLevelWidget extends StatelessWidget {
       children: [
         Text(
           "Difficulty level",
-          style: Theme.of(context).textTheme.headlineLarge,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
         ),
         Padding(
           padding: const EdgeInsets.only(
@@ -30,12 +32,12 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                         .updateGameDifficultyLevel(GameDifficultyLevel.easy),
                     child: Text(
                       "Easy",
-                      style: TextStyle(
-                        color: state.gameDifficultyLevel ==
-                                GameDifficultyLevel.easy
-                            ? Colors.amber
-                            : Colors.black,
-                      ),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: state.gameDifficultyLevel ==
+                                    GameDifficultyLevel.easy
+                                ? Colors.amber
+                                : Theme.of(context).colorScheme.tertiary,
+                          ),
                     ),
                   ),
                   TextButton(
@@ -44,11 +46,11 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                         .updateGameDifficultyLevel(GameDifficultyLevel.medium),
                     child: Text(
                       "Medium",
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: state.gameDifficultyLevel ==
-                                GameDifficultyLevel.medium
+                            GameDifficultyLevel.medium
                             ? Colors.amber
-                            : Colors.black,
+                            : Theme.of(context).colorScheme.tertiary,
                       ),
                     ),
                   ),
@@ -58,11 +60,11 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                         .updateGameDifficultyLevel(GameDifficultyLevel.hard),
                     child: Text(
                       "Hard",
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: state.gameDifficultyLevel ==
-                                GameDifficultyLevel.hard
+                            GameDifficultyLevel.hard
                             ? Colors.amber
-                            : Colors.black,
+                            : Theme.of(context).colorScheme.tertiary,
                       ),
                     ),
                   ),

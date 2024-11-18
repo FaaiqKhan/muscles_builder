@@ -13,7 +13,9 @@ class AppThemeSelectionWidget extends StatelessWidget {
       children: [
         Text(
           "Application theme",
-          style: Theme.of(context).textTheme.headlineLarge,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
         ),
         Padding(
           padding: const EdgeInsets.only(
@@ -31,11 +33,14 @@ class AppThemeSelectionWidget extends StatelessWidget {
                             context.read<ThemeCubit>().setThemeMode(mode),
                         child: Text(
                           mode.name,
-                          style: TextStyle(
-                            color: state.themeMode == mode
-                                ? Colors.amber
-                                : Colors.black,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
+                                color: state.themeMode == mode
+                                    ? Colors.amber
+                                    : Theme.of(context).colorScheme.tertiary,
+                              ),
                         ),
                       ),
                     )

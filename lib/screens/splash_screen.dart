@@ -55,44 +55,43 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: FutureBuilder(
-          future: init(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              /// Adding Widget post frame callback because when the status of
-              /// future builder changes the flutter engine re-render the UI
-              /// which causes error due on navigation when UI is rendering so,
-              /// using this function to navigate when frames are rendered.
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (_) => const HomeScreen(),
-                  ),
-                );
-              });
-            }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  Globals.splashScreenLoadingGIF,
-                  scale: 0.7,
+    return Container(
+      color: Theme.of(context).colorScheme.primary,
+      width: MediaQuery.of(context).size.width,
+      child: FutureBuilder(
+        future: init(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            /// Adding Widget post frame callback because when the status of
+            /// future builder changes the flutter engine re-render the UI
+            /// which causes error due on navigation when UI is rendering so,
+            /// using this function to navigate when frames are rendered.
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (_) => const HomeScreen(),
                 ),
-                const SizedBox(
-                  height: Spacings.contentSpacingOf12,
-                ),
-                Text(
-                  "Warming up ...",
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ],
-            );
-          },
-        ),
+              );
+            });
+          }
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                scale: 0.7,
+                Globals.splashScreenLoadingGIF,
+              ),
+              const SizedBox(height: Spacings.contentSpacingOf12),
+              Text(
+                "Warming up...",
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

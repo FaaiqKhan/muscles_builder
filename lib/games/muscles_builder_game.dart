@@ -25,8 +25,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   late PlayerComponent playerComponent;
   late SharedPreferences sharedPreferences;
 
-  MusclesBuilderGame();
-
   int score = 0;
   late int _remainingTime;
   late bool isGameSoundOn;
@@ -298,6 +296,9 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   @override
   Color backgroundColor() {
+    if (buildContext != null) {
+      return Theme.of(buildContext!).colorScheme.primary;
+    }
     return Colors.white;
   }
 

@@ -23,13 +23,24 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(
+          "Settings",
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
+        ),
+        iconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.tertiary,
+        ),
       ),
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(Spacings.contentSpacingOf12),
           child: Column(
             children: [
+              const SizedBox(height: Spacings.contentSpacingOf32),
               const GameSoundWidget(),
               const GameDifficultyLevelWidget(),
               const ExerciseTimeWidget(),
@@ -38,12 +49,20 @@ class SettingsScreen extends StatelessWidget {
               const Spacer(),
               ElevatedButton(
                 onPressed: () => context.read<SettingsCubit>().resetSettings(),
-                child: const Text("Reset settings"),
+                child: Text(
+                  "Reset",
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
               ),
-              const SizedBox(
-                height: Spacings.contentSpacingOf32,
+              const SizedBox(height: Spacings.contentSpacingOf32),
+              Text(
+                context.read<SettingsCubit>().appVersion,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
               ),
-              Text(context.read<SettingsCubit>().appVersion),
             ],
           ),
         ),

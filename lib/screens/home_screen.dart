@@ -47,8 +47,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Muscles Builder"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(
+          "Muscles Builder",
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+            color: Theme.of(context).colorScheme.tertiary,
+          ),
+        ),
       ),
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -71,8 +78,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: Text(
                     Quotes.quotes[randomNumber],
-                    style: Theme.of(context).textTheme.titleSmall,
                     textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall
+                        ?.copyWith(
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
                   ),
                 ),
                 ElevatedButton(
@@ -84,7 +96,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: Text(
                     "Start workout",
-                    style: Theme.of(context).textTheme.labelSmall,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
                   ),
                 ),
                 const SizedBox(height: Spacings.contentSpacingOf12),
@@ -96,7 +113,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: Text(
                     "Settings",
-                    style: Theme.of(context).textTheme.labelSmall,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
                   ),
                 ),
               ],

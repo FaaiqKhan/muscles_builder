@@ -12,49 +12,66 @@ class GameOverScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Game Over"),
+        title: Text(
+          "Game Over",
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
+        ),
         automaticallyImplyLeading: false,
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Score: ${gameRef.score}",
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            Text(
-              "(Protein Bonus: ${gameRef.proteinBonus})",
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            const SizedBox(
-              height: Spacings.contentSpacingOf32,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                gameRef.reset();
-                gameRef.resumeEngine();
-                gameRef.overlays.remove(GameOverScreen.id);
-              },
-              child: Text(
-                "Again",
-                style: Theme.of(context).textTheme.labelSmall,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      body: SafeArea(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Score: ${gameRef.score}",
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
               ),
-            ),
-            const SizedBox(height: Spacings.contentSpacingOf12),
-            ElevatedButton(
-              onPressed: () {
-                gameRef.reset();
-                gameRef.resumeEngine();
-                gameRef.overlays.remove(GameOverScreen.id);
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                "I'm tired",
-                style: Theme.of(context).textTheme.labelSmall,
+              Text(
+                "(Protein Bonus: ${gameRef.proteinBonus})",
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
               ),
-            )
-          ],
+              const SizedBox(height: Spacings.contentSpacingOf32),
+              ElevatedButton(
+                onPressed: () {
+                  gameRef.reset();
+                  gameRef.resumeEngine();
+                  gameRef.overlays.remove(GameOverScreen.id);
+                },
+                child: Text(
+                  "Again",
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                ),
+              ),
+              const SizedBox(height: Spacings.contentSpacingOf12),
+              ElevatedButton(
+                onPressed: () {
+                  gameRef.reset();
+                  gameRef.resumeEngine();
+                  gameRef.overlays.remove(GameOverScreen.id);
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "I'm tired",
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
