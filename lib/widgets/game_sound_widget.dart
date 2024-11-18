@@ -12,7 +12,9 @@ class GameSoundWidget extends StatelessWidget {
       children: [
         Text(
           "Game sound",
-          style: Theme.of(context).textTheme.headlineLarge,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
         ),
         BlocBuilder<SettingsCubit, SettingsState>(
           buildWhen: (previous, current) =>
@@ -20,7 +22,7 @@ class GameSoundWidget extends StatelessWidget {
           builder: (context, state) {
             return Switch(
               value: state.gameSoundSwitch,
-              activeColor: Colors.amber,
+              activeColor: Theme.of(context).colorScheme.onPrimaryFixed,
               onChanged: (value) =>
                   context.read<SettingsCubit>().updateGameSoundSwitch(value),
             );

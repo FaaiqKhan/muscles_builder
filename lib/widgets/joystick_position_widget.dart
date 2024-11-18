@@ -14,7 +14,9 @@ class JoystickPositionWidget extends StatelessWidget {
       children: [
         Text(
           "Joystick position",
-          style: Theme.of(context).textTheme.headlineLarge,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(
@@ -31,10 +33,10 @@ class JoystickPositionWidget extends StatelessWidget {
                             .updatePlayerControllerType(controller),
                         child: Text(
                           controller.name,
-                          style: TextStyle(
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: state.joystickPosition == controller
-                                ? Colors.amber
-                                : Colors.black,
+                                ? Theme.of(context).colorScheme.onPrimaryFixed
+                                : Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                       ),

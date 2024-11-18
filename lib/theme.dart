@@ -65,22 +65,29 @@ final ThemeData _parentTheme = ThemeData(
       fontSize: 14,
     )
   ),
-  scaffoldBackgroundColor: Colors.white,
 );
 
+/// primary is used for background
+/// secondary is used for button text or those widgets that have white background
+/// onPrimary is used for those widgets that has primary background
+/// onPrimaryFixed is used for those widgets that has primary background but text color of secondary
 final ThemeData lightTheme = _parentTheme.copyWith(
   brightness: Brightness.light,
   colorScheme: ColorScheme.fromSwatch().copyWith(
-    primary: Colors.red,
-    secondary: Colors.pink,
+    primary: const Color(0xFF2C3E50),
+    secondary: const Color(0xFF1B263B),
+    onPrimary: const Color(0xFFBDC3C7),
+    onPrimaryFixed: const Color(0xFFF3AE54),
   ),
 );
 
 final ThemeData darkTheme = _parentTheme.copyWith(
   brightness: Brightness.dark,
   colorScheme: ColorScheme.fromSwatch().copyWith(
-    primary: Colors.orange,
-    secondary: Colors.purple,
+    primary: const Color(0xFF1B263B),
+    secondary: const Color(0xFF2C3E50),
+    onPrimary: const Color(0xFFBDC3C7),
+    onPrimaryFixed: const Color(0xFFF3AE54),
   ),
   // Define additional theme properties
 );

@@ -14,7 +14,9 @@ class ExerciseTimeWidget extends StatelessWidget {
       children: [
         Text(
           "Exercise time",
-          style: Theme.of(context).textTheme.headlineLarge,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(
@@ -33,10 +35,10 @@ class ExerciseTimeWidget extends StatelessWidget {
                             .updateExerciseTime(exerciseTime),
                         child: Text(
                           exerciseTime.value,
-                          style: TextStyle(
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: state.exerciseTime == exerciseTime
-                                ? Colors.amber
-                                : Colors.black,
+                                ? Theme.of(context).colorScheme.onPrimaryFixed
+                                : Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                       ),
