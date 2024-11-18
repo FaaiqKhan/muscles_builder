@@ -29,7 +29,7 @@ class PlayerComponent extends SpriteComponent
   late Sprite playerSkinny;
   late Sprite playerMuscular;
 
-  bool _virusAttacked = false;
+  bool virusAttacked = false;
   bool isVaccinated = false;
   final Timer _timer = Timer(3);
 
@@ -37,11 +37,11 @@ class PlayerComponent extends SpriteComponent
   late double oneHalfOfSpriteHeight;
 
   void _freezePlayer() {
-    if (!_virusAttacked) {
+    if (!virusAttacked) {
       if (gameRef.isGameSoundOn) {
         FlameAudio.play(Globals.virusSound);
       }
-      _virusAttacked = true;
+      virusAttacked = true;
       playerSprite();
       if (gameRef.score > 0) {
         gameRef.score -= 1;
@@ -51,12 +51,12 @@ class PlayerComponent extends SpriteComponent
   }
 
   void _unFreezePlayer() {
-    _virusAttacked = false;
+    virusAttacked = false;
     playerSprite();
   }
 
   void playerSprite() {
-    if (_virusAttacked) {
+    if (virusAttacked) {
       sprite = playerFever;
     } else if (gameRef.score > 10 && gameRef.score <= 20) {
       sprite = playerFit;
@@ -101,7 +101,7 @@ class PlayerComponent extends SpriteComponent
   @override
   void update(double dt) {
     super.update(dt);
-    if (!_virusAttacked) {
+    if (!virusAttacked) {
       if (joystick.direction == JoystickDirection.idle) {
         return;
       }
@@ -128,7 +128,7 @@ class PlayerComponent extends SpriteComponent
   }
 
   void injectVaccine() {
-    if (!_virusAttacked) {
+    if (!virusAttacked) {
       isVaccinated = true;
       if (gameRef.isGameSoundOn) {
         FlameAudio.play(Globals.vaccineSound);
@@ -144,11 +144,11 @@ class PlayerComponent extends SpriteComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (other is VirusComponent && !isVaccinated && !_virusAttacked) {
+    if (other is VirusComponent && !isVaccinated && !virusAttacked) {
       _freezePlayer();
-    } else if (other is VaccineComponent && !_virusAttacked) {
+    } else if (other is VaccineComponent && !virusAttacked) {
       injectVaccine();
-    } else if (other is ProteinComponent && !_virusAttacked) {
+    } else if (other is ProteinComponent && !virusAttacked) {
       gameRef.remove(other);
       // Generate number from 0 to 8
       int randomBonusScore = gameRef.random.nextInt(9);

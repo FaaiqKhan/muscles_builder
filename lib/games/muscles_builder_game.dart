@@ -39,7 +39,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   ];
 
   // Vaccine components
-  late VaccineComponent _vaccineComponent;
+  late VaccineComponent vaccineComponent;
 
   // Vaccine will give immunity only for 4 seconds
   int _vaccineImmunityTimer = 4;
@@ -102,7 +102,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   @override
   void onGameResize(Vector2 size) {
-    _vaccineComponent = VaccineComponent(
+    vaccineComponent = VaccineComponent(
       startPosition: generateRandomPosition(size),
     );
     _proteinComponent = ProteinComponent(
@@ -204,7 +204,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
           pauseEngine();
           overlays.add(GameOverScreen.id);
         } else if (_remainingTime == _vaccineTimerAppearance) {
-          add(_vaccineComponent);
+          add(vaccineComponent);
         } else if (_remainingTime == _proteinTimerAppearance) {
           add(_proteinComponent);
           proteinTimer.start();
@@ -310,7 +310,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     score = 0;
     _remainingTime = getExerciseTime();
     _vaccineImmunityTimer = 4;
-    _vaccineComponent.removeFromParent();
+    vaccineComponent.removeFromParent();
     _proteinTimerLeft = 4;
     _proteinComponent.removeFromParent();
     _proteinTimerAppearance = random.nextInt(_remainingTime - 5) + 5;

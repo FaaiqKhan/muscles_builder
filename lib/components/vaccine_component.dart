@@ -54,7 +54,8 @@ class VaccineComponent extends SpriteComponent
         // at the very bottom side
         _velocity.y = -_velocity.y;
       }
-    } else if (other is PlayerComponent) {
+    } else if (other is PlayerComponent &&
+        !gameRef.playerComponent.virusAttacked) {
       removeFromParent();
     }
   }
