@@ -15,7 +15,7 @@ class GameOverScreen extends StatelessWidget {
         title: Text(
           "Game Over",
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
         ),
         automaticallyImplyLeading: false,
@@ -32,13 +32,13 @@ class GameOverScreen extends StatelessWidget {
               Text(
                 "Score: ${gameRef.score}",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.onPrimary,
                     ),
               ),
               Text(
                 "(Protein Bonus: ${gameRef.proteinBonus})",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.onPrimary,
                     ),
               ),
               const SizedBox(height: Spacings.contentSpacingOf32),

@@ -14,7 +14,7 @@ class AppThemeSelectionWidget extends StatelessWidget {
         Text(
           "Application theme",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
         ),
         Padding(
@@ -38,8 +38,8 @@ class AppThemeSelectionWidget extends StatelessWidget {
                               .bodySmall
                               ?.copyWith(
                                 color: state.themeMode == mode
-                                    ? Colors.amber
-                                    : Theme.of(context).colorScheme.tertiary,
+                                    ? Theme.of(context).colorScheme.onPrimaryFixed
+                                    : Theme.of(context).colorScheme.onPrimary,
                               ),
                         ),
                       ),

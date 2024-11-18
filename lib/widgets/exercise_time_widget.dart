@@ -15,7 +15,7 @@ class ExerciseTimeWidget extends StatelessWidget {
         Text(
           "Exercise time",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Theme.of(context).colorScheme.tertiary,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
         Padding(
@@ -37,8 +37,8 @@ class ExerciseTimeWidget extends StatelessWidget {
                           exerciseTime.value,
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: state.exerciseTime == exerciseTime
-                                ? Colors.amber
-                                : Theme.of(context).colorScheme.tertiary,
+                                ? Theme.of(context).colorScheme.onPrimaryFixed
+                                : Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                       ),

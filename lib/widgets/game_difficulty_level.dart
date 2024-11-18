@@ -15,7 +15,7 @@ class GameDifficultyLevelWidget extends StatelessWidget {
         Text(
           "Difficulty level",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
         ),
         Padding(
@@ -35,8 +35,8 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: state.gameDifficultyLevel ==
                                     GameDifficultyLevel.easy
-                                ? Colors.amber
-                                : Theme.of(context).colorScheme.tertiary,
+                                ? Theme.of(context).colorScheme.onPrimaryFixed
+                                : Theme.of(context).colorScheme.onPrimary,
                           ),
                     ),
                   ),
@@ -49,8 +49,8 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: state.gameDifficultyLevel ==
                             GameDifficultyLevel.medium
-                            ? Colors.amber
-                            : Theme.of(context).colorScheme.tertiary,
+                            ? Theme.of(context).colorScheme.onPrimaryFixed
+                            : Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ),
@@ -63,8 +63,8 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: state.gameDifficultyLevel ==
                             GameDifficultyLevel.hard
-                            ? Colors.amber
-                            : Theme.of(context).colorScheme.tertiary,
+                            ? Theme.of(context).colorScheme.onPrimaryFixed
+                            : Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ),

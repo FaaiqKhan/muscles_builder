@@ -15,7 +15,7 @@ class JoystickPositionWidget extends StatelessWidget {
         Text(
           "Joystick position",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Theme.of(context).colorScheme.tertiary,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
         Padding(
@@ -35,8 +35,8 @@ class JoystickPositionWidget extends StatelessWidget {
                           controller.name,
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: state.joystickPosition == controller
-                                ? Colors.amber
-                                : Theme.of(context).colorScheme.tertiary,
+                                ? Theme.of(context).colorScheme.onPrimaryFixed
+                                : Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                       ),

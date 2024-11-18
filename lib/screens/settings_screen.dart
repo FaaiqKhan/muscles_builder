@@ -27,11 +27,11 @@ class SettingsScreen extends StatelessWidget {
         title: Text(
           "Settings",
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
         ),
         iconTheme: IconThemeData(
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
@@ -40,7 +40,6 @@ class SettingsScreen extends StatelessWidget {
           padding: const EdgeInsets.all(Spacings.contentSpacingOf12),
           child: Column(
             children: [
-              const SizedBox(height: Spacings.contentSpacingOf32),
               const GameSoundWidget(),
               const GameDifficultyLevelWidget(),
               const ExerciseTimeWidget(),
@@ -60,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
               Text(
                 context.read<SettingsCubit>().appVersion,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.onPrimary,
                     ),
               ),
             ],

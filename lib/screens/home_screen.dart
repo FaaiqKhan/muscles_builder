@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text(
           "Muscles Builder",
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-            color: Theme.of(context).colorScheme.tertiary,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
       ),
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         .textTheme
                         .titleSmall
                         ?.copyWith(
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                   ),
                 ),

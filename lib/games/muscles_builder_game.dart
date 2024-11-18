@@ -282,14 +282,18 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       statusBarHeight,
     );
     _scoreText.textRenderer = TextPaint(
-      style: Theme.of(context).textTheme.titleSmall,
+      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
     );
     _timerText.position = Vector2(
       size.x - Spacings.contentSpacingOf12,
       statusBarHeight,
     );
     _timerText.textRenderer = TextPaint(
-      style: Theme.of(context).textTheme.titleSmall,
+      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
     );
     super.onAttach();
   }
