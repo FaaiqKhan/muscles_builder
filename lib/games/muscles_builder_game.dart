@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'package:muscles_builder/components/dumbbell_component.dart';
 import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
-import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
@@ -113,7 +113,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() async {
-    super.onLoad();
+    await Flame.device.fullScreen();
+    await Flame.device.setPortrait();
     sharedPreferences = await SharedPreferences.getInstance();
     _remainingTime = getExerciseTime();
     // Generate random number between 0 to 20
@@ -166,32 +167,32 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
     add(DumbbellComponent());
 
-    if (gameDifficultyLevel == GameDifficultyLevel.hard) {
-      add(
-        VirusComponent(
-          startPosition: Vector2(
-            random.nextInt(size.x.toInt()).toDouble(),
-            random.nextInt(size.y.toInt()).toDouble(),
-          ),
-        ),
-      );
-    }
-    add(
-      VirusComponent(
-        startPosition: Vector2(
-          size.x / 4,
-          size.y / 2,
-        ),
-      ),
-    );
-    add(
-      VirusComponent(
-        startPosition: Vector2(
-          size.x / 3,
-          size.y / 3,
-        ),
-      ),
-    );
+    // if (gameDifficultyLevel == GameDifficultyLevel.hard) {
+    //   add(
+    //     VirusComponent(
+    //       startPosition: Vector2(
+    //         random.nextInt(size.x.toInt()).toDouble(),
+    //         random.nextInt(size.y.toInt()).toDouble(),
+    //       ),
+    //     ),
+    //   );
+    // }
+    // add(
+    //   VirusComponent(
+    //     startPosition: Vector2(
+    //       size.x / 4,
+    //       size.y / 2,
+    //     ),
+    //   ),
+    // );
+    // add(
+    //   VirusComponent(
+    //     startPosition: Vector2(
+    //       size.x / 3,
+    //       size.y / 3,
+    //     ),
+    //   ),
+    // );
 
     // Any collision on the bounds of the view port
     add(ScreenHitbox());
@@ -209,7 +210,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
           add(_proteinComponent);
           proteinTimer.start();
         }
-        _remainingTime -= 1;
+        // _remainingTime -= 1;
       },
     );
     _timer.start();
@@ -246,22 +247,31 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     _scoreText = TextComponent(
       text: "Score: $score",
       anchor: Anchor.topLeft,
+      position: Vector2(
+        Spacings.contentSpacingOf12,
+        size.y * 0.05,
+      ),
     );
     add(_scoreText);
 
     _timerText = TextComponent(
       text: "Time: $_remainingTime secs",
       anchor: Anchor.topRight,
+      position: Vector2(
+        size.x - Spacings.contentSpacingOf12,
+        size.y * 0.05,
+      ),
     );
     add(_timerText);
+    super.onLoad();
   }
 
   @override
   void update(double dt) {
     super.update(dt);
     _timer.update(dt);
-    _scoreText.text = "Score: $score";
-    _timerText.text = "Time: $_remainingTime secs";
+    _scoreText.text = "Score:$score";
+    _timerText.text = "Time:$_remainingTime";
     if (playerComponent.isVaccinated) {
       vaccineTimer.update(dt);
     } else if (_vaccineTimerAppearance == 0 && _remainingTime > 3) {
@@ -276,19 +286,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   @override
   void onAttach() {
     final context = buildContext!;
-    final statusBarHeight = MediaQuery.of(context).viewPadding.top;
-    _scoreText.position = Vector2(
-      Spacings.contentSpacingOf12,
-      statusBarHeight,
-    );
     _scoreText.textRenderer = TextPaint(
       style: Theme.of(context).textTheme.titleSmall?.copyWith(
             color: Theme.of(context).colorScheme.onPrimary,
           ),
-    );
-    _timerText.position = Vector2(
-      size.x - Spacings.contentSpacingOf12,
-      statusBarHeight,
     );
     _timerText.textRenderer = TextPaint(
       style: Theme.of(context).textTheme.titleSmall?.copyWith(
