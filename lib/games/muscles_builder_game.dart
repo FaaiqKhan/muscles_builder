@@ -7,9 +7,11 @@ import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
+import 'package:muscles_builder/components/pause_button_component.dart';
 import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
+import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
@@ -19,11 +21,12 @@ import 'package:muscles_builder/screens/game_over_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
-  late Timer _timer;
+  late Timer timer;
   late TextComponent _scoreText;
   late TextComponent _timerText;
   late PlayerComponent playerComponent;
   late SharedPreferences sharedPreferences;
+  late PauseButtonComponent _pauseButtonComponent;
 
   int score = 0;
   late int _remainingTime;
@@ -167,37 +170,37 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
     add(DumbbellComponent());
 
-    // if (gameDifficultyLevel == GameDifficultyLevel.hard) {
-    //   add(
-    //     VirusComponent(
-    //       startPosition: Vector2(
-    //         random.nextInt(size.x.toInt()).toDouble(),
-    //         random.nextInt(size.y.toInt()).toDouble(),
-    //       ),
-    //     ),
-    //   );
-    // }
-    // add(
-    //   VirusComponent(
-    //     startPosition: Vector2(
-    //       size.x / 4,
-    //       size.y / 2,
-    //     ),
-    //   ),
-    // );
-    // add(
-    //   VirusComponent(
-    //     startPosition: Vector2(
-    //       size.x / 3,
-    //       size.y / 3,
-    //     ),
-    //   ),
-    // );
+    if (gameDifficultyLevel == GameDifficultyLevel.hard) {
+      add(
+        VirusComponent(
+          startPosition: Vector2(
+            random.nextInt(size.x.toInt()).toDouble(),
+            random.nextInt(size.y.toInt()).toDouble(),
+          ),
+        ),
+      );
+    }
+    add(
+      VirusComponent(
+        startPosition: Vector2(
+          size.x / 4,
+          size.y / 2,
+        ),
+      ),
+    );
+    add(
+      VirusComponent(
+        startPosition: Vector2(
+          size.x / 3,
+          size.y / 3,
+        ),
+      ),
+    );
 
     // Any collision on the bounds of the view port
     add(ScreenHitbox());
 
-    _timer = Timer(
+    timer = Timer(
       1,
       repeat: true,
       onTick: () {
@@ -210,10 +213,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
           add(_proteinComponent);
           proteinTimer.start();
         }
-        // _remainingTime -= 1;
+        _remainingTime -= 1;
       },
     );
-    _timer.start();
+    timer.start();
 
     vaccineTimer = Timer(
       1,
@@ -249,27 +252,30 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       anchor: Anchor.topLeft,
       position: Vector2(
         Spacings.contentSpacingOf12,
-        size.y * 0.05,
+        size.y * 0.01,
       ),
     );
     add(_scoreText);
 
     _timerText = TextComponent(
       text: "Time: $_remainingTime secs",
-      anchor: Anchor.topRight,
+      anchor: Anchor.topLeft,
       position: Vector2(
-        size.x - Spacings.contentSpacingOf12,
-        size.y * 0.05,
+        Spacings.contentSpacingOf12,
+        size.y * 0.04,
       ),
     );
     add(_timerText);
+
+    _pauseButtonComponent = PauseButtonComponent();
+    add(_pauseButtonComponent);
     super.onLoad();
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    _timer.update(dt);
+    timer.update(dt);
     _scoreText.text = "Score:$score";
     _timerText.text = "Time:$_remainingTime";
     if (playerComponent.isVaccinated) {

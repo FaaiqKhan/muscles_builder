@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
           darkTheme: darkTheme,
           themeMode: state.themeMode,
           home: const SplashScreen(),
+          debugShowCheckedModeBanner: false,
         );
       },
     );
