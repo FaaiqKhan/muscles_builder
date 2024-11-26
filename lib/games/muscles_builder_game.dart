@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/palette.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +18,6 @@ import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
 import 'package:muscles_builder/constants/spacings.dart';
-import 'package:muscles_builder/inputs/joystick.dart';
 import 'package:muscles_builder/screens/game_over_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,6 +28,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   late PlayerComponent playerComponent;
   late SharedPreferences sharedPreferences;
   late PauseButtonComponent _pauseButtonComponent;
+  late JoystickComponent joystick;
 
   int score = 0;
   late int _remainingTime;
@@ -145,12 +146,21 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     gameDifficultyLevel = GameDifficultyLevel.values.byName(
         sharedPreferences.getString(KeyValueStorageKeys.gameDifficultyLevel)!);
 
-    playerComponent = PlayerComponent(joystick: joystick);
-    add(playerComponent);
     final String position = sharedPreferences.getString(
           KeyValueStorageKeys.joystickPosition,
         ) ??
         JoystickPosition.left.name;
+
+    joystick = JoystickComponent(
+      knob: CircleComponent(
+        radius: 30,
+        paint: BasicPalette.red.withAlpha(200).paint(),
+      ),
+      background: CircleComponent(
+        radius: 80,
+        paint: BasicPalette.gray.withAlpha(100).paint(),
+      ),
+    );
 
     switch (JoystickPosition.values.byName(position)) {
       case JoystickPosition.left:
@@ -166,8 +176,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         );
         break;
     }
-
     add(joystick);
+
+    playerComponent = PlayerComponent(joystick: joystick);
+    add(playerComponent);
 
     add(DumbbellComponent());
 
