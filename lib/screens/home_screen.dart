@@ -7,6 +7,7 @@ import 'package:muscles_builder/constants/quotes.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
 import 'package:muscles_builder/screens/settings_screen.dart';
+import 'package:muscles_builder/widgets/screen_title.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -46,80 +47,84 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(
-          "Muscles Builder",
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-        ),
-      ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: Spacings.contentSpacingOf12,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image(
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  image: const AssetImage(Globals.homeScreenLogo),
-                ),
-                Padding(
+          child: Column(
+            children: [
+              const ScreenTitle(
+                title: "Muscles Builder",
+                topPadding: 0.04,
+              ),
+              Expanded(
+                child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: Spacings.contentSpacingOf32,
-                    vertical: Spacings.contentSpacingOf32,
+                    horizontal: Spacings.contentSpacingOf12,
                   ),
-                  child: Text(
-                    Quotes.quotes[randomNumber],
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        image: const AssetImage(Globals.homeScreenLogo),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Spacings.contentSpacingOf32,
+                          vertical: Spacings.contentSpacingOf32,
                         ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      maintainState: false,
-                      builder: (_) => const MusclesBuilderGameScreen(),
-                    ),
-                  ),
-                  child: Text(
-                    "Start workout",
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelSmall
-                        ?.copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
+                        child: Text(
+                          Quotes.quotes[randomNumber],
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
                         ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            maintainState: false,
+                            builder: (_) => const MusclesBuilderGameScreen(),
+                          ),
+                        ),
+                        child: Text(
+                          "Start workout",
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                        ),
+                      ),
+                      const SizedBox(height: Spacings.contentSpacingOf12),
+                      ElevatedButton(
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const SettingsScreen(),
+                          ),
+                        ),
+                        child: Text(
+                          "Settings",
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: Spacings.contentSpacingOf12),
-                ElevatedButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const SettingsScreen(),
-                    ),
-                  ),
-                  child: Text(
-                    "Settings",
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

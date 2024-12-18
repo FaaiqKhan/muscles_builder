@@ -22,6 +22,7 @@ class Globals {
   static const String dumbbellHeavySprite = "dumbbell_heavy.png";
   static const String dumbbellMediumSprite = "dumbbell_medium.png";
   static const String playerMuscularSprite = "player_muscular.png";
+  static const String pauseButtonSprite = "pause_button.png";
 
   // Images for dart
   // Dart does not know about the assets path

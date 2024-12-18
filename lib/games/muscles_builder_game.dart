@@ -2,10 +2,14 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/palette.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
+import 'package:muscles_builder/components/pause_button_component.dart';
 import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
@@ -14,16 +18,17 @@ import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
 import 'package:muscles_builder/constants/spacings.dart';
-import 'package:muscles_builder/inputs/joystick.dart';
 import 'package:muscles_builder/screens/game_over_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
-  late Timer _timer;
+  late Timer timer;
   late TextComponent _scoreText;
   late TextComponent _timerText;
   late PlayerComponent playerComponent;
   late SharedPreferences sharedPreferences;
+  late PauseButtonComponent _pauseButtonComponent;
+  late JoystickComponent joystick;
 
   int score = 0;
   late int _remainingTime;
@@ -39,7 +44,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   ];
 
   // Vaccine components
-  late VaccineComponent _vaccineComponent;
+  late VaccineComponent vaccineComponent;
 
   // Vaccine will give immunity only for 4 seconds
   int _vaccineImmunityTimer = 4;
@@ -102,7 +107,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   @override
   void onGameResize(Vector2 size) {
-    _vaccineComponent = VaccineComponent(
+    vaccineComponent = VaccineComponent(
       startPosition: generateRandomPosition(size),
     );
     _proteinComponent = ProteinComponent(
@@ -113,7 +118,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() async {
-    super.onLoad();
+    await Flame.device.fullScreen();
+    await Flame.device.setPortrait();
     sharedPreferences = await SharedPreferences.getInstance();
     _remainingTime = getExerciseTime();
     // Generate random number between 0 to 20
@@ -140,12 +146,21 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     gameDifficultyLevel = GameDifficultyLevel.values.byName(
         sharedPreferences.getString(KeyValueStorageKeys.gameDifficultyLevel)!);
 
-    playerComponent = PlayerComponent(joystick: joystick);
-    add(playerComponent);
     final String position = sharedPreferences.getString(
           KeyValueStorageKeys.joystickPosition,
         ) ??
         JoystickPosition.left.name;
+
+    joystick = JoystickComponent(
+      knob: CircleComponent(
+        radius: 30,
+        paint: BasicPalette.red.withAlpha(200).paint(),
+      ),
+      background: CircleComponent(
+        radius: 80,
+        paint: BasicPalette.gray.withAlpha(100).paint(),
+      ),
+    );
 
     switch (JoystickPosition.values.byName(position)) {
       case JoystickPosition.left:
@@ -161,8 +176,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         );
         break;
     }
-
     add(joystick);
+
+    playerComponent = PlayerComponent(joystick: joystick);
+    add(playerComponent);
 
     add(DumbbellComponent());
 
@@ -196,7 +213,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     // Any collision on the bounds of the view port
     add(ScreenHitbox());
 
-    _timer = Timer(
+    timer = Timer(
       1,
       repeat: true,
       onTick: () {
@@ -204,7 +221,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
           pauseEngine();
           overlays.add(GameOverScreen.id);
         } else if (_remainingTime == _vaccineTimerAppearance) {
-          add(_vaccineComponent);
+          add(vaccineComponent);
         } else if (_remainingTime == _proteinTimerAppearance) {
           add(_proteinComponent);
           proteinTimer.start();
@@ -212,7 +229,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         _remainingTime -= 1;
       },
     );
-    _timer.start();
+    timer.start();
 
     vaccineTimer = Timer(
       1,
@@ -246,22 +263,34 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     _scoreText = TextComponent(
       text: "Score: $score",
       anchor: Anchor.topLeft,
+      position: Vector2(
+        Spacings.contentSpacingOf12,
+        size.y * 0.01,
+      ),
     );
     add(_scoreText);
 
     _timerText = TextComponent(
       text: "Time: $_remainingTime secs",
-      anchor: Anchor.topRight,
+      anchor: Anchor.topLeft,
+      position: Vector2(
+        Spacings.contentSpacingOf12,
+        size.y * 0.04,
+      ),
     );
     add(_timerText);
+
+    _pauseButtonComponent = PauseButtonComponent();
+    add(_pauseButtonComponent);
+    super.onLoad();
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    _timer.update(dt);
-    _scoreText.text = "Score: $score";
-    _timerText.text = "Time: $_remainingTime secs";
+    timer.update(dt);
+    _scoreText.text = "Score:$score";
+    _timerText.text = "Time:$_remainingTime";
     if (playerComponent.isVaccinated) {
       vaccineTimer.update(dt);
     } else if (_vaccineTimerAppearance == 0 && _remainingTime > 3) {
@@ -276,19 +305,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   @override
   void onAttach() {
     final context = buildContext!;
-    final statusBarHeight = MediaQuery.of(context).viewPadding.top;
-    _scoreText.position = Vector2(
-      Spacings.contentSpacingOf12,
-      statusBarHeight,
-    );
     _scoreText.textRenderer = TextPaint(
       style: Theme.of(context).textTheme.titleSmall?.copyWith(
             color: Theme.of(context).colorScheme.onPrimary,
           ),
-    );
-    _timerText.position = Vector2(
-      size.x - Spacings.contentSpacingOf12,
-      statusBarHeight,
     );
     _timerText.textRenderer = TextPaint(
       style: Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -310,7 +330,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     score = 0;
     _remainingTime = getExerciseTime();
     _vaccineImmunityTimer = 4;
-    _vaccineComponent.removeFromParent();
+    vaccineComponent.removeFromParent();
     _proteinTimerLeft = 4;
     _proteinComponent.removeFromParent();
     _proteinTimerAppearance = random.nextInt(_remainingTime - 5) + 5;
@@ -324,6 +344,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       FlameAudio.audioCache.clearAll();
     }
     reset();
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: SystemUiOverlay.values,
+    );
     super.onRemove();
   }
 }

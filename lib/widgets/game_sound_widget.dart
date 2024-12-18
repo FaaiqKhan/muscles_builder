@@ -23,8 +23,8 @@ class GameSoundWidget extends StatelessWidget {
             return Switch(
               value: state.gameSoundSwitch,
               activeColor: Theme.of(context).colorScheme.onPrimaryFixed,
-              onChanged: (value) =>
-                  context.read<SettingsCubit>().updateGameSoundSwitch(value),
+              inactiveTrackColor: Theme.of(context).colorScheme.onPrimary,
+              onChanged: context.read<SettingsCubit>().updateGameSoundSwitch,
             );
           },
         )
