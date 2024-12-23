@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,14 @@ import 'package:muscles_builder/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: String.fromEnvironment("firebase-apiKey"),
+      appId: String.fromEnvironment("firebase-appId"),
+      messagingSenderId: String.fromEnvironment("firebase-messagingSenderId"),
+      projectId: String.fromEnvironment("firebase-projectId"),
+    ),
+  );
   MobileAds.instance.initialize();
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');

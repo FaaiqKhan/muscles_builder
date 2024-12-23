@@ -5,6 +5,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/quotes.dart';
 import 'package:muscles_builder/constants/spacings.dart';
+import 'package:muscles_builder/screens/join_us_screen.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
 import 'package:muscles_builder/screens/settings_screen.dart';
 import 'package:muscles_builder/widgets/screen_title.dart';
@@ -118,6 +119,23 @@ class _HomeScreenState extends State<HomeScreen> {
                               ?.copyWith(
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
+                        ),
+                      ),
+                      const SizedBox(height: Spacings.contentSpacingOf12),
+                      ElevatedButton(
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const JoinUs(),
+                          ),
+                        ),
+                        child: Text(
+                          "Join us",
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall
+                              ?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                         ),
                       ),
                     ],
