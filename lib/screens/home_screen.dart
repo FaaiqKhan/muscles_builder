@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ElevatedButton(
                         onPressed: () => Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => const JoinUs(),
+                            builder: (_) => JoinUs(),
                           ),
                         ),
                         child: Text(
@@ -134,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               .textTheme
                               .labelSmall
                               ?.copyWith(
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
                         ),
                       ),
                     ],
