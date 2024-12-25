@@ -8,5 +8,6 @@ class Spacings {
   static const double contentSpacingOf10 = 10.0;
   static const double contentSpacingOf12 = 12.0;
   static const double contentSpacingOf16 = 16.0;
+  static const double contentSpacingOf24 = 24.0;
   static const double contentSpacingOf32 = 32.0;
 }

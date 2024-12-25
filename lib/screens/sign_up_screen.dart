@@ -144,7 +144,7 @@ class SignUpScreen extends StatelessWidget with Validator {
                                           : Icons.visibility_off,
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onPrimary,
+                                          .onPrimaryFixed,
                                     ),
                                   ),
                                   border: const OutlineInputBorder(),

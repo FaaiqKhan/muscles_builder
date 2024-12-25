@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/sign_in/sign_in_cubit.dart';
+import 'package:muscles_builder/screens/sign_up_screen.dart';
 import 'package:muscles_builder/validator.dart';
 
 class SignInScreen extends StatelessWidget with Validator {
@@ -86,19 +87,22 @@ class SignInScreen extends StatelessWidget with Validator {
                             onChanged: _signInCubit.updatePassword,
                             obscureText: obscureText,
                             keyboardType: TextInputType.visiblePassword,
-                            cursorColor: Theme.of(context).colorScheme.onPrimary,
+                            cursorColor:
+                                Theme.of(context).colorScheme.onPrimary,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
                                 ?.copyWith(
-                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                 ),
                             decoration: InputDecoration(
                               labelText: "Password",
                               prefixIcon: Icon(
                                 Icons.lock,
-                                color:
-                                    Theme.of(context).colorScheme.onPrimaryFixed,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryFixed,
                               ),
                               suffixIcon: IconButton(
                                 onPressed: _signInCubit.toggleObscureText,
@@ -106,17 +110,21 @@ class SignInScreen extends StatelessWidget with Validator {
                                   _signInCubit.state.obscureText
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryFixed,
                                 ),
                               ),
                               border: const OutlineInputBorder(),
                               labelStyle: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onPrimaryFixed,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryFixed,
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                   width: 1.0,
                                 ),
                                 borderRadius: const BorderRadius.all(
@@ -139,6 +147,31 @@ class SignInScreen extends StatelessWidget with Validator {
                           );
                         },
                         child: const Text("SignIn"),
+                      ),
+                      const SizedBox(height: Spacings.contentSpacingOf16),
+                      Text(
+                        "Or",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color:
+                                  Theme.of(context).colorScheme.onPrimaryFixed,
+                            ),
+                      ),
+                      const SizedBox(height: Spacings.contentSpacingOf16),
+                      OutlinedButton(
+                        onPressed: () => Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => SignUpScreen(),
+                          ),
+                        ),
+                        child: Text(
+                          "SignUp",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
+                        ),
                       )
                     ],
                   ),
