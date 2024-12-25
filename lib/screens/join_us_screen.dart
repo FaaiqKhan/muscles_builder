@@ -75,8 +75,8 @@ class JoinUs extends StatelessWidget with Validator {
                       keyboardType: TextInputType.emailAddress,
                       cursorColor: Theme.of(context).colorScheme.onPrimary,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
                       decoration: InputDecoration(
                         labelText: 'Email',
                         prefixIcon: Icon(
@@ -112,9 +112,13 @@ class JoinUs extends StatelessWidget with Validator {
                               keyboardType: TextInputType.visiblePassword,
                               cursorColor:
                                   Theme.of(context).colorScheme.onPrimary,
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
                               decoration: InputDecoration(
                                 labelText: 'Password',
                                 prefixIcon: Icon(
@@ -151,9 +155,13 @@ class JoinUs extends StatelessWidget with Validator {
                               keyboardType: TextInputType.visiblePassword,
                               cursorColor:
                                   Theme.of(context).colorScheme.onPrimary,
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
                               onChanged: _joinUsCubit.updateConfirmPassword,
                               decoration: InputDecoration(
                                 labelText: 'Confirm password',
@@ -186,6 +194,15 @@ class JoinUs extends StatelessWidget with Validator {
                       },
                     ),
                     const SizedBox(height: Spacings.contentSpacingOf16),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Become a Member",
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                      ),
+                    ),
                   ],
                 ),
               );
