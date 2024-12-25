@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 
-part 'join_us_state.dart';
+part 'sign_up_state.dart';
 
-class JoinUsCubit extends Cubit<JoinUsState> {
-  JoinUsCubit() : super(const JoinUsUpdate());
+class SignUpCubit extends Cubit<SignUpState> {
+  SignUpCubit() : super(const SignUpStateUpdate());
 
   void initForm({
     String name = '',
@@ -47,6 +47,6 @@ class JoinUsCubit extends Cubit<JoinUsState> {
   }
 
   void reset() {
-    emit(const JoinUsUpdate());
+    emit(const SignUpStateUpdate());
   }
 }

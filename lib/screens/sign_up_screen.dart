@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/constants/spacings.dart';
-import 'package:muscles_builder/cubits/join_us/join_us_cubit.dart';
+import 'package:muscles_builder/cubits/sign_up/sign_up_cubit.dart';
 import 'package:muscles_builder/validator.dart';
 
 class JoinUs extends StatelessWidget with Validator {
   JoinUs({super.key});
 
-  final JoinUsCubit _joinUsCubit = JoinUsCubit();
+  final SignUpCubit _signUpCubit = SignUpCubit();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -30,8 +30,8 @@ class JoinUs extends StatelessWidget with Validator {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(Spacings.contentSpacingOf12),
-          child: BlocSelector<JoinUsCubit, JoinUsState, AutovalidateMode>(
-            bloc: _joinUsCubit,
+          child: BlocSelector<SignUpCubit, SignUpState, AutovalidateMode>(
+            bloc: _signUpCubit,
             selector: (state) => state.autoValidateMode,
             builder: (context, AutovalidateMode autoValidateMode) {
               return Form(
@@ -41,7 +41,7 @@ class JoinUs extends StatelessWidget with Validator {
                   children: [
                     TextFormField(
                       validator: validateName,
-                      onChanged: _joinUsCubit.updateName,
+                      onChanged: _signUpCubit.updateName,
                       keyboardType: TextInputType.name,
                       cursorColor: Theme.of(context).colorScheme.onPrimary,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -71,7 +71,7 @@ class JoinUs extends StatelessWidget with Validator {
                     const SizedBox(height: Spacings.contentSpacingOf16),
                     TextFormField(
                       validator: validateEmail,
-                      onChanged: _joinUsCubit.updateEmail,
+                      onChanged: _signUpCubit.updateEmail,
                       keyboardType: TextInputType.emailAddress,
                       cursorColor: Theme.of(context).colorScheme.onPrimary,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -99,15 +99,15 @@ class JoinUs extends StatelessWidget with Validator {
                       ),
                     ),
                     const SizedBox(height: Spacings.contentSpacingOf16),
-                    BlocSelector<JoinUsCubit, JoinUsState, bool>(
-                      bloc: _joinUsCubit,
+                    BlocSelector<SignUpCubit, SignUpState, bool>(
+                      bloc: _signUpCubit,
                       selector: (state) => state.obscureText,
                       builder: (context, obscureText) {
                         return Column(
                           children: [
                             TextFormField(
                               validator: validatePassword,
-                              onChanged: _joinUsCubit.updatePassword,
+                              onChanged: _signUpCubit.updatePassword,
                               obscureText: obscureText,
                               keyboardType: TextInputType.visiblePassword,
                               cursorColor:
@@ -149,7 +149,7 @@ class JoinUs extends StatelessWidget with Validator {
                             TextFormField(
                               validator: (value) => validateConfirmPassword(
                                 value,
-                                _joinUsCubit.state.password,
+                                _signUpCubit.state.password,
                               ),
                               obscureText: obscureText,
                               keyboardType: TextInputType.visiblePassword,
@@ -162,7 +162,7 @@ class JoinUs extends StatelessWidget with Validator {
                                     color:
                                         Theme.of(context).colorScheme.onPrimary,
                                   ),
-                              onChanged: _joinUsCubit.updateConfirmPassword,
+                              onChanged: _signUpCubit.updateConfirmPassword,
                               decoration: InputDecoration(
                                 labelText: 'Confirm password',
                                 prefixIcon: Icon(

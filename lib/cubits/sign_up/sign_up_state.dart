@@ -1,7 +1,7 @@
-part of 'join_us_cubit.dart';
+part of 'sign_up_cubit.dart';
 
 @immutable
-abstract class JoinUsState {
+abstract class SignUpState {
   final AutovalidateMode autoValidateMode;
   final String name;
   final String email;
@@ -9,7 +9,7 @@ abstract class JoinUsState {
   final String confirmPassword;
   final bool obscureText;
 
-  const JoinUsState({
+  const SignUpState({
     this.autoValidateMode = AutovalidateMode.disabled,
     this.name = '',
     this.email = '',
@@ -18,7 +18,7 @@ abstract class JoinUsState {
     this.obscureText = true,
   });
 
-  JoinUsState copyWith({
+  SignUpState copyWith({
     AutovalidateMode? autoValidateMode,
     String? name,
     String? email,
@@ -28,9 +28,9 @@ abstract class JoinUsState {
   });
 }
 
-class JoinUsUpdate extends JoinUsState {
+class SignUpStateUpdate extends SignUpState {
 
-  const JoinUsUpdate({
+  const SignUpStateUpdate({
     super.autoValidateMode,
     super.name,
     super.email,
@@ -40,7 +40,7 @@ class JoinUsUpdate extends JoinUsState {
   });
 
   @override
-  JoinUsUpdate copyWith({
+  SignUpStateUpdate copyWith({
     AutovalidateMode? autoValidateMode,
     String? name,
     String? email,
@@ -48,7 +48,7 @@ class JoinUsUpdate extends JoinUsState {
     String? confirmPassword,
     bool? obscureText,
   }) {
-    return JoinUsUpdate(
+    return SignUpStateUpdate(
       autoValidateMode: autoValidateMode ?? this.autoValidateMode,
       name: name ?? this.name,
       email: email ?? this.email,
