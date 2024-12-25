@@ -1,10 +1,14 @@
 import 'package:bloc/bloc.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter/widgets.dart';
 
 part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
-  SignUpCubit() : super(const SignUpStateUpdate());
+  final UserAuthenticationUseCase _userAuthenticationUseCase;
+
+  SignUpCubit(this._userAuthenticationUseCase)
+      : super(const SignUpStateUpdate());
 
   void initForm({
     String name = '',
@@ -48,5 +52,13 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   void reset() {
     emit(const SignUpStateUpdate());
+  }
+
+  void signUp() {
+    _userAuthenticationUseCase.signUpUser(
+      name: state.name,
+      email: state.email,
+      password: state.password,
+    );
   }
 }

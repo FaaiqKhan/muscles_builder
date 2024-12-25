@@ -20,7 +20,11 @@ dependencies:
   package_info_plus: ^8.1.1
   google_mobile_ads: ^5.2.0
   firebase_core: ^3.9.0
-  firebase_auth: ^5.3.4
+
+  domain:
+    path: packages/domain
+  data:
+    path: packages/data
 
 dev_dependencies:
   flutter_test:
