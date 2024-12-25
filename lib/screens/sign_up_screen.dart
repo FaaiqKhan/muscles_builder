@@ -47,6 +47,22 @@ class SignUpScreen extends StatelessWidget with Validator {
                   autovalidateMode: autoValidateMode,
                   child: Column(
                     children: [
+                      Text(
+                        "Not a member yet!\nBecome one",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                      ),
+                      const SizedBox(height: Spacings.contentSpacingOf8),
+                      Text(
+                        "When you have a clear vision of your goal, it's easier to take the first step towards it.",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                      ),
+                      const SizedBox(height: Spacings.contentSpacingOf24),
                       TextFormField(
                         validator: validateName,
                         onChanged: _signUpCubit.updateName,
@@ -229,7 +245,7 @@ class SignUpScreen extends StatelessWidget with Validator {
                           );
                         },
                         child: Text(
-                          "Become a Member",
+                          "SignUp",
                           style: Theme.of(context)
                               .textTheme
                               .labelSmall
