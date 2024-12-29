@@ -25,10 +25,14 @@ class UserAuthenticationUseCaseImpl implements UserAuthenticationUseCase {
     required String email,
     required String password,
   }) async {
-    await userAuthenticationRepository.signInUser(
-      email: email,
-      password: password,
-    );
+    try {
+      await userAuthenticationRepository.signInUser(
+        email: email,
+        password: password,
+      );
+    } catch (exception) {
+      rethrow;
+    }
   }
 
   @override
