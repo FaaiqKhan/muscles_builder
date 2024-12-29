@@ -245,7 +245,7 @@ class SignUpScreen extends StatelessWidget with Validator {
                           );
                         },
                       ),
-                      const SizedBox(height: Spacings.contentSpacingOf16),
+                      const SizedBox(height: Spacings.contentSpacingOf32),
                       ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
