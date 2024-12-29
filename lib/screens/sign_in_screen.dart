@@ -146,12 +146,20 @@ class SignInScreen extends StatelessWidget with Validator {
                             AutovalidateMode.always,
                           );
                         },
-                        child: const Text("SignIn"),
+                        child: Text(
+                          "SignIn",
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                        ),
                       ),
                       const SizedBox(height: Spacings.contentSpacingOf16),
                       Text(
                         "Or",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color:
                                   Theme.of(context).colorScheme.onPrimaryFixed,
                             ),
@@ -167,7 +175,7 @@ class SignInScreen extends StatelessWidget with Validator {
                           "SignUp",
                           style: Theme.of(context)
                               .textTheme
-                              .bodySmall
+                              .labelSmall
                               ?.copyWith(
                                 color: Theme.of(context).colorScheme.onPrimary,
                               ),
