@@ -78,9 +78,12 @@ class SignUpScreen extends StatelessWidget with Validator {
                             color: Theme.of(context).colorScheme.onPrimaryFixed,
                           ),
                           border: const OutlineInputBorder(),
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.onPrimaryFixed,
-                          ),
+                          labelStyle:
+                              Theme.of(context).textTheme.labelSmall?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryFixed,
+                                  ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Theme.of(context).colorScheme.onPrimary,
@@ -108,9 +111,12 @@ class SignUpScreen extends StatelessWidget with Validator {
                             color: Theme.of(context).colorScheme.onPrimaryFixed,
                           ),
                           border: const OutlineInputBorder(),
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.onPrimaryFixed,
-                          ),
+                          labelStyle:
+                              Theme.of(context).textTheme.labelSmall?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryFixed,
+                                  ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Theme.of(context).colorScheme.onPrimary,
@@ -164,11 +170,14 @@ class SignUpScreen extends StatelessWidget with Validator {
                                     ),
                                   ),
                                   border: const OutlineInputBorder(),
-                                  labelStyle: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryFixed,
-                                  ),
+                                  labelStyle: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimaryFixed,
+                                      ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Theme.of(context)
@@ -211,11 +220,14 @@ class SignUpScreen extends StatelessWidget with Validator {
                                         .onPrimaryFixed,
                                   ),
                                   border: const OutlineInputBorder(),
-                                  labelStyle: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryFixed,
-                                  ),
+                                  labelStyle: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimaryFixed,
+                                      ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Theme.of(context)
@@ -253,6 +265,36 @@ class SignUpScreen extends StatelessWidget with Validator {
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
                         ),
+                      ),
+                      const SizedBox(height: Spacings.contentSpacingOf12),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        children: [
+                          Text(
+                            "Already have an account?",
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimaryFixed,
+                                    ),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "SignIn",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondary,
+                                    fontSize: 12,
+                                  ),
+                            ),
+                          )
+                        ],
                       ),
                     ],
                   ),

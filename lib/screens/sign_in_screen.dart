@@ -63,9 +63,12 @@ class SignInScreen extends StatelessWidget with Validator {
                             color: Theme.of(context).colorScheme.onPrimaryFixed,
                           ),
                           border: const OutlineInputBorder(),
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.onPrimaryFixed,
-                          ),
+                          labelStyle:
+                              Theme.of(context).textTheme.labelSmall?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryFixed,
+                                  ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Theme.of(context).colorScheme.onPrimary,
@@ -116,11 +119,14 @@ class SignInScreen extends StatelessWidget with Validator {
                                 ),
                               ),
                               border: const OutlineInputBorder(),
-                              labelStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryFixed,
-                              ),
+                              labelStyle: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryFixed,
+                                  ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color:
