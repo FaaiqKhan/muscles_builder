@@ -238,16 +238,11 @@ class SignInScreen extends StatelessWidget with Validator {
           bloc: _signInCubit,
           buildWhen: (previous, current) =>
               previous.isLoading != current.isLoading,
-          builder: (context, builder) => Visibility(
+          builder: (context, bloc) => Visibility(
             visible: _signInCubit.state.isLoading,
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              color: Theme.of(context).colorScheme.onSecondary.withOpacity(0.2),
-              child: Image.asset(
-                scale: 0.9,
-                Loaders.getRandomLoadingView(value: loaderValue),
-              ),
+            child: Loaders.loaderContainer(
+              context,
+              loaderValue: loaderValue,
             ),
           ),
         ),

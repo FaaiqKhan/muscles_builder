@@ -10,8 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   firebase_auth: ^5.3.4
+  json_annotation: ^4.9.0
 
   domain:
     path: ../domain
@@ -20,3 +20,5 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  json_serializable: ^6.9.0
+  build_runner: ^2.4.14
