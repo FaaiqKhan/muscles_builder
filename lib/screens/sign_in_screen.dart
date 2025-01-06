@@ -44,209 +44,229 @@ class SignInScreen extends StatelessWidget with Validator {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        GestureDetector(
-          onTap: FocusScope.of(context).unfocus,
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              title: Text(
-                "SignIn",
-                style: TextStyle(
+    return BlocListener<SignInCubit, SignInState>(
+      bloc: _signInCubit,
+      listener: (context, state) {
+        if (state.errorMessage != null) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                content: Text(
+                  state.errorMessage!,
+                ),
+              ),
+            );
+        } else if (state.isSuccess) {
+          // TODO: Set user value into application state
+        }
+      },
+      child: Stack(
+        children: [
+          GestureDetector(
+            onTap: FocusScope.of(context).unfocus,
+            child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                title: Text(
+                  "SignIn",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+                iconTheme: IconThemeData(
                   color: Theme.of(context).colorScheme.onPrimary,
                 ),
               ),
-              iconTheme: IconThemeData(
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            ),
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(Spacings.contentSpacingOf12),
-                child: BlocSelector<SignInCubit, SignInState, AutovalidateMode>(
-                  bloc: _signInCubit,
-                  selector: (state) => state.autoValidateMode,
-                  builder: (context, AutovalidateMode autoValidateMode) {
-                    return Form(
-                      key: _formKey,
-                      autovalidateMode: autoValidateMode,
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            validator: validateEmail,
-                            onChanged: _signInCubit.updateEmail,
-                            keyboardType: TextInputType.emailAddress,
-                            cursorColor:
-                                Theme.of(context).colorScheme.onPrimary,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                ),
-                            decoration: InputDecoration(
-                              labelText: "Email",
-                              prefixIcon: Icon(
-                                Icons.email,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryFixed,
-                              ),
-                              border: const OutlineInputBorder(),
-                              labelStyle: Theme.of(context)
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              body: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(Spacings.contentSpacingOf12),
+                  child:
+                      BlocSelector<SignInCubit, SignInState, AutovalidateMode>(
+                    bloc: _signInCubit,
+                    selector: (state) => state.autoValidateMode,
+                    builder: (context, AutovalidateMode autoValidateMode) {
+                      return Form(
+                        key: _formKey,
+                        autovalidateMode: autoValidateMode,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              validator: validateEmail,
+                              onChanged: _signInCubit.updateEmail,
+                              keyboardType: TextInputType.emailAddress,
+                              cursorColor:
+                                  Theme.of(context).colorScheme.onPrimary,
+                              style: Theme.of(context)
                                   .textTheme
-                                  .labelSmall
+                                  .bodyMedium
                                   ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryFixed,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
                                   ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  width: 1.0,
+                              decoration: InputDecoration(
+                                labelText: "Email",
+                                prefixIcon: Icon(
+                                  Icons.email,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryFixed,
                                 ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(15.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: Spacings.contentSpacingOf16),
-                          BlocSelector<SignInCubit, SignInState, bool>(
-                            bloc: _signInCubit,
-                            selector: (state) => state.obscureText,
-                            builder: (context, obscureText) {
-                              return TextFormField(
-                                validator: validatePassword,
-                                onChanged: _signInCubit.updatePassword,
-                                obscureText: obscureText,
-                                keyboardType: TextInputType.visiblePassword,
-                                cursorColor:
-                                    Theme.of(context).colorScheme.onPrimary,
-                                style: Theme.of(context)
+                                border: const OutlineInputBorder(),
+                                labelStyle: Theme.of(context)
                                     .textTheme
-                                    .bodyMedium
+                                    .labelSmall
                                     ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                    ),
-                                decoration: InputDecoration(
-                                  labelText: "Password",
-                                  prefixIcon: Icon(
-                                    Icons.lock,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryFixed,
-                                  ),
-                                  suffixIcon: IconButton(
-                                    onPressed: _signInCubit.toggleObscureText,
-                                    icon: Icon(
-                                      _signInCubit.state.obscureText
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onPrimaryFixed,
                                     ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                    width: 1.0,
                                   ),
-                                  border: const OutlineInputBorder(),
-                                  labelStyle: Theme.of(context)
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(15.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: Spacings.contentSpacingOf16),
+                            BlocSelector<SignInCubit, SignInState, bool>(
+                              bloc: _signInCubit,
+                              selector: (state) => state.obscureText,
+                              builder: (context, obscureText) {
+                                return TextFormField(
+                                  validator: validatePassword,
+                                  onChanged: _signInCubit.updatePassword,
+                                  obscureText: obscureText,
+                                  keyboardType: TextInputType.visiblePassword,
+                                  cursorColor:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  style: Theme.of(context)
                                       .textTheme
-                                      .labelSmall
+                                      .bodyMedium
                                       ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                      ),
+                                  decoration: InputDecoration(
+                                    labelText: "Password",
+                                    prefixIcon: Icon(
+                                      Icons.lock,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimaryFixed,
+                                    ),
+                                    suffixIcon: IconButton(
+                                      onPressed: _signInCubit.toggleObscureText,
+                                      icon: Icon(
+                                        _signInCubit.state.obscureText
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onPrimaryFixed,
                                       ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                      width: 1.0,
                                     ),
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(15.0),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                          const SizedBox(height: Spacings.contentSpacingOf32),
-                          ElevatedButton(
-                            onPressed: _signInAction,
-                            child: Text(
-                              "SignIn",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                            ),
-                          ),
-                          const SizedBox(height: Spacings.contentSpacingOf12),
-                          RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              text: "Not a member yet!",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryFixed,
-                                  ),
-                              children: [
-                                const TextSpan(text: "\nBecome one, "),
-                                TextSpan(
-                                  text: "SignUp",
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap =
-                                        () => _navigateToSignUpScreen(context),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelSmall
-                                      ?.copyWith(
+                                    border: const OutlineInputBorder(),
+                                    labelStyle: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryFixed,
+                                        ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onSecondary,
+                                            .onPrimary,
+                                        width: 1.0,
                                       ),
-                                )
-                              ],
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(15.0),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                            const SizedBox(height: Spacings.contentSpacingOf32),
+                            ElevatedButton(
+                              onPressed: _signInAction,
+                              child: Text(
+                                "SignIn",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                    ),
+                              ),
+                            ),
+                            const SizedBox(height: Spacings.contentSpacingOf12),
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                text: "Not a member yet!",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimaryFixed,
+                                    ),
+                                children: [
+                                  const TextSpan(text: "\nBecome one, "),
+                                  TextSpan(
+                                    text: "SignUp",
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () =>
+                                          _navigateToSignUpScreen(context),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSecondary,
+                                        ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        BlocBuilder<SignInCubit, SignInState>(
-          bloc: _signInCubit,
-          buildWhen: (previous, current) =>
-              previous.isLoading != current.isLoading,
-          builder: (context, bloc) => Visibility(
-            visible: _signInCubit.state.isLoading,
-            child: Loaders.loaderContainer(
-              context,
-              loaderValue: loaderValue,
+          BlocBuilder<SignInCubit, SignInState>(
+            bloc: _signInCubit,
+            buildWhen: (previous, current) =>
+                previous.isLoading != current.isLoading,
+            builder: (context, bloc) => Visibility(
+              visible: _signInCubit.state.isLoading,
+              child: Loaders.loaderContainer(
+                context,
+                loaderValue: loaderValue,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

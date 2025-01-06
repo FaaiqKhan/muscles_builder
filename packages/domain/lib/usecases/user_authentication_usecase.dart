@@ -30,7 +30,7 @@ class UserAuthenticationUseCaseImpl implements UserAuthenticationUseCase {
         email: email,
         password: password,
       );
-    } catch (exception) {
+    } catch (_) {
       rethrow;
     }
   }
@@ -41,10 +41,14 @@ class UserAuthenticationUseCaseImpl implements UserAuthenticationUseCase {
     required String email,
     required String password,
   }) async {
-    await userAuthenticationRepository.signUpUser(
-      name: name,
-      email: email,
-      password: password,
-    );
+    try {
+      await userAuthenticationRepository.signUpUser(
+        name: name,
+        email: email,
+        password: password,
+      );
+    } catch (_) {
+      rethrow;
+    }
   }
 }

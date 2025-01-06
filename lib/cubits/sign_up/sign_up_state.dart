@@ -8,6 +8,7 @@ abstract class SignUpState {
   final String password;
   final String confirmPassword;
   final bool obscureText;
+  final bool isLoading;
 
   const SignUpState({
     this.autoValidateMode = AutovalidateMode.disabled,
@@ -16,6 +17,7 @@ abstract class SignUpState {
     this.password = '',
     this.confirmPassword = '',
     this.obscureText = true,
+    this.isLoading = false,
   });
 
   SignUpState copyWith({
@@ -25,6 +27,7 @@ abstract class SignUpState {
     String? password,
     String? confirmPassword,
     bool? obscureText,
+    bool? isLoading,
   });
 }
 
@@ -37,6 +40,7 @@ class SignUpStateUpdate extends SignUpState {
     super.password,
     super.confirmPassword,
     super.obscureText,
+    super.isLoading,
   });
 
   @override
@@ -47,6 +51,7 @@ class SignUpStateUpdate extends SignUpState {
     String? password,
     String? confirmPassword,
     bool? obscureText,
+    bool? isLoading,
   }) {
     return SignUpStateUpdate(
       autoValidateMode: autoValidateMode ?? this.autoValidateMode,
@@ -54,6 +59,7 @@ class SignUpStateUpdate extends SignUpState {
       email: email ?? this.email,
       password: password ?? this.password,
       obscureText: obscureText ?? this.obscureText,
+      isLoading: isLoading ?? this.isLoading,
     );
   }
 }

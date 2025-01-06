@@ -7,6 +7,8 @@ abstract class SignInState {
   final bool obscureText;
   final AutovalidateMode autoValidateMode;
   final bool isLoading;
+  final String? errorMessage;
+  final bool isSuccess;
 
   const SignInState({
     this.email = '',
@@ -14,6 +16,8 @@ abstract class SignInState {
     this.obscureText = true,
     this.autoValidateMode = AutovalidateMode.disabled,
     this.isLoading = false,
+    this.errorMessage,
+    this.isSuccess = false,
   });
 
   SignInState copyWith({
@@ -22,6 +26,8 @@ abstract class SignInState {
     bool? obscureText,
     AutovalidateMode? autoValidateMode,
     bool? isLoading,
+    String? errorMessage,
+    bool? isSuccess,
   });
 }
 
@@ -32,6 +38,8 @@ class SignInStateUpdate extends SignInState {
     super.obscureText,
     super.autoValidateMode,
     super.isLoading,
+    super.errorMessage,
+    super.isSuccess,
   });
 
   @override
@@ -41,6 +49,8 @@ class SignInStateUpdate extends SignInState {
     bool? obscureText,
     AutovalidateMode? autoValidateMode,
     bool? isLoading,
+    String? errorMessage,
+    bool? isSuccess,
   }) {
     return SignInStateUpdate(
       email: email ?? this.email,
@@ -48,6 +58,8 @@ class SignInStateUpdate extends SignInState {
       obscureText: obscureText ?? this.obscureText,
       autoValidateMode: autoValidateMode ?? this.autoValidateMode,
       isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage,
+      isSuccess: isSuccess ?? this.isSuccess,
     );
   }
 }

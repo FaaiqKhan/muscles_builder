@@ -14,12 +14,14 @@ class SignInCubit extends Cubit<SignInState> {
     String email = '',
     String password = '',
     bool isLoading = false,
+    String? errorMessage,
   }) {
     emit(
       state.copyWith(
         email: email,
         password: password,
         isLoading: isLoading,
+        errorMessage: errorMessage,
       ),
     );
   }
@@ -28,6 +30,7 @@ class SignInCubit extends Cubit<SignInState> {
     emit(
       state.copyWith(
         email: email,
+        errorMessage: null,
       ),
     );
   }
@@ -36,6 +39,7 @@ class SignInCubit extends Cubit<SignInState> {
     emit(
       state.copyWith(
         password: password,
+        errorMessage: null,
       ),
     );
   }
@@ -44,6 +48,7 @@ class SignInCubit extends Cubit<SignInState> {
     emit(
       state.copyWith(
         autoValidateMode: autoValidateMode,
+        errorMessage: null,
       ),
     );
   }
@@ -52,17 +57,21 @@ class SignInCubit extends Cubit<SignInState> {
     emit(
       state.copyWith(
         obscureText: !state.obscureText,
+        errorMessage: null,
       ),
     );
   }
 
   void reset() {
     emit(
-      const SignInStateUpdate(),
+      const SignInStateUpdate(
+        errorMessage: null,
+      ),
     );
   }
 
   void signIn() async {
+    bool isSuccess = false;
     emit(
       state.copyWith(
         isLoading: true,
@@ -73,12 +82,26 @@ class SignInCubit extends Cubit<SignInState> {
         email: state.email,
         password: state.password,
       );
+      isSuccess = true;
     } catch (exception) {
-      debugPrint(exception.toString());
+      if (exception is MusclesBuilderExceptions) {
+        emit(
+          state.copyWith(
+            errorMessage: exception.message,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            errorMessage: exception.toString(),
+          ),
+        );
+      }
     } finally {
       emit(
         state.copyWith(
           isLoading: false,
+          isSuccess: isSuccess,
         ),
       );
     }

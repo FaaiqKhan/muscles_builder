@@ -15,6 +15,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     String email = '',
     String password = '',
     String confirmPassword = '',
+    bool isLoading = false,
   }) {
     emit(
       state.copyWith(
@@ -22,6 +23,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         email: email,
         password: password,
         confirmPassword: password,
+        isLoading: false,
       ),
     );
   }
@@ -54,11 +56,26 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(const SignUpStateUpdate());
   }
 
-  void signUp() {
-    _userAuthenticationUseCase.signUpUser(
-      name: state.name,
-      email: state.email,
-      password: state.password,
+  void signUp() async {
+    emit(
+      state.copyWith(
+        isLoading: true,
+      ),
     );
+    try {
+      await _userAuthenticationUseCase.signUpUser(
+        name: state.name,
+        email: state.email,
+        password: state.password,
+      );
+    } catch (exception) {
+      debugPrint(exception.toString());
+    } finally {
+      emit(
+        state.copyWith(
+          isLoading: false,
+        ),
+      );
+    }
   }
 }
