@@ -4,7 +4,6 @@ import '../repositories/user_authentication_repository.dart';
 
 abstract class UserAuthenticationUseCase {
   FutureOr<void> signUpUser({
-    required String name,
     required String email,
     required String password,
   });
@@ -37,13 +36,11 @@ class UserAuthenticationUseCaseImpl implements UserAuthenticationUseCase {
 
   @override
   FutureOr<void> signUpUser({
-    required String name,
     required String email,
     required String password,
   }) async {
     try {
       await userAuthenticationRepository.signUpUser(
-        name: name,
         email: email,
         password: password,
       );

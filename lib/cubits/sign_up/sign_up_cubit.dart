@@ -11,7 +11,6 @@ class SignUpCubit extends Cubit<SignUpState> {
       : super(const SignUpStateUpdate());
 
   void initForm({
-    String name = '',
     String email = '',
     String password = '',
     String confirmPassword = '',
@@ -21,22 +20,12 @@ class SignUpCubit extends Cubit<SignUpState> {
   }) {
     emit(
       state.copyWith(
-        name: name,
         email: email,
         password: password,
         confirmPassword: password,
         isLoading: false,
         errorMessage: null,
         isSuccess: isSuccess,
-      ),
-    );
-  }
-
-  void updateName(String? name) {
-    emit(
-      state.copyWith(
-        name: name,
-        errorMessage: null,
       ),
     );
   }
@@ -104,7 +93,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
     try {
       await _userAuthenticationUseCase.signUpUser(
-        name: state.name,
         email: state.email,
         password: state.password,
       );

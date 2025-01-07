@@ -105,53 +105,8 @@ class SignUpScreen extends StatelessWidget with Validator {
                                     ),
                               ),
                               const SizedBox(
-                                  height: Spacings.contentSpacingOf24),
-                              TextFormField(
-                                validator: validateName,
-                                onChanged: _signUpCubit.updateName,
-                                keyboardType: TextInputType.name,
-                                cursorColor:
-                                    Theme.of(context).colorScheme.onPrimary,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                    ),
-                                decoration: InputDecoration(
-                                  labelText: "Name",
-                                  prefixIcon: Icon(
-                                    Icons.person,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryFixed,
-                                  ),
-                                  border: const OutlineInputBorder(),
-                                  labelStyle: Theme.of(context)
-                                      .textTheme
-                                      .labelSmall
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimaryFixed,
-                                      ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(15.0),
-                                    ),
-                                  ),
-                                ),
+                                height: Spacings.contentSpacingOf24,
                               ),
-                              const SizedBox(
-                                  height: Spacings.contentSpacingOf16),
                               TextFormField(
                                 validator: validateEmail,
                                 onChanged: _signUpCubit.updateEmail,
@@ -197,7 +152,8 @@ class SignUpScreen extends StatelessWidget with Validator {
                                 ),
                               ),
                               const SizedBox(
-                                  height: Spacings.contentSpacingOf16),
+                                height: Spacings.contentSpacingOf16,
+                              ),
                               BlocSelector<SignUpCubit, SignUpState, bool>(
                                 bloc: _signUpCubit,
                                 selector: (state) => state.obscureText,
@@ -265,7 +221,8 @@ class SignUpScreen extends StatelessWidget with Validator {
                                         ),
                                       ),
                                       const SizedBox(
-                                          height: Spacings.contentSpacingOf16),
+                                        height: Spacings.contentSpacingOf16,
+                                      ),
                                       TextFormField(
                                         validator: (value) =>
                                             validateConfirmPassword(
@@ -324,7 +281,8 @@ class SignUpScreen extends StatelessWidget with Validator {
                                 },
                               ),
                               const SizedBox(
-                                  height: Spacings.contentSpacingOf32),
+                                height: Spacings.contentSpacingOf32,
+                              ),
                               ElevatedButton(
                                 onPressed: _signUpAction,
                                 child: Text(
@@ -340,7 +298,8 @@ class SignUpScreen extends StatelessWidget with Validator {
                                 ),
                               ),
                               const SizedBox(
-                                  height: Spacings.contentSpacingOf12),
+                                height: Spacings.contentSpacingOf12,
+                              ),
                               Wrap(
                                 alignment: WrapAlignment.center,
                                 children: [

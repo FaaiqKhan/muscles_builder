@@ -34,7 +34,6 @@ class UserAuthenticationRepositoryImpl extends UserAuthenticationRepository {
 
   @override
   FutureOr<UserModel> signUpUser({
-    required String name,
     required String email,
     required String password,
   }) async {
