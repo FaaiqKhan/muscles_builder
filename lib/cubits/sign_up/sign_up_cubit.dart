@@ -16,6 +16,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     String password = '',
     String confirmPassword = '',
     bool isLoading = false,
+    String? errorMessage,
+    bool isSuccess = false,
   }) {
     emit(
       state.copyWith(
@@ -24,42 +26,80 @@ class SignUpCubit extends Cubit<SignUpState> {
         password: password,
         confirmPassword: password,
         isLoading: false,
+        errorMessage: null,
+        isSuccess: isSuccess,
       ),
     );
   }
 
   void updateName(String? name) {
-    emit(state.copyWith(name: name));
+    emit(
+      state.copyWith(
+        name: name,
+        errorMessage: null,
+      ),
+    );
   }
 
   void updateEmail(String? email) {
-    emit(state.copyWith(email: email));
+    emit(
+      state.copyWith(
+        email: email,
+        errorMessage: null,
+      ),
+    );
   }
 
   void updatePassword(String? password) {
-    emit(state.copyWith(password: password));
+    emit(
+      state.copyWith(
+        password: password,
+        errorMessage: null,
+      ),
+    );
   }
 
   void updateConfirmPassword(String? confirmPassword) {
-    emit(state.copyWith(confirmPassword: confirmPassword));
+    emit(
+      state.copyWith(
+        confirmPassword: confirmPassword,
+        errorMessage: null,
+      ),
+    );
   }
 
   void updateAutoValidateMode(AutovalidateMode? autoValidateMode) {
-    emit(state.copyWith(autoValidateMode: autoValidateMode));
+    emit(
+      state.copyWith(
+        autoValidateMode: autoValidateMode,
+        errorMessage: null,
+      ),
+    );
   }
 
   void toggleObscureText() {
-    emit(state.copyWith(obscureText: !state.obscureText));
+    emit(
+      state.copyWith(
+        obscureText: !state.obscureText,
+        errorMessage: null,
+      ),
+    );
   }
 
   void reset() {
-    emit(const SignUpStateUpdate());
+    emit(
+      const SignUpStateUpdate(
+        errorMessage: null,
+      ),
+    );
   }
 
   void signUp() async {
+    bool isSuccess = false;
     emit(
       state.copyWith(
         isLoading: true,
+        isSuccess: isSuccess,
       ),
     );
     try {
@@ -68,12 +108,27 @@ class SignUpCubit extends Cubit<SignUpState> {
         email: state.email,
         password: state.password,
       );
+      isSuccess = true;
     } catch (exception) {
-      debugPrint(exception.toString());
+      if (exception is MusclesBuilderExceptions) {
+        emit(
+          state.copyWith(
+            errorMessage: exception.message,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            errorMessage: exception.toString(),
+          ),
+        );
+      }
     } finally {
       emit(
         state.copyWith(
           isLoading: false,
+          errorMessage: null,
+          isSuccess: isSuccess,
         ),
       );
     }
