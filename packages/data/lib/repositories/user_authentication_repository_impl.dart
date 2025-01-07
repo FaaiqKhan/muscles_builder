@@ -25,7 +25,7 @@ class UserAuthenticationRepositoryImpl extends UserAuthenticationRepository {
         case AuthExceptions.wrongPassword:
           throw WrongPasswordException();
         default:
-          throw InvalidCredentialsException();
+          throw GeneralException();
       }
     } catch (exception) {
       throw GeneralException(); // TODO: throw general exception and log using firebase analytics
@@ -46,8 +46,14 @@ class UserAuthenticationRepositoryImpl extends UserAuthenticationRepository {
       switch (authException.code) {
         case AuthExceptions.emailAlreadyInUse:
           throw EmailAlreadyExistException();
+        case AuthExceptions.weekPassword:
+          throw WeekPasswordException();
+        case AuthExceptions.userTokenExpired:
+          throw UserTokenExpiredException();
+        case AuthExceptions.networkRequestFailed:
+          throw NetworkRequestFailedException();
         default:
-          throw InvalidCredentialsException();
+          throw GeneralException();
       }
     } catch (exception) {
       throw GeneralException(); // TODO: throw general exception and log using firebase analytics

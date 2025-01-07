@@ -14,11 +14,6 @@ class WrongPasswordException implements MusclesBuilderExceptions {
   String get message => "Wrong password";
 }
 
-class InvalidCredentialsException implements MusclesBuilderExceptions {
-  @override
-  String get message => "Invalid credentials";
-}
-
 class EmailAlreadyExistException implements MusclesBuilderExceptions {
   @override
   String get message => "Email already exist";
@@ -27,4 +22,19 @@ class EmailAlreadyExistException implements MusclesBuilderExceptions {
 class GeneralException implements MusclesBuilderExceptions {
   @override
   String get message => "Ops! something went wrong";
+}
+
+class WeekPasswordException implements MusclesBuilderExceptions {
+  @override
+  String get message => "Week password";
+}
+
+class UserTokenExpiredException implements MusclesBuilderExceptions {
+  @override
+  String get message => "User token expires, please contact your provider";
+}
+
+class NetworkRequestFailedException implements MusclesBuilderExceptions {
+  @override
+  String get message => "Network request failed, please check your internet";
 }
