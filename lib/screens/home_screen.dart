@@ -7,7 +7,7 @@ import 'package:muscles_builder/constants/quotes.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
 import 'package:muscles_builder/screens/settings_screen.dart';
-import 'package:muscles_builder/widgets/screen_title.dart';
+import 'package:muscles_builder/screens/sign_in_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,6 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     _initBannerAds();
     super.initState();
+  }
+
+  void _navigateToSettingsScreen() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => const SettingsScreen(),
+      ),
+    );
   }
 
   void _initBannerAds() {
@@ -47,16 +55,30 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Text(
+          "Muscles Builder",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: _navigateToSettingsScreen,
+            icon: Icon(
+              Icons.settings,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
+          ),
+        ],
+      ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              const ScreenTitle(
-                title: "Muscles Builder",
-                topPadding: 0.04,
-              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -107,11 +129,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ElevatedButton(
                         onPressed: () => Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => const SettingsScreen(),
+                            builder: (_) => SignInScreen(),
                           ),
                         ),
                         child: Text(
-                          "Settings",
+                          "SignIn",
                           style: Theme.of(context)
                               .textTheme
                               .labelSmall
