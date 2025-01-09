@@ -5,6 +5,7 @@ import 'package:domain/domain.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:muscles_builder/commons.dart';
 import 'package:muscles_builder/constants/loaders.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/sign_in/sign_in_cubit.dart';
@@ -42,23 +43,18 @@ class SignInScreen extends StatelessWidget with Validator {
     );
   }
 
+  void _navigateToPreviousScreen(BuildContext context) =>
+      Navigator.of(context).pop();
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignInCubit, SignInState>(
       bloc: _signInCubit,
       listener: (context, state) {
         if (state.errorMessage != null) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text(
-                  state.errorMessage!,
-                ),
-              ),
-            );
+          Commons.showDefaultSnackBar(context, state.errorMessage!);
         } else if (state.isSuccess) {
-          // TODO: Set user value into application state
+          _navigateToPreviousScreen(context);
         }
       },
       child: Stack(
