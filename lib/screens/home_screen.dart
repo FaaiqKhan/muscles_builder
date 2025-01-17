@@ -1,56 +1,19 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/quotes.dart';
 import 'package:muscles_builder/constants/spacings.dart';
+import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
+import 'package:muscles_builder/cubits/google_ads/google_ads_state.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
 import 'package:muscles_builder/screens/settings_screen.dart';
 import 'package:muscles_builder/screens/sign_in_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final int randomNumber = Random().nextInt(Quotes.quotes.length);
-  late BannerAd _bannerAd;
-  bool _isBannerAdLoaded = false;
-
-  @override
-  void initState() {
-    _initBannerAds();
-    super.initState();
-  }
-
-  void _navigateToSettingsScreen() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => const SettingsScreen(),
-      ),
-    );
-  }
-
-  void _initBannerAds() {
-    _bannerAd = BannerAd(
-      size: AdSize.banner,
-      adUnitId: const String.fromEnvironment("ad-unit-id"),
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            _isBannerAdLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {},
-      ),
-      request: const AdRequest(),
-    );
-    _bannerAd.load();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: _navigateToSettingsScreen,
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const SettingsScreen(),
+                ),
+              );
+            },
             icon: Icon(
               Icons.settings,
               color: Theme.of(context).colorScheme.onPrimary,
@@ -98,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           vertical: Spacings.contentSpacingOf32,
                         ),
                         child: Text(
-                          Quotes.quotes[randomNumber],
+                          Quotes.quotes[Random().nextInt(Quotes.quotes.length)],
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -150,13 +119,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: _isBannerAdLoaded
-          ? SizedBox(
-              width: _bannerAd.size.width.toDouble(),
-              height: _bannerAd.size.height.toDouble(),
-              child: AdWidget(ad: _bannerAd),
-            )
-          : const SizedBox.shrink(),
+      bottomNavigationBar: BlocBuilder<GoogleAdsCubit, GoogleAdsState>(
+        builder: (context, state) {
+          if (state is GoogleAdsLoaded) {
+            return SizedBox(
+              width: state.bannerAd.size.width.toDouble(),
+              height: state.bannerAd.size.height.toDouble(),
+              child: AdWidget(
+                ad: state.bannerAd,
+              ),
+            );
+          }
+          return const SizedBox.shrink();
+        },
+      ),
     );
   }
 }
