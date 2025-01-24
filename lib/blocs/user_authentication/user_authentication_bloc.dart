@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:equatable/equatable.dart';
@@ -12,7 +14,8 @@ class UserAuthenticationBloc
     on<UserAuthorized>(_onUserAuthorized);
     on<UserUnauthorized>(_onUserUnauthorized);
 
-    _userAuthenticationUseCase.getUser().stream.listen((user) {
+    _userSubscription =
+        _userAuthenticationUseCase.getUser().stream.listen((user) {
       if (user == null) {
         add(
           UserUnauthorized(),
@@ -27,7 +30,14 @@ class UserAuthenticationBloc
     });
   }
 
+  @override
+  Future<void> close() {
+    _userSubscription?.cancel();
+    return super.close();
+  }
+
   final UserAuthenticationUseCase _userAuthenticationUseCase;
+  StreamSubscription<UserEntity?>? _userSubscription;
 
   void _onUserAuthorized(
     UserAuthorized event,
