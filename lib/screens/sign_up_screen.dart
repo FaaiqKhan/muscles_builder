@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:data/data.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:muscles_builder/commons.dart';
 import 'package:muscles_builder/constants/loaders.dart';
 import 'package:muscles_builder/constants/spacings.dart';
@@ -15,9 +15,7 @@ class SignUpScreen extends StatelessWidget with Validator {
   SignUpScreen({super.key});
 
   final SignUpCubit _signUpCubit = SignUpCubit(
-    UserAuthenticationUseCaseImpl(
-      UserAuthenticationRepositoryImpl(),
-    ),
+    GetIt.I.get<UserAuthenticationUseCase>(),
   );
 
   final _formKey = GlobalKey<FormState>();

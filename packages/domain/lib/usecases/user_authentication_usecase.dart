@@ -1,8 +1,15 @@
 import 'dart:async';
 
+import 'package:domain/domain.dart';
+
 import '../repositories/user_authentication_repository.dart';
 
-abstract class UserAuthenticationUseCase {
+abstract interface class UserAuthenticationUseCase {
+  factory UserAuthenticationUseCase(
+    UserAuthenticationRepository userAuthenticationRepository,
+  ) =>
+      _UserAuthenticationUseCaseImpl(userAuthenticationRepository);
+
   FutureOr<void> signUpUser({
     required String email,
     required String password,
@@ -12,12 +19,14 @@ abstract class UserAuthenticationUseCase {
     required String email,
     required String password,
   });
+
+  StreamController<UserEntity?> getUser();
 }
 
-class UserAuthenticationUseCaseImpl implements UserAuthenticationUseCase {
-  final UserAuthenticationRepository userAuthenticationRepository;
+class _UserAuthenticationUseCaseImpl implements UserAuthenticationUseCase {
+  final UserAuthenticationRepository _userAuthenticationRepository;
 
-  UserAuthenticationUseCaseImpl(this.userAuthenticationRepository);
+  _UserAuthenticationUseCaseImpl(this._userAuthenticationRepository);
 
   @override
   FutureOr<void> signInUser({
@@ -25,7 +34,7 @@ class UserAuthenticationUseCaseImpl implements UserAuthenticationUseCase {
     required String password,
   }) async {
     try {
-      await userAuthenticationRepository.signInUser(
+      await _userAuthenticationRepository.signInUser(
         email: email,
         password: password,
       );
@@ -40,7 +49,7 @@ class UserAuthenticationUseCaseImpl implements UserAuthenticationUseCase {
     required String password,
   }) async {
     try {
-      await userAuthenticationRepository.signUpUser(
+      await _userAuthenticationRepository.signUpUser(
         email: email,
         password: password,
       );
@@ -48,4 +57,8 @@ class UserAuthenticationUseCaseImpl implements UserAuthenticationUseCase {
       rethrow;
     }
   }
+
+  @override
+  StreamController<UserEntity?> getUser() =>
+      _userAuthenticationRepository.getUser();
 }
