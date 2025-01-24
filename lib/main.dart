@@ -1,17 +1,22 @@
+import 'package:domain/domain.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:muscles_builder/blocs/user_authentication/user_authentication_bloc.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 import 'package:muscles_builder/cubits/theme/theme_cubit.dart';
+import 'package:muscles_builder/dependency_injection/usecases.dart';
 import 'package:muscles_builder/screens/splash_screen.dart';
 import 'package:muscles_builder/theme.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(
+  UsecasesDependencyInjectionContainer.init();
+  await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: String.fromEnvironment("firebase-apiKey"),
       appId: String.fromEnvironment("firebase-appId"),
@@ -26,9 +31,20 @@ void main() {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: ThemeCubit()),
-        BlocProvider.value(value: SettingsCubit()),
-        BlocProvider.value(value: GoogleAdsCubit()),
+        BlocProvider.value(
+          value: ThemeCubit(),
+        ),
+        BlocProvider.value(
+          value: SettingsCubit(),
+        ),
+        BlocProvider.value(
+          value: GoogleAdsCubit(),
+        ),
+        BlocProvider.value(
+          value: UserAuthenticationBloc(
+            GetIt.I.get<UserAuthenticationUseCase>(),
+          ),
+        ),
       ],
       child: const MyApp(),
     ),

@@ -26,8 +26,8 @@ class UserEntity extends Equatable {
   final bool isEmailVerified;
   final String providerId;
   final String refreshToken;
-  final int creationTimestamp;
-  final int lastSignInTimestamp;
+  final DateTime creationTimestamp;
+  final DateTime lastSignInTimestamp;
   final bool isNewUser;
   final String accessToken;
 
