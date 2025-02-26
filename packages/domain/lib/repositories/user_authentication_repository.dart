@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:data/data.dart';
 import 'package:domain/domain.dart';
 
-abstract class UserAuthenticationRepository {
+abstract interface class UserAuthenticationRepository {
+  factory UserAuthenticationRepository() => UserAuthenticationRepositoryImpl();
+
   FutureOr<void> signUpUser({
     required String email,
     required String password,

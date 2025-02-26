@@ -7,7 +7,7 @@ import 'package:domain/domain.dart';
 import 'package:domain/repositories/user_authentication_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class UserAuthenticationRepositoryImpl extends UserAuthenticationRepository {
+class UserAuthenticationRepositoryImpl implements UserAuthenticationRepository {
   UserAuthenticationRepositoryImpl();
 
   StreamSubscription<User?>? userSubscription;
