@@ -9,7 +9,7 @@ import 'package:muscles_builder/blocs/user_authentication/user_authentication_bl
 import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 import 'package:muscles_builder/cubits/theme/theme_cubit.dart';
-import 'package:muscles_builder/dependency_injection/usecases.dart';
+import 'package:muscles_builder/dependency_injection/dependency_injection.dart';
 import 'package:muscles_builder/screens/splash_screen.dart';
 import 'package:muscles_builder/theme.dart';
 
