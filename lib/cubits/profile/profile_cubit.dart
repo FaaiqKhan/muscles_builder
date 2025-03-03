@@ -4,5 +4,17 @@ import 'package:equatable/equatable.dart';
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit() : super(ProfileInitial());
+  ProfileCubit() : super(const ProfileInitial(false));
+
+  void enableEditing() {
+    emit(
+      const EditProfile(true),
+    );
+  }
+
+  void disableEditing() {
+    emit(
+      const EditProfile(false),
+    );
+  }
 }
