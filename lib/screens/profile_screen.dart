@@ -6,6 +6,7 @@ import 'package:muscles_builder/constants/loaders.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/profile/profile_cubit.dart';
 import 'package:muscles_builder/validator.dart';
+import 'package:muscles_builder/widgets/animated_edit_buttons.dart';
 
 class ProfileScreen extends StatelessWidget with Validator {
   ProfileScreen({super.key});
@@ -32,34 +33,15 @@ class ProfileScreen extends StatelessWidget with Validator {
             color: Theme.of(context).colorScheme.onPrimary,
           ),
           actions: [
-            BlocBuilder<ProfileCubit, ProfileState>(
-              buildWhen: (previous, current) =>
-                  previous.isEditing != current.isEditing,
-              builder: (context, state) {
-                return Visibility(
-                  visible: _profileCubit.state.isEditing,
-                  replacement: IconButton(
-                    onPressed: _profileCubit.enableEditing,
-                    icon: const Icon(Icons.edit),
-                  ),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.save),
-                      ),
-                      const SizedBox(
-                        width: Spacings.contentSpacingOf16,
-                      ),
-                      IconButton(
-                        onPressed: _profileCubit.disableEditing,
-                        icon: const Icon(Icons.close),
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
+            ExpandableFab(
+              distance: 50,
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.save),
+                ),
+              ],
+            )
           ],
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
