@@ -6,15 +6,10 @@ part 'profile_state.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(const ProfileInitial(false));
 
-  void enableEditing() {
+  void toggleEditing() {
+    print(state.isEditing);
     emit(
-      const EditProfile(true),
-    );
-  }
-
-  void disableEditing() {
-    emit(
-      const EditProfile(false),
+      EditProfile(!state.isEditing)
     );
   }
 }

@@ -1,11 +1,13 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:muscles_builder/types.dart';
 
 class ExpandableFab extends StatefulWidget {
   const ExpandableFab({
     super.key,
     this.initialOpen,
+    this.callback,
     required this.distance,
     required this.children,
   });
@@ -13,6 +15,7 @@ class ExpandableFab extends StatefulWidget {
   final bool? initialOpen;
   final int distance;
   final List<Widget> children;
+  final BoolCallback? callback;
 
   @override
   State<ExpandableFab> createState() => _ExpandableFabState();
@@ -53,6 +56,9 @@ class _ExpandableFabState extends State<ExpandableFab>
         _controller.forward();
       } else {
         _controller.reverse();
+      }
+      if (widget.callback != null) {
+        widget.callback!(_open);
       }
     });
   }

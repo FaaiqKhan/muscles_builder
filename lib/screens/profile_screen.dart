@@ -35,6 +35,14 @@ class ProfileScreen extends StatelessWidget with Validator {
           actions: [
             ExpandableFab(
               distance: 50,
+              callback: (isOpen) {
+                debugPrint(isOpen.toString());
+                if (isOpen) {
+                  _profileCubit.toggleEditing();
+                } else {
+                  _profileCubit.toggleEditing();
+                }
+              },
               children: [
                 IconButton(
                   onPressed: () {},
@@ -50,47 +58,63 @@ class ProfileScreen extends StatelessWidget with Validator {
             children: [
               Column(
                 children: [
-                  Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.35,
-                        height: MediaQuery.of(context).size.width * 0.35,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            width: 2,
+                  BlocBuilder<ProfileCubit, ProfileState>(
+                    buildWhen: (prevState, currentState) =>
+                        prevState.isEditing != currentState.isEditing,
+                    builder: (context, state) {
+                      return Stack(
+                        alignment: Alignment.bottomRight,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.35,
+                            height: MediaQuery.of(context).size.width * 0.35,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: _profileCubit.state.isEditing
+                                    ? Theme.of(context).colorScheme.onPrimary
+                                    : Theme.of(context).colorScheme.secondary,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: CircleAvatar(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              radius: 100,
+                              child: Icon(
+                                Icons.person,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryFixed,
+                                size: MediaQuery.of(context).size.width * 0.15,
+                              ),
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: CircleAvatar(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          radius: 100,
-                          child: Icon(
-                            Icons.person,
-                            color: Colors.white,
-                            size: MediaQuery.of(context).size.width * 0.15,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.1,
-                        height: MediaQuery.of(context).size.width * 0.1,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.onPrimaryFixed,
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.camera_alt_rounded,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
-                      )
-                    ],
+                          Visibility(
+                            visible: _profileCubit.state.isEditing,
+                            replacement: const SizedBox.shrink(),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.1,
+                              height: MediaQuery.of(context).size.width * 0.1,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryFixed,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.camera_alt_rounded,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    },
                   ),
                   Expanded(
                     child: Form(
@@ -99,142 +123,160 @@ class ProfileScreen extends StatelessWidget with Validator {
                         padding: const EdgeInsets.symmetric(
                           horizontal: Spacings.contentSpacingOf16,
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              height: Spacings.contentSpacingOf32,
-                            ),
-                            TextFormField(
-                              keyboardType: TextInputType.name,
-                              cursorColor:
-                                  Theme.of(context).colorScheme.onPrimary,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                  ),
-                              decoration: InputDecoration(
-                                labelText: "Name",
-                                prefixIcon: Icon(
-                                  Icons.abc,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimaryFixed,
+                        child: BlocBuilder<ProfileCubit, ProfileState>(
+                          buildWhen: (prevState, currentState) =>
+                              prevState.isEditing != currentState.isEditing,
+                          builder: (context, state) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const SizedBox(
+                                  height: Spacings.contentSpacingOf32,
                                 ),
-                                border: const OutlineInputBorder(),
-                                labelStyle: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(
+                                TextFormField(
+                                  enabled: _profileCubit.state.isEditing,
+                                  keyboardType: TextInputType.name,
+                                  cursorColor:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                      ),
+                                  decoration: InputDecoration(
+                                    labelText: "Name",
+                                    prefixIcon: Icon(
+                                      Icons.abc,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onPrimaryFixed,
                                     ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    width: 1.0,
+                                    border: const OutlineInputBorder(),
+                                    labelStyle: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryFixed,
+                                        ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(15.0),
+                                      ),
+                                    ),
+                                    disabledBorder: const OutlineInputBorder(),
                                   ),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(15.0),
-                                  ),
+                                  validator: validateName,
                                 ),
-                              ),
-                              validator: validateName,
-                            ),
-                            const SizedBox(
-                              height: Spacings.contentSpacingOf16,
-                            ),
-                            TextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              cursorColor:
-                                  Theme.of(context).colorScheme.onPrimary,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                  ),
-                              decoration: InputDecoration(
-                                labelText: "Email",
-                                prefixIcon: Icon(
-                                  Icons.email,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimaryFixed,
+                                const SizedBox(
+                                  height: Spacings.contentSpacingOf16,
                                 ),
-                                border: const OutlineInputBorder(),
-                                labelStyle: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(
+                                TextFormField(
+                                  enabled: _profileCubit.state.isEditing,
+                                  keyboardType: TextInputType.emailAddress,
+                                  cursorColor:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                      ),
+                                  decoration: InputDecoration(
+                                    labelText: "Email",
+                                    prefixIcon: Icon(
+                                      Icons.email,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onPrimaryFixed,
                                     ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    width: 1.0,
+                                    border: const OutlineInputBorder(),
+                                    labelStyle: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryFixed,
+                                        ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(15.0),
+                                      ),
+                                    ),
+                                    disabledBorder: const OutlineInputBorder(),
                                   ),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(15.0),
-                                  ),
+                                  validator: validateEmail,
                                 ),
-                              ),
-                              validator: validateEmail,
-                            ),
-                            const SizedBox(
-                              height: Spacings.contentSpacingOf16,
-                            ),
-                            TextFormField(
-                              keyboardType: TextInputType.phone,
-                              cursorColor:
-                                  Theme.of(context).colorScheme.onPrimary,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                  ),
-                              decoration: InputDecoration(
-                                labelText: "Phone Number",
-                                prefixIcon: Icon(
-                                  Icons.phone,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimaryFixed,
+                                const SizedBox(
+                                  height: Spacings.contentSpacingOf16,
                                 ),
-                                border: const OutlineInputBorder(),
-                                labelStyle: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(
+                                TextFormField(
+                                  enabled: _profileCubit.state.isEditing,
+                                  keyboardType: TextInputType.phone,
+                                  cursorColor:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                      ),
+                                  decoration: InputDecoration(
+                                    labelText: "Phone Number",
+                                    prefixIcon: Icon(
+                                      Icons.phone,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onPrimaryFixed,
                                     ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    width: 1.0,
+                                    border: const OutlineInputBorder(),
+                                    labelStyle: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryFixed,
+                                        ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(15.0),
+                                      ),
+                                    ),
+                                    disabledBorder: const OutlineInputBorder(),
                                   ),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(15.0),
-                                  ),
+                                  validator: validatePhoneNumber,
                                 ),
-                              ),
-                              validator: validatePhoneNumber,
-                            ),
-                          ],
+                              ],
+                            );
+                          },
                         ),
                       ),
                     ),
