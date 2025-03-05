@@ -7,7 +7,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(const ProfileInitial(false));
 
   void toggleEditing() {
-    print(state.isEditing);
     emit(
       EditProfile(!state.isEditing)
     );
