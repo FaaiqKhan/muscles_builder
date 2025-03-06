@@ -11,4 +11,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       EditProfile(!state.isEditing)
     );
   }
+
+  void updateProfile() {
+
+  }
 }

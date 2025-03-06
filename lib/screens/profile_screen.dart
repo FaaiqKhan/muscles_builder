@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget with Validator {
 
   final int loaderValue = Random().nextInt(Loaders.loadingViews.length);
 
-  final GlobalKey _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ProfileCubit _profileCubit = ProfileCubit();
 
   @override
@@ -45,7 +45,11 @@ class ProfileScreen extends StatelessWidget with Validator {
               },
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _profileCubit.updateProfile();
+                    }
+                  },
                   icon: const Icon(Icons.save),
                 ),
               ],
@@ -58,63 +62,68 @@ class ProfileScreen extends StatelessWidget with Validator {
             children: [
               Column(
                 children: [
-                  BlocBuilder<ProfileCubit, ProfileState>(
-                    buildWhen: (prevState, currentState) =>
-                        prevState.isEditing != currentState.isEditing,
-                    builder: (context, state) {
-                      return Stack(
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.35,
-                            height: MediaQuery.of(context).size.width * 0.35,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: _profileCubit.state.isEditing
-                                    ? Theme.of(context).colorScheme.onPrimary
-                                    : Theme.of(context).colorScheme.secondary,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: CircleAvatar(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
-                              radius: 100,
-                              child: Icon(
-                                Icons.person,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryFixed,
-                                size: MediaQuery.of(context).size.width * 0.15,
-                              ),
-                            ),
-                          ),
-                          Visibility(
-                            visible: _profileCubit.state.isEditing,
-                            replacement: const SizedBox.shrink(),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.1,
-                              height: MediaQuery.of(context).size.width * 0.1,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: Spacings.contentSpacingOf32,
+                    ),
+                    child: BlocBuilder<ProfileCubit, ProfileState>(
+                      buildWhen: (prevState, currentState) =>
+                          prevState.isEditing != currentState.isEditing,
+                      builder: (context, state) {
+                        return Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.35,
+                              height: MediaQuery.of(context).size.width * 0.35,
+                              alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryFixed,
+                                border: Border.all(
+                                  color: _profileCubit.state.isEditing
+                                      ? Theme.of(context).colorScheme.onPrimary
+                                      : Theme.of(context).colorScheme.secondary,
+                                  width: 2,
+                                ),
                                 borderRadius: BorderRadius.circular(100),
                               ),
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.camera_alt_rounded,
-                                  color: Theme.of(context).colorScheme.primary,
+                              child: CircleAvatar(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                radius: 100,
+                                child: Icon(
+                                  Icons.person,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryFixed,
+                                  size: MediaQuery.of(context).size.width * 0.15,
                                 ),
                               ),
                             ),
-                          )
-                        ],
-                      );
-                    },
+                            Visibility(
+                              visible: _profileCubit.state.isEditing,
+                              replacement: const SizedBox.shrink(),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.1,
+                                height: MediaQuery.of(context).size.width * 0.1,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryFixed,
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.camera_alt_rounded,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                    ),
                   ),
                   Expanded(
                     child: Form(
@@ -128,11 +137,7 @@ class ProfileScreen extends StatelessWidget with Validator {
                               prevState.isEditing != currentState.isEditing,
                           builder: (context, state) {
                             return Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const SizedBox(
-                                  height: Spacings.contentSpacingOf32,
-                                ),
                                 TextFormField(
                                   enabled: _profileCubit.state.isEditing,
                                   keyboardType: TextInputType.name,
