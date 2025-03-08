@@ -113,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                       BlocBuilder<UserAuthenticationBloc,
                           UserAuthenticationState>(
                         builder: (context, state) {
-                          if (state is UserUnauthorizedState) {
+                          if (state is UserAuthorizedState) {
                             return const SizedBox.shrink();
                           }
                           return ElevatedButton(
