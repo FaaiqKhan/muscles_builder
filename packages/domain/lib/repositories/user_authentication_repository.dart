@@ -1,22 +1,22 @@
 import 'dart:async';
 
 import 'package:data/data.dart';
-import 'package:domain/domain.dart';
+import 'package:data/models/user_model.dart';
 
 abstract interface class UserAuthenticationRepository {
   factory UserAuthenticationRepository() => UserAuthenticationRepositoryImpl();
 
-  FutureOr<void> signUpUser({
+  FutureOr<UserModel> signUpUser({
     required String email,
     required String password,
   });
 
-  FutureOr<void> signInUser({
+  FutureOr<UserModel> signInUser({
     required String email,
     required String password,
   });
 
-  FutureOr<void> signOutUser();
+  FutureOr<bool> signOutUser();
 
-  StreamController<UserEntity?> getUser();
+  Future<UserModel?> getUser();
 }
