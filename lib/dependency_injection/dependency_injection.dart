@@ -1,5 +1,6 @@
 import 'package:domain/domain.dart';
 import 'package:domain/repositories/user_authentication_repository.dart';
+import 'package:domain/repositories/user_profile_repository.dart';
 import 'package:get_it/get_it.dart';
 
 class UsecasesDependencyInjectionContainer {
@@ -9,6 +10,11 @@ class UsecasesDependencyInjectionContainer {
     GetIt.I.registerSingleton(
       UserAuthenticationUseCase(
         UserAuthenticationRepository(),
+      ),
+    );
+    GetIt.I.registerSingleton(
+      UserProfileUsecase(
+        UserProfileRepository(),
       ),
     );
   }
