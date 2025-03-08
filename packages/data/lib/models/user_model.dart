@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-
 class UserModel {
   const UserModel({
     required this.uId,
@@ -28,24 +26,4 @@ class UserModel {
   final int? creationTimestamp;
   final int? lastSignInTimestamp;
   final bool isNewUser;
-}
-
-extension UserModelParser on UserCredential {
-  UserModel toUserModel() {
-    return UserModel(
-      uId: user!.uid,
-      email: user!.email,
-      displayName: user!.displayName,
-      photoUrl: user!.photoURL,
-      phoneNumber: user!.phoneNumber,
-      isAnonymous: user!.isAnonymous,
-      isEmailVerified: user!.emailVerified,
-      providerId: user!.providerData.first.providerId,
-      refreshToken: user!.refreshToken,
-      creationTimestamp: user!.metadata.creationTime?.millisecondsSinceEpoch,
-      lastSignInTimestamp:
-          user!.metadata.lastSignInTime?.millisecondsSinceEpoch,
-      isNewUser: additionalUserInfo!.isNewUser,
-    );
-  }
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:data/constants/constants.dart';
+import 'package:data/extensions/firebase_user_credential_extension.dart';
 import 'package:data/extensions/firebase_user_to_user_entity.dart';
 import 'package:data/models/user_model.dart';
 import 'package:domain/domain.dart';
