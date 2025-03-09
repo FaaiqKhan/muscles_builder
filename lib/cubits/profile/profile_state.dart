@@ -14,17 +14,37 @@ final class ProfileInitial extends ProfileState {
 }
 
 final class ProfileLoading extends ProfileState {
-  const ProfileLoading(super.isEditing);
+  const ProfileLoading() : super(false);
 
   @override
   List<Object> get props => [];
 }
 
+final class ProfileLoaded extends ProfileState {
+  final UserEntity userEntity;
+
+  const ProfileLoaded(this.userEntity) : super(false);
+
+  @override
+  List<Object> get props => [
+        userEntity,
+      ];
+}
+
 final class EditProfile extends ProfileState {
   final bool editProfile;
 
-  const EditProfile(this.editProfile): super(editProfile);
+  const EditProfile(this.editProfile) : super(editProfile);
 
   @override
   List<Object?> get props => [editProfile];
+}
+
+final class ProfileError extends ProfileState {
+  final String errorMessage;
+
+  const ProfileError(this.errorMessage) : super(false);
+
+  @override
+  List<Object?> get props => [errorMessage];
 }

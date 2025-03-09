@@ -16,61 +16,64 @@ class ProfileScreen extends StatelessWidget with Validator {
   final int loaderValue = Random().nextInt(Loaders.loadingViews.length);
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final ProfileCubit _profileCubit = ProfileCubit(
     GetIt.I.get<UserProfileUsecase>(),
-  );
+    GetIt.I.get<UserAuthenticationUseCase>(),
+  )..loadProfile();
 
   final TextEditingController _nameController = TextEditingController();
+
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Text(
-          "Profile",
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-        ),
-        iconTheme: IconThemeData(
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
-        actions: [
-          ExpandableFab(
-            distance: 50,
-            callback: (isOpen) {
-              debugPrint(isOpen.toString());
-              if (isOpen) {
-                _profileCubit.toggleEditing();
-              } else {
-                _profileCubit.toggleEditing();
-              }
-            },
-            children: [
-              IconButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _profileCubit.updateProfile(
-                      name: _nameController.text,
-                      email: _emailController.text,
-                      phoneNumber: _phoneNumberController.text,
-                    );
+    // TODO: Add bloc listener to show snack bar on error
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            title: Text(
+              "Profile",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+            ),
+            iconTheme: IconThemeData(
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
+            actions: [
+              ExpandableFab(
+                distance: 50,
+                callback: (isOpen) {
+                  debugPrint(isOpen.toString());
+                  if (isOpen) {
+                    _profileCubit.toggleEditing();
+                  } else {
+                    _profileCubit.toggleEditing();
                   }
                 },
-                icon: const Icon(Icons.save),
-              ),
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _profileCubit.updateProfile(
+                          name: _nameController.text,
+                          email: _emailController.text,
+                          phoneNumber: "",
+                        );
+                      }
+                    },
+                    icon: const Icon(Icons.save),
+                  ),
+                ],
+              )
             ],
-          )
-        ],
-      ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Column(
+          ),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          body: SafeArea(
+            child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -136,7 +139,7 @@ class ProfileScreen extends StatelessWidget with Validator {
                     },
                   ),
                 ),
-                SingleChildScrollView(
+                Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: Spacings.contentSpacingOf16,
                   ),
@@ -144,9 +147,11 @@ class ProfileScreen extends StatelessWidget with Validator {
                     key: _formKey,
                     child: BlocBuilder<ProfileCubit, ProfileState>(
                       bloc: _profileCubit,
-                      buildWhen: (prevState, currentState) =>
-                          prevState.isEditing != currentState.isEditing,
                       builder: (context, state) {
+                        if (state is ProfileLoaded) {
+                          _nameController.text = state.userEntity.name;
+                          _emailController.text = state.userEntity.email;
+                        }
                         return Column(
                           children: [
                             TextFormField(
@@ -240,53 +245,6 @@ class ProfileScreen extends StatelessWidget with Validator {
                               ),
                               validator: validateName,
                             ),
-                            const SizedBox(
-                              height: Spacings.contentSpacingOf16,
-                            ),
-                            TextFormField(
-                              controller: _phoneNumberController,
-                              enabled: _profileCubit.state.isEditing,
-                              keyboardType: TextInputType.phone,
-                              cursorColor:
-                                  Theme.of(context).colorScheme.onPrimary,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                  ),
-                              decoration: InputDecoration(
-                                labelText: "Phone Number",
-                                prefixIcon: Icon(
-                                  Icons.phone,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimaryFixed,
-                                ),
-                                border: const OutlineInputBorder(),
-                                labelStyle: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimaryFixed,
-                                    ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(15.0),
-                                  ),
-                                ),
-                                disabledBorder: const OutlineInputBorder(),
-                              ),
-                              validator: validatePhoneNumber,
-                            ),
                           ],
                         );
                       },
@@ -295,19 +253,19 @@ class ProfileScreen extends StatelessWidget with Validator {
                 ),
               ],
             ),
-            BlocBuilder<ProfileCubit, ProfileState>(
-              bloc: _profileCubit,
-              builder: (context, state) => Visibility(
-                visible: state is ProfileLoading,
-                child: Loaders.loaderContainer(
-                  context,
-                  loaderValue: loaderValue,
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+        BlocBuilder<ProfileCubit, ProfileState>(
+          bloc: _profileCubit,
+          builder: (context, state) => Visibility(
+            visible: state is ProfileLoading,
+            child: Loaders.loaderContainer(
+              context,
+              loaderValue: loaderValue,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

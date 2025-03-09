@@ -20,9 +20,9 @@ extension UserModelExtensions on UserModel {
       );
     }
     return UserEntity(
-      uId: uId ?? "",
+      uId: uId!,
       name: displayName ?? "",
-      email: email ?? "",
+      email: email!,
       photoUrl: photoUrl ?? "",
       phoneNumber: phoneNumber ?? "",
       isAnonymous: isAnonymous ?? true,
