@@ -34,8 +34,15 @@ class ProfileScreen extends StatelessWidget with Validator {
           height: MediaQuery.of(context).size.height * 0.2,
           child: Column(
             children: [
-              const SizedBox(
-                height: Spacings.contentSpacingOf24,
+              ListTile(
+                title: Text(
+                  "Set profile image",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                trailing: GestureDetector(
+                  onTap: Navigator.of(context).pop,
+                  child: const Icon(Icons.close),
+                ),
               ),
               ListTile(
                 title: const Text("Camera"),
