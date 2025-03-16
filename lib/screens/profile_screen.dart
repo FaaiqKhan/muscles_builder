@@ -26,6 +26,34 @@ class ProfileScreen extends StatelessWidget with Validator {
 
   final TextEditingController _emailController = TextEditingController();
 
+  void showModelBottomSheetForImage(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.2,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: Spacings.contentSpacingOf24,
+              ),
+              ListTile(
+                title: const Text("Camera"),
+                leading: const Icon(Icons.camera_alt),
+                onTap: () {},
+              ),
+              ListTile(
+                title: const Text("Gallery"),
+                leading: const Icon(Icons.browse_gallery),
+                onTap: () {},
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: Add bloc listener to show snack bar on error
@@ -126,7 +154,9 @@ class ProfileScreen extends StatelessWidget with Validator {
                                 borderRadius: BorderRadius.circular(100),
                               ),
                               child: IconButton(
-                                onPressed: () {},
+                                onPressed: () => showModelBottomSheetForImage(
+                                  context,
+                                ),
                                 icon: Icon(
                                   Icons.camera_alt_rounded,
                                   color: Theme.of(context).colorScheme.primary,
