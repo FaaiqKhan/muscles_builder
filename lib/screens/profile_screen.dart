@@ -31,17 +31,22 @@ class ProfileScreen extends StatelessWidget with Validator {
       context: context,
       builder: (context) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.2,
+          height: MediaQuery.of(context).size.height * 0.23,
           child: Column(
             children: [
-              ListTile(
-                title: Text(
-                  "Set profile image",
-                  style: Theme.of(context).textTheme.bodySmall,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Spacings.contentSpacingOf4,
                 ),
-                trailing: GestureDetector(
-                  onTap: Navigator.of(context).pop,
-                  child: const Icon(Icons.close),
+                child: ListTile(
+                  title: Text(
+                    "Set profile image",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  trailing: GestureDetector(
+                    onTap: Navigator.of(context).pop,
+                    child: const Icon(Icons.close),
+                  ),
                 ),
               ),
               ListTile(
@@ -51,7 +56,13 @@ class ProfileScreen extends StatelessWidget with Validator {
               ),
               ListTile(
                 title: const Text("Gallery"),
-                leading: const Icon(Icons.browse_gallery),
+                leading: const Image(
+                  image: AssetImage(
+                    "assets/icons/gallery_icon.png",
+                  ),
+                  width: 24,
+                  height: 24,
+                ),
                 onTap: () {},
               ),
             ],

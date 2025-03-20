@@ -40,6 +40,7 @@ flutter:
     - assets/audio/
     - assets/images/
     - assets/gifs/
+    - assets/icons/
   fonts:
     - family: PressStart2P-Regular
       fonts:
