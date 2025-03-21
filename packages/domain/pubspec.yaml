@@ -1,7 +1,7 @@
 name: domain
 description: "Domain layer"
 version: 0.0.1
-homepage:
+publish_to: none
 
 environment:
   sdk: ^3.5.4
@@ -10,6 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  data:
+    path: ../data
 
   equatable: ^2.0.7
 

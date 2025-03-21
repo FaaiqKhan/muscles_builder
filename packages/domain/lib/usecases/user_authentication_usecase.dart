@@ -1,8 +1,7 @@
 import 'dart:async';
 
+import 'package:data/models/user_model.dart';
 import 'package:domain/domain.dart';
-
-import '../repositories/user_authentication_repository.dart';
 
 abstract interface class UserAuthenticationUseCase {
   factory UserAuthenticationUseCase(
@@ -10,17 +9,19 @@ abstract interface class UserAuthenticationUseCase {
   ) =>
       _UserAuthenticationUseCaseImpl(userAuthenticationRepository);
 
-  FutureOr<void> signUpUser({
+  FutureOr<UserEntity> signUpUser({
     required String email,
     required String password,
   });
 
-  FutureOr<void> signInUser({
+  FutureOr<UserEntity> signInUser({
     required String email,
     required String password,
   });
 
-  StreamController<UserEntity?> getUser();
+  FutureOr<bool> signOutUser();
+
+  FutureOr<UserEntity?> getUser();
 }
 
 class _UserAuthenticationUseCaseImpl implements UserAuthenticationUseCase {
@@ -29,36 +30,48 @@ class _UserAuthenticationUseCaseImpl implements UserAuthenticationUseCase {
   _UserAuthenticationUseCaseImpl(this._userAuthenticationRepository);
 
   @override
-  FutureOr<void> signInUser({
+  FutureOr<UserEntity> signInUser({
     required String email,
     required String password,
   }) async {
     try {
-      await _userAuthenticationRepository.signInUser(
+      UserModel userModel = await _userAuthenticationRepository.signInUser(
         email: email,
         password: password,
       );
+      return userModel.toUserEntity();
     } catch (_) {
       rethrow;
     }
   }
 
   @override
-  FutureOr<void> signUpUser({
+  FutureOr<UserEntity> signUpUser({
     required String email,
     required String password,
   }) async {
     try {
-      await _userAuthenticationRepository.signUpUser(
+      UserModel userModel = await _userAuthenticationRepository.signUpUser(
         email: email,
         password: password,
       );
+      return userModel.toUserEntity();
     } catch (_) {
       rethrow;
     }
   }
 
   @override
-  StreamController<UserEntity?> getUser() =>
-      _userAuthenticationRepository.getUser();
+  FutureOr<bool> signOutUser() async {
+    try {
+      return await _userAuthenticationRepository.signOutUser();
+    } catch (_) {}
+    return false;
+  }
+
+  @override
+  FutureOr<UserEntity?> getUser() async {
+    UserModel? userModel = await _userAuthenticationRepository.getUser();
+    return userModel?.toUserEntity();
+  }
 }

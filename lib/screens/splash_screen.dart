@@ -1,5 +1,8 @@
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:muscles_builder/blocs/user_authentication/user_authentication_bloc.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
@@ -11,7 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
-  Future<bool> init() async {
+  Future<bool> init(BuildContext context) async {
     final instance = await SharedPreferences.getInstance();
     final gameSound = instance.getBool(KeyValueStorageKeys.gameSound);
     if (gameSound == null) {
@@ -48,6 +51,22 @@ class SplashScreen extends StatelessWidget {
       );
     }
 
+    UserEntity? userEntity =
+        await GetIt.I.get<UserAuthenticationUseCase>().getUser();
+    if (context.mounted) {
+      if (userEntity != null) {
+        context.read<UserAuthenticationBloc>().add(
+              UserAuthorized(
+                userEntity,
+              ),
+            );
+      } else {
+        context.read<UserAuthenticationBloc>().add(
+              UserUnauthorized(),
+            );
+      }
+    }
+
     /// Shared preferences are so fast that splash screen comes for
     /// less then a second that's way using delay to show splash screen for 2
     /// seconds event after the data has been loaded.
@@ -61,7 +80,7 @@ class SplashScreen extends StatelessWidget {
       color: Theme.of(context).colorScheme.primary,
       width: MediaQuery.of(context).size.width,
       child: FutureBuilder(
-        future: init(),
+        future: init(context),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             /// Adding Widget post frame callback because when the status of

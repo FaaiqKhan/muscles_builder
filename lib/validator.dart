@@ -36,4 +36,14 @@ mixin Validator {
     }
     return null;
   }
+
+  // Phone number validation
+  String? validatePhoneNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Phone number is required';
+    } else if (!RegExp(r'^(?:[+0]9)?[0-9]{10}$').hasMatch(value)) {
+      return 'Please enter a valid phone number';
+    }
+    return null;
+  }
 }

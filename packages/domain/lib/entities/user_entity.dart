@@ -1,21 +1,21 @@
 import 'package:equatable/equatable.dart';
 
 class UserEntity extends Equatable {
-  const UserEntity(
-    this.uId,
-    this.name,
-    this.email,
-    this.photoUrl,
-    this.phoneNumber,
-    this.isAnonymous,
-    this.isEmailVerified,
-    this.providerId,
-    this.refreshToken,
-    this.creationTimestamp,
-    this.lastSignInTimestamp,
-    this.isNewUser,
-    this.accessToken,
-  );
+  const UserEntity({
+    required this.uId,
+    required this.name,
+    required this.email,
+    required this.photoUrl,
+    required this.phoneNumber,
+    required this.isAnonymous,
+    required this.isEmailVerified,
+    required this.providerId,
+    required this.refreshToken,
+    required this.creationTimestamp,
+    required this.lastSignInTimestamp,
+    required this.isNewUser,
+    required this.accessToken,
+  });
 
   final String uId;
   final String email;
