@@ -4,6 +4,7 @@ import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:muscles_builder/constants/loaders.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/profile/profile_cubit.dart';
@@ -52,7 +53,7 @@ class ProfileScreen extends StatelessWidget with Validator {
               ListTile(
                 title: const Text("Camera"),
                 leading: const Icon(Icons.camera_alt),
-                onTap: () {},
+                onTap: () => _profileCubit.setProfileImage(ImageSource.camera),
               ),
               ListTile(
                 title: const Text("Gallery"),
@@ -63,7 +64,7 @@ class ProfileScreen extends StatelessWidget with Validator {
                   width: 24,
                   height: 24,
                 ),
-                onTap: () {},
+                onTap: () => _profileCubit.setProfileImage(ImageSource.gallery),
               ),
             ],
           ),
