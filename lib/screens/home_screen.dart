@@ -9,6 +9,7 @@ import 'package:muscles_builder/constants/quotes.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_state.dart';
+import 'package:muscles_builder/screens/about_screen.dart';
 import 'package:muscles_builder/screens/contributors_screen.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
 import 'package:muscles_builder/screens/settings_screen.dart';
@@ -194,7 +195,12 @@ class HomeScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
                 onTap: () {
-                  // TODO: Navigate to about page
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const AboutScreen(),
+                    ),
+                  );
                 },
               ),
             ],
