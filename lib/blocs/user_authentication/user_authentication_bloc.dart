@@ -7,10 +7,15 @@ part 'user_authentication_state.dart';
 
 class UserAuthenticationBloc
     extends Bloc<UserAuthenticationEvent, UserAuthenticationState> {
-  UserAuthenticationBloc() : super(const UserUnauthorizedState()) {
+  UserAuthenticationBloc(UserAuthenticationUseCase userAuthenticationUseCase)
+      : _userAuthenticationUseCase = userAuthenticationUseCase,
+        super(const UserUnauthorizedState()) {
     on<UserAuthorized>(_onUserAuthorized);
     on<UserUnauthorized>(_onUserUnauthorized);
+    on<SignOut>(_onSignOut);
   }
+
+  final UserAuthenticationUseCase _userAuthenticationUseCase;
 
   void _onUserAuthorized(
     UserAuthorized event,
@@ -27,6 +32,16 @@ class UserAuthenticationBloc
     UserUnauthorized event,
     Emitter<UserAuthenticationState> emit,
   ) {
+    emit(
+      const UserUnauthorizedState(),
+    );
+  }
+
+  void _onSignOut(
+    SignOut event,
+    Emitter<UserAuthenticationState> emit,
+  ) {
+    _userAuthenticationUseCase.signOutUser();
     emit(
       const UserUnauthorizedState(),
     );

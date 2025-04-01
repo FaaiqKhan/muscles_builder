@@ -19,3 +19,8 @@ class UserUnauthorized extends UserAuthenticationEvent {
   @override
   List<Object?> get props => [];
 }
+
+class SignOut extends UserAuthenticationEvent {
+  @override
+  List<Object?> get props => [];
+}
