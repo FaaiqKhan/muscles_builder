@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "556493263113",
+    "project_id": "muscles-builder",
+    "storage_bucket": "muscles-builder.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556493263113:android:4eb8a58b49fde165fbc3d8",
+        "android_client_info": {
+          "package_name": "com.localEntertainmentGames.muscles_builder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556493263113-f7ogd7mks9asjbivort42tqba7vqlbcc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.localEntertainmentGames.muscles_builder",
+            "certificate_hash": "fa7dbe28e325f1a0057de16bdcd0bce2cf6bf86b"
+          }
+        },
+        {
+          "client_id": "556493263113-g8hfvnnd819do23oeocsjgkvuon74rok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4QPQFhViqOq_oBL1Q6e-n7ZD__Cddp4I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556493263113-g8hfvnnd819do23oeocsjgkvuon74rok.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

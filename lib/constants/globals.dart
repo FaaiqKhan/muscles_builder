@@ -30,4 +30,12 @@ class Globals {
 
   // Gifs
   static const String splashScreenLoadingGIF = "assets/gifs/loading.gif";
+  static const String splashScreenLoading2GIF = "assets/gifs/loading2.gif";
+  static const String splashScreenLoading3GIF = "assets/gifs/loading3.gif";
+  static const String splashScreenLoading4GIF = "assets/gifs/loading4.gif";
+  static const String splashScreenLoading5GIF = "assets/gifs/loading5.gif";
+  static const String splashScreenLoading6GIF = "assets/gifs/loading6.gif";
+  static const String splashScreenLoading7GIF = "assets/gifs/loading7.gif";
+  static const String splashScreenLoading8GIF = "assets/gifs/loading8.gif";
+  static const String splashScreenLoading9GIF = "assets/gifs/loading9.gif";
 }
