@@ -42,6 +42,9 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ],
+        iconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
@@ -109,32 +112,6 @@ class HomeScreen extends StatelessWidget {
                               ),
                         ),
                       ),
-                      const SizedBox(height: Spacings.contentSpacingOf12),
-                      BlocBuilder<UserAuthenticationBloc,
-                          UserAuthenticationState>(
-                        builder: (context, state) {
-                          if (state is UserAuthorizedState) {
-                            return const SizedBox.shrink();
-                          }
-                          return ElevatedButton(
-                            onPressed: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => SignInScreen(),
-                              ),
-                            ),
-                            child: Text(
-                              "SignIn",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                            ),
-                          );
-                        },
-                      ),
                     ],
                   ),
                 ),
@@ -156,6 +133,67 @@ class HomeScreen extends StatelessWidget {
           }
           return const SizedBox.shrink();
         },
+      ),
+      drawer: SafeArea(
+        child: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                child: Center(
+                  child: Text(
+                    "Be healthy, stay happy",
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  "Contributors",
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                onTap: () {
+                  // TODO: Navigate to contributors page
+                },
+              ),
+              BlocBuilder<UserAuthenticationBloc, UserAuthenticationState>(
+                builder: (context, state) {
+                  return ListTile(
+                    onTap: () {
+                      if (state is UserAuthorizedState) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => SignInScreen(),
+                          ),
+                        );
+                      } else {
+                        // TODO: Sign-out flow
+                      }
+                    },
+                    title: Text(
+                      state is UserAuthorizedState ? "Sign-out" : "Sign-in",
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text(
+                  "About",
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                onTap: () {
+                  // TODO: Navigate to about page
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -14,6 +14,8 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   String appVersion = "Version: ";
 
+  String getAppVersion() => appVersion;
+
   void _init() {
     SharedPreferences.getInstance().then((instance) {
       final gameSound = instance.getBool(KeyValueStorageKeys.gameSound) ?? true;
