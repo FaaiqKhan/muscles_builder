@@ -1,18 +1,13 @@
 import 'dart:async';
 
 import 'package:data/constants/constants.dart';
-import 'package:data/extensions/firebase_user_to_user_entity.dart';
+import 'package:data/extensions/firebase_user_extension.dart';
 import 'package:data/models/user_model.dart';
 import 'package:domain/domain.dart';
-import 'package:domain/repositories/user_authentication_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class UserAuthenticationRepositoryImpl extends UserAuthenticationRepository {
+class UserAuthenticationRepositoryImpl implements UserAuthenticationRepository {
   UserAuthenticationRepositoryImpl();
-
-  StreamSubscription<User?>? userSubscription;
-  StreamController<UserEntity?> userController =
-      StreamController<UserEntity?>();
 
   @override
   FutureOr<UserModel> signInUser({
@@ -22,8 +17,12 @@ class UserAuthenticationRepositoryImpl extends UserAuthenticationRepository {
     try {
       final UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      final String accessToken = (await userCredential.user!.getIdToken())!;
 
-      return userCredential.toUserModel();
+      return await userCredential.user!.toUserModel(
+        accessToken,
+        userCredential.additionalUserInfo?.isNewUser ?? true,
+      );
     } on FirebaseAuthException catch (authException) {
       switch (authException.code) {
         case AuthExceptions.userNotFound:
@@ -34,7 +33,7 @@ class UserAuthenticationRepositoryImpl extends UserAuthenticationRepository {
           throw GeneralException();
       }
     } catch (exception) {
-      throw GeneralException(); // TODO: throw general exception and log using firebase analytics
+      throw GeneralException();
     }
   }
 
@@ -46,7 +45,11 @@ class UserAuthenticationRepositoryImpl extends UserAuthenticationRepository {
     try {
       final UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      return userCredential.toUserModel();
+      final String accessToken = (await userCredential.user!.getIdToken())!;
+      return userCredential.user!.toUserModel(
+        accessToken,
+        userCredential.additionalUserInfo?.isNewUser ?? true,
+      );
     } on FirebaseAuthException catch (authException) {
       switch (authException.code) {
         case AuthExceptions.emailAlreadyInUse:
@@ -61,37 +64,24 @@ class UserAuthenticationRepositoryImpl extends UserAuthenticationRepository {
           throw GeneralException();
       }
     } catch (exception) {
-      throw GeneralException(); // TODO: throw general exception and log using firebase analytics
+      throw GeneralException();
     }
   }
 
   @override
-  FutureOr<void> signOutUser() async {
-    await userSubscription?.cancel();
-    await FirebaseAuth.instance.signOut();
+  FutureOr<bool> signOutUser() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      return true;
+    } catch (_) {}
+    return false;
   }
 
   @override
-  StreamController<UserEntity?> getUser() {
-    userSubscription?.cancel();
-    userSubscription = FirebaseAuth.instance.authStateChanges().listen(
-      (user) async {
-        if (user == null) {
-          userController.sink;
-        } else {
-          final token = await user.getIdToken();
-          if (token == null) {
-            userController.sink;
-          } else {
-            userController.sink.addStream(
-              Stream.value(
-                user.toUserEntity(token),
-              ),
-            );
-          }
-        }
-      },
-    );
-    return userController;
+  Future<UserModel?> getUser() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) return null;
+    String accessToken = (await user.getIdToken())!;
+    return user.toUserModel(accessToken, false);
   }
 }
