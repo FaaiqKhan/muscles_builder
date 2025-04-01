@@ -78,10 +78,11 @@ class SignInCubit extends Cubit<SignInState> {
       ),
     );
     try {
-      await _userAuthenticationUseCase.signInUser(
+      final UserEntity userEntity = await _userAuthenticationUseCase.signInUser(
         email: state.email,
         password: state.password,
       );
+      debugPrint(userEntity.uId);
       isSuccess = true;
     } catch (exception) {
       if (exception is MusclesBuilderExceptions) {
