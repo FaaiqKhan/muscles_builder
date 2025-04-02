@@ -40,10 +40,15 @@ class UserAuthenticationBloc
   void _onSignOut(
     SignOut event,
     Emitter<UserAuthenticationState> emit,
-  ) {
-    _userAuthenticationUseCase.signOutUser();
+  ) async {
     emit(
-      const UserUnauthorizedState(),
+      const LoadingState(),
     );
+    try {
+      await _userAuthenticationUseCase.signOutUser();
+      emit(
+        const UserUnauthorizedState(),
+      );
+    } catch (_) {}
   }
 }

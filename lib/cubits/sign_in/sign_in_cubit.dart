@@ -72,17 +72,17 @@ class SignInCubit extends Cubit<SignInState> {
 
   void signIn() async {
     bool isSuccess = false;
+    UserEntity? userEntity;
     emit(
       state.copyWith(
         isLoading: true,
       ),
     );
     try {
-      final UserEntity userEntity = await _userAuthenticationUseCase.signInUser(
+      userEntity = await _userAuthenticationUseCase.signInUser(
         email: state.email,
         password: state.password,
       );
-      debugPrint(userEntity.uId);
       isSuccess = true;
     } catch (exception) {
       if (exception is MusclesBuilderExceptions) {
@@ -103,6 +103,7 @@ class SignInCubit extends Cubit<SignInState> {
         state.copyWith(
           isLoading: false,
           isSuccess: isSuccess,
+          userEntity: userEntity,
         ),
       );
     }

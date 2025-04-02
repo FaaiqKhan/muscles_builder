@@ -9,6 +9,7 @@ abstract class SignInState {
   final bool isLoading;
   final String? errorMessage;
   final bool isSuccess;
+  final UserEntity? userEntity;
 
   const SignInState({
     this.email = '',
@@ -18,6 +19,7 @@ abstract class SignInState {
     this.isLoading = false,
     this.errorMessage,
     this.isSuccess = false,
+    this.userEntity
   });
 
   SignInState copyWith({
@@ -28,6 +30,7 @@ abstract class SignInState {
     bool? isLoading,
     String? errorMessage,
     bool? isSuccess,
+    UserEntity? userEntity,
   });
 }
 
@@ -40,6 +43,7 @@ class SignInStateUpdate extends SignInState {
     super.isLoading,
     super.errorMessage,
     super.isSuccess,
+    super.userEntity,
   });
 
   @override
@@ -51,6 +55,7 @@ class SignInStateUpdate extends SignInState {
     bool? isLoading,
     String? errorMessage,
     bool? isSuccess,
+    UserEntity? userEntity,
   }) {
     return SignInStateUpdate(
       email: email ?? this.email,
@@ -60,6 +65,7 @@ class SignInStateUpdate extends SignInState {
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage,
       isSuccess: isSuccess ?? this.isSuccess,
+      userEntity: userEntity ?? this.userEntity,
     );
   }
 }
