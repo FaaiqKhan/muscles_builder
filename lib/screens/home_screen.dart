@@ -172,14 +172,16 @@ class HomeScreen extends StatelessWidget {
                 builder: (context, state) {
                   return ListTile(
                     onTap: () {
+                      // TODO: Make it blocking call by showing loader
+                      Navigator.of(context).pop();
                       if (state is UserAuthorizedState) {
+                        context.read<UserAuthenticationBloc>().add(SignOut());
+                      } else {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (_) => SignInScreen(),
                           ),
                         );
-                      } else {
-                        // TODO: Sign-out flow
                       }
                     },
                     title: Text(

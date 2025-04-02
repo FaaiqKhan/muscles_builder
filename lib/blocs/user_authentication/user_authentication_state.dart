@@ -21,3 +21,10 @@ final class UserAuthorizedState extends UserAuthenticationState {
         user,
       ];
 }
+
+final class LoadingState extends UserAuthenticationState {
+  const LoadingState();
+
+  @override
+  List<Object?> get props => [];
+}

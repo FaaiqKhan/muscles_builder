@@ -19,3 +19,21 @@ class UserUnauthorized extends UserAuthenticationEvent {
   @override
   List<Object?> get props => [];
 }
+
+class SignOut extends UserAuthenticationEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class SignIn extends UserAuthenticationEvent {
+  final String email;
+  final String password;
+
+  const SignIn(this.email, this.password);
+
+  @override
+  List<Object?> get props => [
+        email,
+        password,
+      ];
+}

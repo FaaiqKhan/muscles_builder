@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:muscles_builder/blocs/user_authentication/user_authentication_bloc.dart';
 import 'package:muscles_builder/commons.dart';
 import 'package:muscles_builder/constants/loaders.dart';
 import 'package:muscles_builder/constants/spacings.dart';
@@ -41,9 +42,6 @@ class SignInScreen extends StatelessWidget with Validator {
     );
   }
 
-  void _navigateToPreviousScreen(BuildContext context) =>
-      Navigator.of(context).pop();
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignInCubit, SignInState>(
@@ -51,8 +49,13 @@ class SignInScreen extends StatelessWidget with Validator {
       listener: (context, state) {
         if (state.errorMessage != null) {
           Commons.showDefaultSnackBar(context, state.errorMessage!);
-        } else if (state.isSuccess) {
-          _navigateToPreviousScreen(context);
+        } else if (state.isSuccess && state.userEntity != null) {
+          context.read<UserAuthenticationBloc>().add(
+                UserAuthorized(
+                  state.userEntity!,
+                ),
+              );
+          Navigator.of(context).pop();
         }
       },
       child: Stack(

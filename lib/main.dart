@@ -1,8 +1,10 @@
+import 'package:domain/domain.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:muscles_builder/blocs/user_authentication/user_authentication_bloc.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
@@ -39,7 +41,9 @@ void main() async {
           value: GoogleAdsCubit(),
         ),
         BlocProvider.value(
-          value: UserAuthenticationBloc(),
+          value: UserAuthenticationBloc(
+            GetIt.I.get<UserAuthenticationUseCase>()
+          ),
         ),
       ],
       child: const MyApp(),
