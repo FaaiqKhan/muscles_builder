@@ -168,29 +168,29 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
-              BlocBuilder<UserAuthenticationBloc, UserAuthenticationState>(
-                builder: (context, state) {
-                  return ListTile(
-                    onTap: () {
-                      // TODO: Make it blocking call by showing loader
-                      Navigator.of(context).pop();
-                      if (state is UserAuthorizedState) {
-                        context.read<UserAuthenticationBloc>().add(SignOut());
-                      } else {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => SignInScreen(),
-                          ),
-                        );
-                      }
-                    },
-                    title: Text(
-                      state is UserAuthorizedState ? "Sign-out" : "Sign-in",
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  );
-                },
-              ),
+              // BlocBuilder<UserAuthenticationBloc, UserAuthenticationState>(
+              //   builder: (context, state) {
+              //     return ListTile(
+              //       onTap: () {
+              //         // TODO: Make it blocking call by showing loader
+              //         Navigator.of(context).pop();
+              //         if (state is UserAuthorizedState) {
+              //           context.read<UserAuthenticationBloc>().add(SignOut());
+              //         } else {
+              //           Navigator.of(context).push(
+              //             MaterialPageRoute(
+              //               builder: (_) => SignInScreen(),
+              //             ),
+              //           );
+              //         }
+              //       },
+              //       title: Text(
+              //         state is UserAuthorizedState ? "Sign-out" : "Sign-in",
+              //         style: Theme.of(context).textTheme.labelSmall,
+              //       ),
+              //     );
+              //   },
+              // ),
               ListTile(
                 title: Text(
                   "About",

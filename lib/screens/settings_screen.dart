@@ -15,7 +15,6 @@ import 'package:muscles_builder/widgets/joystick_position_widget.dart';
 /// 2. Difficulties [Easy, Medium, and Hard]
 /// 3. Change time of game
 /// 4. Joystick position
-/// 5. Application version
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -47,16 +46,16 @@ class SettingsScreen extends StatelessWidget {
               const JoystickPositionWidget(),
               const AppThemeSelectionWidget(),
               const Spacer(),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProfileScreen(),
-                    ),
-                  );
-                },
-                child: const Text("Update profile"),
-              ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(
+              //         builder: (context) => ProfileScreen(),
+              //       ),
+              //     );
+              //   },
+              //   child: const Text("Update profile"),
+              // ),
               const SizedBox(height: Spacings.contentSpacingOf32),
               ElevatedButton(
                 onPressed: () => context.read<SettingsCubit>().resetSettings(),
@@ -66,13 +65,6 @@ class SettingsScreen extends StatelessWidget {
                         color: Theme.of(context).colorScheme.secondary,
                       ),
                 ),
-              ),
-              const SizedBox(height: Spacings.contentSpacingOf32),
-              Text(
-                context.read<SettingsCubit>().appVersion,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
               ),
             ],
           ),

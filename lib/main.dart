@@ -15,19 +15,11 @@ import 'package:muscles_builder/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  UsecasesDependencyInjectionContainer.init();
-  await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: String.fromEnvironment("firebase-apiKey"),
-      appId: String.fromEnvironment("firebase-appId"),
-      messagingSenderId: String.fromEnvironment("firebase-messagingSenderId"),
-      projectId: String.fromEnvironment("firebase-projectId"),
-    ),
-  );
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
+  UsecasesDependencyInjectionContainer.init();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -41,9 +33,8 @@ void main() async {
           value: GoogleAdsCubit(),
         ),
         BlocProvider.value(
-          value: UserAuthenticationBloc(
-            GetIt.I.get<UserAuthenticationUseCase>()
-          ),
+          value:
+              UserAuthenticationBloc(GetIt.I.get<UserAuthenticationUseCase>()),
         ),
       ],
       child: const MyApp(),

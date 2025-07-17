@@ -51,21 +51,21 @@ class SplashScreen extends StatelessWidget {
       );
     }
 
-    UserEntity? userEntity =
-        await GetIt.I.get<UserAuthenticationUseCase>().getUser();
-    if (context.mounted) {
-      if (userEntity != null) {
-        context.read<UserAuthenticationBloc>().add(
-              UserAuthorized(
-                userEntity,
-              ),
-            );
-      } else {
-        context.read<UserAuthenticationBloc>().add(
-              UserUnauthorized(),
-            );
-      }
-    }
+    // UserEntity? userEntity =
+    //     await GetIt.I.get<UserAuthenticationUseCase>().getUser();
+    // if (context.mounted) {
+    //   if (userEntity != null) {
+    //     context.read<UserAuthenticationBloc>().add(
+    //           UserAuthorized(
+    //             userEntity,
+    //           ),
+    //         );
+    //   } else {
+    //     context.read<UserAuthenticationBloc>().add(
+    //           UserUnauthorized(),
+    //         );
+    //   }
+    // }
 
     /// Shared preferences are so fast that splash screen comes for
     /// less then a second that's way using delay to show splash screen for 2
