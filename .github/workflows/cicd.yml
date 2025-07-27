@@ -1,0 +1,19 @@
+name: Test, build and deploy
+
+on:
+  pull_request:
+    branches:
+      - develop
+  push:
+    branches:
+      - develop
+
+permissions: read-all
+
+jobs:
+  example:
+    name: Example of a job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo test
+        run: echo This\ is\ my\ first\ Github\ actions\ job
