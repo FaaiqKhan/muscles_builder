@@ -29,6 +29,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   late SharedPreferences sharedPreferences;
   late PauseButtonComponent _pauseButtonComponent;
   late JoystickComponent joystick;
+  late TextComponent _warmupTimerText;
 
   int score = 0;
   late int _remainingTime;
@@ -64,6 +65,9 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   // Timer object
   late Timer proteinTimer;
 
+  // Warm-up timer object
+  late Timer warmupTimer;
+
   // Random time for the protein to appear
   late int _proteinTimerAppearance;
 
@@ -71,6 +75,9 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   int proteinBonus = 0;
 
   double statusBarHeight = 60;
+
+  // Keep track of warmup time
+  int warmupTime = 5;
 
   Vector2 moveSprite(double speed) {
     // Generate a random angle in radius
@@ -260,6 +267,19 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       },
     );
 
+    warmupTimer = Timer(
+      1,
+      repeat: true,
+      onTick: () {
+        if (warmupTime == 0) {
+          warmupTimer.stop();
+          remove(_warmupTimerText);
+        } else {
+          warmupTime -= 1;
+        }
+      },
+    );
+
     _scoreText = TextComponent(
       text: "Score: $score",
       anchor: Anchor.topLeft,
@@ -279,6 +299,16 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       ),
     );
     add(_timerText);
+
+    _warmupTimerText = TextComponent(
+      text: "Warmup: $warmupTime secs",
+      anchor: Anchor.topLeft,
+      position: Vector2(
+        Spacings.contentSpacingOf12,
+        size.y * 0.08,
+      ),
+    );
+    add(_warmupTimerText);
 
     _pauseButtonComponent = PauseButtonComponent();
     add(_pauseButtonComponent);
@@ -300,6 +330,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     if (_proteinComponent.isLoaded) {
       proteinTimer.update(dt);
     }
+    if (_warmupTimerText.isLoaded && _warmupTimerText.isMounted) {
+      _warmupTimerText.text = "Warmup:$warmupTime";
+      warmupTimer.update(dt);
+    }
   }
 
   @override
@@ -311,6 +345,11 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
           ),
     );
     _timerText.textRenderer = TextPaint(
+      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+    );
+    _warmupTimerText.textRenderer = TextPaint(
       style: Theme.of(context).textTheme.titleSmall?.copyWith(
             color: Theme.of(context).colorScheme.onPrimary,
           ),

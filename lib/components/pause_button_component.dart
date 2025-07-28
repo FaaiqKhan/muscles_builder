@@ -12,8 +12,15 @@ class PauseButtonComponent extends SpriteComponent
   void pauseGame() {
     gameRef.pauseEngine();
     gameRef.timer.pause();
-    gameRef.vaccineTimer.pause();
-    gameRef.proteinTimer.pause();
+    if (gameRef.vaccineTimer.isRunning()) {
+      gameRef.vaccineTimer.pause();
+    }
+    if (gameRef.warmupTimer.isRunning()) {
+      gameRef.proteinTimer.pause();
+    }
+    if (gameRef.warmupTimer.isRunning()) {
+      gameRef.warmupTimer.pause();
+    }
     gameRef.overlays.add(GamePauseScreen.id);
   }
 
