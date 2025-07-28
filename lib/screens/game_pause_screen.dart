@@ -29,6 +29,7 @@ class GamePauseScreen extends StatelessWidget {
                 gameRef.timer.resume();
                 gameRef.vaccineTimer.resume();
                 gameRef.proteinTimer.resume();
+                gameRef.warmupTimer.resume();
                 gameRef.overlays.remove(GamePauseScreen.id);
               },
               child: const Text("Back to Gym"),
