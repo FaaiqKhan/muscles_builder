@@ -1,1 +1,4 @@
+# Authorized digital sellers for Muscles Builder
+# Format: <ad system domain>, <publisher ID>, <relationship type>, <certification authority ID>
+
 google.com, pub-1555928518606225, DIRECT, f08c47fec0942fa0
