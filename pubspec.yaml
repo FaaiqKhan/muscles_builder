@@ -43,6 +43,6 @@ flutter:
     - assets/gifs/
     - assets/icons/
   fonts:
-    - family: PressStart2P-Regular
+    - family: Bungee-Regular
       fonts:
-        - asset: assets/google_fonts/PressStart2P-Regular.ttf
+        - asset: assets/google_fonts/Bungee-Regular.ttf
