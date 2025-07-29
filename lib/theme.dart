@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 final ThemeData _parentTheme = ThemeData(
   useMaterial3: true,
-  fontFamily: 'PressStart2P-Regular',
+  fontFamily: "Bungee-Regular",
   textTheme: const TextTheme(
     displayLarge: TextStyle(
       fontSize: 28,
