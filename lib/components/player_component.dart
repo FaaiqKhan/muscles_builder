@@ -43,8 +43,8 @@ class PlayerComponent extends SpriteComponent
       }
       virusAttacked = true;
       playerSprite();
-      if (gameRef.score > 0) {
-        gameRef.score -= 1;
+      if (gameRef.gameStatusPanelComponent.getScore() > 0) {
+        gameRef.gameStatusPanelComponent.decreaseScoreBy(1);
       }
       _timer.start();
     }
@@ -58,9 +58,10 @@ class PlayerComponent extends SpriteComponent
   void playerSprite() {
     if (virusAttacked) {
       sprite = playerFever;
-    } else if (gameRef.score > 10 && gameRef.score <= 20) {
+    } else if (gameRef.gameStatusPanelComponent.getScore() > 10 &&
+        gameRef.gameStatusPanelComponent.getScore() <= 20) {
       sprite = playerFit;
-    } else if (gameRef.score > 20) {
+    } else if (gameRef.gameStatusPanelComponent.getScore() > 20) {
       sprite = playerMuscular;
     } else {
       sprite = playerSkinny;
@@ -144,7 +145,7 @@ class PlayerComponent extends SpriteComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (gameRef.warmupTime != 0) {
+    if (gameRef.gameStatusPanelComponent.getWarmupTime() != 0) {
       return;
     } else if (other is VirusComponent && !isVaccinated && !virusAttacked) {
       _freezePlayer();
@@ -154,7 +155,7 @@ class PlayerComponent extends SpriteComponent
       gameRef.remove(other);
       // Generate number from 0 to 8
       int randomBonusScore = gameRef.random.nextInt(9);
-      gameRef.score += randomBonusScore;
+      gameRef.gameStatusPanelComponent.increaseScoreBy(randomBonusScore);
       if (gameRef.isGameSoundOn) {
         FlameAudio.play(Globals.proteinSound);
       }

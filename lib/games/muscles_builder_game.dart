@@ -9,7 +9,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
-import 'package:muscles_builder/components/pause_button_component.dart';
+import 'package:muscles_builder/components/game_status_panel_component.dart';
 import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
@@ -17,22 +17,17 @@ import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
-import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/screens/game_over_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
-  late Timer timer;
-  late TextComponent _scoreText;
-  late TextComponent _timerText;
   late PlayerComponent playerComponent;
   late SharedPreferences sharedPreferences;
-  late PauseButtonComponent _pauseButtonComponent;
-  late JoystickComponent joystick;
-  late TextComponent _warmupTimerText;
 
-  int score = 0;
-  late int _remainingTime;
+  late GameStatusPanelComponent gameStatusPanelComponent;
+  late JoystickComponent joystick;
+
+  int _remainingTime = 0;
   late bool isGameSoundOn;
   late GameDifficultyLevel gameDifficultyLevel;
 
@@ -65,19 +60,18 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   // Timer object
   late Timer proteinTimer;
 
-  // Warm-up timer object
-  late Timer warmupTimer;
-
   // Random time for the protein to appear
-  late int _proteinTimerAppearance;
+  int _proteinTimerAppearance = 0;
 
   // Keep track of any bonus
   int proteinBonus = 0;
 
   double statusBarHeight = 60;
 
-  // Keep track of warmup time
-  int warmupTime = 5;
+  // Application theme instance because FlameGame cannot access buildContext
+  final ThemeData themeData;
+
+  MusclesBuilderGame({required this.themeData});
 
   Vector2 moveSprite(double speed) {
     // Generate a random angle in radius
@@ -109,6 +103,20 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         return 45;
       case ExerciseTime.oneMinute:
         return 60;
+    }
+  }
+
+  int getWarmupTime() {
+    final String warmupTimeKey =
+        sharedPreferences.getString(KeyValueStorageKeys.warmupTime) ??
+            WarmupTime.fiveSeconds.name;
+    switch (WarmupTime.values.byName(warmupTimeKey)) {
+      case WarmupTime.fiveSeconds:
+        return 5;
+      case WarmupTime.threeSeconds:
+        return 3;
+      case WarmupTime.zeroSeconds:
+        return 0;
     }
   }
 
@@ -183,10 +191,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         );
         break;
     }
-    add(joystick);
 
     playerComponent = PlayerComponent(joystick: joystick);
-    add(playerComponent);
 
     add(DumbbellComponent());
 
@@ -220,23 +226,18 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     // Any collision on the bounds of the view port
     add(ScreenHitbox());
 
-    timer = Timer(
+    Timer(
       1,
       repeat: true,
       onTick: () {
-        if (_remainingTime == 0) {
-          pauseEngine();
-          overlays.add(GameOverScreen.id);
-        } else if (_remainingTime == _vaccineTimerAppearance) {
+        if (_remainingTime == _vaccineTimerAppearance) {
           add(vaccineComponent);
         } else if (_remainingTime == _proteinTimerAppearance) {
           add(_proteinComponent);
-          proteinTimer.start();
         }
         _remainingTime -= 1;
       },
     );
-    timer.start();
 
     vaccineTimer = Timer(
       1,
@@ -252,7 +253,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         }
       },
     );
-
     proteinTimer = Timer(
       1,
       repeat: true,
@@ -267,60 +267,22 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       },
     );
 
-    warmupTimer = Timer(
-      1,
-      repeat: true,
-      onTick: () {
-        if (warmupTime == 0) {
-          warmupTimer.stop();
-          remove(_warmupTimerText);
-        } else {
-          warmupTime -= 1;
-        }
-      },
+    gameStatusPanelComponent = GameStatusPanelComponent(
+      gameTime: getExerciseTime(),
+      warmupTime: getWarmupTime(),
+      onGameTimeComplete: () {
+        pauseEngine();
+        overlays.add(GameOverScreen.id);
+      }
     );
 
-    _scoreText = TextComponent(
-      text: "Score: $score",
-      anchor: Anchor.topLeft,
-      position: Vector2(
-        Spacings.contentSpacingOf12,
-        size.y * 0.01,
-      ),
-    );
-    add(_scoreText);
-
-    _timerText = TextComponent(
-      text: "Time: $_remainingTime secs",
-      anchor: Anchor.topLeft,
-      position: Vector2(
-        Spacings.contentSpacingOf12,
-        size.y * 0.04,
-      ),
-    );
-    add(_timerText);
-
-    _warmupTimerText = TextComponent(
-      text: "Warmup: $warmupTime secs",
-      anchor: Anchor.topLeft,
-      position: Vector2(
-        Spacings.contentSpacingOf12,
-        size.y * 0.08,
-      ),
-    );
-    add(_warmupTimerText);
-
-    _pauseButtonComponent = PauseButtonComponent();
-    add(_pauseButtonComponent);
+    addAll([joystick, playerComponent, gameStatusPanelComponent]);
     super.onLoad();
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    timer.update(dt);
-    _scoreText.text = "Score:$score";
-    _timerText.text = "Time:$_remainingTime";
     if (playerComponent.isVaccinated) {
       vaccineTimer.update(dt);
     } else if (_vaccineTimerAppearance == 0 && _remainingTime > 3) {
@@ -330,31 +292,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     if (_proteinComponent.isLoaded) {
       proteinTimer.update(dt);
     }
-    if (_warmupTimerText.isLoaded && _warmupTimerText.isMounted) {
-      _warmupTimerText.text = "Warmup:$warmupTime";
-      warmupTimer.update(dt);
-    }
-  }
-
-  @override
-  void onAttach() {
-    final context = buildContext!;
-    _scoreText.textRenderer = TextPaint(
-      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-    );
-    _timerText.textRenderer = TextPaint(
-      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-    );
-    _warmupTimerText.textRenderer = TextPaint(
-      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-    );
-    super.onAttach();
   }
 
   @override
@@ -366,7 +303,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   }
 
   void reset() async {
-    score = 0;
     _remainingTime = getExerciseTime();
     _vaccineImmunityTimer = 4;
     vaccineComponent.removeFromParent();
@@ -375,6 +311,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     _proteinTimerAppearance = random.nextInt(_remainingTime - 5) + 5;
     playerComponent.sprite = await loadSprite(Globals.playerSkinnySprite);
     playerComponent.removeVaccine();
+    gameStatusPanelComponent.reset(
+      gameTime: getExerciseTime(),
+      warmupTime: getWarmupTime(),
+    );
   }
 
   @override
@@ -388,5 +328,17 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       overlays: SystemUiOverlay.values,
     );
     super.onRemove();
+  }
+
+  void playAgain() {
+    reset();
+    overlays.remove(GameOverScreen.id);
+    resumeEngine();
+  }
+
+  void exitGame() {
+    reset();
+    detach();
+    overlays.remove(GameOverScreen.id);
   }
 }

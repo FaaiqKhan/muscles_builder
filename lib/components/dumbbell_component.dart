@@ -59,13 +59,13 @@ class DumbbellComponent extends SpriteComponent
       removeFromParent();
       switch (dumbbell) {
         case Globals.dumbbellMediumSprite:
-          gameRef.score += 2;
+          gameRef.gameStatusPanelComponent.increaseScoreBy(2);
           break;
         case Globals.dumbbellHeavySprite:
-          gameRef.score += 3;
+          gameRef.gameStatusPanelComponent.increaseScoreBy(3);
           break;
         default:
-          gameRef.score += 1;
+          gameRef.gameStatusPanelComponent.increaseScoreBy(1);
       }
       gameRef.add(DumbbellComponent());
     }
