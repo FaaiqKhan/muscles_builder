@@ -13,7 +13,6 @@ class ScorePanelBackground extends CustomPainterComponent {
 
   @override
   void render(Canvas canvas) {
-    super.render(canvas);
     final rect = Rect.fromLTWH(0, 0, size.x, size.y);
     final shadowRect = Rect.fromLTRB(-5, -5, size.x + 5, size.y + 2.5);
     final rRect = RRect.fromRectAndRadius(
@@ -23,10 +22,12 @@ class ScorePanelBackground extends CustomPainterComponent {
 
     // Draw shadow first
     final path = Path()
-      ..addRRect(RRect.fromRectAndRadius(
-        shadowRect,
-        const Radius.circular(12),
-      ));
+      ..addRRect(
+        RRect.fromRectAndRadius(
+          shadowRect,
+          const Radius.circular(12),
+        ),
+      );
     canvas.drawShadow(path, fillColor, 6, false);
 
     // Draw fill
@@ -39,5 +40,6 @@ class ScorePanelBackground extends CustomPainterComponent {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
     canvas.drawRRect(rRect, borderPaint);
+    super.render(canvas);
   }
 }

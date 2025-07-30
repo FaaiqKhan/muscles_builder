@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:flame/components.dart';
+import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/pause_button_component.dart';
 import 'package:muscles_builder/components/score_panel_background_component.dart';
 import 'package:muscles_builder/constants/spacings.dart';
@@ -11,7 +10,7 @@ class GameStatusPanelComponent extends PositionComponent
   late TextComponent timeText;
   late TextComponent scoreText;
   late TextComponent warmupText;
-  late SpriteComponent pauseButton;
+  late PauseButtonComponent pauseButton;
 
   int _score = 0;
   double _timeLeft;
@@ -92,10 +91,16 @@ class GameStatusPanelComponent extends PositionComponent
     );
 
     // Pause Button
-    pauseButton = PauseButtonComponent()
-      ..size = Vector2(40, 40)
-      ..position = Vector2(size.x - 50, size.y / 2 - 20)
-      ..anchor = Anchor.topLeft;
+    pauseButton = PauseButtonComponent(
+      radius: 25,
+      position: Vector2(
+        size.x - Spacings.contentSpacingOf12 - 25,
+        size.y / 2,
+      ),
+      iconColor: game.themeData.colorScheme.onPrimary,
+      borderColor: game.themeData.colorScheme.onPrimaryFixed,
+      backgroundColor: game.themeData.colorScheme.secondary,
+    );
 
     addAll([scoreText, timeText, warmupText, pauseButton]);
   }
