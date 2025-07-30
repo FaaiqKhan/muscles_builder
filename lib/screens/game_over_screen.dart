@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/constants/spacings.dart';
-import 'package:muscles_builder/games/muscles_builder_game.dart';
 import 'package:muscles_builder/widgets/screen_title.dart';
 
 class GameOverScreen extends StatelessWidget {
-  const GameOverScreen({super.key, required this.gameRef});
-
   static const String id = "game_over_menu_screen";
-  final MusclesBuilderGame gameRef;
+
+  final int score;
+  final int proteinBonus;
+
+  final VoidCallback exitGame;
+  final VoidCallback playAgain;
+
+  const GameOverScreen({
+    required this.score,
+    required this.proteinBonus,
+    required this.exitGame,
+    required this.playAgain,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,24 +38,20 @@ class GameOverScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Score: ${gameRef.score}",
+                      "Score: $score",
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Theme.of(context).colorScheme.onPrimary,
                           ),
                     ),
                     Text(
-                      "(Protein Bonus: ${gameRef.proteinBonus})",
+                      "(Protein Bonus: $proteinBonus)",
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Theme.of(context).colorScheme.onPrimary,
                           ),
                     ),
                     const SizedBox(height: Spacings.contentSpacingOf32),
                     ElevatedButton(
-                      onPressed: () {
-                        gameRef.reset();
-                        gameRef.resumeEngine();
-                        gameRef.overlays.remove(GameOverScreen.id);
-                      },
+                      onPressed: playAgain,
                       child: Text(
                         "Again",
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
@@ -55,12 +61,7 @@ class GameOverScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: Spacings.contentSpacingOf12),
                     ElevatedButton(
-                      onPressed: () {
-                        gameRef.reset();
-                        gameRef.resumeEngine();
-                        gameRef.overlays.remove(GameOverScreen.id);
-                        Navigator.of(context).pop();
-                      },
+                      onPressed: exitGame,
                       child: Text(
                         "I'm tired",
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(

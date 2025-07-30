@@ -7,7 +7,7 @@ import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class VirusComponent extends SpriteComponent
-    with HasGameRef<MusclesBuilderGame>, CollisionCallbacks {
+    with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
   VirusComponent({required this.startPosition});
 
   late double _speed;
@@ -20,11 +20,11 @@ class VirusComponent extends SpriteComponent
   @override
   FutureOr<void> onLoad() async {
     await super.onLoad();
-    sprite = await gameRef.loadSprite(Globals.virusSprite);
+    sprite = await game.loadSprite(Globals.virusSprite);
     position = startPosition;
     width = height = _spriteHeight;
     anchor = Anchor.center;
-    switch (gameRef.gameDifficultyLevel) {
+    switch (game.gameDifficultyLevel) {
       case GameDifficultyLevel.easy:
         _speed = 200;
         break;
@@ -35,7 +35,7 @@ class VirusComponent extends SpriteComponent
         _speed = 300;
         break;
     }
-    _velocity = gameRef.moveSprite(_speed);
+    _velocity = game.moveSprite(_speed);
     add(CircleHitbox());
   }
 
@@ -54,7 +54,7 @@ class VirusComponent extends SpriteComponent
         // at the very left side
         _velocity.x = -_velocity.x;
       }
-      if (collisionPoint.x >= gameRef.size.x - 60) {
+      if (collisionPoint.x >= game.size.x - 60) {
         // at the very right side
         _velocity.x = -_velocity.x;
       }
@@ -62,7 +62,7 @@ class VirusComponent extends SpriteComponent
         // at the very top side
         _velocity.y = -_velocity.y;
       }
-      if (collisionPoint.y >= gameRef.size.y - 60) {
+      if (collisionPoint.y >= game.size.y - 60) {
         // at the very bottom side
         _velocity.y = -_velocity.y;
       }

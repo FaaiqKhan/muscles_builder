@@ -10,11 +10,19 @@ class MusclesBuilderGameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GameWidget(
-      game: MusclesBuilderGame(),
+      game: MusclesBuilderGame(
+        themeData: Theme.of(context)
+      ),
       overlayBuilderMap: {
         GameOverScreen.id: (BuildContext context, MusclesBuilderGame gameRef) {
           return GameOverScreen(
-            gameRef: gameRef,
+            score: gameRef.gameStatusPanelComponent.getScore(),
+            proteinBonus: gameRef.proteinBonus,
+            exitGame: () {
+              gameRef.exitGame();
+              Navigator.of(context).pop();
+            },
+            playAgain: gameRef.playAgain,
           );
         },
         GamePauseScreen.id: (BuildContext context, MusclesBuilderGame gameRef) {

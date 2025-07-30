@@ -11,7 +11,7 @@ class GamePauseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.withOpacity(0.5),
+      backgroundColor: Colors.grey.withAlpha(128),
       body: AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -26,10 +26,9 @@ class GamePauseScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 gameRef.resumeEngine();
-                gameRef.timer.resume();
+                // gameRef.timer.resume();
                 gameRef.vaccineTimer.resume();
                 gameRef.proteinTimer.resume();
-                gameRef.warmupTimer.resume();
                 gameRef.overlays.remove(GamePauseScreen.id);
               },
               child: const Text("Back to Gym"),

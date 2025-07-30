@@ -1,5 +1,3 @@
-library domain;
-
 export "entities/user_entity.dart";
 
 export "exceptions/muscles_builder_exceptions.dart";

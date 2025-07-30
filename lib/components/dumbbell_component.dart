@@ -9,19 +9,19 @@ import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class DumbbellComponent extends SpriteComponent
-    with HasGameRef<MusclesBuilderGame>, CollisionCallbacks {
+    with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
   final double desiredRatio = 0.13;
   final double resizedWidth = 512;
   final int fontGapping = 20;
   late String dumbbell;
 
   Vector2 _getRandomDumbbellPosition(double spriteSize) {
-    final context = gameRef.buildContext!;
+    final context = game.buildContext!;
     final h = MediaQuery.of(context).viewPadding.top + fontGapping + spriteSize;
-    final int width = (gameRef.size.x - spriteSize).toInt();
-    final int height = (gameRef.size.y - h - spriteSize).toInt();
-    double calculatedX = gameRef.random.nextInt(width).toDouble();
-    double calculatedY = gameRef.random.nextInt(height).toDouble();
+    final int width = (game.size.x - spriteSize).toInt();
+    final int height = (game.size.y - h - spriteSize).toInt();
+    double calculatedX = game.random.nextInt(width).toDouble();
+    double calculatedY = game.random.nextInt(height).toDouble();
     final x = calculatedX < spriteSize ? spriteSize : calculatedX;
     final y = calculatedY <= h ? h + calculatedY : calculatedY;
     return Vector2(x, y);
@@ -30,10 +30,10 @@ class DumbbellComponent extends SpriteComponent
   @override
   FutureOr<void> onLoad() async {
     super.onLoad();
-    final randomValue = gameRef.random.nextInt(gameRef.dumbbells.length);
-    dumbbell = gameRef.dumbbells[randomValue];
+    final randomValue = game.random.nextInt(game.dumbbells.length);
+    dumbbell = game.dumbbells[randomValue];
 
-    sprite = await gameRef.loadSprite(dumbbell);
+    sprite = await game.loadSprite(dumbbell);
     final resizeRatio = sprite!.srcSize.x / sprite!.srcSize.y;
 
     width = resizedWidth * desiredRatio;
@@ -53,21 +53,21 @@ class DumbbellComponent extends SpriteComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
     if (other is PlayerComponent) {
-      if (gameRef.isGameSoundOn) {
+      if (game.isGameSoundOn) {
         FlameAudio.play(Globals.dumbbellSound);
       }
       removeFromParent();
       switch (dumbbell) {
         case Globals.dumbbellMediumSprite:
-          gameRef.score += 2;
+          game.gameStatusPanelComponent.increaseScoreBy(2);
           break;
         case Globals.dumbbellHeavySprite:
-          gameRef.score += 3;
+          game.gameStatusPanelComponent.increaseScoreBy(3);
           break;
         default:
-          gameRef.score += 1;
+          game.gameStatusPanelComponent.increaseScoreBy(1);
       }
-      gameRef.add(DumbbellComponent());
+      game.add(DumbbellComponent());
     }
   }
 }
