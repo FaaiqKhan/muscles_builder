@@ -13,7 +13,6 @@ import 'package:muscles_builder/screens/about_screen.dart';
 import 'package:muscles_builder/screens/contributors_screen.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
 import 'package:muscles_builder/screens/settings_screen.dart';
-import 'package:muscles_builder/screens/sign_in_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

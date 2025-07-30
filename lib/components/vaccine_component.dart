@@ -7,7 +7,7 @@ import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class VaccineComponent extends SpriteComponent
-    with HasGameRef<MusclesBuilderGame>, CollisionCallbacks {
+    with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
   VaccineComponent({required this.startPosition});
 
   final double _spriteHeight = 60;
@@ -19,11 +19,11 @@ class VaccineComponent extends SpriteComponent
   @override
   FutureOr<void> onLoad() async {
     await super.onLoad();
-    sprite = await gameRef.loadSprite(Globals.vaccineSprite);
+    sprite = await game.loadSprite(Globals.vaccineSprite);
     position = startPosition;
     width = height = _spriteHeight;
     anchor = Anchor.center;
-    _velocity = gameRef.moveSprite(_speed);
+    _velocity = game.moveSprite(_speed);
     add(CircleHitbox());
   }
 
@@ -42,7 +42,7 @@ class VaccineComponent extends SpriteComponent
         // at the very left side
         _velocity.x = -_velocity.x;
       }
-      if (collisionPoint.x >= gameRef.size.x - 60) {
+      if (collisionPoint.x >= game.size.x - 60) {
         // at the very right side
         _velocity.x = -_velocity.x;
       }
@@ -50,12 +50,12 @@ class VaccineComponent extends SpriteComponent
         // at the very top side
         _velocity.y = -_velocity.y;
       }
-      if (collisionPoint.y >= gameRef.size.y - 60) {
+      if (collisionPoint.y >= game.size.y - 60) {
         // at the very bottom side
         _velocity.y = -_velocity.y;
       }
     } else if (other is PlayerComponent &&
-        !gameRef.playerComponent.virusAttacked) {
+        !game.playerComponent.virusAttacked) {
       removeFromParent();
     }
   }

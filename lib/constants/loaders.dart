@@ -24,7 +24,7 @@ class Loaders {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      color: Theme.of(context).colorScheme.onSecondary.withOpacity(0.2),
+      color: Theme.of(context).colorScheme.onSecondary.withAlpha(50),
       child: Image.asset(
         scale: 0.9,
         Loaders.getRandomLoadingView(value: loaderValue),

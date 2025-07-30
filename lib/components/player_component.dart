@@ -11,7 +11,7 @@ import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class PlayerComponent extends SpriteComponent
-    with HasGameRef<MusclesBuilderGame>, CollisionCallbacks {
+    with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
   PlayerComponent({required this.joystick});
 
   final double _speed = 500;
@@ -38,13 +38,13 @@ class PlayerComponent extends SpriteComponent
 
   void _freezePlayer() {
     if (!virusAttacked) {
-      if (gameRef.isGameSoundOn) {
+      if (game.isGameSoundOn) {
         FlameAudio.play(Globals.virusSound);
       }
       virusAttacked = true;
       playerSprite();
-      if (gameRef.gameStatusPanelComponent.getScore() > 0) {
-        gameRef.gameStatusPanelComponent.decreaseScoreBy(1);
+      if (game.gameStatusPanelComponent.getScore() > 0) {
+        game.gameStatusPanelComponent.decreaseScoreBy(1);
       }
       _timer.start();
     }
@@ -58,10 +58,10 @@ class PlayerComponent extends SpriteComponent
   void playerSprite() {
     if (virusAttacked) {
       sprite = playerFever;
-    } else if (gameRef.gameStatusPanelComponent.getScore() > 10 &&
-        gameRef.gameStatusPanelComponent.getScore() <= 20) {
+    } else if (game.gameStatusPanelComponent.getScore() > 10 &&
+        game.gameStatusPanelComponent.getScore() <= 20) {
       sprite = playerFit;
-    } else if (gameRef.gameStatusPanelComponent.getScore() > 20) {
+    } else if (game.gameStatusPanelComponent.getScore() > 20) {
       sprite = playerMuscular;
     } else {
       sprite = playerSkinny;
@@ -71,13 +71,13 @@ class PlayerComponent extends SpriteComponent
   @override
   FutureOr<void> onLoad() async {
     await super.onLoad();
-    playerFit = await gameRef.loadSprite(Globals.playerFitSprite);
-    playerFever = await gameRef.loadSprite(Globals.playerFeverSprite);
-    playerSkinny = await gameRef.loadSprite(Globals.playerSkinnySprite);
-    playerMuscular = await gameRef.loadSprite(Globals.playerMuscularSprite);
+    playerFit = await game.loadSprite(Globals.playerFitSprite);
+    playerFever = await game.loadSprite(Globals.playerFeverSprite);
+    playerSkinny = await game.loadSprite(Globals.playerSkinnySprite);
+    playerMuscular = await game.loadSprite(Globals.playerMuscularSprite);
 
     playerSprite();
-    position = gameRef.size / 2;
+    position = game.size / 2;
     height = width = _spriteWidthHeight;
     anchor = Anchor.center;
 
@@ -89,13 +89,13 @@ class PlayerComponent extends SpriteComponent
 
   @override
   void onMount() {
-    final context = gameRef.buildContext!;
+    final context = game.buildContext!;
     _leftBounds = oneHalfOfSpriteWidth;
     _topBounds = oneHalfOfSpriteHeight +
         MediaQuery.of(context).viewPadding.top +
         Theme.of(context).textTheme.displaySmall!.fontSize!;
-    _rightBounds = gameRef.size.x - oneHalfOfSpriteWidth;
-    _bottomBounds = gameRef.size.y - oneHalfOfSpriteHeight;
+    _rightBounds = game.size.x - oneHalfOfSpriteWidth;
+    _bottomBounds = game.size.y - oneHalfOfSpriteHeight;
     super.onMount();
   }
 
@@ -131,10 +131,10 @@ class PlayerComponent extends SpriteComponent
   void injectVaccine() {
     if (!virusAttacked) {
       isVaccinated = true;
-      if (gameRef.isGameSoundOn) {
+      if (game.isGameSoundOn) {
         FlameAudio.play(Globals.vaccineSound);
       }
-      gameRef.vaccineTimer.start();
+      game.vaccineTimer.start();
     }
   }
 
@@ -145,22 +145,22 @@ class PlayerComponent extends SpriteComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (gameRef.gameStatusPanelComponent.getWarmupTime() != 0) {
+    if (game.gameStatusPanelComponent.getWarmupTime() != 0) {
       return;
     } else if (other is VirusComponent && !isVaccinated && !virusAttacked) {
       _freezePlayer();
     } else if (other is VaccineComponent && !virusAttacked) {
       injectVaccine();
     } else if (other is ProteinComponent && !virusAttacked) {
-      gameRef.remove(other);
+      game.remove(other);
       // Generate number from 0 to 8
-      int randomBonusScore = gameRef.random.nextInt(9);
-      gameRef.gameStatusPanelComponent.increaseScoreBy(randomBonusScore);
-      if (gameRef.isGameSoundOn) {
+      int randomBonusScore = game.random.nextInt(9);
+      game.gameStatusPanelComponent.increaseScoreBy(randomBonusScore);
+      if (game.isGameSoundOn) {
         FlameAudio.play(Globals.proteinSound);
       }
-      gameRef.proteinTimer.stop();
-      gameRef.proteinBonus = randomBonusScore;
+      game.proteinTimer.stop();
+      game.proteinBonus = randomBonusScore;
     }
   }
 }
