@@ -112,9 +112,9 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
             WarmupTime.fiveSeconds.name;
     switch (WarmupTime.values.byName(warmupTimeKey)) {
       case WarmupTime.fiveSeconds:
-        return 5;
+        return 6;
       case WarmupTime.threeSeconds:
-        return 3;
+        return 4;
       case WarmupTime.zeroSeconds:
         return 0;
     }
@@ -270,10 +270,16 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     gameStatusPanelComponent = GameStatusPanelComponent(
       gameTime: getExerciseTime(),
       warmupTime: getWarmupTime(),
+      titleTextStyle: themeData.textTheme.titleSmall!.copyWith(
+        color: themeData.colorScheme.onPrimaryFixed,
+      ),
+      valueTextStyle: themeData.textTheme.titleSmall!.copyWith(
+        color: themeData.colorScheme.onPrimary,
+      ),
       onGameTimeComplete: () {
         pauseEngine();
         overlays.add(GameOverScreen.id);
-      }
+      },
     );
 
     addAll([joystick, playerComponent, gameStatusPanelComponent]);

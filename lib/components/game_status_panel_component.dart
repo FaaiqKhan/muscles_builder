@@ -1,16 +1,20 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/pause_button_component.dart';
+import 'package:muscles_builder/components/rich_text_component.dart';
 import 'package:muscles_builder/components/score_panel_background_component.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class GameStatusPanelComponent extends PositionComponent
     with HasGameReference<MusclesBuilderGame> {
-  late TextComponent timeText;
-  late TextComponent scoreText;
-  late TextComponent warmupText;
+  late RichTextComponent timeText;
+  late RichTextComponent scoreText;
+  late RichTextComponent warmupText;
   late PauseButtonComponent pauseButton;
+
+  final TextStyle titleTextStyle;
+  final TextStyle valueTextStyle;
 
   int _score = 0;
   double _timeLeft;
@@ -21,6 +25,8 @@ class GameStatusPanelComponent extends PositionComponent
   GameStatusPanelComponent({
     required int gameTime,
     required int warmupTime,
+    required this.titleTextStyle,
+    required this.valueTextStyle,
     required this.onGameTimeComplete,
   })  : _timeLeft = gameTime.toDouble(),
         _warmupTimeLeft = warmupTime.toDouble(),
@@ -49,46 +55,62 @@ class GameStatusPanelComponent extends PositionComponent
     final textSpacingDividend = size.y / 3.25;
 
     // TIME Text
-    timeText = TextComponent(
-      text: "TIME: 30",
-      position: Vector2(
+    timeText = RichTextComponent(
+      span: TextSpan(
+        children: [
+          TextSpan(
+            text: "TIME: ",
+            style: titleTextStyle,
+          ),
+          TextSpan(
+            text: _timeLeft.toInt().toString(),
+            style: valueTextStyle,
+          ),
+        ],
+      ),
+    )..position = Vector2(
         Spacings.contentSpacingOf12,
         size.y - textSpacingDividend * 3,
-      ),
-      textRenderer: TextPaint(
-        style: game.themeData.textTheme.titleSmall?.copyWith(
-          color: game.themeData.colorScheme.onPrimaryFixed,
-        ),
-      ),
-    );
+      );
 
     // SCORE Text
-    scoreText = TextComponent(
-      text: "SCORE: 0",
-      position: Vector2(
+    scoreText = RichTextComponent(
+      position: Vector2(16, 16),
+      span: TextSpan(
+        children: [
+          TextSpan(
+            text: "SCORE: ",
+            style: titleTextStyle,
+          ),
+          TextSpan(
+            text: _score.toString(),
+            style: valueTextStyle,
+          ),
+        ],
+      ),
+    )..position = Vector2(
         Spacings.contentSpacingOf12,
         size.y - textSpacingDividend * 2,
-      ),
-      textRenderer: TextPaint(
-        style: game.themeData.textTheme.titleSmall?.copyWith(
-          color: game.themeData.colorScheme.onPrimaryFixed,
-        ),
-      ),
-    );
+      );
 
     // WARMUP TIME Text
-    warmupText = TextComponent(
-      text: "WARMUP: 5",
-      position: Vector2(
+    warmupText = RichTextComponent(
+      span: TextSpan(
+        children: [
+          TextSpan(
+            text: "WARMUP: ",
+            style: titleTextStyle,
+          ),
+          TextSpan(
+            text: _warmupTimeLeft.toString(),
+            style: valueTextStyle,
+          ),
+        ],
+      ),
+    )..position = Vector2(
         Spacings.contentSpacingOf12,
         size.y - textSpacingDividend,
-      ),
-      textRenderer: TextPaint(
-        style: game.themeData.textTheme.titleSmall?.copyWith(
-          color: game.themeData.colorScheme.onPrimaryFixed,
-        ),
-      ),
-    );
+      );
 
     // Pause Button
     pauseButton = PauseButtonComponent(
@@ -108,18 +130,57 @@ class GameStatusPanelComponent extends PositionComponent
   @override
   void update(double dt) {
     if (_warmupTimeLeft >= 0) {
-      warmupText.text = "WARMUP: ${_warmupTimeLeft.toInt()}";
       _warmupTimeLeft -= dt;
+      warmupText.updateText(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: "WARMUP: ",
+              style: titleTextStyle,
+            ),
+            TextSpan(
+              text: "${_warmupTimeLeft.toInt()}",
+              style: valueTextStyle,
+            ),
+          ],
+        ),
+      );
     }
     if (_warmupTimeLeft < 0) {
       _timeLeft -= dt;
+      timeText.updateText(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: "TIME: ",
+              style: titleTextStyle,
+            ),
+            TextSpan(
+              text: "${_timeLeft.clamp(0, 60).toInt()}",
+              style: valueTextStyle,
+            ),
+          ],
+        ),
+      );
     }
     if (_timeLeft <= 0 && !game.paused) {
       onGameTimeComplete();
       return;
     }
-    scoreText.text = "SCORE: $_score";
-    timeText.text = "TIME: ${_timeLeft.clamp(0, 100).toInt()}";
+    scoreText.updateText(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: "SCORE: ",
+            style: titleTextStyle,
+          ),
+          TextSpan(
+            text: _score.toString(),
+            style: valueTextStyle,
+          ),
+        ],
+      ),
+    );
     super.update(dt);
   }
 
