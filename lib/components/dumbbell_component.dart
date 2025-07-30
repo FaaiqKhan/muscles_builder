@@ -2,10 +2,7 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
-import 'package:muscles_builder/components/player_component.dart';
-import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class DumbbellComponent extends SpriteComponent
@@ -47,27 +44,5 @@ class DumbbellComponent extends SpriteComponent
   void onMount() {
     position = _getRandomDumbbellPosition(width);
     super.onMount();
-  }
-
-  @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollision(intersectionPoints, other);
-    if (other is PlayerComponent) {
-      if (game.isGameSoundOn) {
-        FlameAudio.play(Globals.dumbbellSound);
-      }
-      removeFromParent();
-      switch (dumbbell) {
-        case Globals.dumbbellMediumSprite:
-          game.gameStatusPanelComponent.increaseScoreBy(2);
-          break;
-        case Globals.dumbbellHeavySprite:
-          game.gameStatusPanelComponent.increaseScoreBy(3);
-          break;
-        default:
-          game.gameStatusPanelComponent.increaseScoreBy(1);
-      }
-      game.add(DumbbellComponent());
-    }
   }
 }

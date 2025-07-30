@@ -20,6 +20,8 @@ class GameStatusPanelComponent extends PositionComponent
   double _timeLeft;
   double _warmupTimeLeft;
 
+  bool get isWarmupTimeCompleted => _warmupTimeLeft <= 0;
+
   VoidCallback onGameTimeComplete;
 
   GameStatusPanelComponent({
@@ -201,6 +203,4 @@ class GameStatusPanelComponent extends PositionComponent
   int getScore() => _score;
 
   int getGameTime() => _timeLeft.toInt();
-
-  int getWarmupTime() => _warmupTimeLeft.toInt();
 }
