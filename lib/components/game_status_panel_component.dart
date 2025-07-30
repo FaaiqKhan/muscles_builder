@@ -25,13 +25,13 @@ class GameStatusPanelComponent extends PositionComponent
   VoidCallback onGameTimeComplete;
 
   GameStatusPanelComponent({
-    required int gameTime,
-    required int warmupTime,
+    required double gameTime,
+    required double warmupTime,
     required this.titleTextStyle,
     required this.valueTextStyle,
     required this.onGameTimeComplete,
-  })  : _timeLeft = gameTime.toDouble(),
-        _warmupTimeLeft = warmupTime.toDouble(),
+  })  : _timeLeft = gameTime,
+        _warmupTimeLeft = warmupTime,
         super();
 
   @override
@@ -191,13 +191,17 @@ class GameStatusPanelComponent extends PositionComponent
   }
 
   void decreaseScoreBy(int points) {
+    if (_score <= 0) return;
     _score -= points;
   }
 
-  void reset({required int gameTime, required int warmupTime}) {
+  void reset({
+    required double gameTime,
+    required double warmupTime,
+  }) {
     _score = 0;
-    _timeLeft = gameTime.toDouble();
-    _warmupTimeLeft = warmupTime.toDouble();
+    _timeLeft = gameTime;
+    _warmupTimeLeft = warmupTime;
   }
 
   int getScore() => _score;

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
@@ -10,27 +9,34 @@ class VaccineComponent extends SpriteComponent
     with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
   VaccineComponent({required this.startPosition});
 
-  final double _spriteHeight = 60;
-  final Vector2 startPosition;
-  final double _speed = 200;
-
   late Vector2 _velocity;
+  final Vector2 startPosition;
+
+  final double _speed = 200;
+  final double _spriteHeight = 60;
+
+  // Vaccine visibility is for 5 seconds
+  double _vaccineVisibilityTime = 5.0;
 
   @override
   FutureOr<void> onLoad() async {
-    await super.onLoad();
     sprite = await game.loadSprite(Globals.vaccineSprite);
     position = startPosition;
     width = height = _spriteHeight;
     anchor = Anchor.center;
     _velocity = game.moveSprite(_speed);
-    add(CircleHitbox());
+    add(RectangleHitbox());
+    await super.onLoad();
   }
 
   @override
   void update(double dt) {
     super.update(dt);
     position += _velocity * dt;
+    _vaccineVisibilityTime -= dt;
+    if (_vaccineVisibilityTime <= 0.0) {
+      removeFromParent();
+    }
   }
 
   @override
@@ -54,9 +60,6 @@ class VaccineComponent extends SpriteComponent
         // at the very bottom side
         _velocity.y = -_velocity.y;
       }
-    } else if (other is PlayerComponent &&
-        !game.playerComponent.virusAttacked) {
-      removeFromParent();
     }
   }
 }
