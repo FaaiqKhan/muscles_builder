@@ -30,9 +30,11 @@ class PlayerComponent extends SpriteComponent
   late Sprite playerSkinny;
   late Sprite playerMuscular;
 
-  bool virusAttacked = false;
   bool isVaccinated = false;
-  final Timer _timer = Timer(3);
+  bool virusAttacked = false;
+
+  // Freeze time is to stop movement of player when hit with virus
+  double _freezeTime = 3.0;
 
   late double oneHalfOfSpriteWidth;
   late double oneHalfOfSpriteHeight;
@@ -47,13 +49,15 @@ class PlayerComponent extends SpriteComponent
       if (game.gameStatusPanelComponent.getScore() > 0) {
         game.gameStatusPanelComponent.decreaseScoreBy(1);
       }
-      _timer.start();
     }
   }
 
-  void _unFreezePlayer() {
-    virusAttacked = false;
-    playerSprite();
+  void _unFreezePlayerIfTimePassed() {
+    if (_freezeTime <= 0.0) {
+      _freezeTime = 3.0;
+      virusAttacked = false;
+      playerSprite();
+    }
   }
 
   void playerSprite() {
@@ -102,31 +106,29 @@ class PlayerComponent extends SpriteComponent
 
   @override
   void update(double dt) {
-    super.update(dt);
-    if (!virusAttacked) {
-      if (joystick.direction == JoystickDirection.idle) {
-        return;
-      }
-      playerSprite();
-      if (x >= _rightBounds) {
-        x = _rightBounds;
-      }
-      if (x <= _leftBounds) {
-        x = _leftBounds;
-      }
-      if (y >= _bottomBounds) {
-        y = _bottomBounds;
-      }
-      if (y <= _topBounds) {
-        y = _topBounds;
-      }
-      position.add(joystick.relativeDelta * _speed * dt);
-    } else {
-      _timer.update(dt);
-      if (_timer.finished) {
-        _unFreezePlayer();
-      }
+    if (virusAttacked) {
+      _freezeTime -= dt;
+      _unFreezePlayerIfTimePassed();
+      return;
     }
+    if (joystick.direction == JoystickDirection.idle) {
+      return;
+    }
+    playerSprite();
+    if (x >= _rightBounds) {
+      x = _rightBounds;
+    }
+    if (x <= _leftBounds) {
+      x = _leftBounds;
+    }
+    if (y >= _bottomBounds) {
+      y = _bottomBounds;
+    }
+    if (y <= _topBounds) {
+      y = _topBounds;
+    }
+    position.add(joystick.relativeDelta * _speed * dt);
+    super.update(dt);
   }
 
   void injectVaccine() {
