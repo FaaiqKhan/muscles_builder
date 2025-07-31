@@ -9,27 +9,34 @@ class ProteinComponent extends SpriteComponent
     with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
   ProteinComponent({required this.startPosition});
 
-  final double _speed = 200;
+  late Vector2 _velocity;
   final Vector2 startPosition;
+
+  final double _speed = 200;
   final double _spriteHeight = 60;
 
-  late Vector2 _velocity;
+  // Protein visibility is for 5 seconds
+  double _proteinVisibilityTime = 5.0;
 
   @override
   FutureOr<void> onLoad() async {
-    await super.onLoad();
     sprite = await game.loadSprite(Globals.proteinSprite);
     position = startPosition;
     width = height = _spriteHeight;
     anchor = Anchor.center;
     _velocity = game.moveSprite(_speed);
-    add(CircleHitbox());
+    add(RectangleHitbox());
+    await super.onLoad();
   }
 
   @override
   void update(double dt) {
     super.update(dt);
     position += _velocity * dt;
+    _proteinVisibilityTime -= dt;
+    if (_proteinVisibilityTime <= 0.0) {
+      removeFromParent();
+    }
   }
 
   @override

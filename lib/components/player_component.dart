@@ -30,34 +30,26 @@ class PlayerComponent extends SpriteComponent
   late Sprite playerSkinny;
   late Sprite playerMuscular;
 
-  bool virusAttacked = false;
-  bool isVaccinated = false;
-  final Timer _timer = Timer(3);
+  bool _vaccinated = false;
+  bool _virusAttacked = false;
+
+  double _freezeTime = 3.0;
+  double _vaccinationTime = 5.0;
 
   late double oneHalfOfSpriteWidth;
   late double oneHalfOfSpriteHeight;
 
   void _freezePlayer() {
-    if (!virusAttacked) {
-      if (game.isGameSoundOn) {
-        FlameAudio.play(Globals.virusSound);
-      }
-      virusAttacked = true;
-      playerSprite();
-      if (game.gameStatusPanelComponent.getScore() > 0) {
-        game.gameStatusPanelComponent.decreaseScoreBy(1);
-      }
-      _timer.start();
+    if (game.isGameSoundOn) {
+      FlameAudio.play(Globals.virusSound);
     }
-  }
-
-  void _unFreezePlayer() {
-    virusAttacked = false;
+    _virusAttacked = true;
+    game.gameStatusPanelComponent.decreaseScoreBy(1);
     playerSprite();
   }
 
   void playerSprite() {
-    if (virusAttacked) {
+    if (_virusAttacked) {
       sprite = playerFever;
     } else if (game.gameStatusPanelComponent.getScore() > 10 &&
         game.gameStatusPanelComponent.getScore() <= 20) {
@@ -66,6 +58,24 @@ class PlayerComponent extends SpriteComponent
       sprite = playerMuscular;
     } else {
       sprite = playerSkinny;
+    }
+  }
+
+  void _updatePlayerFreezeState(double dt) {
+    _freezeTime -= dt;
+    if (_freezeTime <= 0.0) {
+      _freezeTime = 3.0;
+      _virusAttacked = false;
+      playerSprite();
+    }
+  }
+
+  void _updateVaccinationState(double dt) {
+    if (_vaccinationTime > 0.0) {
+      _vaccinationTime -= dt;
+    } else {
+      _vaccinated = false;
+      _vaccinationTime = 5.0;
     }
   }
 
@@ -102,68 +112,57 @@ class PlayerComponent extends SpriteComponent
 
   @override
   void update(double dt) {
+    if (_vaccinated) {
+      _updateVaccinationState(dt);
+    }
+    if (_virusAttacked) {
+      return _updatePlayerFreezeState(dt);
+    }
+    if (joystick.direction == JoystickDirection.idle) {
+      return;
+    }
+    playerSprite();
+    if (x >= _rightBounds) {
+      x = _rightBounds;
+    }
+    if (x <= _leftBounds) {
+      x = _leftBounds;
+    }
+    if (y >= _bottomBounds) {
+      y = _bottomBounds;
+    }
+    if (y <= _topBounds) {
+      y = _topBounds;
+    }
+    position.add(joystick.relativeDelta * _speed * dt);
     super.update(dt);
-    if (!virusAttacked) {
-      if (joystick.direction == JoystickDirection.idle) {
-        return;
-      }
-      playerSprite();
-      if (x >= _rightBounds) {
-        x = _rightBounds;
-      }
-      if (x <= _leftBounds) {
-        x = _leftBounds;
-      }
-      if (y >= _bottomBounds) {
-        y = _bottomBounds;
-      }
-      if (y <= _topBounds) {
-        y = _topBounds;
-      }
-      position.add(joystick.relativeDelta * _speed * dt);
-    } else {
-      _timer.update(dt);
-      if (_timer.finished) {
-        _unFreezePlayer();
-      }
-    }
-  }
-
-  void injectVaccine() {
-    if (!virusAttacked) {
-      isVaccinated = true;
-      if (game.isGameSoundOn) {
-        FlameAudio.play(Globals.vaccineSound);
-      }
-      game.vaccineTimer.start();
-    }
-  }
-
-  void removeVaccine() {
-    isVaccinated = false;
   }
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
     if (other is VirusComponent &&
-        !isVaccinated &&
-        !virusAttacked &&
+        !_vaccinated &&
+        !_virusAttacked &&
         game.gameStatusPanelComponent.isWarmupTimeCompleted) {
       _freezePlayer();
-    } else if (other is VaccineComponent && !virusAttacked) {
-      injectVaccine();
-    } else if (other is ProteinComponent && !virusAttacked) {
+    } else if (other is VaccineComponent && !_virusAttacked) {
+      other.removeFromParent();
+      _vaccinated = true;
+      _vaccinationTime = 5.0;
+      if (game.isGameSoundOn) {
+        FlameAudio.play(Globals.vaccineSound);
+      }
+    } else if (other is ProteinComponent && !_virusAttacked) {
       other.removeFromParent();
       // Generate number from 0 to 8
       int randomBonusScore = game.random.nextInt(9);
+      game.proteinBonus = randomBonusScore;
       game.gameStatusPanelComponent.increaseScoreBy(randomBonusScore);
       if (game.isGameSoundOn) {
         FlameAudio.play(Globals.proteinSound);
       }
-      game.proteinTimer.stop();
-      game.proteinBonus = randomBonusScore;
-    } else if (other is DumbbellComponent && !virusAttacked) {
+    } else if (other is DumbbellComponent && !_virusAttacked) {
       if (game.isGameSoundOn) {
         FlameAudio.play(Globals.dumbbellSound);
       }

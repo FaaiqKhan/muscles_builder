@@ -95,9 +95,6 @@ class PauseButtonComponent extends CustomPainterComponent
 
   void pauseGame() {
     game.pauseEngine();
-    if (game.vaccineTimer.isRunning()) {
-      game.vaccineTimer.pause();
-    }
     game.overlays.add(GamePauseScreen.id);
   }
 }

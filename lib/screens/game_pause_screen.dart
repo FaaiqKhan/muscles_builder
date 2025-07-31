@@ -26,9 +26,6 @@ class GamePauseScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 gameRef.resumeEngine();
-                // gameRef.timer.resume();
-                gameRef.vaccineTimer.resume();
-                gameRef.proteinTimer.resume();
                 gameRef.overlays.remove(GamePauseScreen.id);
               },
               child: const Text("Back to Gym"),
