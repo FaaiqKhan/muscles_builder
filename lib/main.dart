@@ -1,14 +1,10 @@
-import 'package:domain/domain.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:muscles_builder/blocs/user_authentication/user_authentication_bloc.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 import 'package:muscles_builder/cubits/theme/theme_cubit.dart';
-import 'package:muscles_builder/dependency_injection/dependency_injection.dart';
 import 'package:muscles_builder/screens/splash_screen.dart';
 import 'package:muscles_builder/theme.dart';
 
@@ -18,7 +14,6 @@ void main() async {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
-  UsecasesDependencyInjectionContainer.init();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -30,10 +25,6 @@ void main() async {
         ),
         BlocProvider.value(
           value: GoogleAdsCubit(),
-        ),
-        BlocProvider.value(
-          value:
-              UserAuthenticationBloc(GetIt.I.get<UserAuthenticationUseCase>()),
         ),
       ],
       child: const MyApp(),

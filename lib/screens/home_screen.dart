@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:muscles_builder/blocs/user_authentication/user_authentication_bloc.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/quotes.dart';
 import 'package:muscles_builder/constants/spacings.dart';
@@ -54,19 +53,6 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: Spacings.contentSpacingOf32),
-              BlocBuilder<UserAuthenticationBloc, UserAuthenticationState>(
-                builder: (context, state) {
-                  return Text(
-                    state is UserAuthorizedState
-                        ? "Hi! ${state.user.name}"
-                        : "Hi! Builder",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                  );
-                },
-              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
