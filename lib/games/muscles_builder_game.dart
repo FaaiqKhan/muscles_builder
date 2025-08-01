@@ -21,10 +21,9 @@ import 'package:muscles_builder/screens/game_over_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
-  late GameStatusPanelComponent gameStatusPanelComponent;
-
-  late JoystickComponent joystick;
-  late PlayerComponent playerComponent;
+  late PlayerComponent _player;
+  late JoystickComponent _joystick;
+  late GameStatusPanelComponent _gameStatusPanelComponent;
 
   late bool isGameSoundOn;
 
@@ -36,7 +35,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     Globals.dumbbellHeavySprite,
   ];
 
-  // Keep track of any bonus
+  int gameScore = 0;
   int proteinBonus = 0;
 
   late Sprite _virusSprite;
@@ -55,13 +54,12 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   // Application theme instance because FlameGame cannot access buildContext
   final ThemeData themeData;
 
-  int get score => gameStatusPanelComponent.getScore();
+  void increaseScoreBy(int value) => gameScore += value;
 
-  void increaseScoreBy(int value) =>
-      gameStatusPanelComponent.increaseScoreBy(value);
-
-  void decreaseScoreBy(int value) =>
-      gameStatusPanelComponent.decreaseScoreBy(value);
+  void decreaseScoreBy(int value) {
+    if (gameScore == 0) return;
+    gameScore -= value;
+  }
 
   String get warmupTimeInString => warmupTime.toInt().toString();
 
@@ -205,7 +203,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         ) ??
         JoystickPosition.left.name;
 
-    joystick = JoystickComponent(
+    _joystick = JoystickComponent(
       knob: CircleComponent(
         radius: 30,
         paint: BasicPalette.red.withAlpha(200).paint(),
@@ -218,22 +216,25 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
     switch (JoystickPosition.values.byName(position)) {
       case JoystickPosition.left:
-        joystick.position = Vector2(
+        _joystick.position = Vector2(
           size.x * 0.25,
           size.y - (size.y * 0.12),
         );
         break;
       case JoystickPosition.right:
-        joystick.position = Vector2(
+        _joystick.position = Vector2(
           size.x - size.x * 0.25,
           size.y - size.y * 0.12,
         );
         break;
     }
 
-    playerComponent = PlayerComponent(joystick: joystick);
+    _player = PlayerComponent(
+      joystick: _joystick,
+      isGameSoundOn: isGameSoundOn,
+    );
 
-    gameStatusPanelComponent = GameStatusPanelComponent(
+    _gameStatusPanelComponent = GameStatusPanelComponent(
       score: 0,
       warmupTime: warmupTimeInString,
       exerciseTime: exerciseTimeInString,
@@ -247,9 +248,9 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
     addAll(
       [
-        joystick,
-        playerComponent,
-        gameStatusPanelComponent,
+        _joystick,
+        _player,
+        _gameStatusPanelComponent,
         // Any collision on the bounds of the view port
         ScreenHitbox(),
         DumbbellComponent(),
@@ -323,9 +324,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     return Colors.white;
   }
 
-  void reset() async {
-    playerComponent.sprite = await loadSprite(Globals.playerSkinnySprite);
-    gameStatusPanelComponent.reset();
+  void reset() {
+    gameScore = 0;
+    _player.reset();
+    _gameStatusPanelComponent.reset();
     _setupGameTimeAndScore(_sharedPreferences);
   }
 

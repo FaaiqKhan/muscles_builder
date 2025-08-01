@@ -15,16 +15,13 @@ class GameStatusPanelComponent extends PositionComponent
   final TextStyle titleTextStyle;
   final TextStyle valueTextStyle;
 
-  int _score;
-
   GameStatusPanelComponent({
     required int score,
     required String warmupTime,
     required String exerciseTime,
     required this.titleTextStyle,
     required this.valueTextStyle,
-  })  : _score = score,
-        super() {
+  }) : super() {
     timeText = RichTextComponent(
       span: TextSpan(
         children: [
@@ -48,7 +45,7 @@ class GameStatusPanelComponent extends PositionComponent
             style: titleTextStyle,
           ),
           TextSpan(
-            text: _score.toString(),
+            text: score.toString(),
             style: valueTextStyle,
           ),
         ],
@@ -188,25 +185,13 @@ class GameStatusPanelComponent extends PositionComponent
     if (game.warmupTime < 0) {
       updateGameTimeText(game.exerciseTimeInString);
     }
-    updateScoreText(_score);
+    updateScoreText(game.gameScore);
     super.update(dt);
-  }
-
-  void increaseScoreBy(int points) {
-    _score += points;
-  }
-
-  void decreaseScoreBy(int points) {
-    if (_score <= 0) return;
-    _score -= points;
   }
 
   void reset() {
     updateScoreText(0);
     updateWarmupText(game.warmupTimeInString);
     updateGameTimeText(game.exerciseTimeInString);
-    _score = 0;
   }
-
-  int getScore() => _score;
 }

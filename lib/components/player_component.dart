@@ -13,7 +13,11 @@ import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class PlayerComponent extends SpriteComponent
     with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
-  PlayerComponent({required this.joystick});
+  PlayerComponent({required this.joystick, required bool isGameSoundOn})
+      : _isGameSoundOn = isGameSoundOn,
+        super();
+
+  final bool _isGameSoundOn;
 
   final double _speed = 500;
   final double _spriteWidthHeight = 100;
@@ -40,7 +44,7 @@ class PlayerComponent extends SpriteComponent
   late double oneHalfOfSpriteHeight;
 
   void _freezePlayer() {
-    if (game.isGameSoundOn) {
+    if (_isGameSoundOn) {
       FlameAudio.play(Globals.virusSound);
     }
     _virusAttacked = true;
@@ -51,9 +55,9 @@ class PlayerComponent extends SpriteComponent
   void playerSprite() {
     if (_virusAttacked) {
       sprite = playerFever;
-    } else if (game.score > 10 && game.score <= 20) {
+    } else if (game.gameScore > 10 && game.gameScore <= 20) {
       sprite = playerFit;
-    } else if (game.score > 20) {
+    } else if (game.gameScore > 20) {
       sprite = playerMuscular;
     } else {
       sprite = playerSkinny;
@@ -149,7 +153,7 @@ class PlayerComponent extends SpriteComponent
       other.removeFromParent();
       _vaccinated = true;
       _vaccinationTime = 5.0;
-      if (game.isGameSoundOn) {
+      if (_isGameSoundOn) {
         FlameAudio.play(Globals.vaccineSound);
       }
     } else if (other is ProteinComponent && !_virusAttacked) {
@@ -158,11 +162,11 @@ class PlayerComponent extends SpriteComponent
       int randomBonusScore = game.random.nextInt(9);
       game.proteinBonus = randomBonusScore;
       game.increaseScoreBy(randomBonusScore);
-      if (game.isGameSoundOn) {
+      if (_isGameSoundOn) {
         FlameAudio.play(Globals.proteinSound);
       }
     } else if (other is DumbbellComponent && !_virusAttacked) {
-      if (game.isGameSoundOn) {
+      if (_isGameSoundOn) {
         FlameAudio.play(Globals.dumbbellSound);
       }
       other.removeFromParent();
@@ -178,5 +182,9 @@ class PlayerComponent extends SpriteComponent
       }
       game.add(DumbbellComponent());
     }
+  }
+
+  void reset() {
+    sprite = playerSkinny;
   }
 }
