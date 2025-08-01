@@ -44,17 +44,16 @@ class PlayerComponent extends SpriteComponent
       FlameAudio.play(Globals.virusSound);
     }
     _virusAttacked = true;
-    game.gameStatusPanelComponent.decreaseScoreBy(1);
+    game.decreaseScoreBy(1);
     playerSprite();
   }
 
   void playerSprite() {
     if (_virusAttacked) {
       sprite = playerFever;
-    } else if (game.gameStatusPanelComponent.getScore() > 10 &&
-        game.gameStatusPanelComponent.getScore() <= 20) {
+    } else if (game.score > 10 && game.score <= 20) {
       sprite = playerFit;
-    } else if (game.gameStatusPanelComponent.getScore() > 20) {
+    } else if (game.score > 20) {
       sprite = playerMuscular;
     } else {
       sprite = playerSkinny;
@@ -144,7 +143,7 @@ class PlayerComponent extends SpriteComponent
     if (other is VirusComponent &&
         !_vaccinated &&
         !_virusAttacked &&
-        game.gameStatusPanelComponent.isWarmupTimeCompleted) {
+        game.isWarmupCompleted) {
       _freezePlayer();
     } else if (other is VaccineComponent && !_virusAttacked) {
       other.removeFromParent();
@@ -158,7 +157,7 @@ class PlayerComponent extends SpriteComponent
       // Generate number from 0 to 8
       int randomBonusScore = game.random.nextInt(9);
       game.proteinBonus = randomBonusScore;
-      game.gameStatusPanelComponent.increaseScoreBy(randomBonusScore);
+      game.increaseScoreBy(randomBonusScore);
       if (game.isGameSoundOn) {
         FlameAudio.play(Globals.proteinSound);
       }
@@ -169,13 +168,13 @@ class PlayerComponent extends SpriteComponent
       other.removeFromParent();
       switch (other.dumbbell) {
         case Globals.dumbbellMediumSprite:
-          game.gameStatusPanelComponent.increaseScoreBy(2);
+          game.increaseScoreBy(2);
           break;
         case Globals.dumbbellHeavySprite:
-          game.gameStatusPanelComponent.increaseScoreBy(3);
+          game.increaseScoreBy(3);
           break;
         default:
-          game.gameStatusPanelComponent.increaseScoreBy(1);
+          game.increaseScoreBy(1);
       }
       game.add(DumbbellComponent());
     }

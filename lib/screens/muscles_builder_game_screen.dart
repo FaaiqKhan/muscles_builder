@@ -16,7 +16,7 @@ class MusclesBuilderGameScreen extends StatelessWidget {
       overlayBuilderMap: {
         GameOverScreen.id: (BuildContext context, MusclesBuilderGame gameRef) {
           return GameOverScreen(
-            score: gameRef.gameStatusPanelComponent.getScore(),
+            score: gameRef.score,
             proteinBonus: gameRef.proteinBonus,
             exitGame: () {
               gameRef.exitGame();

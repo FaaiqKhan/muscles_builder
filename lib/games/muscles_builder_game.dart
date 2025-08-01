@@ -21,10 +21,10 @@ import 'package:muscles_builder/screens/game_over_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
-  late PlayerComponent playerComponent;
-
   late GameStatusPanelComponent gameStatusPanelComponent;
+
   late JoystickComponent joystick;
+  late PlayerComponent playerComponent;
 
   late bool isGameSoundOn;
   late GameDifficultyLevel gameDifficultyLevel;
@@ -46,10 +46,26 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   late int proteinSpawnCount;
   late int vaccinationSpawnCount;
 
+  late SharedPreferences _sharedPreferences;
+
   double statusBarHeight = 60.0;
 
   // Application theme instance because FlameGame cannot access buildContext
   final ThemeData themeData;
+
+  int get score => gameStatusPanelComponent.getScore();
+
+  void increaseScoreBy(int value) =>
+      gameStatusPanelComponent.increaseScoreBy(value);
+
+  void decreaseScoreBy(int value) =>
+      gameStatusPanelComponent.decreaseScoreBy(value);
+
+  String get warmupTimeInString => warmupTime.toInt().toString();
+
+  String get exerciseTimeInString => exerciseTime.toInt().toString();
+
+  bool get isWarmupCompleted => warmupTime <= 0.0;
 
   MusclesBuilderGame({required this.themeData});
 
@@ -100,6 +116,9 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       }
     }
     _setupWarmupTime(preferences);
+    isGameSoundOn = preferences.getBool(
+      KeyValueStorageKeys.gameSound,
+    )!;
   }
 
   void _setupWarmupTime(SharedPreferences preferences) {
@@ -127,11 +146,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   FutureOr<void> onLoad() async {
     await Flame.device.fullScreen();
     await Flame.device.setPortrait();
-    final sharedPreferences = await SharedPreferences.getInstance();
-    _init(sharedPreferences);
-    isGameSoundOn = sharedPreferences.getBool(
-      KeyValueStorageKeys.gameSound,
-    )!;
+    _sharedPreferences = await SharedPreferences.getInstance();
+    _init(_sharedPreferences);
     // Load all the required audio in cache
     if (isGameSoundOn) {
       FlameAudio.audioCache.loadAll(
@@ -145,12 +161,12 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     }
 
     gameDifficultyLevel = GameDifficultyLevel.values.byName(
-      sharedPreferences.getString(
+      _sharedPreferences.getString(
         KeyValueStorageKeys.gameDifficultyLevel,
       )!,
     );
 
-    final String position = sharedPreferences.getString(
+    final String position = _sharedPreferences.getString(
           KeyValueStorageKeys.joystickPosition,
         ) ??
         JoystickPosition.left.name;
@@ -216,18 +232,15 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     add(ScreenHitbox());
 
     gameStatusPanelComponent = GameStatusPanelComponent(
-      gameTime: exerciseTime,
-      warmupTime: warmupTime,
+      score: 0,
+      warmupTime: warmupTimeInString,
+      exerciseTime: exerciseTimeInString,
       titleTextStyle: themeData.textTheme.titleSmall!.copyWith(
         color: themeData.colorScheme.onPrimaryFixed,
       ),
       valueTextStyle: themeData.textTheme.titleSmall!.copyWith(
         color: themeData.colorScheme.onPrimary,
       ),
-      onGameTimeComplete: () {
-        pauseEngine();
-        overlays.add(GameOverScreen.id);
-      },
     );
 
     addAll(
@@ -266,6 +279,20 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   }
 
   @override
+  void update(double dt) {
+    super.update(dt);
+    if (warmupTime > 0.0) {
+      warmupTime -= dt;
+    } else {
+      exerciseTime -= dt;
+      if (exerciseTime <= 0.0 && !paused) {
+        pauseEngine();
+        overlays.add(GameOverScreen.id);
+      }
+    }
+  }
+
+  @override
   Color backgroundColor() {
     if (buildContext != null) {
       return Theme.of(buildContext!).colorScheme.primary;
@@ -275,10 +302,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   void reset() async {
     playerComponent.sprite = await loadSprite(Globals.playerSkinnySprite);
-    gameStatusPanelComponent.reset(
-      gameTime: exerciseTime,
-      warmupTime: warmupTime,
-    );
+    gameStatusPanelComponent.reset();
+    _init(_sharedPreferences);
   }
 
   @override
