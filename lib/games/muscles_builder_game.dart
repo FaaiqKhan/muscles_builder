@@ -27,7 +27,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   late PlayerComponent playerComponent;
 
   late bool isGameSoundOn;
-  late GameDifficultyLevel gameDifficultyLevel;
 
   final Random random = Random();
 
@@ -40,6 +39,9 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   // Keep track of any bonus
   int proteinBonus = 0;
 
+  late Sprite _virusSprite;
+
+  late double virusSpeed;
   late double warmupTime;
   late double exerciseTime;
 
@@ -88,7 +90,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     return Vector2(x, y);
   }
 
-  void _init(SharedPreferences preferences) {
+  void _setupGameTimeAndScore(SharedPreferences preferences) {
     String? key = preferences.getString(
       KeyValueStorageKeys.exerciseTime,
     );
@@ -115,10 +117,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
           break;
       }
     }
-    _setupWarmupTime(preferences);
-    isGameSoundOn = preferences.getBool(
-      KeyValueStorageKeys.gameSound,
-    )!;
   }
 
   void _setupWarmupTime(SharedPreferences preferences) {
@@ -127,29 +125,58 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     );
     if (key == null) {
       warmupTime = 5.0;
-    } else {
-      switch (WarmupTime.values.byName(key)) {
-        case WarmupTime.fiveSeconds:
-          warmupTime = 5.0;
-          break;
-        case WarmupTime.threeSeconds:
-          warmupTime = 3.0;
-          break;
-        case WarmupTime.zeroSeconds:
-          warmupTime = 0.0;
-          break;
-      }
+      return;
+    }
+    switch (WarmupTime.values.byName(key)) {
+      case WarmupTime.fiveSeconds:
+        warmupTime = 5.0;
+        break;
+      case WarmupTime.threeSeconds:
+        warmupTime = 3.0;
+        break;
+      case WarmupTime.zeroSeconds:
+        warmupTime = 0.0;
+        break;
     }
   }
 
-  @override
-  FutureOr<void> onLoad() async {
-    await Flame.device.fullScreen();
-    await Flame.device.setPortrait();
-    _sharedPreferences = await SharedPreferences.getInstance();
-    _init(_sharedPreferences);
-    // Load all the required audio in cache
+  void _setupGameDifficultyLevel(SharedPreferences preferences, Sprite virus) {
+    String? key = _sharedPreferences.getString(
+      KeyValueStorageKeys.gameDifficultyLevel,
+    );
+    if (key == null) {
+      virusSpeed = 100.0;
+      return;
+    }
+    switch (GameDifficultyLevel.values.byName(key)) {
+      case GameDifficultyLevel.easy:
+        virusSpeed = 200.0;
+        break;
+      case GameDifficultyLevel.medium:
+        virusSpeed = 250.0;
+        break;
+      case GameDifficultyLevel.hard:
+        virusSpeed = 300.0;
+        VirusComponent(
+          screenSize: size,
+          startPosition: Vector2(
+            random.nextInt(size.x.toInt()).toDouble(),
+            random.nextInt(size.y.toInt()).toDouble(),
+          ),
+          velocity: moveSprite(virusSpeed),
+          sprite: virus,
+        );
+        break;
+    }
+  }
+
+  void _setupGameSound(SharedPreferences preferences) {
+    isGameSoundOn = preferences.getBool(
+          KeyValueStorageKeys.gameSound,
+        ) ??
+        true;
     if (isGameSoundOn) {
+      // Setup game sounds
       FlameAudio.audioCache.loadAll(
         [
           Globals.virusSound,
@@ -159,12 +186,19 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         ],
       );
     }
+  }
 
-    gameDifficultyLevel = GameDifficultyLevel.values.byName(
-      _sharedPreferences.getString(
-        KeyValueStorageKeys.gameDifficultyLevel,
-      )!,
-    );
+  @override
+  FutureOr<void> onLoad() async {
+    await Flame.device.fullScreen();
+    await Flame.device.setPortrait();
+    _sharedPreferences = await SharedPreferences.getInstance();
+    _virusSprite = await loadSprite(Globals.virusSprite);
+
+    _setupGameSound(_sharedPreferences);
+    _setupWarmupTime(_sharedPreferences);
+    _setupGameTimeAndScore(_sharedPreferences);
+    _setupGameDifficultyLevel(_sharedPreferences, _virusSprite);
 
     final String position = _sharedPreferences.getString(
           KeyValueStorageKeys.joystickPosition,
@@ -199,38 +233,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
     playerComponent = PlayerComponent(joystick: joystick);
 
-    add(DumbbellComponent());
-
-    if (gameDifficultyLevel == GameDifficultyLevel.hard) {
-      add(
-        VirusComponent(
-          startPosition: Vector2(
-            random.nextInt(size.x.toInt()).toDouble(),
-            random.nextInt(size.y.toInt()).toDouble(),
-          ),
-        ),
-      );
-    }
-    add(
-      VirusComponent(
-        startPosition: Vector2(
-          size.x / 4,
-          size.y / 2,
-        ),
-      ),
-    );
-    add(
-      VirusComponent(
-        startPosition: Vector2(
-          size.x / 3,
-          size.y / 3,
-        ),
-      ),
-    );
-
-    // Any collision on the bounds of the view port
-    add(ScreenHitbox());
-
     gameStatusPanelComponent = GameStatusPanelComponent(
       score: 0,
       warmupTime: warmupTimeInString,
@@ -248,11 +250,14 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         joystick,
         playerComponent,
         gameStatusPanelComponent,
+        // Any collision on the bounds of the view port
+        ScreenHitbox(),
+        DumbbellComponent(),
         SpawnComponent.periodRange(
           minPeriod: 5.0,
-          maxPeriod: exerciseTime - 5.0,
+          maxPeriod: exerciseTime,
           spawnCount: vaccinationSpawnCount,
-          multiFactory: (_) {
+          multiFactory: (i) {
             return [
               VaccineComponent(
                 startPosition: generateRandomPosition(size),
@@ -262,7 +267,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         ),
         SpawnComponent.periodRange(
           minPeriod: 8.0,
-          maxPeriod: exerciseTime - 8.0,
+          maxPeriod: exerciseTime,
           spawnCount: proteinSpawnCount,
           multiFactory: (_) {
             return [
@@ -271,6 +276,24 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
               )
             ];
           },
+        ),
+        VirusComponent(
+          screenSize: size,
+          sprite: _virusSprite,
+          startPosition: Vector2(
+            size.x / 4,
+            size.y / 2,
+          ),
+          velocity: moveSprite(virusSpeed),
+        ),
+        VirusComponent(
+          screenSize: size,
+          sprite: _virusSprite,
+          startPosition: Vector2(
+            size.x / 3,
+            size.y / 3,
+          ),
+          velocity: moveSprite(virusSpeed),
         ),
       ],
     );
@@ -303,7 +326,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   void reset() async {
     playerComponent.sprite = await loadSprite(Globals.playerSkinnySprite);
     gameStatusPanelComponent.reset();
-    _init(_sharedPreferences);
+    _setupGameTimeAndScore(_sharedPreferences);
   }
 
   @override
