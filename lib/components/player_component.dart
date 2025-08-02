@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
@@ -13,16 +12,16 @@ import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class PlayerComponent extends SpriteComponent
     with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
-  PlayerComponent({required this.joystick, required bool isGameSoundOn})
+  PlayerComponent({required bool isGameSoundOn})
       : _isGameSoundOn = isGameSoundOn,
-        super();
+        super(
+          size: Vector2(80, 100),
+          anchor: Anchor.center,
+        );
 
   final bool _isGameSoundOn;
 
-  final double _speed = 500;
-  final double _spriteWidthHeight = 100;
-
-  final JoystickComponent joystick;
+  final double _playerMovementSpeed = 500;
 
   late double _leftBounds;
   late double _topBounds;
@@ -39,9 +38,6 @@ class PlayerComponent extends SpriteComponent
 
   double _freezeTime = 3.0;
   double _vaccinationTime = 5.0;
-
-  late double oneHalfOfSpriteWidth;
-  late double oneHalfOfSpriteHeight;
 
   void _freezePlayer() {
     if (_isGameSoundOn) {
@@ -84,7 +80,6 @@ class PlayerComponent extends SpriteComponent
 
   @override
   FutureOr<void> onLoad() async {
-    await super.onLoad();
     playerFit = await game.loadSprite(Globals.playerFitSprite);
     playerFever = await game.loadSprite(Globals.playerFeverSprite);
     playerSkinny = await game.loadSprite(Globals.playerSkinnySprite);
@@ -92,25 +87,16 @@ class PlayerComponent extends SpriteComponent
 
     playerSprite();
     position = game.size / 2;
-    height = width = _spriteWidthHeight;
-    anchor = Anchor.center;
 
-    oneHalfOfSpriteWidth = size.x / 1.5;
-    oneHalfOfSpriteHeight = size.y / 1.5;
+    final oneHalfOfSpriteWidth = size.x / 2;
+    final oneHalfOfSpriteHeight = size.y / 1.7;
 
-    add(RectangleHitbox());
-  }
-
-  @override
-  void onMount() {
-    final context = game.buildContext!;
     _leftBounds = oneHalfOfSpriteWidth;
-    _topBounds = oneHalfOfSpriteHeight +
-        MediaQuery.of(context).viewPadding.top +
-        Theme.of(context).textTheme.displaySmall!.fontSize!;
+    _topBounds = oneHalfOfSpriteHeight;
     _rightBounds = game.size.x - oneHalfOfSpriteWidth;
     _bottomBounds = game.size.y - oneHalfOfSpriteHeight;
-    super.onMount();
+
+    add(RectangleHitbox());
   }
 
   @override
@@ -121,7 +107,7 @@ class PlayerComponent extends SpriteComponent
     if (_virusAttacked) {
       return _updatePlayerFreezeState(dt);
     }
-    if (joystick.direction == JoystickDirection.idle) {
+    if (game.joystickDirection == JoystickDirection.idle) {
       return;
     }
     playerSprite();
@@ -137,7 +123,7 @@ class PlayerComponent extends SpriteComponent
     if (y <= _topBounds) {
       y = _topBounds;
     }
-    position.add(joystick.relativeDelta * _speed * dt);
+    position.add(game.joystickRelativeDelta * _playerMovementSpeed * dt);
     super.update(dt);
   }
 

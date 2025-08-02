@@ -39,6 +39,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   int proteinBonus = 0;
 
   late Sprite _virusSprite;
+  late Sprite _vaccineSprite;
+  late Sprite _proteinSprite;
 
   late double virusSpeed;
   late double warmupTime;
@@ -186,12 +188,19 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     }
   }
 
+  JoystickDirection get joystickDirection => _joystick.direction;
+
+  Vector2 get joystickRelativeDelta => _joystick.relativeDelta;
+
   @override
   FutureOr<void> onLoad() async {
     await Flame.device.fullScreen();
     await Flame.device.setPortrait();
     _sharedPreferences = await SharedPreferences.getInstance();
+
     _virusSprite = await loadSprite(Globals.virusSprite);
+    _vaccineSprite = await loadSprite(Globals.vaccineSprite);
+    _proteinSprite = await loadSprite(Globals.proteinSprite);
 
     _setupGameSound(_sharedPreferences);
     _setupWarmupTime(_sharedPreferences);
@@ -230,7 +239,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     }
 
     _player = PlayerComponent(
-      joystick: _joystick,
       isGameSoundOn: isGameSoundOn,
     );
 
@@ -254,30 +262,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         // Any collision on the bounds of the view port
         ScreenHitbox(),
         DumbbellComponent(),
-        SpawnComponent.periodRange(
-          minPeriod: 5.0,
-          maxPeriod: exerciseTime,
-          spawnCount: vaccinationSpawnCount,
-          multiFactory: (i) {
-            return [
-              VaccineComponent(
-                startPosition: generateRandomPosition(size),
-              ),
-            ];
-          },
-        ),
-        SpawnComponent.periodRange(
-          minPeriod: 8.0,
-          maxPeriod: exerciseTime,
-          spawnCount: proteinSpawnCount,
-          multiFactory: (_) {
-            return [
-              ProteinComponent(
-                startPosition: generateRandomPosition(size),
-              )
-            ];
-          },
-        ),
         VirusComponent(
           screenSize: size,
           sprite: _virusSprite,
@@ -295,6 +279,34 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
             size.y / 3,
           ),
           velocity: moveSprite(virusSpeed),
+        ),
+        SpawnComponent.periodRange(
+          minPeriod: 5.0,
+          maxPeriod: exerciseTime,
+          spawnCount: vaccinationSpawnCount,
+          multiFactory: (_) {
+            return [
+              VaccineComponent(
+                screenSize: size,
+                sprite: _vaccineSprite,
+                startPosition: generateRandomPosition(size),
+              ),
+            ];
+          },
+        ),
+        SpawnComponent.periodRange(
+          minPeriod: 8.0,
+          maxPeriod: exerciseTime,
+          spawnCount: proteinSpawnCount,
+          multiFactory: (_) {
+            return [
+              ProteinComponent(
+                screenSize: size,
+                sprite: _proteinSprite,
+                startPosition: generateRandomPosition(size),
+              )
+            ];
+          },
         ),
       ],
     );
@@ -354,5 +366,33 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     reset();
     detach();
     overlays.remove(GameOverScreen.id);
+  }
+
+  static void bounceBack({
+    required Vector2 screenSize,
+    required Vector2 objectSize,
+    required Vector2 collisionPoint,
+    required Vector2 originalVelocity,
+  }) {
+    final bool hitLeft = collisionPoint.x <= 0;
+    final bool hitRight = collisionPoint.x >= screenSize.x - objectSize.x;
+    final bool hitTop = collisionPoint.y <= 0;
+    final bool hitBottom = collisionPoint.y >= screenSize.y - objectSize.y;
+
+    if (hitLeft) {
+      originalVelocity.x = originalVelocity.x.abs(); // bounce right
+    }
+
+    if (hitRight) {
+      originalVelocity.x = -originalVelocity.x.abs(); // bounce left
+    }
+
+    if (hitTop) {
+      originalVelocity.y = originalVelocity.y.abs(); // bounce down
+    }
+
+    if (hitBottom) {
+      originalVelocity.y = -originalVelocity.y.abs(); // bounce up
+    }
   }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class VirusComponent extends SpriteComponent with CollisionCallbacks {
   VirusComponent({
@@ -35,35 +36,18 @@ class VirusComponent extends SpriteComponent with CollisionCallbacks {
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollision(intersectionPoints, other);
     if (other is ScreenHitbox) {
-      final Vector2 collisionPoint = intersectionPoints.first;
-
-      final bool hitLeft = collisionPoint.x <= 0;
-      final bool hitRight = collisionPoint.x >= screenSize.x - size.x;
-      final bool hitTop = collisionPoint.y <= 0;
-      final bool hitBottom = collisionPoint.y >= screenSize.y - size.y;
-
-      if (hitLeft) {
-        _velocity.x = _velocity.x.abs(); // bounce right
-      }
-
-      if (hitRight) {
-        _velocity.x = -_velocity.x.abs(); // bounce left
-      }
-
-      if (hitTop) {
-        _velocity.y = _velocity.y.abs(); // bounce down
-      }
-
-      if (hitBottom) {
-        _velocity.y = -_velocity.y.abs(); // bounce up
-      }
-
+      MusclesBuilderGame.bounceBack(
+        objectSize: size,
+        screenSize: screenSize,
+        originalVelocity: _velocity,
+        collisionPoint: intersectionPoints.first,
+      );
       position.clamp(
         Vector2.zero(),
         screenSize,
       );
     }
+    super.onCollision(intersectionPoints, other);
   }
 }
