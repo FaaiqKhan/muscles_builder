@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
@@ -13,12 +12,16 @@ import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class PlayerComponent extends SpriteComponent
     with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
-  PlayerComponent({required this.joystick});
+  PlayerComponent({required bool isGameSoundOn})
+      : _isGameSoundOn = isGameSoundOn,
+        super(
+          size: Vector2(80, 100),
+          anchor: Anchor.center,
+        );
 
-  final double _speed = 500;
-  final double _spriteWidthHeight = 100;
+  final bool _isGameSoundOn;
 
-  final JoystickComponent joystick;
+  final double _playerMovementSpeed = 500;
 
   late double _leftBounds;
   late double _topBounds;
@@ -36,25 +39,21 @@ class PlayerComponent extends SpriteComponent
   double _freezeTime = 3.0;
   double _vaccinationTime = 5.0;
 
-  late double oneHalfOfSpriteWidth;
-  late double oneHalfOfSpriteHeight;
-
   void _freezePlayer() {
-    if (game.isGameSoundOn) {
+    if (_isGameSoundOn) {
       FlameAudio.play(Globals.virusSound);
     }
     _virusAttacked = true;
-    game.gameStatusPanelComponent.decreaseScoreBy(1);
+    game.decreaseScoreBy(1);
     playerSprite();
   }
 
   void playerSprite() {
     if (_virusAttacked) {
       sprite = playerFever;
-    } else if (game.gameStatusPanelComponent.getScore() > 10 &&
-        game.gameStatusPanelComponent.getScore() <= 20) {
+    } else if (game.gameScore > 10 && game.gameScore <= 20) {
       sprite = playerFit;
-    } else if (game.gameStatusPanelComponent.getScore() > 20) {
+    } else if (game.gameScore > 20) {
       sprite = playerMuscular;
     } else {
       sprite = playerSkinny;
@@ -81,7 +80,6 @@ class PlayerComponent extends SpriteComponent
 
   @override
   FutureOr<void> onLoad() async {
-    await super.onLoad();
     playerFit = await game.loadSprite(Globals.playerFitSprite);
     playerFever = await game.loadSprite(Globals.playerFeverSprite);
     playerSkinny = await game.loadSprite(Globals.playerSkinnySprite);
@@ -89,25 +87,16 @@ class PlayerComponent extends SpriteComponent
 
     playerSprite();
     position = game.size / 2;
-    height = width = _spriteWidthHeight;
-    anchor = Anchor.center;
 
-    oneHalfOfSpriteWidth = size.x / 1.5;
-    oneHalfOfSpriteHeight = size.y / 1.5;
+    final oneHalfOfSpriteWidth = size.x / 2;
+    final oneHalfOfSpriteHeight = size.y / 1.7;
 
-    add(RectangleHitbox());
-  }
-
-  @override
-  void onMount() {
-    final context = game.buildContext!;
     _leftBounds = oneHalfOfSpriteWidth;
-    _topBounds = oneHalfOfSpriteHeight +
-        MediaQuery.of(context).viewPadding.top +
-        Theme.of(context).textTheme.displaySmall!.fontSize!;
+    _topBounds = oneHalfOfSpriteHeight;
     _rightBounds = game.size.x - oneHalfOfSpriteWidth;
     _bottomBounds = game.size.y - oneHalfOfSpriteHeight;
-    super.onMount();
+
+    add(RectangleHitbox());
   }
 
   @override
@@ -118,7 +107,7 @@ class PlayerComponent extends SpriteComponent
     if (_virusAttacked) {
       return _updatePlayerFreezeState(dt);
     }
-    if (joystick.direction == JoystickDirection.idle) {
+    if (game.joystickDirection == JoystickDirection.idle) {
       return;
     }
     playerSprite();
@@ -134,7 +123,7 @@ class PlayerComponent extends SpriteComponent
     if (y <= _topBounds) {
       y = _topBounds;
     }
-    position.add(joystick.relativeDelta * _speed * dt);
+    position.add(game.joystickRelativeDelta * _playerMovementSpeed * dt);
     super.update(dt);
   }
 
@@ -144,13 +133,13 @@ class PlayerComponent extends SpriteComponent
     if (other is VirusComponent &&
         !_vaccinated &&
         !_virusAttacked &&
-        game.gameStatusPanelComponent.isWarmupTimeCompleted) {
+        game.isWarmupCompleted) {
       _freezePlayer();
     } else if (other is VaccineComponent && !_virusAttacked) {
       other.removeFromParent();
       _vaccinated = true;
       _vaccinationTime = 5.0;
-      if (game.isGameSoundOn) {
+      if (_isGameSoundOn) {
         FlameAudio.play(Globals.vaccineSound);
       }
     } else if (other is ProteinComponent && !_virusAttacked) {
@@ -158,26 +147,30 @@ class PlayerComponent extends SpriteComponent
       // Generate number from 0 to 8
       int randomBonusScore = game.random.nextInt(9);
       game.proteinBonus = randomBonusScore;
-      game.gameStatusPanelComponent.increaseScoreBy(randomBonusScore);
-      if (game.isGameSoundOn) {
+      game.increaseScoreBy(randomBonusScore);
+      if (_isGameSoundOn) {
         FlameAudio.play(Globals.proteinSound);
       }
     } else if (other is DumbbellComponent && !_virusAttacked) {
-      if (game.isGameSoundOn) {
+      if (_isGameSoundOn) {
         FlameAudio.play(Globals.dumbbellSound);
       }
       other.removeFromParent();
       switch (other.dumbbell) {
         case Globals.dumbbellMediumSprite:
-          game.gameStatusPanelComponent.increaseScoreBy(2);
+          game.increaseScoreBy(2);
           break;
         case Globals.dumbbellHeavySprite:
-          game.gameStatusPanelComponent.increaseScoreBy(3);
+          game.increaseScoreBy(3);
           break;
         default:
-          game.gameStatusPanelComponent.increaseScoreBy(1);
+          game.increaseScoreBy(1);
       }
       game.add(DumbbellComponent());
     }
+  }
+
+  void reset() {
+    sprite = playerSkinny;
   }
 }

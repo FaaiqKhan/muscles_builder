@@ -2,40 +2,29 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:muscles_builder/constants/enums.dart';
-import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
-class VirusComponent extends SpriteComponent
-    with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
-  VirusComponent({required this.startPosition});
+class VirusComponent extends SpriteComponent with CollisionCallbacks {
+  VirusComponent({
+    required Sprite sprite,
+    required this.screenSize,
+    required Vector2 velocity,
+    required Vector2 startPosition,
+    Anchor? anchor,
+    Vector2? size,
+  })  : _velocity = velocity,
+        super(
+          sprite: sprite,
+          position: startPosition,
+          anchor: anchor ?? Anchor.center,
+          size: size ?? Vector2(60, 60),
+        );
 
-  late double _speed;
-  final double _spriteHeight = 60;
-
-  late Vector2 _velocity;
-
-  final Vector2 startPosition;
+  final Vector2 screenSize;
+  final Vector2 _velocity;
 
   @override
   FutureOr<void> onLoad() async {
-    await super.onLoad();
-    sprite = await game.loadSprite(Globals.virusSprite);
-    position = startPosition;
-    width = height = _spriteHeight;
-    anchor = Anchor.center;
-    switch (game.gameDifficultyLevel) {
-      case GameDifficultyLevel.easy:
-        _speed = 200;
-        break;
-      case GameDifficultyLevel.medium:
-        _speed = 250;
-        break;
-      case GameDifficultyLevel.hard:
-        _speed = 300;
-        break;
-    }
-    _velocity = game.moveSprite(_speed);
     add(CircleHitbox());
   }
 
@@ -47,25 +36,18 @@ class VirusComponent extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollision(intersectionPoints, other);
     if (other is ScreenHitbox) {
-      final Vector2 collisionPoint = intersectionPoints.first;
-      if (collisionPoint.x == 0) {
-        // at the very left side
-        _velocity.x = -_velocity.x;
-      }
-      if (collisionPoint.x >= game.size.x - 60) {
-        // at the very right side
-        _velocity.x = -_velocity.x;
-      }
-      if (collisionPoint.y == 0) {
-        // at the very top side
-        _velocity.y = -_velocity.y;
-      }
-      if (collisionPoint.y >= game.size.y - 60) {
-        // at the very bottom side
-        _velocity.y = -_velocity.y;
-      }
+      MusclesBuilderGame.bounceBack(
+        objectSize: size,
+        screenSize: screenSize,
+        originalVelocity: _velocity,
+        collisionPoint: intersectionPoints.first,
+      );
+      position.clamp(
+        Vector2.zero(),
+        screenSize,
+      );
     }
+    super.onCollision(intersectionPoints, other);
   }
 }

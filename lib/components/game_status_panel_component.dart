@@ -11,31 +11,115 @@ class GameStatusPanelComponent extends PositionComponent
   late RichTextComponent timeText;
   late RichTextComponent scoreText;
   late RichTextComponent warmupText;
-  late PauseButtonComponent pauseButton;
 
   final TextStyle titleTextStyle;
   final TextStyle valueTextStyle;
 
-  int _score = 0;
-  double _timeLeft;
-  double _warmupTimeLeft;
-
-  bool get isWarmupTimeCompleted => _warmupTimeLeft <= 0;
-
-  VoidCallback onGameTimeComplete;
-
   GameStatusPanelComponent({
-    required double gameTime,
-    required double warmupTime,
+    required int score,
+    required String warmupTime,
+    required String exerciseTime,
     required this.titleTextStyle,
     required this.valueTextStyle,
-    required this.onGameTimeComplete,
-  })  : _timeLeft = gameTime,
-        _warmupTimeLeft = warmupTime,
-        super();
+  }) : super() {
+    timeText = RichTextComponent(
+      span: TextSpan(
+        children: [
+          TextSpan(
+            text: "TIME: ",
+            style: titleTextStyle,
+          ),
+          TextSpan(
+            text: exerciseTime,
+            style: valueTextStyle,
+          ),
+        ],
+      ),
+    );
+    scoreText = RichTextComponent(
+      position: Vector2(16, 16),
+      span: TextSpan(
+        children: [
+          TextSpan(
+            text: "SCORE: ",
+            style: titleTextStyle,
+          ),
+          TextSpan(
+            text: score.toString(),
+            style: valueTextStyle,
+          ),
+        ],
+      ),
+    );
+    warmupText = RichTextComponent(
+      span: TextSpan(
+        children: [
+          TextSpan(
+            text: "WARMUP: ",
+            style: titleTextStyle,
+          ),
+          TextSpan(
+            text: warmupTime,
+            style: valueTextStyle,
+          ),
+        ],
+      ),
+    );
+  }
+
+  void updateWarmupText(String value) {
+    warmupText.updateText(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: "WARMUP: ",
+            style: titleTextStyle,
+          ),
+          TextSpan(
+            text: value,
+            style: valueTextStyle,
+          ),
+        ],
+      ),
+    );
+  }
+
+  void updateGameTimeText(String value) {
+    timeText.updateText(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: "TIME: ",
+            style: titleTextStyle,
+          ),
+          TextSpan(
+            text: value,
+            style: valueTextStyle,
+          ),
+        ],
+      ),
+    );
+  }
+
+  void updateScoreText(int value) {
+    scoreText.updateText(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: "SCORE: ",
+            style: titleTextStyle,
+          ),
+          TextSpan(
+            text: value.toString(),
+            style: valueTextStyle,
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
-  void onLoad() {
+  Future<void> onLoad() async {
     super.onLoad();
     final width = game.size.x / 1.2;
     final height = game.size.y * 0.09;
@@ -57,154 +141,57 @@ class GameStatusPanelComponent extends PositionComponent
     final textSpacingDividend = size.y / 3.25;
 
     // TIME Text
-    timeText = RichTextComponent(
-      span: TextSpan(
-        children: [
-          TextSpan(
-            text: "TIME: ",
-            style: titleTextStyle,
-          ),
-          TextSpan(
-            text: _timeLeft.toInt().toString(),
-            style: valueTextStyle,
-          ),
-        ],
-      ),
-    )..position = Vector2(
-        Spacings.contentSpacingOf12,
-        size.y - textSpacingDividend * 3,
-      );
-
-    // SCORE Text
-    scoreText = RichTextComponent(
-      position: Vector2(16, 16),
-      span: TextSpan(
-        children: [
-          TextSpan(
-            text: "SCORE: ",
-            style: titleTextStyle,
-          ),
-          TextSpan(
-            text: _score.toString(),
-            style: valueTextStyle,
-          ),
-        ],
-      ),
-    )..position = Vector2(
-        Spacings.contentSpacingOf12,
-        size.y - textSpacingDividend * 2,
-      );
-
-    // WARMUP TIME Text
-    warmupText = RichTextComponent(
-      span: TextSpan(
-        children: [
-          TextSpan(
-            text: "WARMUP: ",
-            style: titleTextStyle,
-          ),
-          TextSpan(
-            text: _warmupTimeLeft.toString(),
-            style: valueTextStyle,
-          ),
-        ],
-      ),
-    )..position = Vector2(
-        Spacings.contentSpacingOf12,
-        size.y - textSpacingDividend,
-      );
-
-    // Pause Button
-    pauseButton = PauseButtonComponent(
-      radius: 25,
-      position: Vector2(
-        size.x - Spacings.contentSpacingOf12 - 25,
-        size.y / 2,
-      ),
-      iconColor: game.themeData.colorScheme.onPrimary,
-      borderColor: game.themeData.colorScheme.onPrimaryFixed,
-      backgroundColor: game.themeData.colorScheme.secondary,
+    timeText.position = Vector2(
+      Spacings.contentSpacingOf12,
+      size.y - textSpacingDividend * 3,
     );
 
-    addAll([scoreText, timeText, warmupText, pauseButton]);
+    // SCORE Text
+    scoreText.position = Vector2(
+      Spacings.contentSpacingOf12,
+      size.y - textSpacingDividend * 2,
+    );
+
+    // WARMUP TIME Text
+    warmupText.position = Vector2(
+      Spacings.contentSpacingOf12,
+      size.y - textSpacingDividend,
+    );
+
+    addAll(
+      [
+        scoreText,
+        timeText,
+        warmupText,
+        PauseButtonComponent(
+          radius: 25,
+          position: Vector2(
+            size.x - Spacings.contentSpacingOf12 - 25,
+            size.y / 2,
+          ),
+          iconColor: game.themeData.colorScheme.onPrimary,
+          borderColor: game.themeData.colorScheme.onPrimaryFixed,
+          backgroundColor: game.themeData.colorScheme.secondary,
+        ),
+      ],
+    );
   }
 
   @override
   void update(double dt) {
-    if (_warmupTimeLeft >= 0) {
-      _warmupTimeLeft -= dt;
-      warmupText.updateText(
-        TextSpan(
-          children: [
-            TextSpan(
-              text: "WARMUP: ",
-              style: titleTextStyle,
-            ),
-            TextSpan(
-              text: "${_warmupTimeLeft.toInt()}",
-              style: valueTextStyle,
-            ),
-          ],
-        ),
-      );
+    if (game.warmupTime >= 0) {
+      updateWarmupText(game.warmupTimeInString);
     }
-    if (_warmupTimeLeft < 0) {
-      _timeLeft -= dt;
-      timeText.updateText(
-        TextSpan(
-          children: [
-            TextSpan(
-              text: "TIME: ",
-              style: titleTextStyle,
-            ),
-            TextSpan(
-              text: "${_timeLeft.clamp(0, 60).toInt()}",
-              style: valueTextStyle,
-            ),
-          ],
-        ),
-      );
+    if (game.warmupTime < 0) {
+      updateGameTimeText(game.exerciseTimeInString);
     }
-    if (_timeLeft <= 0 && !game.paused) {
-      onGameTimeComplete();
-      return;
-    }
-    scoreText.updateText(
-      TextSpan(
-        children: [
-          TextSpan(
-            text: "SCORE: ",
-            style: titleTextStyle,
-          ),
-          TextSpan(
-            text: _score.toString(),
-            style: valueTextStyle,
-          ),
-        ],
-      ),
-    );
+    updateScoreText(game.gameScore);
     super.update(dt);
   }
 
-  void increaseScoreBy(int points) {
-    _score += points;
+  void reset() {
+    updateScoreText(0);
+    updateWarmupText(game.warmupTimeInString);
+    updateGameTimeText(game.exerciseTimeInString);
   }
-
-  void decreaseScoreBy(int points) {
-    if (_score <= 0) return;
-    _score -= points;
-  }
-
-  void reset({
-    required double gameTime,
-    required double warmupTime,
-  }) {
-    _score = 0;
-    _timeLeft = gameTime;
-    _warmupTimeLeft = warmupTime;
-  }
-
-  int getScore() => _score;
-
-  int getGameTime() => _timeLeft.toInt();
 }

@@ -21,13 +21,11 @@ import 'package:muscles_builder/screens/game_over_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
-  late PlayerComponent playerComponent;
-
-  late GameStatusPanelComponent gameStatusPanelComponent;
-  late JoystickComponent joystick;
+  late PlayerComponent _player;
+  late JoystickComponent _joystick;
+  late GameStatusPanelComponent _gameStatusPanelComponent;
 
   late bool isGameSoundOn;
-  late GameDifficultyLevel gameDifficultyLevel;
 
   final Random random = Random();
 
@@ -37,19 +35,39 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     Globals.dumbbellHeavySprite,
   ];
 
-  // Keep track of any bonus
+  int gameScore = 0;
   int proteinBonus = 0;
 
+  late Sprite _virusSprite;
+  late Sprite _vaccineSprite;
+  late Sprite _proteinSprite;
+
+  late double virusSpeed;
   late double warmupTime;
   late double exerciseTime;
 
   late int proteinSpawnCount;
   late int vaccinationSpawnCount;
 
+  late SharedPreferences _sharedPreferences;
+
   double statusBarHeight = 60.0;
 
   // Application theme instance because FlameGame cannot access buildContext
   final ThemeData themeData;
+
+  void increaseScoreBy(int value) => gameScore += value;
+
+  void decreaseScoreBy(int value) {
+    if (gameScore == 0) return;
+    gameScore -= value;
+  }
+
+  String get warmupTimeInString => warmupTime.toInt().toString();
+
+  String get exerciseTimeInString => exerciseTime.toInt().toString();
+
+  bool get isWarmupCompleted => warmupTime <= 0.0;
 
   MusclesBuilderGame({required this.themeData});
 
@@ -72,7 +90,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     return Vector2(x, y);
   }
 
-  void _init(SharedPreferences preferences) {
+  void _setupGameTimeAndScore(SharedPreferences preferences) {
     String? key = preferences.getString(
       KeyValueStorageKeys.exerciseTime,
     );
@@ -99,7 +117,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
           break;
       }
     }
-    _setupWarmupTime(preferences);
   }
 
   void _setupWarmupTime(SharedPreferences preferences) {
@@ -108,32 +125,58 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     );
     if (key == null) {
       warmupTime = 5.0;
-    } else {
-      switch (WarmupTime.values.byName(key)) {
-        case WarmupTime.fiveSeconds:
-          warmupTime = 5.0;
-          break;
-        case WarmupTime.threeSeconds:
-          warmupTime = 3.0;
-          break;
-        case WarmupTime.zeroSeconds:
-          warmupTime = 0.0;
-          break;
-      }
+      return;
+    }
+    switch (WarmupTime.values.byName(key)) {
+      case WarmupTime.fiveSeconds:
+        warmupTime = 5.0;
+        break;
+      case WarmupTime.threeSeconds:
+        warmupTime = 3.0;
+        break;
+      case WarmupTime.zeroSeconds:
+        warmupTime = 0.0;
+        break;
     }
   }
 
-  @override
-  FutureOr<void> onLoad() async {
-    await Flame.device.fullScreen();
-    await Flame.device.setPortrait();
-    final sharedPreferences = await SharedPreferences.getInstance();
-    _init(sharedPreferences);
-    isGameSoundOn = sharedPreferences.getBool(
-      KeyValueStorageKeys.gameSound,
-    )!;
-    // Load all the required audio in cache
+  void _setupGameDifficultyLevel(SharedPreferences preferences, Sprite virus) {
+    String? key = _sharedPreferences.getString(
+      KeyValueStorageKeys.gameDifficultyLevel,
+    );
+    if (key == null) {
+      virusSpeed = 100.0;
+      return;
+    }
+    switch (GameDifficultyLevel.values.byName(key)) {
+      case GameDifficultyLevel.easy:
+        virusSpeed = 200.0;
+        break;
+      case GameDifficultyLevel.medium:
+        virusSpeed = 250.0;
+        break;
+      case GameDifficultyLevel.hard:
+        virusSpeed = 300.0;
+        VirusComponent(
+          screenSize: size,
+          startPosition: Vector2(
+            random.nextInt(size.x.toInt()).toDouble(),
+            random.nextInt(size.y.toInt()).toDouble(),
+          ),
+          velocity: moveSprite(virusSpeed),
+          sprite: virus,
+        );
+        break;
+    }
+  }
+
+  void _setupGameSound(SharedPreferences preferences) {
+    isGameSoundOn = preferences.getBool(
+          KeyValueStorageKeys.gameSound,
+        ) ??
+        true;
     if (isGameSoundOn) {
+      // Setup game sounds
       FlameAudio.audioCache.loadAll(
         [
           Globals.virusSound,
@@ -143,19 +186,33 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         ],
       );
     }
+  }
 
-    gameDifficultyLevel = GameDifficultyLevel.values.byName(
-      sharedPreferences.getString(
-        KeyValueStorageKeys.gameDifficultyLevel,
-      )!,
-    );
+  JoystickDirection get joystickDirection => _joystick.direction;
 
-    final String position = sharedPreferences.getString(
+  Vector2 get joystickRelativeDelta => _joystick.relativeDelta;
+
+  @override
+  FutureOr<void> onLoad() async {
+    await Flame.device.fullScreen();
+    await Flame.device.setPortrait();
+    _sharedPreferences = await SharedPreferences.getInstance();
+
+    _virusSprite = await loadSprite(Globals.virusSprite);
+    _vaccineSprite = await loadSprite(Globals.vaccineSprite);
+    _proteinSprite = await loadSprite(Globals.proteinSprite);
+
+    _setupGameSound(_sharedPreferences);
+    _setupWarmupTime(_sharedPreferences);
+    _setupGameTimeAndScore(_sharedPreferences);
+    _setupGameDifficultyLevel(_sharedPreferences, _virusSprite);
+
+    final String position = _sharedPreferences.getString(
           KeyValueStorageKeys.joystickPosition,
         ) ??
         JoystickPosition.left.name;
 
-    joystick = JoystickComponent(
+    _joystick = JoystickComponent(
       knob: CircleComponent(
         radius: 30,
         paint: BasicPalette.red.withAlpha(200).paint(),
@@ -168,80 +225,70 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
     switch (JoystickPosition.values.byName(position)) {
       case JoystickPosition.left:
-        joystick.position = Vector2(
+        _joystick.position = Vector2(
           size.x * 0.25,
           size.y - (size.y * 0.12),
         );
         break;
       case JoystickPosition.right:
-        joystick.position = Vector2(
+        _joystick.position = Vector2(
           size.x - size.x * 0.25,
           size.y - size.y * 0.12,
         );
         break;
     }
 
-    playerComponent = PlayerComponent(joystick: joystick);
-
-    add(DumbbellComponent());
-
-    if (gameDifficultyLevel == GameDifficultyLevel.hard) {
-      add(
-        VirusComponent(
-          startPosition: Vector2(
-            random.nextInt(size.x.toInt()).toDouble(),
-            random.nextInt(size.y.toInt()).toDouble(),
-          ),
-        ),
-      );
-    }
-    add(
-      VirusComponent(
-        startPosition: Vector2(
-          size.x / 4,
-          size.y / 2,
-        ),
-      ),
-    );
-    add(
-      VirusComponent(
-        startPosition: Vector2(
-          size.x / 3,
-          size.y / 3,
-        ),
-      ),
+    _player = PlayerComponent(
+      isGameSoundOn: isGameSoundOn,
     );
 
-    // Any collision on the bounds of the view port
-    add(ScreenHitbox());
-
-    gameStatusPanelComponent = GameStatusPanelComponent(
-      gameTime: exerciseTime,
-      warmupTime: warmupTime,
+    _gameStatusPanelComponent = GameStatusPanelComponent(
+      score: 0,
+      warmupTime: warmupTimeInString,
+      exerciseTime: exerciseTimeInString,
       titleTextStyle: themeData.textTheme.titleSmall!.copyWith(
         color: themeData.colorScheme.onPrimaryFixed,
       ),
       valueTextStyle: themeData.textTheme.titleSmall!.copyWith(
         color: themeData.colorScheme.onPrimary,
       ),
-      onGameTimeComplete: () {
-        pauseEngine();
-        overlays.add(GameOverScreen.id);
-      },
     );
 
     addAll(
       [
-        joystick,
-        playerComponent,
-        gameStatusPanelComponent,
+        _joystick,
+        _player,
+        _gameStatusPanelComponent,
+        // Any collision on the bounds of the view port
+        ScreenHitbox(),
+        DumbbellComponent(),
+        VirusComponent(
+          screenSize: size,
+          sprite: _virusSprite,
+          startPosition: Vector2(
+            size.x / 4,
+            size.y / 2,
+          ),
+          velocity: moveSprite(virusSpeed),
+        ),
+        VirusComponent(
+          screenSize: size,
+          sprite: _virusSprite,
+          startPosition: Vector2(
+            size.x / 3,
+            size.y / 3,
+          ),
+          velocity: moveSprite(virusSpeed),
+        ),
         SpawnComponent.periodRange(
           minPeriod: 5.0,
-          maxPeriod: exerciseTime - 5.0,
+          maxPeriod: exerciseTime,
           spawnCount: vaccinationSpawnCount,
           multiFactory: (_) {
             return [
               VaccineComponent(
+                screenSize: size,
+                sprite: _vaccineSprite,
                 startPosition: generateRandomPosition(size),
               ),
             ];
@@ -249,11 +296,13 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         ),
         SpawnComponent.periodRange(
           minPeriod: 8.0,
-          maxPeriod: exerciseTime - 8.0,
+          maxPeriod: exerciseTime,
           spawnCount: proteinSpawnCount,
           multiFactory: (_) {
             return [
               ProteinComponent(
+                screenSize: size,
+                sprite: _proteinSprite,
                 startPosition: generateRandomPosition(size),
               )
             ];
@@ -266,6 +315,20 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   }
 
   @override
+  void update(double dt) {
+    super.update(dt);
+    if (warmupTime > 0.0) {
+      warmupTime -= dt;
+    } else {
+      exerciseTime -= dt;
+      if (exerciseTime <= 0.0 && !paused) {
+        pauseEngine();
+        overlays.add(GameOverScreen.id);
+      }
+    }
+  }
+
+  @override
   Color backgroundColor() {
     if (buildContext != null) {
       return Theme.of(buildContext!).colorScheme.primary;
@@ -273,12 +336,11 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     return Colors.white;
   }
 
-  void reset() async {
-    playerComponent.sprite = await loadSprite(Globals.playerSkinnySprite);
-    gameStatusPanelComponent.reset(
-      gameTime: exerciseTime,
-      warmupTime: warmupTime,
-    );
+  void reset() {
+    gameScore = 0;
+    _player.reset();
+    _gameStatusPanelComponent.reset();
+    _setupGameTimeAndScore(_sharedPreferences);
   }
 
   @override
@@ -304,5 +366,33 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     reset();
     detach();
     overlays.remove(GameOverScreen.id);
+  }
+
+  static void bounceBack({
+    required Vector2 screenSize,
+    required Vector2 objectSize,
+    required Vector2 collisionPoint,
+    required Vector2 originalVelocity,
+  }) {
+    final bool hitLeft = collisionPoint.x <= 0;
+    final bool hitRight = collisionPoint.x >= screenSize.x - objectSize.x;
+    final bool hitTop = collisionPoint.y <= 0;
+    final bool hitBottom = collisionPoint.y >= screenSize.y - objectSize.y;
+
+    if (hitLeft) {
+      originalVelocity.x = originalVelocity.x.abs(); // bounce right
+    }
+
+    if (hitRight) {
+      originalVelocity.x = -originalVelocity.x.abs(); // bounce left
+    }
+
+    if (hitTop) {
+      originalVelocity.y = originalVelocity.y.abs(); // bounce down
+    }
+
+    if (hitBottom) {
+      originalVelocity.y = -originalVelocity.y.abs(); // bounce up
+    }
   }
 }
