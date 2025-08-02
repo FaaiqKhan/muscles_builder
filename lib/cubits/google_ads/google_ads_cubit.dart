@@ -11,7 +11,9 @@ class GoogleAdsCubit extends Cubit<GoogleAdsState> {
     await MobileAds.instance.initialize();
     _bannerAd = BannerAd(
       size: AdSize.banner,
-      adUnitId: const String.fromEnvironment("ad-unit-id"),
+      adUnitId: const String.fromEnvironment(
+        "ca-app-pub-1555928518606225/8073529817",
+      ),
       listener: BannerAdListener(
         onAdLoaded: _onAdLoaded,
         onAdFailedToLoad: _onAdFailedToLoad,
