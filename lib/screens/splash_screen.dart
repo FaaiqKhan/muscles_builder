@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
 import 'package:muscles_builder/constants/spacings.dart';
-import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,22 +45,6 @@ class SplashScreen extends StatelessWidget {
         JoystickPosition.left.name,
       );
     }
-
-    // UserEntity? userEntity =
-    //     await GetIt.I.get<UserAuthenticationUseCase>().getUser();
-    // if (context.mounted) {
-    //   if (userEntity != null) {
-    //     context.read<UserAuthenticationBloc>().add(
-    //           UserAuthorized(
-    //             userEntity,
-    //           ),
-    //         );
-    //   } else {
-    //     context.read<UserAuthenticationBloc>().add(
-    //           UserUnauthorized(),
-    //         );
-    //   }
-    // }
 
     /// Shared preferences are so fast that splash screen comes for
     /// less then a second that's way using delay to show splash screen for 2
