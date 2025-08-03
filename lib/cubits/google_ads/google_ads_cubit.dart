@@ -3,7 +3,9 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_state.dart';
 
 class GoogleAdsCubit extends Cubit<GoogleAdsState> {
-  GoogleAdsCubit() : super(GoogleAdsInitial());
+  GoogleAdsCubit() : super(GoogleAdsInitial()) {
+    initBannerAds();
+  }
 
   late BannerAd _bannerAd;
 

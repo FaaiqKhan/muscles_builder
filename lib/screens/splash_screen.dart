@@ -85,7 +85,6 @@ class SplashScreen extends StatelessWidget {
             /// which causes error due on navigation when UI is rendering so,
             /// using this function to navigate when frames are rendered.
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              context.read<GoogleAdsCubit>().initBannerAds();
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (_) => const HomeScreen(),
