@@ -17,7 +17,9 @@ import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
+import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/screens/game_over_screen.dart';
+import 'package:muscles_builder/theme/muscles_builder_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
@@ -55,6 +57,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   // Application theme instance because FlameGame cannot access buildContext
   final ThemeData themeData;
+  final MusclesBuilderTheme gameTheme;
 
   void increaseScoreBy(int value) => gameScore += value;
 
@@ -69,7 +72,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   bool get isWarmupCompleted => warmupTime <= 0.0;
 
-  MusclesBuilderGame({required this.themeData});
+  MusclesBuilderGame({required this.themeData, required this.gameTheme});
 
   Vector2 moveSprite(double speed) {
     // Generate a random angle in radius
@@ -247,10 +250,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       warmupTime: warmupTimeInString,
       exerciseTime: exerciseTimeInString,
       titleTextStyle: themeData.textTheme.titleSmall!.copyWith(
-        color: themeData.colorScheme.onPrimaryFixed,
+        color: gameTheme.muscleGrowthBar,
       ),
       valueTextStyle: themeData.textTheme.titleSmall!.copyWith(
-        color: themeData.colorScheme.onPrimary,
+        color: gameTheme.background,
       ),
     );
 
@@ -330,10 +333,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   @override
   Color backgroundColor() {
-    if (buildContext != null) {
-      return Theme.of(buildContext!).colorScheme.primary;
-    }
-    return Colors.white;
+    return buildContext?.musclesBuilderTheme.background ?? Colors.white;
   }
 
   void reset() {

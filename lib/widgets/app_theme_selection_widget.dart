@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/theme/theme_cubit.dart';
+import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/utils/ui_utils.dart';
 
 class AppThemeSelectionWidget extends StatelessWidget {
   const AppThemeSelectionWidget({super.key});
@@ -13,9 +15,10 @@ class AppThemeSelectionWidget extends StatelessWidget {
       children: [
         Text(
           "Application theme",
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: context.musclesBuilderTheme.primaryText),
         ),
         Padding(
           padding: const EdgeInsets.only(
@@ -33,14 +36,13 @@ class AppThemeSelectionWidget extends StatelessWidget {
                             context.read<ThemeCubit>().setThemeMode(mode),
                         child: Text(
                           mode.name,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(
-                                color: state.themeMode == mode
-                                    ? Theme.of(context).colorScheme.onPrimaryFixed
-                                    : Theme.of(context).colorScheme.onPrimary,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: UiUtils.selectedAndNonSelectedText(
+                                      context,
+                                      state.themeMode == mode,
+                                    ),
+                                  ),
                         ),
                       ),
                     )

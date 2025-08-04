@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/constants/spacings.dart';
+import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/widgets/screen_title.dart';
 
 class GameOverScreen extends StatelessWidget {
@@ -22,7 +23,7 @@ class GameOverScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: context.musclesBuilderTheme.background,
       body: SafeArea(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -40,14 +41,12 @@ class GameOverScreen extends StatelessWidget {
                     Text(
                       "Score: $score",
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                          ),
+                          color: context.musclesBuilderTheme.primaryText),
                     ),
                     Text(
                       "(Protein Bonus: $proteinBonus)",
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                          ),
+                          color: context.musclesBuilderTheme.primaryText),
                     ),
                     const SizedBox(height: Spacings.contentSpacingOf32),
                     ElevatedButton(

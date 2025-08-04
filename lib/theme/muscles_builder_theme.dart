@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
-  final Color? background;
-  final Color? primaryText;
-  final Color? accentText;
-  final Color? button;
-  final Color? buttonHover;
-  final Color? damageBar;
-  final Color? healthBar;
-  final Color? muscleGrowthBar;
-  final Color? powerUpPurple;
-  final Color? powerUpBlue;
+  final Color background;
+  final Color primaryText;
+  final Color accentText;
+  final Color button;
+  final Color buttonHover;
+  final Color damageBar;
+  final Color healthBar;
+  final Color muscleGrowthBar;
+  final Color powerUpPurple;
+  final Color powerUpBlue;
 
   const MusclesBuilderTheme({
     required this.background,
@@ -72,16 +72,16 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
   ) {
     if (other is! MusclesBuilderTheme) return this;
     return MusclesBuilderTheme(
-      background: Color.lerp(background, other.background, t),
-      primaryText: Color.lerp(primaryText, other.primaryText, t),
-      accentText: Color.lerp(accentText, other.accentText, t),
-      button: Color.lerp(button, other.button, t),
-      buttonHover: Color.lerp(buttonHover, other.buttonHover, t),
-      damageBar: Color.lerp(damageBar, other.damageBar, t),
-      healthBar: Color.lerp(healthBar, other.healthBar, t),
-      muscleGrowthBar: Color.lerp(muscleGrowthBar, other.muscleGrowthBar, t),
-      powerUpPurple: Color.lerp(powerUpPurple, other.powerUpPurple, t),
-      powerUpBlue: Color.lerp(powerUpBlue, other.powerUpBlue, t),
+      background: Color.lerp(background, other.background, t)!,
+      primaryText: Color.lerp(primaryText, other.primaryText, t)!,
+      accentText: Color.lerp(accentText, other.accentText, t)!,
+      button: Color.lerp(button, other.button, t)!,
+      buttonHover: Color.lerp(buttonHover, other.buttonHover, t)!,
+      damageBar: Color.lerp(damageBar, other.damageBar, t)!,
+      healthBar: Color.lerp(healthBar, other.healthBar, t)!,
+      muscleGrowthBar: Color.lerp(muscleGrowthBar, other.muscleGrowthBar, t)!,
+      powerUpPurple: Color.lerp(powerUpPurple, other.powerUpPurple, t)!,
+      powerUpBlue: Color.lerp(powerUpBlue, other.powerUpBlue, t)!,
     );
   }
 }

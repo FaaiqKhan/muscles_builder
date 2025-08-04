@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/constants/spacings.dart';
+import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 
 class ScreenTitle extends StatelessWidget {
   const ScreenTitle({super.key, required this.title, this.topPadding});
@@ -16,9 +17,10 @@ class ScreenTitle extends StatelessWidget {
       ),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: Theme.of(context).colorScheme.onPrimary,
-            ),
+        style: Theme.of(context)
+            .textTheme
+            .headlineSmall
+            ?.copyWith(color: context.musclesBuilderTheme.primaryText),
       ),
     );
   }

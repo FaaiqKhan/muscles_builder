@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
+import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 
 class GameSoundWidget extends StatelessWidget {
   const GameSoundWidget({super.key});
@@ -12,9 +13,10 @@ class GameSoundWidget extends StatelessWidget {
       children: [
         Text(
           "Game sound",
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: context.musclesBuilderTheme.primaryText),
         ),
         BlocBuilder<SettingsCubit, SettingsState>(
           buildWhen: (previous, current) =>
@@ -22,8 +24,9 @@ class GameSoundWidget extends StatelessWidget {
           builder: (context, state) {
             return Switch(
               value: state.gameSoundSwitch,
-              activeColor: Theme.of(context).colorScheme.onPrimaryFixed,
-              inactiveTrackColor: Theme.of(context).colorScheme.onPrimary,
+              activeColor: context.musclesBuilderTheme.primaryText,
+              inactiveTrackColor:
+                  context.musclesBuilderTheme.primaryText.withAlpha(120),
               onChanged: context.read<SettingsCubit>().updateGameSoundSwitch,
             );
           },

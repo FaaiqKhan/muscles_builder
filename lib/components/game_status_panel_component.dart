@@ -133,8 +133,8 @@ class GameStatusPanelComponent extends PositionComponent
     add(
       ScorePanelBackground(
         size: size,
-        borderColor: game.themeData.colorScheme.onPrimaryFixed,
-        fillColor: game.themeData.colorScheme.secondary.withAlpha(125),
+        borderColor: game.gameTheme.muscleGrowthBar,
+        fillColor: game.gameTheme.button.withAlpha(80),
       ),
     );
 
@@ -169,9 +169,9 @@ class GameStatusPanelComponent extends PositionComponent
             size.x - Spacings.contentSpacingOf12 - 25,
             size.y / 2,
           ),
-          iconColor: game.themeData.colorScheme.onPrimary,
-          borderColor: game.themeData.colorScheme.onPrimaryFixed,
-          backgroundColor: game.themeData.colorScheme.secondary,
+          iconColor: game.gameTheme.background,
+          borderColor: game.gameTheme.primaryText,
+          backgroundColor: game.gameTheme.primaryText,
         ),
       ],
     );
