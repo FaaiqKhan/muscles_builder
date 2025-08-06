@@ -87,6 +87,7 @@ final ThemeData musclesBuilderThemeData = ThemeData(
       muscleGrowthBar: Color(0xFFFFE600),
       powerUpPurple: Color(0xFF9C27B0),
       powerUpBlue: Color(0xFF00BFFF),
+      unselected: Color(0xFFD3D3D3),
     ),
   ],
 );

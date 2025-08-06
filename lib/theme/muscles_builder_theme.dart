@@ -11,6 +11,7 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
   final Color muscleGrowthBar;
   final Color powerUpPurple;
   final Color powerUpBlue;
+  final Color unselected;
 
   const MusclesBuilderTheme({
     required this.background,
@@ -23,6 +24,7 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
     required this.muscleGrowthBar,
     required this.powerUpPurple,
     required this.powerUpBlue,
+    required this.unselected,
   });
 
   static MusclesBuilderTheme dark = MusclesBuilderTheme(
@@ -36,6 +38,7 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
     muscleGrowthBar: Color(0xFFFFE600),
     powerUpPurple: Color(0xFF9C27B0),
     powerUpBlue: Color(0xFF00BFFF),
+    unselected: Color(0xFFFFFFFF),
   );
 
   @override
@@ -50,6 +53,7 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
     Color? muscleGrowthBar,
     Color? powerUpPurple,
     Color? powerUpBlue,
+    Color? unselected,
   }) {
     return MusclesBuilderTheme(
       background: background ?? this.background,
@@ -62,6 +66,7 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
       muscleGrowthBar: muscleGrowthBar ?? this.muscleGrowthBar,
       powerUpPurple: powerUpPurple ?? this.powerUpPurple,
       powerUpBlue: powerUpBlue ?? this.powerUpBlue,
+      unselected: unselected ?? this.unselected,
     );
   }
 
@@ -82,6 +87,7 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
       muscleGrowthBar: Color.lerp(muscleGrowthBar, other.muscleGrowthBar, t)!,
       powerUpPurple: Color.lerp(powerUpPurple, other.powerUpPurple, t)!,
       powerUpBlue: Color.lerp(powerUpBlue, other.powerUpBlue, t)!,
+      unselected: Color.lerp(unselected, other.unselected, t)!,
     );
   }
 }

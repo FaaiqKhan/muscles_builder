@@ -66,12 +66,8 @@ class HomeScreen extends StatelessWidget {
                   child: Text(
                     Quotes.quotes[Random().nextInt(Quotes.quotes.length)],
                     textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(
-                          color: context.musclesBuilderTheme.primaryText
-                        ),
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: context.musclesBuilderTheme.primaryText),
                   ),
                 ),
                 ElevatedButton(
@@ -83,10 +79,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: Text(
                     "Start workout",
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelSmall
-                        ?.copyWith(
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                   ),
@@ -111,19 +104,26 @@ class HomeScreen extends StatelessWidget {
         },
       ),
       drawer: Drawer(
+        backgroundColor: context.musclesBuilderTheme.background,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
+              padding: EdgeInsets.zero,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: context.musclesBuilderTheme.unselected,
               ),
               child: Center(
                 child: Text(
                   "Be healthy, stay happy",
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: context.musclesBuilderTheme.primaryText
-                      ),
+                      color: context.musclesBuilderTheme.muscleGrowthBar,
+                      shadows: [
+                        Shadow(
+                          color: context.musclesBuilderTheme.primaryText,
+                          offset: Offset(2, 2),
+                        )
+                      ]),
                 ),
               ),
             ),

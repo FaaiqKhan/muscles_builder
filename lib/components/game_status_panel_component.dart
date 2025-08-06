@@ -134,7 +134,7 @@ class GameStatusPanelComponent extends PositionComponent
       ScorePanelBackground(
         size: size,
         borderColor: game.gameTheme.muscleGrowthBar,
-        fillColor: game.gameTheme.button.withAlpha(80),
+        fillColor: game.gameTheme.unselected,
       ),
     );
 

@@ -10,6 +10,6 @@ class UiUtils {
   ) {
     return isSelected
         ? context.musclesBuilderTheme.primaryText
-        : context.musclesBuilderTheme.primaryText.withAlpha(120);
+        : context.musclesBuilderTheme.unselected;
   }
 }

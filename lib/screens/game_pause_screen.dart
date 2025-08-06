@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/constants/spacings.dart';
+import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class GamePauseScreen extends StatelessWidget {
@@ -11,7 +12,7 @@ class GamePauseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.withAlpha(128),
+      backgroundColor: context.musclesBuilderTheme.unselected,
       body: AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
