@@ -19,9 +19,10 @@ class ContributorsScreen extends StatelessWidget {
         children: [
           Text(
             item,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryFixed,
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: context.musclesBuilderTheme.primaryText),
           ),
           GestureDetector(
             onTap: () {
@@ -47,7 +48,7 @@ class ContributorsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: context.musclesBuilderTheme.background,
         title: Text(
           "Contributors",
           style: Theme.of(context)
@@ -58,7 +59,7 @@ class ContributorsScreen extends StatelessWidget {
         iconTheme:
             IconThemeData(color: context.musclesBuilderTheme.primaryText),
       ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: context.musclesBuilderTheme.background,
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.zero,
