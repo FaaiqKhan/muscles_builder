@@ -252,6 +252,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       valueTextStyle: themeData.textTheme.titleSmall!.copyWith(
         color: themeData.colorScheme.onPrimary,
       ),
+      statusPanelSize: Vector2(size.x / 1.2, size.y * 0.09),
+      statusPanelPosition: Vector2(size.x / 2, 20),
     );
 
     addAll(
@@ -340,6 +342,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     gameScore = 0;
     _player.reset();
     _gameStatusPanelComponent.reset();
+    _setupWarmupTime(_sharedPreferences);
     _setupGameTimeAndScore(_sharedPreferences);
   }
 

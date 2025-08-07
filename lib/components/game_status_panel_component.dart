@@ -15,13 +15,22 @@ class GameStatusPanelComponent extends PositionComponent
   final TextStyle titleTextStyle;
   final TextStyle valueTextStyle;
 
+  bool forceRestDetails = false;
+
   GameStatusPanelComponent({
     required int score,
     required String warmupTime,
     required String exerciseTime,
     required this.titleTextStyle,
     required this.valueTextStyle,
-  }) : super() {
+    required Vector2 statusPanelSize,
+    required Vector2 statusPanelPosition,
+  }) : super(
+          priority: 100,
+          size: statusPanelSize,
+          anchor: Anchor.topCenter,
+          position: statusPanelPosition,
+        ) {
     timeText = RichTextComponent(
       span: TextSpan(
         children: [
@@ -121,23 +130,6 @@ class GameStatusPanelComponent extends PositionComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    final width = game.size.x / 1.2;
-    final height = game.size.y * 0.09;
-    final screenCenter = game.size.x / 2;
-
-    priority = 100;
-    anchor = Anchor.topCenter;
-    size = Vector2(width, height);
-    position = Vector2(screenCenter, 20);
-
-    add(
-      ScorePanelBackground(
-        size: size,
-        borderColor: game.themeData.colorScheme.onPrimaryFixed,
-        fillColor: game.themeData.colorScheme.secondary.withAlpha(125),
-      ),
-    );
-
     final textSpacingDividend = size.y / 3.25;
 
     // TIME Text
@@ -160,6 +152,11 @@ class GameStatusPanelComponent extends PositionComponent
 
     addAll(
       [
+        ScorePanelBackground(
+          size: size,
+          borderColor: game.themeData.colorScheme.onPrimaryFixed,
+          fillColor: game.themeData.colorScheme.secondary.withAlpha(125),
+        ),
         scoreText,
         timeText,
         warmupText,
@@ -179,6 +176,11 @@ class GameStatusPanelComponent extends PositionComponent
 
   @override
   void update(double dt) {
+    if (forceRestDetails) {
+      updateWarmupText(game.warmupTimeInString);
+      updateGameTimeText(game.exerciseTimeInString);
+      forceRestDetails = false;
+    }
     if (game.warmupTime >= 0) {
       updateWarmupText(game.warmupTimeInString);
     }
@@ -189,9 +191,5 @@ class GameStatusPanelComponent extends PositionComponent
     super.update(dt);
   }
 
-  void reset() {
-    updateScoreText(0);
-    updateWarmupText(game.warmupTimeInString);
-    updateGameTimeText(game.exerciseTimeInString);
-  }
+  void reset() => forceRestDetails = true;
 }
