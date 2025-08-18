@@ -16,19 +16,62 @@ class AppDrawerWidget extends StatelessWidget {
           DrawerHeader(
             padding: EdgeInsets.zero,
             decoration: BoxDecoration(
-              color: context.musclesBuilderTheme.unselected,
+              color: context.musclesBuilderTheme.background,
             ),
             child: Center(
-              child: Text(
-                "Be healthy, stay happy",
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: context.musclesBuilderTheme.muscleGrowthBar,
-                    shadows: [
-                      Shadow(
-                        color: context.musclesBuilderTheme.primaryText,
-                        offset: Offset(2, 2),
-                      )
-                    ]),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Stack(
+                    children: <Widget>[
+                      // Stroked text as border.
+                      Text(
+                        "Be happy",
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  foreground: Paint()
+                                    ..style = PaintingStyle.stroke
+                                    ..strokeWidth = 6
+                                    ..color =
+                                        context.musclesBuilderTheme.primaryText,
+                                ),
+                      ),
+                      // Solid text as fill.
+                      Text(
+                        "Be happy",
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  color: context.musclesBuilderTheme.accentText,
+                                ),
+                      ),
+                    ],
+                  ),
+                  Stack(
+                    children: <Widget>[
+                      // Stroked text as border.
+                      Text(
+                        "Stay Healthy",
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  foreground: Paint()
+                                    ..style = PaintingStyle.stroke
+                                    ..strokeWidth = 6
+                                    ..color =
+                                        context.musclesBuilderTheme.primaryText,
+                                ),
+                      ),
+                      // Solid text as fill.
+                      Text(
+                        "Stay Healthy",
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  color: context.musclesBuilderTheme.accentText,
+                                ),
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
           ),

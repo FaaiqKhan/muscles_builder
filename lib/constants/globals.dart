@@ -23,10 +23,6 @@ class Globals {
   static const String dumbbellMediumSprite = "dumbbell_medium.png";
   static const String playerMuscularSprite = "player_muscular.png";
 
-  // Images for dart
-  // Dart does not know about the assets path
-  static const String homeScreenLogo = "assets/images/home_screen_logo.png";
-
   // Gifs
   static const String splashScreenLoadingGIF = "assets/gifs/loading.gif";
   static const String splashScreenLoading2GIF = "assets/gifs/loading2.gif";
