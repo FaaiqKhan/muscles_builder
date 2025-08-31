@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
+import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/utils/ui_utils.dart';
 
 class GameDifficultyLevelWidget extends StatelessWidget {
   const GameDifficultyLevelWidget({super.key});
@@ -14,9 +16,10 @@ class GameDifficultyLevelWidget extends StatelessWidget {
       children: [
         Text(
           "Difficulty level",
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: context.musclesBuilderTheme.primaryText),
         ),
         Padding(
           padding: const EdgeInsets.only(
@@ -33,10 +36,11 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                     child: Text(
                       "Easy",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: state.gameDifficultyLevel ==
-                                    GameDifficultyLevel.easy
-                                ? Theme.of(context).colorScheme.onPrimaryFixed
-                                : Theme.of(context).colorScheme.onPrimary,
+                            color: UiUtils.selectedAndNonSelectedText(
+                              context,
+                              state.gameDifficultyLevel ==
+                                  GameDifficultyLevel.easy,
+                            ),
                           ),
                     ),
                   ),
@@ -47,11 +51,12 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                     child: Text(
                       "Medium",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: state.gameDifficultyLevel ==
-                            GameDifficultyLevel.medium
-                            ? Theme.of(context).colorScheme.onPrimaryFixed
-                            : Theme.of(context).colorScheme.onPrimary,
-                      ),
+                            color: UiUtils.selectedAndNonSelectedText(
+                              context,
+                              state.gameDifficultyLevel ==
+                                  GameDifficultyLevel.medium,
+                            ),
+                          ),
                     ),
                   ),
                   TextButton(
@@ -61,11 +66,12 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                     child: Text(
                       "Hard",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: state.gameDifficultyLevel ==
-                            GameDifficultyLevel.hard
-                            ? Theme.of(context).colorScheme.onPrimaryFixed
-                            : Theme.of(context).colorScheme.onPrimary,
-                      ),
+                            color: UiUtils.selectedAndNonSelectedText(
+                              context,
+                              state.gameDifficultyLevel ==
+                                  GameDifficultyLevel.hard,
+                            ),
+                          ),
                     ),
                   ),
                 ],

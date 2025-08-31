@@ -80,7 +80,7 @@ class PauseButtonComponent extends CustomPainterComponent
 
     // Draw border
     final borderPaint = Paint()
-      ..color = backgroundColor
+      ..color = borderColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
     canvas.drawRRect(rRect, borderPaint);

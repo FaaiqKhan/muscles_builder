@@ -6,7 +6,8 @@ import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 import 'package:muscles_builder/cubits/theme/theme_cubit.dart';
 import 'package:muscles_builder/screens/splash_screen.dart';
-import 'package:muscles_builder/theme.dart';
+import 'package:muscles_builder/theme/muscles_builder_theme.dart';
+import 'package:muscles_builder/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,12 +42,14 @@ class MyApp extends StatelessWidget {
       buildWhen: (previous, current) => previous.themeMode != current.themeMode,
       builder: (context, state) {
         return MaterialApp(
-          theme: lightTheme,
-          color: Colors.white,
-          darkTheme: darkTheme,
+          theme: musclesBuilderThemeData,
+          darkTheme: musclesBuilderThemeData.copyWith(
+            extensions: <ThemeExtension<MusclesBuilderTheme>>[
+              MusclesBuilderTheme.dark,
+            ],
+          ),
           themeMode: state.themeMode,
           home: const SplashScreen(),
-          debugShowCheckedModeBanner: true,
         );
       },
     );

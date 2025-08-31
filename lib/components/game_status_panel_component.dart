@@ -166,9 +166,9 @@ class GameStatusPanelComponent extends PositionComponent
             size.x - Spacings.contentSpacingOf12 - 25,
             size.y / 2,
           ),
-          iconColor: game.themeData.colorScheme.onPrimary,
-          borderColor: game.themeData.colorScheme.onPrimaryFixed,
-          backgroundColor: game.themeData.colorScheme.secondary,
+          iconColor: game.gameTheme.background,
+          borderColor: game.gameTheme.primaryText,
+          backgroundColor: game.gameTheme.primaryText,
         ),
       ],
     );

@@ -1,5 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 import 'package:muscles_builder/screens/game_over_screen.dart';
 import 'package:muscles_builder/screens/game_pause_screen.dart';
@@ -10,7 +11,10 @@ class MusclesBuilderGameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GameWidget(
-      game: MusclesBuilderGame(themeData: Theme.of(context)),
+      game: MusclesBuilderGame(
+        themeData: Theme.of(context),
+        gameTheme: context.musclesBuilderTheme,
+      ),
       overlayBuilderMap: {
         GameOverScreen.id: (BuildContext context, MusclesBuilderGame gameRef) {
           return GameOverScreen(

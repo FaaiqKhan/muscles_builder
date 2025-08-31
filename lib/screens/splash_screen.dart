@@ -3,6 +3,7 @@ import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
 import 'package:muscles_builder/constants/spacings.dart';
+import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,33 +47,17 @@ class SplashScreen extends StatelessWidget {
       );
     }
 
-    // UserEntity? userEntity =
-    //     await GetIt.I.get<UserAuthenticationUseCase>().getUser();
-    // if (context.mounted) {
-    //   if (userEntity != null) {
-    //     context.read<UserAuthenticationBloc>().add(
-    //           UserAuthorized(
-    //             userEntity,
-    //           ),
-    //         );
-    //   } else {
-    //     context.read<UserAuthenticationBloc>().add(
-    //           UserUnauthorized(),
-    //         );
-    //   }
-    // }
-
     /// Shared preferences are so fast that splash screen comes for
     /// less then a second that's way using delay to show splash screen for 2
     /// seconds event after the data has been loaded.
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 2));
     return true;
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).colorScheme.primary,
+      color: context.musclesBuilderTheme.background,
       width: MediaQuery.of(context).size.width,
       child: FutureBuilder(
         future: init(context),
@@ -85,7 +70,7 @@ class SplashScreen extends StatelessWidget {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (_) => const HomeScreen(),
+                  builder: (_) => HomeScreen(),
                 ),
               );
             });
@@ -101,9 +86,10 @@ class SplashScreen extends StatelessWidget {
               const SizedBox(height: Spacings.contentSpacingOf12),
               Text(
                 "Warming up...",
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(color: context.musclesBuilderTheme.primaryText),
               ),
             ],
           );

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
+import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/utils/ui_utils.dart';
 
 class ExerciseTimeWidget extends StatelessWidget {
   const ExerciseTimeWidget({super.key});
@@ -14,9 +16,10 @@ class ExerciseTimeWidget extends StatelessWidget {
       children: [
         Text(
           "Exercise time",
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: context.musclesBuilderTheme.primaryText),
         ),
         Padding(
           padding: const EdgeInsets.only(
@@ -35,11 +38,13 @@ class ExerciseTimeWidget extends StatelessWidget {
                             .updateExerciseTime(exerciseTime),
                         child: Text(
                           exerciseTime.value,
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: state.exerciseTime == exerciseTime
-                                ? Theme.of(context).colorScheme.onPrimaryFixed
-                                : Theme.of(context).colorScheme.onPrimary,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: UiUtils.selectedAndNonSelectedText(
+                                      context,
+                                      state.exerciseTime == exerciseTime,
+                                    ),
+                                  ),
                         ),
                       ),
                     )
