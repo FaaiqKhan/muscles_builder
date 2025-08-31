@@ -43,8 +43,8 @@ class MyApp extends StatelessWidget {
       builder: (context, state) {
         return MaterialApp(
           theme: musclesBuilderThemeData,
-          darkTheme: ThemeData.dark().copyWith(
-            extensions: <ThemeExtension<dynamic>>[
+          darkTheme: musclesBuilderThemeData.copyWith(
+            extensions: <ThemeExtension<MusclesBuilderTheme>>[
               MusclesBuilderTheme.dark,
             ],
           ),

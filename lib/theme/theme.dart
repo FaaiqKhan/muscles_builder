@@ -75,7 +75,7 @@ final ThemeData musclesBuilderThemeData = ThemeData(
       fontWeight: FontWeight.w500,
     ),
   ),
-  extensions: const <ThemeExtension<dynamic>>[
+  extensions: const <ThemeExtension<MusclesBuilderTheme>>[
     MusclesBuilderTheme(
       background: Color(0xFFDCDCDC),
       primaryText: Color(0xFF3E3E3E),
@@ -88,6 +88,7 @@ final ThemeData musclesBuilderThemeData = ThemeData(
       powerUpPurple: Color(0xFF9C27B0),
       powerUpBlue: Color(0xFF00BFFF),
       unselected: Color(0xFFD3D3D3),
+      dialogBoxSurface: Color(0xFFF7F7F7),
     ),
   ],
 );

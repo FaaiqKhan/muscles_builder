@@ -12,16 +12,41 @@ class GamePauseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.musclesBuilderTheme.unselected,
+      backgroundColor: context.musclesBuilderTheme.background,
       body: AlertDialog(
+        backgroundColor: context.musclesBuilderTheme.dialogBoxSurface,
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "Game\npaused",
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.displaySmall,
+            Stack(
+              children: <Widget>[
+                // Stroked text as border.
+                Text(
+                  "Game\nPaused",
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 6
+                        ..color = context
+                            .musclesBuilderTheme.primaryText),
+                  textAlign: TextAlign.center,
+                ),
+                // Solid text as fill.
+                Text(
+                  "Game\nPaused",
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(
+                      color: context
+                          .musclesBuilderTheme.accentText),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
             const SizedBox(height: Spacings.contentSpacingOf32),
             ElevatedButton(
@@ -29,7 +54,12 @@ class GamePauseScreen extends StatelessWidget {
                 gameRef.resumeEngine();
                 gameRef.overlays.remove(GamePauseScreen.id);
               },
-              child: const Text("Back to Gym"),
+              child: Text(
+                "Back to Gym",
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+              ),
             ),
             const SizedBox(height: Spacings.contentSpacingOf12),
             ElevatedButton(
@@ -39,7 +69,12 @@ class GamePauseScreen extends StatelessWidget {
                 gameRef.overlays.remove(GamePauseScreen.id);
                 Navigator.of(context).pop();
               },
-              child: const Text("I'm tired"),
+              child: Text(
+                "I'm tired",
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+              ),
             ),
           ],
         ),

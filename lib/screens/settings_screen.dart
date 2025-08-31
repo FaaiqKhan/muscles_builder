@@ -31,7 +31,7 @@ class SettingsScreen extends StatelessWidget {
               ),
         ),
         iconTheme: IconThemeData(
-          color: context.musclesBuilderTheme.button,
+          color: context.musclesBuilderTheme.primaryText,
         ),
       ),
       backgroundColor: context.musclesBuilderTheme.background,

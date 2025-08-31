@@ -12,6 +12,7 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
   final Color powerUpPurple;
   final Color powerUpBlue;
   final Color unselected;
+  final Color dialogBoxSurface;
 
   const MusclesBuilderTheme({
     required this.background,
@@ -25,12 +26,13 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
     required this.powerUpPurple,
     required this.powerUpBlue,
     required this.unselected,
+    required this.dialogBoxSurface,
   });
 
   static MusclesBuilderTheme dark = MusclesBuilderTheme(
     background: Color(0xFF111111),
     primaryText: Color(0xFFFFFFFF),
-    accentText: Color(0xFFFFE600),
+    accentText: Color(0xFFFF4C4C),
     button: Color(0xFFFF4C4C),
     buttonHover: Color(0xFFFFE600),
     damageBar: Color(0xFFFF0000),
@@ -39,6 +41,7 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
     powerUpPurple: Color(0xFF9C27B0),
     powerUpBlue: Color(0xFF00BFFF),
     unselected: Color(0xFFFFFFFF),
+    dialogBoxSurface: Color(0xFFF7F7F7),
   );
 
   @override
@@ -54,6 +57,7 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
     Color? powerUpPurple,
     Color? powerUpBlue,
     Color? unselected,
+    Color? dialogBoxSurface,
   }) {
     return MusclesBuilderTheme(
       background: background ?? this.background,
@@ -67,6 +71,7 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
       powerUpPurple: powerUpPurple ?? this.powerUpPurple,
       powerUpBlue: powerUpBlue ?? this.powerUpBlue,
       unselected: unselected ?? this.unselected,
+      dialogBoxSurface: dialogBoxSurface ?? this.dialogBoxSurface,
     );
   }
 
@@ -88,6 +93,8 @@ class MusclesBuilderTheme extends ThemeExtension<MusclesBuilderTheme> {
       powerUpPurple: Color.lerp(powerUpPurple, other.powerUpPurple, t)!,
       powerUpBlue: Color.lerp(powerUpBlue, other.powerUpBlue, t)!,
       unselected: Color.lerp(unselected, other.unselected, t)!,
+      dialogBoxSurface:
+          Color.lerp(dialogBoxSurface, other.dialogBoxSurface, t)!,
     );
   }
 }

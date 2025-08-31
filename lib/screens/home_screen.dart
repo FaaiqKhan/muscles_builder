@@ -16,63 +16,67 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   Widget screenTitle(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          children: <Widget>[
-            // Stroked text as border.
-            Text(
-              "MUSCLES",
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge
-                  ?.copyWith(
-                  foreground: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = 6
-                    ..color = context
-                        .musclesBuilderTheme.primaryText),
-            ),
-            // Solid text as fill.
-            Text(
-              "MUSCLES",
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge
-                  ?.copyWith(
-                  color: context
-                      .musclesBuilderTheme.accentText),
-            ),
-          ],
-        ),
-        Stack(
-          children: <Widget>[
-            // Stroked text as border.
-            Text(
-              "BUILDER",
-              style: Theme.of(context)
-                  .textTheme
-                  .displayMedium
-                  ?.copyWith(
-                  foreground: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = 6
-                    ..color = context
-                        .musclesBuilderTheme.primaryText),
-            ),
-            // Solid text as fill.
-            Text(
-              "BUILDER",
-              style: Theme.of(context)
-                  .textTheme
-                  .displayMedium
-                  ?.copyWith(
-                  color: context
-                      .musclesBuilderTheme.accentText),
-            ),
-          ],
-        ),
-      ],
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Stack(
+            children: <Widget>[
+              // Stroked text as border.
+              Text(
+                "MUSCLES",
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 6
+                      ..color = context
+                          .musclesBuilderTheme.primaryText),
+              ),
+              // Solid text as fill.
+              Text(
+                "MUSCLES",
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(
+                    color: context
+                        .musclesBuilderTheme.accentText),
+              ),
+            ],
+          ),
+          Stack(
+            children: <Widget>[
+              // Stroked text as border.
+              Text(
+                "BUILDER",
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 6
+                      ..color = context
+                          .musclesBuilderTheme.primaryText),
+              ),
+              // Solid text as fill.
+              Text(
+                "BUILDER",
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(
+                    color: context
+                        .musclesBuilderTheme.accentText),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -93,7 +97,6 @@ class HomeScreen extends StatelessWidget {
             },
             icon: Icon(
               Icons.settings,
-              color: context.musclesBuilderTheme.button,
             ),
           ),
         ],

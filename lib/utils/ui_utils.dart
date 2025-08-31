@@ -9,7 +9,7 @@ class UiUtils {
     bool isSelected,
   ) {
     return isSelected
-        ? context.musclesBuilderTheme.primaryText
-        : context.musclesBuilderTheme.unselected;
+        ? context.musclesBuilderTheme.accentText
+        : context.musclesBuilderTheme.primaryText;
   }
 }
