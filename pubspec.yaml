@@ -2,7 +2,7 @@ name: muscles_builder
 description: "Game for entertainment"
 publish_to: 'none'
 
-version: 1.0.1+9
+version: 1.0.1+10
 
 environment:
   sdk: ^3.5.4
