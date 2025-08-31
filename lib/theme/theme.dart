@@ -77,9 +77,9 @@ final ThemeData musclesBuilderThemeData = ThemeData(
   ),
   extensions: const <ThemeExtension<dynamic>>[
     MusclesBuilderTheme(
-      background: Color(0xFFFFFFFF),
-      primaryText: Color(0xFF111111),
-      accentText: Color(0xFFFF4C4C),
+      background: Color(0xFFDCDCDC),
+      primaryText: Color(0xFF3E3E3E),
+      accentText: Color(0xFFFEE60A),
       button: Color(0xFF111111),
       buttonHover: Color(0xFFFF4C4C),
       damageBar: Color(0xFFFF0000),
