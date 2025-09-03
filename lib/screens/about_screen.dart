@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -13,7 +14,7 @@ class AboutScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: context.musclesBuilderTheme.background,
         title: Text(
-          "About",
+          AppLocalizations.of(context).about,
           style: Theme.of(context)
               .textTheme
               .headlineSmall
@@ -31,7 +32,8 @@ class AboutScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "${context.read<SettingsCubit>().appVersion}-${context.read<SettingsCubit>().appBuildNumber}",
+                AppLocalizations.of(context)
+                    .appVersion(context.read<SettingsCubit>().appVersion),
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium

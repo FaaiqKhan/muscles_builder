@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 
 class GameSoundWidget extends StatelessWidget {
   const GameSoundWidget({super.key});
@@ -12,7 +13,7 @@ class GameSoundWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "Game sound",
+          AppLocalizations.of(context).gameSound,
           style: Theme.of(context)
               .textTheme
               .bodyMedium

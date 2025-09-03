@@ -4,6 +4,7 @@ import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 import 'package:muscles_builder/utils/ui_utils.dart';
 
 class ExerciseTimeWidget extends StatelessWidget {
@@ -15,7 +16,7 @@ class ExerciseTimeWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Exercise time",
+          AppLocalizations.of(context).exerciseTime,
           style: Theme.of(context)
               .textTheme
               .bodyMedium

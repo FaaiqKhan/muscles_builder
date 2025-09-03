@@ -1,0 +1,55 @@
+{
+  "@@locale": "hu (Hungarian)",
+  "warmingUp": "Bemelegítés...",
+  "musclesBuilderTitle": "Izom-\népítő",
+  "startWorkout": "Edzés indítása",
+  "about": "Névjegy",
+  "appVersion": "Alkalmazás verzió ${version}",
+  "@appVersion": {
+    "description": "Application version",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Közreműködők",
+  "icons": "Ikonok",
+  "gameOver": "Játék vége",
+  "score": "Pontszám: ${score}",
+  "@score": {
+    "description": "Points that user takes on picking dumbbells",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "proteinBonus": "Fehérje bónusz: ${bonus}",
+  "@proteinBonus": {
+    "description": "Extra points that user takes on picking bonus objects",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Újra",
+  "imTired": "Elfáradtam",
+  "backToGym": "Vissza az edzőterembe",
+  "gamePaused": "Játék\nszüneteltetve",
+  "settings": "Beállítások",
+  "reset": "Visszaállítás",
+  "beHappyStayHealthy": "Légy boldog\nMaradj egészséges",
+  "applicationTheme": "Alkalmazás témája",
+  "exerciseTime": "Edzésidő",
+  "difficultyLevel": "Nehézségi szint",
+  "easy": "Könnyű",
+  "medium": "Közepes",
+  "hard": "Nehéz",
+  "gameSound": "Játék hangja",
+  "joystickPosition": "Joystick pozíció"
+}

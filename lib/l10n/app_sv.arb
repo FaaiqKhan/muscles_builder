@@ -1,0 +1,55 @@
+{
+  "@@locale": "sv (Swedish)",
+  "warmingUp": "Värmer upp...",
+  "musclesBuilderTitle": "Muskel-\nbyggare",
+  "startWorkout": "Starta träning",
+  "about": "Om",
+  "appVersion": "Appversion ${version}",
+  "@appVersion": {
+    "description": "Application version",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Bidragsgivare",
+  "icons": "Ikoner",
+  "gameOver": "Spelet över",
+  "score": "Poäng: ${score}",
+  "@score": {
+    "description": "Points that user takes on picking dumbbells",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "proteinBonus": "Proteinbonus: ${bonus}",
+  "@proteinBonus": {
+    "description": "Extra points that user takes on picking bonus objects",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Igen",
+  "imTired": "Jag är trött",
+  "backToGym": "Tillbaka till gymmet",
+  "gamePaused": "Spelet\npausat",
+  "settings": "Inställningar",
+  "reset": "Återställ",
+  "beHappyStayHealthy": "Var glad\nHåll dig frisk",
+  "applicationTheme": "Appens tema",
+  "exerciseTime": "Träningstid",
+  "difficultyLevel": "Svårighetsnivå",
+  "easy": "Lätt",
+  "medium": "Medel",
+  "hard": "Svår",
+  "gameSound": "Spelljud",
+  "joystickPosition": "Joystick-position"
+}

@@ -12,11 +12,8 @@ class SettingsCubit extends Cubit<SettingsState> {
     _init();
   }
 
-  String appVersion = "Version ";
-  String appBuildNumber = "";
-
-  String getAppVersion() => appVersion;
-  String getAppBuildNumber() => appBuildNumber;
+  String _appVersion = "";
+  String get appVersion => _appVersion;
 
   void _init() {
     SharedPreferences.getInstance().then((instance) {
@@ -46,8 +43,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       );
     });
     PackageInfo.fromPlatform().then((info) {
-      appVersion += info.version;
-      appBuildNumber += info.buildNumber;
+      _appVersion = "${info.version}-${info.buildNumber}";
     });
   }
 

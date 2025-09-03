@@ -1,0 +1,55 @@
+{
+  "@@locale": "tr (Turkish)",
+  "warmingUp": "Isınma...",
+  "musclesBuilderTitle": "Kas\nYapıcı",
+  "startWorkout": "Antrenmana başla",
+  "about": "Hakkında",
+  "appVersion": "Uygulama sürümü ${version}",
+  "@appVersion": {
+    "description": "Application version",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Katkıda bulunanlar",
+  "icons": "Simgeler",
+  "gameOver": "Oyun bitti",
+  "score": "Skor: ${score}",
+  "@score": {
+    "description": "Points that user takes on picking dumbbells",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "proteinBonus": "Protein bonusu: ${bonus}",
+  "@proteinBonus": {
+    "description": "Extra points that user takes on picking bonus objects",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Tekrar",
+  "imTired": "Yoruldum",
+  "backToGym": "Spor salonuna dön",
+  "gamePaused": "Oyun\nduraklatıldı",
+  "settings": "Ayarlar",
+  "reset": "Sıfırla",
+  "beHappyStayHealthy": "Mutlu ol\nSağlıklı kal",
+  "applicationTheme": "Uygulama teması",
+  "exerciseTime": "Egzersiz süresi",
+  "difficultyLevel": "Zorluk seviyesi",
+  "easy": "Kolay",
+  "medium": "Orta",
+  "hard": "Zor",
+  "gameSound": "Oyun sesi",
+  "joystickPosition": "Joystick konumu"
+}

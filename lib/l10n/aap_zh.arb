@@ -1,0 +1,56 @@
+{
+  "@@locale": "zh (Chinese Simplified)",
+  "warmingUp": "热身中...",
+  "musclesBuilderTitle": "肌肉\n锻造者",
+  "startWorkout": "开始锻炼",
+  "about": "关于",
+  "appVersion": "应用版本 ${version}",
+  "@appVersion": {
+    "description": "Application version",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "贡献者",
+  "icons": "图标",
+  "gameOver": "游戏结束",
+  "score": "得分: ${score}",
+  "@score": {
+    "description": "Points that user takes on picking dumbbells",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "proteinBonus": "蛋白质奖励: ${bonus}",
+  "@proteinBonus": {
+    "description": "Extra points that user takes on picking bonus objects",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "再来一次",
+  "imTired": "我累了",
+  "backToGym": "返回健身房",
+  "gamePaused": "游戏\n已暂停",
+  "settings": "设置",
+  "reset": "重置",
+  "beHappyStayHealthy": "保持快乐\n保持健康",
+  "applicationTheme": "应用主题",
+  "exerciseTime": "锻炼时间",
+  "difficultyLevel": "难度等级",
+  "easy": "简单",
+  "medium": "中等",
+  "hard": "困难",
+  "gameSound": "游戏音效",
+  "joystickPosition": "操纵杆位置"
+}
+

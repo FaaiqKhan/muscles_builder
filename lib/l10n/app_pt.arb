@@ -1,0 +1,55 @@
+{
+  "@@locale": "pt (Portuguese)",
+  "warmingUp": "Aquecendo...",
+  "musclesBuilderTitle": "Construtor\nde músculos",
+  "startWorkout": "Iniciar treino",
+  "about": "Sobre",
+  "appVersion": "Versão do app ${version}",
+  "@appVersion": {
+    "description": "Application version",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Colaboradores",
+  "icons": "Ícones",
+  "gameOver": "Fim de jogo",
+  "score": "Pontuação: ${score}",
+  "@score": {
+    "description": "Points that user takes on picking dumbbells",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "proteinBonus": "Bônus de proteína: ${bonus}",
+  "@proteinBonus": {
+    "description": "Extra points that user takes on picking bonus objects",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "De novo",
+  "imTired": "Estou cansado",
+  "backToGym": "Voltar para a academia",
+  "gamePaused": "Jogo\npausado",
+  "settings": "Configurações",
+  "reset": "Redefinir",
+  "beHappyStayHealthy": "Seja feliz\nMantenha-se saudável",
+  "applicationTheme": "Tema do aplicativo",
+  "exerciseTime": "Tempo de treino",
+  "difficultyLevel": "Nível de dificuldade",
+  "easy": "Fácil",
+  "medium": "Médio",
+  "hard": "Difícil",
+  "gameSound": "Som do jogo",
+  "joystickPosition": "Posição do joystick"
+}

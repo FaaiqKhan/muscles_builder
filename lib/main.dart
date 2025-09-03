@@ -9,6 +9,8 @@ import 'package:muscles_builder/screens/splash_screen.dart';
 import 'package:muscles_builder/theme/muscles_builder_theme.dart';
 import 'package:muscles_builder/theme/theme.dart';
 
+import 'l10n/translations/app_localizations.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LicenseRegistry.addLicense(() async* {
@@ -42,6 +44,9 @@ class MyApp extends StatelessWidget {
       buildWhen: (previous, current) => previous.themeMode != current.themeMode,
       builder: (context, state) {
         return MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: PlatformDispatcher.instance.locale,
           theme: musclesBuilderThemeData,
           darkTheme: musclesBuilderThemeData.copyWith(
             extensions: <ThemeExtension<MusclesBuilderTheme>>[

@@ -1,0 +1,55 @@
+{
+  "@@locale": "cs (Czech)",
+  "warmingUp": "Rozcvička...",
+  "musclesBuilderTitle": "Budovatel\nsvalů",
+  "startWorkout": "Začít trénink",
+  "about": "O aplikaci",
+  "appVersion": "Verze aplikace ${version}",
+  "@appVersion": {
+    "description": "Application version",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Přispěvatelé",
+  "icons": "Ikony",
+  "gameOver": "Konec hry",
+  "score": "Skóre: ${score}",
+  "@score": {
+    "description": "Points that user takes on picking dumbbells",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "proteinBonus": "Proteinový bonus: ${bonus}",
+  "@proteinBonus": {
+    "description": "Extra points that user takes on picking bonus objects",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Znovu",
+  "imTired": "Jsem unavený",
+  "backToGym": "Zpět do posilovny",
+  "gamePaused": "Hra\npozastavena",
+  "settings": "Nastavení",
+  "reset": "Obnovit",
+  "beHappyStayHealthy": "Buď šťastný\nZůstaň zdravý",
+  "applicationTheme": "Téma aplikace",
+  "exerciseTime": "Doba cvičení",
+  "difficultyLevel": "Úroveň obtížnosti",
+  "easy": "Lehká",
+  "medium": "Střední",
+  "hard": "Těžká",
+  "gameSound": "Zvuk hry",
+  "joystickPosition": "Poloha joysticku"
+}

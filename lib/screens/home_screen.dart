@@ -8,6 +8,7 @@ import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_state.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
 import 'package:muscles_builder/screens/settings_screen.dart';
 import 'package:muscles_builder/widgets/app_drawer_widget.dart';
@@ -25,53 +26,20 @@ class HomeScreen extends StatelessWidget {
             children: <Widget>[
               // Stroked text as border.
               Text(
-                "MUSCLES",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayLarge
-                    ?.copyWith(
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 6
-                      ..color = context
-                          .musclesBuilderTheme.primaryText),
+                AppLocalizations.of(context).musclesBuilderTitle,
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 6
+                        ..color = context.musclesBuilderTheme.primaryText,
+                    ),
               ),
               // Solid text as fill.
               Text(
-                "MUSCLES",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayLarge
-                    ?.copyWith(
-                    color: context
-                        .musclesBuilderTheme.accentText),
-              ),
-            ],
-          ),
-          Stack(
-            children: <Widget>[
-              // Stroked text as border.
-              Text(
-                "BUILDER",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium
-                    ?.copyWith(
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 6
-                      ..color = context
-                          .musclesBuilderTheme.primaryText),
-              ),
-              // Solid text as fill.
-              Text(
-                "BUILDER",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium
-                    ?.copyWith(
-                    color: context
-                        .musclesBuilderTheme.accentText),
+                AppLocalizations.of(context).musclesBuilderTitle,
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                      color: context.musclesBuilderTheme.accentText,
+                    ),
               ),
             ],
           ),
@@ -128,7 +96,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    "Start workout",
+                    AppLocalizations.of(context).startWorkout,
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           color: Theme.of(context).colorScheme.secondary,
                         ),

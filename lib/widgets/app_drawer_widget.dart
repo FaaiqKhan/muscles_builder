@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 import 'package:muscles_builder/screens/about_screen.dart';
 import 'package:muscles_builder/screens/contributors_screen.dart';
 
@@ -28,57 +29,36 @@ class AppDrawerWidget extends StatelessWidget {
                       children: <Widget>[
                         // Stroked text as border.
                         Text(
-                          "Be happy",
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    foreground: Paint()
-                                      ..style = PaintingStyle.stroke
-                                      ..strokeWidth = 6
-                                      ..color =
-                                          context.musclesBuilderTheme.primaryText,
-                                  ),
+                          AppLocalizations.of(context).beHappyStayHealthy,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(
+                                  foreground: Paint()
+                                    ..style = PaintingStyle.stroke
+                                    ..strokeWidth = 6
+                                    ..color = context
+                                        .musclesBuilderTheme.primaryText),
                         ),
                         // Solid text as fill.
                         Text(
-                          "Be happy",
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    color: context.musclesBuilderTheme.accentText,
-                                  ),
+                          AppLocalizations.of(context).beHappyStayHealthy,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(
+                                  color:
+                                      context.musclesBuilderTheme.accentText),
                         ),
                       ],
                     ),
-                    Stack(
-                      children: <Widget>[
-                        // Stroked text as border.
-                        Text(
-                          "Stay Healthy",
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    foreground: Paint()
-                                      ..style = PaintingStyle.stroke
-                                      ..strokeWidth = 6
-                                      ..color =
-                                          context.musclesBuilderTheme.primaryText,
-                                  ),
-                        ),
-                        // Solid text as fill.
-                        Text(
-                          "Stay Healthy",
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    color: context.musclesBuilderTheme.accentText,
-                                  ),
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),
             ),
             ListTile(
               title: Text(
-                "Contributors",
+                AppLocalizations.of(context).contributors,
                 style: Theme.of(context).textTheme.labelSmall,
               ),
               onTap: () {
@@ -92,7 +72,7 @@ class AppDrawerWidget extends StatelessWidget {
             ),
             ListTile(
               title: Text(
-                "About",
+                AppLocalizations.of(context).about,
                 style: Theme.of(context).textTheme.labelSmall,
               ),
               onTap: () {

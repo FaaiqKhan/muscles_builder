@@ -1,0 +1,55 @@
+{
+  "@@locale": "be (Belarusian)",
+  "warmingUp": "Разагрэў...",
+  "musclesBuilderTitle": "Будаўнік\nцягліц",
+  "startWorkout": "Пачаць трэніроўку",
+  "about": "Пра праграму",
+  "appVersion": "Версія праграмы ${version}",
+  "@appVersion": {
+    "description": "Application version",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Удзельнікі",
+  "icons": "Значкі",
+  "gameOver": "Гульня скончана",
+  "score": "Ачкі: ${score}",
+  "@score": {
+    "description": "Points that user takes on picking dumbbells",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "proteinBonus": "Бонус бялку: ${bonus}",
+  "@proteinBonus": {
+    "description": "Extra points that user takes on picking bonus objects",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Яшчэ раз",
+  "imTired": "Я стаміўся",
+  "backToGym": "Вярнуцца ў спартзалу",
+  "gamePaused": "Гульня\nпрыпынена",
+  "settings": "Налады",
+  "reset": "Скід",
+  "beHappyStayHealthy": "Будзь шчаслівы\nБудзь здаровы",
+  "applicationTheme": "Тэма прыкладання",
+  "exerciseTime": "Час трэніроўкі",
+  "difficultyLevel": "Узровень складанасці",
+  "easy": "Лёгка",
+  "medium": "Сярэдні",
+  "hard": "Цяжкі",
+  "gameSound": "Гук гульні",
+  "joystickPosition": "Пазіцыя джойсціка"
+}

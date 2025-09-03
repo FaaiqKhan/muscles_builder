@@ -4,6 +4,7 @@ import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 import 'package:muscles_builder/utils/ui_utils.dart';
 
 class GameDifficultyLevelWidget extends StatelessWidget {
@@ -15,7 +16,7 @@ class GameDifficultyLevelWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Difficulty level",
+          AppLocalizations.of(context).difficultyLevel,
           style: Theme.of(context)
               .textTheme
               .bodyMedium
@@ -34,7 +35,7 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                         .read<SettingsCubit>()
                         .updateGameDifficultyLevel(GameDifficultyLevel.easy),
                     child: Text(
-                      "Easy",
+                      AppLocalizations.of(context).easy,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: UiUtils.selectedAndNonSelectedText(
                               context,
@@ -49,7 +50,7 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                         .read<SettingsCubit>()
                         .updateGameDifficultyLevel(GameDifficultyLevel.medium),
                     child: Text(
-                      "Medium",
+                      AppLocalizations.of(context).medium,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: UiUtils.selectedAndNonSelectedText(
                               context,
@@ -64,7 +65,7 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                         .read<SettingsCubit>()
                         .updateGameDifficultyLevel(GameDifficultyLevel.hard),
                     child: Text(
-                      "Hard",
+                      AppLocalizations.of(context).hard,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: UiUtils.selectedAndNonSelectedText(
                               context,
