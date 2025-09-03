@@ -1,5 +1,5 @@
 {
-  "@@locale": "es (Spanish)",
+  "@@locale": "es",
   "warmingUp": "Calentando...",
   "musclesBuilderTitle": "Constructor\nde músculos",
   "startWorkout": "Iniciar entrenamiento",
@@ -19,7 +19,7 @@
   "gameOver": "Juego terminado",
   "score": "Puntuación: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "Puntos que el usuario obtiene al recoger mancuernas",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "Bono de proteína: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "Puntos extra que el usuario obtiene al recoger objetos de bonificación",
     "placeholders": {
       "bonus": {
         "type": "int",

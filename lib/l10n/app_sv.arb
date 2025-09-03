@@ -1,12 +1,12 @@
 {
-  "@@locale": "sv (Swedish)",
+  "@@locale": "sv",
   "warmingUp": "Värmer upp...",
   "musclesBuilderTitle": "Muskel-\nbyggare",
   "startWorkout": "Starta träning",
   "about": "Om",
   "appVersion": "Appversion ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "Applikationsversion",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "Spelet över",
   "score": "Poäng: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "Poäng som användaren får när hen plockar upp hantlar",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "Proteinbonus: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "Extra poäng som användaren får när hen plockar upp bonusföremål",
     "placeholders": {
       "bonus": {
         "type": "int",

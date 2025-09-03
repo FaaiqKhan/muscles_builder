@@ -1,12 +1,12 @@
 {
-  "@@locale": "tr (Turkish)",
+  "@@locale": "tr",
   "warmingUp": "Isınma...",
   "musclesBuilderTitle": "Kas\nYapıcı",
   "startWorkout": "Antrenmana başla",
   "about": "Hakkında",
   "appVersion": "Uygulama sürümü ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "Uygulama sürümü",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "Oyun bitti",
   "score": "Skor: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "Kullanıcının dambıl aldığında kazandığı puanlar",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "Protein bonusu: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "Kullanıcının bonus nesneleri aldığında kazandığı ekstra puanlar",
     "placeholders": {
       "bonus": {
         "type": "int",

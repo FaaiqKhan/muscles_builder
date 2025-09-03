@@ -1,12 +1,12 @@
 {
-  "@@locale": "fil (Filipino)",
+  "@@locale": "fil",
   "warmingUp": "Nag-iinit...",
   "musclesBuilderTitle": "Tagapagtayo\nng kalamnan",
   "startWorkout": "Simulan ang workout",
   "about": "Tungkol",
   "appVersion": "Bersyon ng app ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "Bersyon ng aplikasyon",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "Tapos na ang laro",
   "score": "Iskor: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "Mga puntos na nakukuha ng user kapag kumukuha ng dumbbell",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "Protein bonus: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "Karagdagang puntos na nakukuha ng user kapag kumukuha ng bonus na bagay",
     "placeholders": {
       "bonus": {
         "type": "int",

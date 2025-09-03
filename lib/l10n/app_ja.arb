@@ -1,12 +1,12 @@
 {
-  "@@locale": "ja (Japanese)",
+  "@@locale": "ja",
   "warmingUp": "ウォームアップ中...",
   "musclesBuilderTitle": "筋肉\nビルダー",
   "startWorkout": "ワークアウト開始",
   "about": "アプリについて",
   "appVersion": "アプリバージョン ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "アプリケーションバージョン",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "ゲームオーバー",
   "score": "スコア: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "ユーザーがダンベルを取ったときに獲得するポイント",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "プロテインボーナス: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "ユーザーがボーナスアイテムを取ったときに獲得する追加ポイント",
     "placeholders": {
       "bonus": {
         "type": "int",

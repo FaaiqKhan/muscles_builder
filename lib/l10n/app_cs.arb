@@ -1,12 +1,12 @@
 {
-  "@@locale": "cs (Czech)",
+  "@@locale": "cs",
   "warmingUp": "Rozcvička...",
   "musclesBuilderTitle": "Budovatel\nsvalů",
   "startWorkout": "Začít trénink",
   "about": "O aplikaci",
   "appVersion": "Verze aplikace ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "Verze aplikace",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "Konec hry",
   "score": "Skóre: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "Body, které uživatel získá při zvedání činek",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "Proteinový bonus: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "Extra body, které uživatel získá při sbírání bonusových objektů",
     "placeholders": {
       "bonus": {
         "type": "int",

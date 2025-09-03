@@ -1,12 +1,12 @@
 {
-  "@@locale": "hu (Hungarian)",
+  "@@locale": "hu",
   "warmingUp": "Bemelegítés...",
   "musclesBuilderTitle": "Izom-\népítő",
   "startWorkout": "Edzés indítása",
   "about": "Névjegy",
   "appVersion": "Alkalmazás verzió ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "Alkalmazás verziója",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "Játék vége",
   "score": "Pontszám: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "Pontok, amelyeket a felhasználó kap, amikor súlyzókat vesz fel",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "Fehérje bónusz: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "Extra pontok, amelyeket a felhasználó kap, amikor bónusz tárgyakat vesz fel",
     "placeholders": {
       "bonus": {
         "type": "int",

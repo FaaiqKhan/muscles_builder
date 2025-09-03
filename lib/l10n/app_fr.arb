@@ -1,12 +1,12 @@
 {
-  "@@locale": "fr (French)",
+  "@@locale": "fr",
   "warmingUp": "Échauffement...",
   "musclesBuilderTitle": "Constructeur\nde muscles",
   "startWorkout": "Commencer l'entraînement",
   "about": "À propos",
   "appVersion": "Version de l'application ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "Version de l’application",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "Jeu terminé",
   "score": "Score : ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "Points que l’utilisateur gagne en ramassant des haltères",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "Bonus de protéines : ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "Points supplémentaires que l’utilisateur gagne en ramassant des objets bonus",
     "placeholders": {
       "bonus": {
         "type": "int",

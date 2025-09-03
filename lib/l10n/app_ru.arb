@@ -1,12 +1,12 @@
 {
-  "@@locale": "ru (Russian)",
+  "@@locale": "ru",
   "warmingUp": "Разминка...",
   "musclesBuilderTitle": "Строитель\nмышц",
   "startWorkout": "Начать тренировку",
   "about": "О программе",
   "appVersion": "Версия приложения ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "Версия приложения",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "Игра окончена",
   "score": "Счёт: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "Очки, которые пользователь получает при поднятии гантелей",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "Бонус белка: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "Дополнительные очки, которые пользователь получает, подбирая бонусные предметы",
     "placeholders": {
       "bonus": {
         "type": "int",

@@ -1,12 +1,12 @@
 {
-  "@@locale": "ko (Korean)",
+  "@@locale": "ko",
   "warmingUp": "준비 운동 중...",
   "musclesBuilderTitle": "근육\n빌더",
   "startWorkout": "운동 시작",
   "about": "정보",
   "appVersion": "앱 버전 ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "애플리케이션 버전",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "게임 오버",
   "score": "점수: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "사용자가 덤벨을 집을 때 얻는 점수",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "단백질 보너스: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "사용자가 보너스 아이템을 집을 때 얻는 추가 점수",
     "placeholders": {
       "bonus": {
         "type": "int",

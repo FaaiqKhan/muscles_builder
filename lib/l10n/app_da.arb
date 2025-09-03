@@ -1,12 +1,12 @@
 {
-  "@@locale": "da (Danish)",
+  "@@locale": "da",
   "warmingUp": "Opvarmning...",
   "musclesBuilderTitle": "Muskel-\nbygger",
   "startWorkout": "Start træning",
   "about": "Om",
-  "appVersion": "App-version ${version}",
+  "appVersion": "Applikationsversion ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "Applikationsversion",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "Spillet er slut",
   "score": "Score: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "Point som brugeren får ved at samle håndvægte op",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "Proteinbonus: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "Ekstrapoint som brugeren får ved at samle bonusgenstande op",
     "placeholders": {
       "bonus": {
         "type": "int",

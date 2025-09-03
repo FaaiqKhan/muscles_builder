@@ -1,12 +1,12 @@
 {
-  "@@locale": "it (Italian)",
+  "@@locale": "it",
   "warmingUp": "Riscaldamento...",
   "musclesBuilderTitle": "Costruttore\ndi muscoli",
   "startWorkout": "Inizia allenamento",
   "about": "Informazioni",
   "appVersion": "Versione app ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "Versione dell’applicazione",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "Gioco finito",
   "score": "Punteggio: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "Punti che l’utente guadagna raccogliendo manubri",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "Bonus proteine: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "Punti extra che l’utente guadagna raccogliendo oggetti bonus",
     "placeholders": {
       "bonus": {
         "type": "int",

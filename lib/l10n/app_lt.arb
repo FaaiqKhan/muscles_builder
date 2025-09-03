@@ -1,12 +1,12 @@
 {
-  "@@locale": "lt (Lithuanian)",
+  "@@locale": "lt",
   "warmingUp": "Apšilimas...",
   "musclesBuilderTitle": "Raumenų\nkūrėjas",
   "startWorkout": "Pradėti treniruotę",
   "about": "Apie",
   "appVersion": "Programos versija ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "Programos versija",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "Žaidimas baigtas",
   "score": "Taškai: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "Taškai, kuriuos vartotojas gauna pakeldamas hantelius",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "Baltymų premija: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "Papildomi taškai, kuriuos vartotojas gauna rinkdamas bonusinius objektus",
     "placeholders": {
       "bonus": {
         "type": "int",

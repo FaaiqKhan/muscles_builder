@@ -1,12 +1,12 @@
 {
-  "@@locale": "be (Belarusian)",
+  "@@locale": "be",
   "warmingUp": "Разагрэў...",
   "musclesBuilderTitle": "Будаўнік\nцягліц",
   "startWorkout": "Пачаць трэніроўку",
   "about": "Пра праграму",
   "appVersion": "Версія праграмы ${version}",
   "@appVersion": {
-    "description": "Application version",
+    "description": "Версія прыкладання",
     "placeholders": {
       "version": {
         "type": "String",
@@ -19,7 +19,7 @@
   "gameOver": "Гульня скончана",
   "score": "Ачкі: ${score}",
   "@score": {
-    "description": "Points that user takes on picking dumbbells",
+    "description": "Ачкі, якія карыстальнік атрымлівае, паднімаючы гантэлі",
     "placeholders": {
       "score": {
         "type": "int",
@@ -29,7 +29,7 @@
   },
   "proteinBonus": "Бонус бялку: ${bonus}",
   "@proteinBonus": {
-    "description": "Extra points that user takes on picking bonus objects",
+    "description": "Дадатковыя ачкі, якія карыстальнік атрымлівае, падбіраючы бонусныя прадметы",
     "placeholders": {
       "bonus": {
         "type": "int",
