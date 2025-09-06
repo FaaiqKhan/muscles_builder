@@ -183,8 +183,8 @@ abstract class AppLocalizations {
   /// Points that user takes on picking dumbbells
   ///
   /// In en, this message translates to:
-  /// **'Score: \${score}'**
-  String score(int score);
+  /// **'SCORE: \${value}'**
+  String scoreTitle(int value);
 
   /// Extra points that user takes on picking bonus objects
   ///
@@ -281,6 +281,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Joystick position'**
   String get joystickPosition;
+
+  /// Gameplay time
+  ///
+  /// In en, this message translates to:
+  /// **'TIME: \${value}'**
+  String timeTitle(String value);
+
+  /// Gameplay warmup time
+  ///
+  /// In en, this message translates to:
+  /// **'WARMUP: \${value}'**
+  String warmupTitle(String value);
 }
 
 class _AppLocalizationsDelegate

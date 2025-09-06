@@ -22,7 +22,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String appVersion(String version) {
-    return 'App-Version \$$version';
+    return 'Anwendungsversion \$$version';
   }
 
   @override
@@ -35,8 +35,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get gameOver => 'Spiel vorbei';
 
   @override
-  String score(int score) {
-    return 'Punkte: \$$score';
+  String scoreTitle(int value) {
+    return 'Punkte: \$$value';
   }
 
   @override
@@ -88,4 +88,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get joystickPosition => 'Joystick-Position';
+
+  @override
+  String timeTitle(String value) {
+    return 'TIME: \$$value';
+  }
+
+  @override
+  String warmupTitle(String value) {
+    return 'WARMUP: \$$value';
+  }
 }

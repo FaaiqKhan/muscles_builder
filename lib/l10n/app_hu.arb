@@ -17,11 +17,11 @@
   "contributors": "Közreműködők",
   "icons": "Ikonok",
   "gameOver": "Játék vége",
-  "score": "Pontszám: ${score}",
-  "@score": {
+  "scoreTitle": "Pontszám: ${value}",
+  "@scoreTitle": {
     "description": "Pontok, amelyeket a felhasználó kap, amikor súlyzókat vesz fel",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Közepes",
   "hard": "Nehéz",
   "gameSound": "Játék hangja",
-  "joystickPosition": "Joystick pozíció"
+  "joystickPosition": "Joystick pozíció",
+  "timeTitle": "IDŐ: ${value}",
+  "@timeTitle": {
+    "description": "Játékidő",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "BEMELEGÍTÉS: ${value}",
+  "@warmupTitle": {
+    "description": "Bemelegítési idő a játékban",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

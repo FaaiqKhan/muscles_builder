@@ -22,7 +22,7 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String appVersion(String version) {
-    return 'App-version \$$version';
+    return 'Applikationsversion \$$version';
   }
 
   @override
@@ -35,8 +35,8 @@ class AppLocalizationsDa extends AppLocalizations {
   String get gameOver => 'Spillet er slut';
 
   @override
-  String score(int score) {
-    return 'Score: \$$score';
+  String scoreTitle(int value) {
+    return 'Score: \$$value';
   }
 
   @override
@@ -88,4 +88,14 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get joystickPosition => 'Joystick-position';
+
+  @override
+  String timeTitle(String value) {
+    return 'TIME: \$$value';
+  }
+
+  @override
+  String warmupTitle(String value) {
+    return 'WARMUP: \$$value';
+  }
 }

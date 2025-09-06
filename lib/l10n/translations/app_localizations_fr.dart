@@ -35,8 +35,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get gameOver => 'Jeu terminé';
 
   @override
-  String score(int score) {
-    return 'Score : \$$score';
+  String scoreTitle(int value) {
+    return 'Score : \$$value';
   }
 
   @override
@@ -88,4 +88,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get joystickPosition => 'Position du joystick';
+
+  @override
+  String timeTitle(String value) {
+    return 'TIME: \$$value';
+  }
+
+  @override
+  String warmupTitle(String value) {
+    return 'WARMUP: \$$value';
+  }
 }

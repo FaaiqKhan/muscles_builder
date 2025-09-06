@@ -17,11 +17,11 @@
   "contributors": "Katkıda bulunanlar",
   "icons": "Simgeler",
   "gameOver": "Oyun bitti",
-  "score": "Skor: ${score}",
-  "@score": {
+  "scoreTitle": "Skor: ${value}",
+  "@scoreTitle": {
     "description": "Kullanıcının dambıl aldığında kazandığı puanlar",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Orta",
   "hard": "Zor",
   "gameSound": "Oyun sesi",
-  "joystickPosition": "Joystick konumu"
+  "joystickPosition": "Joystick konumu",
+  "timeTitle": "SÜRE: ${value}",
+  "@timeTitle": {
+    "description": "Oyun süresi",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "ISINMA: ${value}",
+  "@warmupTitle": {
+    "description": "Oyundaki ısınma süresi",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

@@ -17,11 +17,11 @@
   "contributors": "Bidragsgivare",
   "icons": "Ikoner",
   "gameOver": "Spelet över",
-  "score": "Poäng: ${score}",
-  "@score": {
+  "scoreTitle": "Poäng: ${value}",
+  "@scoreTitle": {
     "description": "Poäng som användaren får när hen plockar upp hantlar",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Medel",
   "hard": "Svår",
   "gameSound": "Spelljud",
-  "joystickPosition": "Joystick-position"
+  "joystickPosition": "Joystick-position",
+  "timeTitle": "TID: ${value}",
+  "@timeTitle": {
+    "description": "Speltid",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "UPPVÄRMNING: ${value}",
+  "@warmupTitle": {
+    "description": "Uppvärmningstid i spelet",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

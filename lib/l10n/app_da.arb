@@ -17,11 +17,11 @@
   "contributors": "Bidragydere",
   "icons": "Ikoner",
   "gameOver": "Spillet er slut",
-  "score": "Score: ${score}",
-  "@score": {
+  "scoreTitle": "Score: ${value}",
+  "@scoreTitle": {
     "description": "Point som brugeren får ved at samle håndvægte op",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Mellem",
   "hard": "Svær",
   "gameSound": "Spillyd",
-  "joystickPosition": "Joystick-position"
+  "joystickPosition": "Joystick-position",
+  "timeTitle": "TID: ${value}",
+  "@timeTitle": {
+    "description": "Spiltid",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "OPVARMNING: ${value}",
+  "@warmupTitle": {
+    "description": "Opvarmningstid i spillet",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

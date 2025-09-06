@@ -17,11 +17,11 @@
   "contributors": "Współtwórcy",
   "icons": "Ikony",
   "gameOver": "Koniec gry",
-  "score": "Wynik: ${score}",
-  "@score": {
+  "scoreTitle": "Wynik: ${value}",
+  "@scoreTitle": {
     "description": "Punkty, które użytkownik zdobywa podnosząc hantle",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Średni",
   "hard": "Trudny",
   "gameSound": "Dźwięk gry",
-  "joystickPosition": "Pozycja joysticka"
+  "joystickPosition": "Pozycja joysticka",
+  "timeTitle": "CZAS: ${value}",
+  "@timeTitle": {
+    "description": "Czas gry",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "ROZGRZEWKA: ${value}",
+  "@warmupTitle": {
+    "description": "Czas rozgrzewki w grze",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

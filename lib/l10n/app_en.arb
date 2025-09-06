@@ -17,11 +17,11 @@
   "contributors": "Contributors",
   "icons": "Icons",
   "gameOver": "Game Over",
-  "score": "Score: ${score}",
-  "@score": {
+  "scoreTitle": "SCORE: ${value}",
+  "@scoreTitle": {
     "description": "Points that user takes on picking dumbbells",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Medium",
   "hard": "Hard",
   "gameSound": "Game sound",
-  "joystickPosition": "Joystick position"
+  "joystickPosition": "Joystick position",
+  "timeTitle": "TIME: ${value}",
+  "@timeTitle": {
+    "description": "Gameplay time",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "WARMUP: ${value}",
+  "@warmupTitle": {
+    "description": "Gameplay warmup time",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

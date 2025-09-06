@@ -17,11 +17,11 @@
   "contributors": "Colaboradores",
   "icons": "Iconos",
   "gameOver": "Juego terminado",
-  "score": "Puntuación: ${score}",
-  "@score": {
+  "scoreTitle": "Puntuación: ${value}",
+  "@scoreTitle": {
     "description": "Puntos que el usuario obtiene al recoger mancuernas",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Medio",
   "hard": "Difícil",
   "gameSound": "Sonido del juego",
-  "joystickPosition": "Posición del joystick"
+  "joystickPosition": "Posición del joystick",
+  "timeTitle": "TIEMPO: ${value}",
+  "@timeTitle": {
+    "description": "Tiempo de juego",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "CALENTAMIENTO: ${value}",
+  "@warmupTitle": {
+    "description": "Tiempo de calentamiento en el juego",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

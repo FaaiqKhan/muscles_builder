@@ -17,11 +17,11 @@
   "contributors": "Prisidėję",
   "icons": "Piktogramos",
   "gameOver": "Žaidimas baigtas",
-  "score": "Taškai: ${score}",
-  "@score": {
+  "scoreTitle": "Taškai: ${value}",
+  "@scoreTitle": {
     "description": "Taškai, kuriuos vartotojas gauna pakeldamas hantelius",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Vidutinis",
   "hard": "Sunkus",
   "gameSound": "Žaidimo garsas",
-  "joystickPosition": "Valdiklio padėtis"
+  "joystickPosition": "Valdiklio padėtis",
+  "timeTitle": "LAIKAS: ${value}",
+  "@timeTitle": {
+    "description": "Žaidimo laikas",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "APŠILIMAS: ${value}",
+  "@warmupTitle": {
+    "description": "Žaidimo apšilimo laikas",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

@@ -17,11 +17,11 @@
   "contributors": "Участники",
   "icons": "Иконки",
   "gameOver": "Игра окончена",
-  "score": "Счёт: ${score}",
-  "@score": {
+  "scoreTitle": "Счёт: ${value}",
+  "@scoreTitle": {
     "description": "Очки, которые пользователь получает при поднятии гантелей",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Средний",
   "hard": "Тяжёлый",
   "gameSound": "Звук игры",
-  "joystickPosition": "Позиция джойстика"
+  "joystickPosition": "Позиция джойстика",
+  "timeTitle": "ВРЕМЯ: ${value}",
+  "@timeTitle": {
+    "description": "Игровое время",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "РАЗМИНКА: ${value}",
+  "@warmupTitle": {
+    "description": "Время разминки в игре",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

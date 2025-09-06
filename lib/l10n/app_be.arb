@@ -17,11 +17,11 @@
   "contributors": "Удзельнікі",
   "icons": "Значкі",
   "gameOver": "Гульня скончана",
-  "score": "Ачкі: ${score}",
-  "@score": {
+  "scoreTitle": "Ачкі: ${value}",
+  "@scoreTitle": {
     "description": "Ачкі, якія карыстальнік атрымлівае, паднімаючы гантэлі",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Сярэдні",
   "hard": "Цяжкі",
   "gameSound": "Гук гульні",
-  "joystickPosition": "Пазіцыя джойсціка"
+  "joystickPosition": "Пазіцыя джойсціка",
+  "timeTitle": "ЧАС: ${value}",
+  "@timeTitle": {
+    "description": "Час гульні",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "РАЗАГРЭЎ: ${value}",
+  "@warmupTitle": {
+    "description": "Час разагрэву ў гульні",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

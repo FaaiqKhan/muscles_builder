@@ -17,11 +17,11 @@
   "contributors": "Přispěvatelé",
   "icons": "Ikony",
   "gameOver": "Konec hry",
-  "score": "Skóre: ${score}",
-  "@score": {
+  "scoreTitle": "Skóre: ${value}",
+  "@scoreTitle": {
     "description": "Body, které uživatel získá při zvedání činek",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Střední",
   "hard": "Těžká",
   "gameSound": "Zvuk hry",
-  "joystickPosition": "Poloha joysticku"
+  "joystickPosition": "Poloha joysticku",
+  "timeTitle": "ČAS: ${value}",
+  "@timeTitle": {
+    "description": "Herní čas",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "ROZCVIČENÍ: ${value}",
+  "@warmupTitle": {
+    "description": "Čas rozehřátí ve hře",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

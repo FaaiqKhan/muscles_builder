@@ -17,11 +17,11 @@
   "contributors": "貢献者",
   "icons": "アイコン",
   "gameOver": "ゲームオーバー",
-  "score": "スコア: ${score}",
-  "@score": {
+  "scoreTitle": "スコア: ${value}",
+  "@scoreTitle": {
     "description": "ユーザーがダンベルを取ったときに獲得するポイント",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "普通",
   "hard": "難しい",
   "gameSound": "ゲームサウンド",
-  "joystickPosition": "ジョイスティックの位置"
+  "joystickPosition": "ジョイスティックの位置",
+  "timeTitle": "時間: ${value}",
+  "@timeTitle": {
+    "description": "プレイ時間",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "ウォームアップ: ${value}",
+  "@warmupTitle": {
+    "description": "ゲームのウォームアップ時間",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

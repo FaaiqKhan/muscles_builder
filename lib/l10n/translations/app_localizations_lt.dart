@@ -35,8 +35,8 @@ class AppLocalizationsLt extends AppLocalizations {
   String get gameOver => 'Žaidimas baigtas';
 
   @override
-  String score(int score) {
-    return 'Taškai: \$$score';
+  String scoreTitle(int value) {
+    return 'Taškai: \$$value';
   }
 
   @override
@@ -88,4 +88,14 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get joystickPosition => 'Valdiklio padėtis';
+
+  @override
+  String timeTitle(String value) {
+    return 'TIME: \$$value';
+  }
+
+  @override
+  String warmupTitle(String value) {
+    return 'WARMUP: \$$value';
+  }
 }

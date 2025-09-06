@@ -17,11 +17,11 @@
   "contributors": "기여자",
   "icons": "아이콘",
   "gameOver": "게임 오버",
-  "score": "점수: ${score}",
-  "@score": {
+  "scoreTitle": "점수: ${value}",
+  "@scoreTitle": {
     "description": "사용자가 덤벨을 집을 때 얻는 점수",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "보통",
   "hard": "어려움",
   "gameSound": "게임 사운드",
-  "joystickPosition": "조이스틱 위치"
+  "joystickPosition": "조이스틱 위치",
+  "timeTitle": "시간: ${value}",
+  "@timeTitle": {
+    "description": "게임 시간",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "준비 운동: ${value}",
+  "@warmupTitle": {
+    "description": "게임 준비 운동 시간",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

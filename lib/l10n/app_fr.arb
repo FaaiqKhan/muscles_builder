@@ -17,11 +17,11 @@
   "contributors": "Contributeurs",
   "icons": "Icônes",
   "gameOver": "Jeu terminé",
-  "score": "Score : ${score}",
-  "@score": {
+  "scoreTitle": "Score : ${value}",
+  "@scoreTitle": {
     "description": "Points que l’utilisateur gagne en ramassant des haltères",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Moyen",
   "hard": "Difficile",
   "gameSound": "Son du jeu",
-  "joystickPosition": "Position du joystick"
+  "joystickPosition": "Position du joystick",
+  "timeTitle": "TEMPS : ${value}",
+  "@timeTitle": {
+    "description": "Temps de jeu",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "ÉCHAUFFEMENT : ${value}",
+  "@warmupTitle": {
+    "description": "Temps d’échauffement du jeu",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

@@ -17,11 +17,11 @@
   "contributors": "Collaboratori",
   "icons": "Icone",
   "gameOver": "Gioco finito",
-  "score": "Punteggio: ${score}",
-  "@score": {
+  "scoreTitle": "Punteggio: ${value}",
+  "@scoreTitle": {
     "description": "Punti che l’utente guadagna raccogliendo manubri",
     "placeholders": {
-      "score": {
+      "value": {
         "type": "int",
         "example": "5"
       }
@@ -51,5 +51,25 @@
   "medium": "Medio",
   "hard": "Difficile",
   "gameSound": "Suono del gioco",
-  "joystickPosition": "Posizione del joystick"
+  "joystickPosition": "Posizione del joystick",
+  "timeTitle": "TEMPO: ${value}",
+  "@timeTitle": {
+    "description": "Tempo di gioco",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "2:00"
+      }
+    }
+  },
+  "warmupTitle": "RISCALDAMENTO: ${value}",
+  "@warmupTitle": {
+    "description": "Tempo di riscaldamento di gioco",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1:00"
+      }
+    }
+  }
 }

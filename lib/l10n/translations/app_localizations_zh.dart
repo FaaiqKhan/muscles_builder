@@ -35,8 +35,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get gameOver => '游戏结束';
 
   @override
-  String score(int score) {
-    return '得分: \$$score';
+  String scoreTitle(int value) {
+    return '得分: \$$value';
   }
 
   @override
@@ -88,4 +88,14 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get joystickPosition => '操纵杆位置';
+
+  @override
+  String timeTitle(String value) {
+    return 'TIME: \$$value';
+  }
+
+  @override
+  String warmupTitle(String value) {
+    return 'WARMUP: \$$value';
+  }
 }
