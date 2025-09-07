@@ -44,5 +44,6 @@
   "gameSound": "게임 사운드",
   "joystickPosition": "조이스틱 위치",
   "timeTitle": "시간: ",
-  "warmupTitle": "준비 운동: "
+  "warmupTitle": "준비 운동: ",
+  "total": "합계"
 }

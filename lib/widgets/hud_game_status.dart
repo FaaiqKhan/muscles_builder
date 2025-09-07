@@ -12,6 +12,32 @@ class HudGameStatusWidget extends StatelessWidget {
 
   final VoidCallback onPause;
 
+  Widget titleWidget(
+    BuildContext context, {
+    required String title,
+    required String value,
+  }) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context)
+              .textTheme
+              .titleSmall
+              ?.copyWith(color: context.musclesBuilderTheme.muscleGrowthBar),
+        ),
+        Text(
+          value,
+          style: Theme.of(context)
+              .textTheme
+              .titleSmall
+              ?.copyWith(color: context.musclesBuilderTheme.background),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,53 +66,20 @@ class HudGameStatusWidget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context).timeTitle,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                color:
-                                    context.musclesBuilderTheme.muscleGrowthBar,
-                              ),
-                        ),
-                        Text(
-                          state.exerciseTime.toStringAsFixed(0),
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                color: context.musclesBuilderTheme.background,
-                              ),
-                        )
-                      ],
+                    titleWidget(
+                      context,
+                      title: AppLocalizations.of(context).scoreTitle,
+                      value: state.score.toString(),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context).warmupTitle,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                color:
-                                    context.musclesBuilderTheme.muscleGrowthBar,
-                              ),
-                        ),
-                        Text(
-                          state.warmupTime.toStringAsFixed(0),
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                color: context.musclesBuilderTheme.background,
-                              ),
-                        )
-                      ],
+                    titleWidget(
+                      context,
+                      title: AppLocalizations.of(context).timeTitle,
+                      value: state.exerciseTime.toStringAsFixed(0),
+                    ),
+                    titleWidget(
+                      context,
+                      title: AppLocalizations.of(context).warmupTitle,
+                      value: state.warmupTime.toStringAsFixed(0),
                     ),
                   ],
                 ),

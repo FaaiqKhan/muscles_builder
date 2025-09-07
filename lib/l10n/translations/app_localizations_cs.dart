@@ -92,4 +92,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get warmupTitle => 'ROZCVIČENÍ: ';
+
+  @override
+  String get total => 'Celkem';
 }

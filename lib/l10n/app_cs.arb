@@ -44,5 +44,6 @@
   "gameSound": "Zvuk hry",
   "joystickPosition": "Poloha joysticku",
   "timeTitle": "ČAS: ",
-  "warmupTitle": "ROZCVIČENÍ: "
+  "warmupTitle": "ROZCVIČENÍ: ",
+  "total": "Celkem"
 }

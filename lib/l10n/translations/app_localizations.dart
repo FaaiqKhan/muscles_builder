@@ -293,6 +293,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'WARMUP: '**
   String get warmupTitle;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
 }
 
 class _AppLocalizationsDelegate

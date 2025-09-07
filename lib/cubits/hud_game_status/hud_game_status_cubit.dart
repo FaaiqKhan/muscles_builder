@@ -42,9 +42,11 @@ class HudGameStatusCubit extends Cubit<HudGameStatusState> {
   }
 
   void updateProteinBonus(int value) {
-    emit(state.copyWith(
-      proteinBonus: value,
-    ));
+    emit(
+      state.copyWith(
+        proteinBonus: value,
+      ),
+    );
   }
 
   void reset({

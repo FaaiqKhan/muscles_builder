@@ -44,5 +44,6 @@
   "gameSound": "Spillyd",
   "joystickPosition": "Joystick-position",
   "timeTitle": "TID: ",
-  "warmupTitle": "OPVARMNING: "
+  "warmupTitle": "OPVARMNING: ",
+  "total": "I alt"
 }

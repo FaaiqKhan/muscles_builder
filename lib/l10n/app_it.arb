@@ -44,5 +44,6 @@
   "gameSound": "Suono del gioco",
   "joystickPosition": "Posizione del joystick",
   "timeTitle": "TEMPO: ",
-  "warmupTitle": "RISCALDAMENTO: "
+  "warmupTitle": "RISCALDAMENTO: ",
+  "total": "Totale"
 }

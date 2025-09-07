@@ -44,5 +44,6 @@
   "gameSound": "Tunog ng laro",
   "joystickPosition": "Posisyon ng joystick",
   "timeTitle": "ORAS: ",
-  "warmupTitle": "PAGPAPAINIT: "
+  "warmupTitle": "PAGPAPAINIT: ",
+  "total": "Kabuuan"
 }

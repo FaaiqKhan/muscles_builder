@@ -92,4 +92,7 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get warmupTitle => 'PAGPAPAINIT: ';
+
+  @override
+  String get total => 'Kabuuan';
 }

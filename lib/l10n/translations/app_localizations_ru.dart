@@ -92,4 +92,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get warmupTitle => 'РАЗМИНКА: ';
+
+  @override
+  String get total => 'Итого';
 }

@@ -44,5 +44,6 @@
   "gameSound": "Žaidimo garsas",
   "joystickPosition": "Valdiklio padėtis",
   "timeTitle": "LAIKAS: ",
-  "warmupTitle": "APŠILIMAS: "
+  "warmupTitle": "APŠILIMAS: ",
+  "total": "Iš viso"
 }

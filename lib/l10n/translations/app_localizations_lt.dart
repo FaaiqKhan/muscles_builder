@@ -92,4 +92,7 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get warmupTitle => 'APŠILIMAS: ';
+
+  @override
+  String get total => 'Iš viso';
 }

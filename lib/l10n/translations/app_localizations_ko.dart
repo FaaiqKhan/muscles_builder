@@ -92,4 +92,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get warmupTitle => '준비 운동: ';
+
+  @override
+  String get total => '합계';
 }

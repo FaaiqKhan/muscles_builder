@@ -44,6 +44,7 @@
   "gameSound": "游戏音效",
   "joystickPosition": "操纵杆位置",
   "timeTitle": "时间: ",
-  "warmupTitle": "热身: "
+  "warmupTitle": "热身: ",
+  "total": "总计"
 }
 
