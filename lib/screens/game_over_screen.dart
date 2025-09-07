@@ -40,7 +40,7 @@ class GameOverScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      AppLocalizations.of(context).score(score),
+                      "${AppLocalizations.of(context).scoreTitle}: $score",
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: context.musclesBuilderTheme.primaryText),
                     ),
