@@ -44,5 +44,6 @@
   "gameSound": "ゲームサウンド",
   "joystickPosition": "ジョイスティックの位置",
   "timeTitle": "時間: ",
-  "warmupTitle": "ウォームアップ: "
+  "warmupTitle": "ウォームアップ: ",
+  "total": "合計"
 }

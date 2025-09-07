@@ -92,4 +92,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get warmupTitle => 'ISINMA: ';
+
+  @override
+  String get total => 'Toplam';
 }

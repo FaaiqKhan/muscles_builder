@@ -92,4 +92,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get warmupTitle => '热身: ';
+
+  @override
+  String get total => '总计';
 }

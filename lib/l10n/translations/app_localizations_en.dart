@@ -92,4 +92,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get warmupTitle => 'WARMUP: ';
+
+  @override
+  String get total => 'Total';
 }

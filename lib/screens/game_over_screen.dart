@@ -37,32 +37,46 @@ class GameOverScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     BlocBuilder<HudGameStatusCubit, HudGameStatusState>(
-                      buildWhen: (prev, curr) => prev.score != curr.score,
-                      builder: (context, state) {
-                        return Text(
-                          "${AppLocalizations.of(context).scoreTitle}: ${state.score}",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                color: context.musclesBuilderTheme.primaryText,
-                              ),
-                        );
-                      },
-                    ),
-                    BlocBuilder<HudGameStatusCubit, HudGameStatusState>(
                       buildWhen: (prev, curr) =>
+                          prev.score != curr.score ||
                           prev.proteinBonus != curr.proteinBonus,
                       builder: (context, state) {
-                        return Text(
-                          AppLocalizations.of(context)
-                              .proteinBonus(state.proteinBonus),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                color: context.musclesBuilderTheme.primaryText,
-                              ),
+                        final int total = state.score + state.proteinBonus;
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${AppLocalizations.of(context).total}: $total",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color:
+                                        context.musclesBuilderTheme.primaryText,
+                                  ),
+                            ),
+                            Text(
+                              "${AppLocalizations.of(context).scoreTitle}: ${state.score}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color:
+                                        context.musclesBuilderTheme.primaryText,
+                                  ),
+                            ),
+                            Text(
+                              AppLocalizations.of(context)
+                                  .proteinBonus(state.proteinBonus),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                      color: context
+                                          .musclesBuilderTheme.primaryText),
+                            )
+                          ],
                         );
                       },
                     ),

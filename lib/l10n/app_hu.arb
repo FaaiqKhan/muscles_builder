@@ -44,5 +44,6 @@
   "gameSound": "Játék hangja",
   "joystickPosition": "Joystick pozíció",
   "timeTitle": "IDŐ: ",
-  "warmupTitle": "BEMELEGÍTÉS: "
+  "warmupTitle": "BEMELEGÍTÉS: ",
+  "total": "Összesen"
 }

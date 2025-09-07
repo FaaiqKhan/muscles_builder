@@ -44,5 +44,6 @@
   "gameSound": "Гук гульні",
   "joystickPosition": "Пазіцыя джойсціка",
   "timeTitle": "ЧАС: ",
-  "warmupTitle": "РАЗАГРЭЎ: "
+  "warmupTitle": "РАЗАГРЭЎ: ",
+  "total": "Усяго"
 }

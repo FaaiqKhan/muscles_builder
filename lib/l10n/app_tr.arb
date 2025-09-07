@@ -44,5 +44,6 @@
   "gameSound": "Oyun sesi",
   "joystickPosition": "Joystick konumu",
   "timeTitle": "SÜRE: ",
-  "warmupTitle": "ISINMA: "
+  "warmupTitle": "ISINMA: ",
+  "total": "Toplam"
 }

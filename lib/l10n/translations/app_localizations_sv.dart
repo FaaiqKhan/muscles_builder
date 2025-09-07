@@ -92,4 +92,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get warmupTitle => 'UPPVÄRMNING: ';
+
+  @override
+  String get total => 'Totalt';
 }

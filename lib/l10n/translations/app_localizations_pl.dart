@@ -92,4 +92,7 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get warmupTitle => 'ROZGRZEWKA: ';
+
+  @override
+  String get total => 'Łącznie';
 }

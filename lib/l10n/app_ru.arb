@@ -44,5 +44,6 @@
   "gameSound": "Звук игры",
   "joystickPosition": "Позиция джойстика",
   "timeTitle": "ВРЕМЯ: ",
-  "warmupTitle": "РАЗМИНКА: "
+  "warmupTitle": "РАЗМИНКА: ",
+  "total": "Итого"
 }

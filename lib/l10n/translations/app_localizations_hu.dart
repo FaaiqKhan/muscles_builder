@@ -92,4 +92,7 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get warmupTitle => 'BEMELEGÍTÉS: ';
+
+  @override
+  String get total => 'Összesen';
 }
