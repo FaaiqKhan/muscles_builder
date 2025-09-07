@@ -17,16 +17,7 @@
   "contributors": "Mitwirkende",
   "icons": "Symbole",
   "gameOver": "Spiel vorbei",
-  "scoreTitle": "Punkte: ${value}",
-  "@scoreTitle": {
-    "description": "Punkte, die der Nutzer beim Aufheben von Hanteln erhält",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+  "scoreTitle": "Punkte: ",
   "proteinBonus": "Protein-Bonus: ${bonus}",
   "@proteinBonus": {
     "description": "Zusatzpunkte, die der Nutzer beim Aufheben von Bonusobjekten erhält",
@@ -52,24 +43,6 @@
   "hard": "Schwer",
   "gameSound": "Spiel-Sound",
   "joystickPosition": "Joystick-Position",
-  "timeTitle": "ZEIT: ${value}",
-  "@timeTitle": {
-    "description": "Spielzeit",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "AUFWÄRMEN: ${value}",
-  "@warmupTitle": {
-    "description": "Aufwärmzeit im Spiel",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "ZEIT: ",
+  "warmupTitle": "AUFWÄRMEN: "
 }

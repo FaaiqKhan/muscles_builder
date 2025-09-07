@@ -17,16 +17,7 @@
   "contributors": "Prisidėję",
   "icons": "Piktogramos",
   "gameOver": "Žaidimas baigtas",
-  "scoreTitle": "Taškai: ${value}",
-  "@scoreTitle": {
-    "description": "Taškai, kuriuos vartotojas gauna pakeldamas hantelius",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+  "scoreTitle": "Taškai: ",
   "proteinBonus": "Baltymų premija: ${bonus}",
   "@proteinBonus": {
     "description": "Papildomi taškai, kuriuos vartotojas gauna rinkdamas bonusinius objektus",
@@ -52,24 +43,6 @@
   "hard": "Sunkus",
   "gameSound": "Žaidimo garsas",
   "joystickPosition": "Valdiklio padėtis",
-  "timeTitle": "LAIKAS: ${value}",
-  "@timeTitle": {
-    "description": "Žaidimo laikas",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "APŠILIMAS: ${value}",
-  "@warmupTitle": {
-    "description": "Žaidimo apšilimo laikas",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "LAIKAS: ",
+  "warmupTitle": "APŠILIMAS: "
 }

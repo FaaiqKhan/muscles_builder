@@ -17,16 +17,7 @@
   "contributors": "Mga nag-ambag",
   "icons": "Mga icon",
   "gameOver": "Tapos na ang laro",
-  "scoreTitle": "Iskor: ${value}",
-  "@scoreTitle": {
-    "description": "Mga puntos na nakukuha ng user kapag kumukuha ng dumbbell",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+  "scoreTitle": "Iskor: ",
   "proteinBonus": "Protein bonus: ${bonus}",
   "@proteinBonus": {
     "description": "Karagdagang puntos na nakukuha ng user kapag kumukuha ng bonus na bagay",
@@ -52,24 +43,6 @@
   "hard": "Mahirap",
   "gameSound": "Tunog ng laro",
   "joystickPosition": "Posisyon ng joystick",
-  "timeTitle": "ORAS: ${value}",
-  "@timeTitle": {
-    "description": "Oras ng laro",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "PAGPAPAINIT: ${value}",
-  "@warmupTitle": {
-    "description": "Oras ng pagpapainit sa laro",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "ORAS: ",
+  "warmupTitle": "PAGPAPAINIT: "
 }

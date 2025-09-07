@@ -17,16 +17,7 @@
   "contributors": "Bidragsgivare",
   "icons": "Ikoner",
   "gameOver": "Spelet över",
-  "scoreTitle": "Poäng: ${value}",
-  "@scoreTitle": {
-    "description": "Poäng som användaren får när hen plockar upp hantlar",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+  "scoreTitle": "Poäng: ",
   "proteinBonus": "Proteinbonus: ${bonus}",
   "@proteinBonus": {
     "description": "Extra poäng som användaren får när hen plockar upp bonusföremål",
@@ -52,24 +43,6 @@
   "hard": "Svår",
   "gameSound": "Spelljud",
   "joystickPosition": "Joystick-position",
-  "timeTitle": "TID: ${value}",
-  "@timeTitle": {
-    "description": "Speltid",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "UPPVÄRMNING: ${value}",
-  "@warmupTitle": {
-    "description": "Uppvärmningstid i spelet",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "TID: ",
+  "warmupTitle": "UPPVÄRMNING: "
 }

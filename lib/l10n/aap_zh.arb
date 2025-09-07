@@ -17,16 +17,7 @@
   "contributors": "贡献者",
   "icons": "图标",
   "gameOver": "游戏结束",
-  "scoreTitle": "得分: ${value}",
-  "@scoreTitle": {
-    "description": "用户捡起哑铃时获得的积分",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+  "scoreTitle": "得分: ",
   "proteinBonus": "蛋白质奖励: ${bonus}",
   "@proteinBonus": {
     "description": "用户捡起奖励物品时获得的额外积分",
@@ -52,25 +43,7 @@
   "hard": "困难",
   "gameSound": "游戏音效",
   "joystickPosition": "操纵杆位置",
-  "timeTitle": "时间: ${value}",
-  "@timeTitle": {
-    "description": "游戏时间",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "热身: ${value}",
-  "@warmupTitle": {
-    "description": "游戏热身时间",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "时间: ",
+  "warmupTitle": "热身: "
 }
 

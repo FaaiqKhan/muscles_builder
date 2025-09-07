@@ -17,16 +17,7 @@
   "contributors": "Katkıda bulunanlar",
   "icons": "Simgeler",
   "gameOver": "Oyun bitti",
-  "scoreTitle": "Skor: ${value}",
-  "@scoreTitle": {
-    "description": "Kullanıcının dambıl aldığında kazandığı puanlar",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+  "scoreTitle": "Skor: ",
   "proteinBonus": "Protein bonusu: ${bonus}",
   "@proteinBonus": {
     "description": "Kullanıcının bonus nesneleri aldığında kazandığı ekstra puanlar",
@@ -52,24 +43,6 @@
   "hard": "Zor",
   "gameSound": "Oyun sesi",
   "joystickPosition": "Joystick konumu",
-  "timeTitle": "SÜRE: ${value}",
-  "@timeTitle": {
-    "description": "Oyun süresi",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "ISINMA: ${value}",
-  "@warmupTitle": {
-    "description": "Oyundaki ısınma süresi",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "SÜRE: ",
+  "warmupTitle": "ISINMA: "
 }

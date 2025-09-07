@@ -17,16 +17,7 @@
   "contributors": "Współtwórcy",
   "icons": "Ikony",
   "gameOver": "Koniec gry",
-  "scoreTitle": "Wynik: ${value}",
-  "@scoreTitle": {
-    "description": "Punkty, które użytkownik zdobywa podnosząc hantle",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+  "scoreTitle": "Wynik: ",
   "proteinBonus": "Premia białkowa: ${bonus}",
   "@proteinBonus": {
     "description": "Dodatkowe punkty, które użytkownik zdobywa podnosząc przedmioty bonusowe",
@@ -52,24 +43,6 @@
   "hard": "Trudny",
   "gameSound": "Dźwięk gry",
   "joystickPosition": "Pozycja joysticka",
-  "timeTitle": "CZAS: ${value}",
-  "@timeTitle": {
-    "description": "Czas gry",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "ROZGRZEWKA: ${value}",
-  "@warmupTitle": {
-    "description": "Czas rozgrzewki w grze",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "CZAS: ",
+  "warmupTitle": "ROZGRZEWKA: "
 }

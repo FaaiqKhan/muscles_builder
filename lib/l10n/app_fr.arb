@@ -17,17 +17,8 @@
   "contributors": "Contributeurs",
   "icons": "Icônes",
   "gameOver": "Jeu terminé",
-  "scoreTitle": "Score : ${value}",
-  "@scoreTitle": {
-    "description": "Points que l’utilisateur gagne en ramassant des haltères",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
-  "proteinBonus": "Bonus de protéines : ${bonus}",
+  "scoreTitle": "Score: ",
+  "proteinBonus": "Bonus de protéines: ${bonus}",
   "@proteinBonus": {
     "description": "Points supplémentaires que l’utilisateur gagne en ramassant des objets bonus",
     "placeholders": {
@@ -52,24 +43,6 @@
   "hard": "Difficile",
   "gameSound": "Son du jeu",
   "joystickPosition": "Position du joystick",
-  "timeTitle": "TEMPS : ${value}",
-  "@timeTitle": {
-    "description": "Temps de jeu",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "ÉCHAUFFEMENT : ${value}",
-  "@warmupTitle": {
-    "description": "Temps d’échauffement du jeu",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "TEMPS: ",
+  "warmupTitle": "ÉCHAUFFEMENT: "
 }

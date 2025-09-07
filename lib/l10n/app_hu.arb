@@ -17,16 +17,7 @@
   "contributors": "Közreműködők",
   "icons": "Ikonok",
   "gameOver": "Játék vége",
-  "scoreTitle": "Pontszám: ${value}",
-  "@scoreTitle": {
-    "description": "Pontok, amelyeket a felhasználó kap, amikor súlyzókat vesz fel",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+  "scoreTitle": "Pontszám: ",
   "proteinBonus": "Fehérje bónusz: ${bonus}",
   "@proteinBonus": {
     "description": "Extra pontok, amelyeket a felhasználó kap, amikor bónusz tárgyakat vesz fel",
@@ -52,24 +43,6 @@
   "hard": "Nehéz",
   "gameSound": "Játék hangja",
   "joystickPosition": "Joystick pozíció",
-  "timeTitle": "IDŐ: ${value}",
-  "@timeTitle": {
-    "description": "Játékidő",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "BEMELEGÍTÉS: ${value}",
-  "@warmupTitle": {
-    "description": "Bemelegítési idő a játékban",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "IDŐ: ",
+  "warmupTitle": "BEMELEGÍTÉS: "
 }

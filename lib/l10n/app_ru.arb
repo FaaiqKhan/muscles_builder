@@ -17,16 +17,7 @@
   "contributors": "Участники",
   "icons": "Иконки",
   "gameOver": "Игра окончена",
-  "scoreTitle": "Счёт: ${value}",
-  "@scoreTitle": {
-    "description": "Очки, которые пользователь получает при поднятии гантелей",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+  "scoreTitle": "Счёт: ",
   "proteinBonus": "Бонус белка: ${bonus}",
   "@proteinBonus": {
     "description": "Дополнительные очки, которые пользователь получает, подбирая бонусные предметы",
@@ -52,24 +43,6 @@
   "hard": "Тяжёлый",
   "gameSound": "Звук игры",
   "joystickPosition": "Позиция джойстика",
-  "timeTitle": "ВРЕМЯ: ${value}",
-  "@timeTitle": {
-    "description": "Игровое время",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "РАЗМИНКА: ${value}",
-  "@warmupTitle": {
-    "description": "Время разминки в игре",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "ВРЕМЯ: ",
+  "warmupTitle": "РАЗМИНКА: "
 }

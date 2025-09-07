@@ -17,16 +17,7 @@
   "contributors": "Colaboradores",
   "icons": "Ícones",
   "gameOver": "Fim de jogo",
-  "scoreTitle": "Pontuação: ${value}",
-  "@scoreTitle": {
-    "description": "Pontos que o usuário ganha ao pegar halteres",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+  "scoreTitle": "Pontuação: ",
   "proteinBonus": "Bônus de proteína: ${bonus}",
   "@proteinBonus": {
     "description": "Pontos extras que o usuário ganha ao pegar objetos de bônus",
@@ -52,24 +43,6 @@
   "hard": "Difícil",
   "gameSound": "Som do jogo",
   "joystickPosition": "Posição do joystick",
-  "timeTitle": "TEMPO: ${value}",
-  "@timeTitle": {
-    "description": "Tempo de jogo",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "AQUECIMENTO: ${value}",
-  "@warmupTitle": {
-    "description": "Tempo de aquecimento no jogo",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "TEMPO: ",
+  "warmupTitle": "AQUECIMENTO: "
 }

@@ -180,11 +180,11 @@ abstract class AppLocalizations {
   /// **'Game Over'**
   String get gameOver;
 
-  /// Points that user takes on picking dumbbells
+  /// No description provided for @scoreTitle.
   ///
   /// In en, this message translates to:
-  /// **'SCORE: \${value}'**
-  String scoreTitle(int value);
+  /// **'SCORE: '**
+  String get scoreTitle;
 
   /// Extra points that user takes on picking bonus objects
   ///
@@ -282,17 +282,17 @@ abstract class AppLocalizations {
   /// **'Joystick position'**
   String get joystickPosition;
 
-  /// Gameplay time
+  /// No description provided for @timeTitle.
   ///
   /// In en, this message translates to:
-  /// **'TIME: \${value}'**
-  String timeTitle(String value);
+  /// **'TIME: '**
+  String get timeTitle;
 
-  /// Gameplay warmup time
+  /// No description provided for @warmupTitle.
   ///
   /// In en, this message translates to:
-  /// **'WARMUP: \${value}'**
-  String warmupTitle(String value);
+  /// **'WARMUP: '**
+  String get warmupTitle;
 }
 
 class _AppLocalizationsDelegate

@@ -35,9 +35,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get gameOver => 'Konec hry';
 
   @override
-  String scoreTitle(int value) {
-    return 'Skóre: \$$value';
-  }
+  String get scoreTitle => 'Skóre: ';
 
   @override
   String proteinBonus(int bonus) {
@@ -90,12 +88,8 @@ class AppLocalizationsCs extends AppLocalizations {
   String get joystickPosition => 'Poloha joysticku';
 
   @override
-  String timeTitle(String value) {
-    return 'TIME: \$$value';
-  }
+  String get timeTitle => 'ČAS: ';
 
   @override
-  String warmupTitle(String value) {
-    return 'WARMUP: \$$value';
-  }
+  String get warmupTitle => 'ROZCVIČENÍ: ';
 }

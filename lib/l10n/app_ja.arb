@@ -17,16 +17,7 @@
   "contributors": "貢献者",
   "icons": "アイコン",
   "gameOver": "ゲームオーバー",
-  "scoreTitle": "スコア: ${value}",
-  "@scoreTitle": {
-    "description": "ユーザーがダンベルを取ったときに獲得するポイント",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+  "scoreTitle": "スコア: ",
   "proteinBonus": "プロテインボーナス: ${bonus}",
   "@proteinBonus": {
     "description": "ユーザーがボーナスアイテムを取ったときに獲得する追加ポイント",
@@ -52,24 +43,6 @@
   "hard": "難しい",
   "gameSound": "ゲームサウンド",
   "joystickPosition": "ジョイスティックの位置",
-  "timeTitle": "時間: ${value}",
-  "@timeTitle": {
-    "description": "プレイ時間",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "ウォームアップ: ${value}",
-  "@warmupTitle": {
-    "description": "ゲームのウォームアップ時間",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "時間: ",
+  "warmupTitle": "ウォームアップ: "
 }

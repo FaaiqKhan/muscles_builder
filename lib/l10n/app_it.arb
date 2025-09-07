@@ -17,16 +17,7 @@
   "contributors": "Collaboratori",
   "icons": "Icone",
   "gameOver": "Gioco finito",
-  "scoreTitle": "Punteggio: ${value}",
-  "@scoreTitle": {
-    "description": "Punti che l’utente guadagna raccogliendo manubri",
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+  "scoreTitle": "Punteggio: ",
   "proteinBonus": "Bonus proteine: ${bonus}",
   "@proteinBonus": {
     "description": "Punti extra che l’utente guadagna raccogliendo oggetti bonus",
@@ -52,24 +43,6 @@
   "hard": "Difficile",
   "gameSound": "Suono del gioco",
   "joystickPosition": "Posizione del joystick",
-  "timeTitle": "TEMPO: ${value}",
-  "@timeTitle": {
-    "description": "Tempo di gioco",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "2:00"
-      }
-    }
-  },
-  "warmupTitle": "RISCALDAMENTO: ${value}",
-  "@warmupTitle": {
-    "description": "Tempo di riscaldamento di gioco",
-    "placeholders": {
-      "value": {
-        "type": "String",
-        "example": "1:00"
-      }
-    }
-  }
+  "timeTitle": "TEMPO: ",
+  "warmupTitle": "RISCALDAMENTO: "
 }

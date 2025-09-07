@@ -35,9 +35,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get gameOver => '游戏结束';
 
   @override
-  String scoreTitle(int value) {
-    return '得分: \$$value';
-  }
+  String get scoreTitle => '得分: ';
 
   @override
   String proteinBonus(int bonus) {
@@ -90,12 +88,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get joystickPosition => '操纵杆位置';
 
   @override
-  String timeTitle(String value) {
-    return 'TIME: \$$value';
-  }
+  String get timeTitle => '时间: ';
 
   @override
-  String warmupTitle(String value) {
-    return 'WARMUP: \$$value';
-  }
+  String get warmupTitle => '热身: ';
 }

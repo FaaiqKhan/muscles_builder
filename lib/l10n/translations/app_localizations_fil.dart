@@ -35,9 +35,7 @@ class AppLocalizationsFil extends AppLocalizations {
   String get gameOver => 'Tapos na ang laro';
 
   @override
-  String scoreTitle(int value) {
-    return 'Iskor: \$$value';
-  }
+  String get scoreTitle => 'Iskor: ';
 
   @override
   String proteinBonus(int bonus) {
@@ -90,12 +88,8 @@ class AppLocalizationsFil extends AppLocalizations {
   String get joystickPosition => 'Posisyon ng joystick';
 
   @override
-  String timeTitle(String value) {
-    return 'TIME: \$$value';
-  }
+  String get timeTitle => 'ORAS: ';
 
   @override
-  String warmupTitle(String value) {
-    return 'WARMUP: \$$value';
-  }
+  String get warmupTitle => 'PAGPAPAINIT: ';
 }
