@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "Будаўнік\nцягліц",
   "startWorkout": "Пачаць трэніроўку",
   "about": "Пра праграму",
-  "appVersion": "Версія праграмы ${version}",
+  "appVersion": "Версія праграмы {version}",
   "@appVersion": {
     "description": "Версія прыкладання",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "Значкі",
   "gameOver": "Гульня скончана",
   "scoreTitle": "Ачкі: ",
-  "proteinBonus": "Бонус бялку: ${bonus}",
+  "proteinBonus": "Бонус бялку: {bonus}",
   "@proteinBonus": {
     "description": "Дадатковыя ачкі, якія карыстальнік атрымлівае, падбіраючы бонусныя прадметы",
     "placeholders": {

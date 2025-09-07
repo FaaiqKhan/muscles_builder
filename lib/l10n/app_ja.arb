@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "筋肉\nビルダー",
   "startWorkout": "ワークアウト開始",
   "about": "アプリについて",
-  "appVersion": "アプリバージョン ${version}",
+  "appVersion": "アプリバージョン {version}",
   "@appVersion": {
     "description": "アプリケーションバージョン",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "アイコン",
   "gameOver": "ゲームオーバー",
   "scoreTitle": "スコア: ",
-  "proteinBonus": "プロテインボーナス: ${bonus}",
+  "proteinBonus": "プロテインボーナス: {bonus}",
   "@proteinBonus": {
     "description": "ユーザーがボーナスアイテムを取ったときに獲得する追加ポイント",
     "placeholders": {

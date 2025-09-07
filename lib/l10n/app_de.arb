@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "Muskel-\nTrainer",
   "startWorkout": "Training starten",
   "about": "Über",
-  "appVersion": "Anwendungsversion ${version}",
+  "appVersion": "Anwendungsversion {version}",
   "@appVersion": {
     "description": "Anwendungsversion",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "Symbole",
   "gameOver": "Spiel vorbei",
   "scoreTitle": "Punkte: ",
-  "proteinBonus": "Protein-Bonus: ${bonus}",
+  "proteinBonus": "Protein-Bonus: {bonus}",
   "@proteinBonus": {
     "description": "Zusatzpunkte, die der Nutzer beim Aufheben von Bonusobjekten erhält",
     "placeholders": {

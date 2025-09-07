@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "Budovatel\nsvalů",
   "startWorkout": "Začít trénink",
   "about": "O aplikaci",
-  "appVersion": "Verze aplikace ${version}",
+  "appVersion": "Verze aplikace {version}",
   "@appVersion": {
     "description": "Verze aplikace",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "Ikony",
   "gameOver": "Konec hry",
   "scoreTitle": "Skóre: ",
-  "proteinBonus": "Proteinový bonus: ${bonus}",
+  "proteinBonus": "Proteinový bonus: {bonus}",
   "@proteinBonus": {
     "description": "Extra body, které uživatel získá při sbírání bonusových objektů",
     "placeholders": {

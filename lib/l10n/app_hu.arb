@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "Izom-\népítő",
   "startWorkout": "Edzés indítása",
   "about": "Névjegy",
-  "appVersion": "Alkalmazás verzió ${version}",
+  "appVersion": "Alkalmazás verzió {version}",
   "@appVersion": {
     "description": "Alkalmazás verziója",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "Ikonok",
   "gameOver": "Játék vége",
   "scoreTitle": "Pontszám: ",
-  "proteinBonus": "Fehérje bónusz: ${bonus}",
+  "proteinBonus": "Fehérje bónusz: {bonus}",
   "@proteinBonus": {
     "description": "Extra pontok, amelyeket a felhasználó kap, amikor bónusz tárgyakat vesz fel",
     "placeholders": {

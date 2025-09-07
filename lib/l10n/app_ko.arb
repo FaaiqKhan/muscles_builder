@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "근육\n빌더",
   "startWorkout": "운동 시작",
   "about": "정보",
-  "appVersion": "앱 버전 ${version}",
+  "appVersion": "앱 버전 {version}",
   "@appVersion": {
     "description": "애플리케이션 버전",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "아이콘",
   "gameOver": "게임 오버",
   "scoreTitle": "점수: ",
-  "proteinBonus": "단백질 보너스: ${bonus}",
+  "proteinBonus": "단백질 보너스: {bonus}",
   "@proteinBonus": {
     "description": "사용자가 보너스 아이템을 집을 때 얻는 추가 점수",
     "placeholders": {

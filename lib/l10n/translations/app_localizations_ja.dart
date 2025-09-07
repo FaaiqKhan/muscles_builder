@@ -22,7 +22,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String appVersion(String version) {
-    return 'アプリバージョン \$$version';
+    return 'アプリバージョン $version';
   }
 
   @override
@@ -39,7 +39,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String proteinBonus(int bonus) {
-    return 'プロテインボーナス: \$$bonus';
+    return 'プロテインボーナス: $bonus';
   }
 
   @override

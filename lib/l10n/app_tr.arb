@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "Kas\nYapıcı",
   "startWorkout": "Antrenmana başla",
   "about": "Hakkında",
-  "appVersion": "Uygulama sürümü ${version}",
+  "appVersion": "Uygulama sürümü {version}",
   "@appVersion": {
     "description": "Uygulama sürümü",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "Simgeler",
   "gameOver": "Oyun bitti",
   "scoreTitle": "Skor: ",
-  "proteinBonus": "Protein bonusu: ${bonus}",
+  "proteinBonus": "Protein bonusu: {bonus}",
   "@proteinBonus": {
     "description": "Kullanıcının bonus nesneleri aldığında kazandığı ekstra puanlar",
     "placeholders": {

@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "Muscles\nBuilder",
   "startWorkout": "Start workout",
   "about": "About",
-  "appVersion": "App version ${version}",
+  "appVersion": "App version {version}",
   "@appVersion": {
     "description": "Application version",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "Icons",
   "gameOver": "Game Over",
   "scoreTitle": "SCORE: ",
-  "proteinBonus": "Protein Bonus: ${bonus}",
+  "proteinBonus": "Protein Bonus: {bonus}",
   "@proteinBonus": {
     "description": "Extra points that user takes on picking bonus objects",
     "placeholders": {

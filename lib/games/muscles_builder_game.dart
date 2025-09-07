@@ -9,7 +9,6 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
-import 'package:muscles_builder/components/game_status_panel_component.dart';
 import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
@@ -17,15 +16,26 @@ import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
+import 'package:muscles_builder/cubits/hud_game_status/hud_game_status_cubit.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/screens/game_over_screen.dart';
+import 'package:muscles_builder/screens/game_pause_screen.dart';
 import 'package:muscles_builder/theme/muscles_builder_theme.dart';
+import 'package:muscles_builder/utils/data_utils.dart';
+import 'package:muscles_builder/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
+  MusclesBuilderGame({
+    required this.themeData,
+    required this.gameTheme,
+    required this.hudGameStatusCubit,
+  });
+
+  final HudGameStatusCubit hudGameStatusCubit;
+
   late PlayerComponent _player;
   late JoystickComponent _joystick;
-  late GameStatusPanelComponent _gameStatusPanelComponent;
 
   late bool isGameSoundOn;
 
@@ -37,42 +47,45 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     Globals.dumbbellHeavySprite,
   ];
 
-  int gameScore = 0;
-  int proteinBonus = 0;
+  double _timeAccumulator = 0;
 
   late Sprite _virusSprite;
   late Sprite _vaccineSprite;
   late Sprite _proteinSprite;
 
   late double virusSpeed;
-  late double warmupTime;
-  late double exerciseTime;
 
   late int proteinSpawnCount;
   late int vaccinationSpawnCount;
 
   late SharedPreferences _sharedPreferences;
 
-  double statusBarHeight = 60.0;
-
   // Application theme instance because FlameGame cannot access buildContext
   final ThemeData themeData;
   final MusclesBuilderTheme gameTheme;
 
-  void increaseScoreBy(int value) => gameScore += value;
+  int get gameScore => hudGameStatusCubit.state.score;
 
-  void decreaseScoreBy(int value) {
-    if (gameScore == 0) return;
-    gameScore -= value;
+  void increaseScoreBy(int value) {
+    hudGameStatusCubit.updateScore(
+      hudGameStatusCubit.state.score + value,
+    );
   }
 
-  String get warmupTimeInString => warmupTime.toInt().toString();
+  void decreaseScoreBy(int value) {
+    if (hudGameStatusCubit.state.score == 0) return;
+    hudGameStatusCubit.updateScore(
+      hudGameStatusCubit.state.score - value,
+    );
+  }
 
-  String get exerciseTimeInString => exerciseTime.toInt().toString();
+  void increaseProteinBonusBy(int value) {
+    hudGameStatusCubit.updateProteinBonus(
+      hudGameStatusCubit.state.proteinBonus + value,
+    );
+  }
 
-  bool get isWarmupCompleted => warmupTime <= 0.0;
-
-  MusclesBuilderGame({required this.themeData, required this.gameTheme});
+  bool get isWarmupCompleted => hudGameStatusCubit.isWarmupTimeCompleted;
 
   Vector2 moveSprite(double speed) {
     // Generate a random angle in radius
@@ -97,48 +110,19 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     String? key = preferences.getString(
       KeyValueStorageKeys.exerciseTime,
     );
-    if (key == null) {
-      exerciseTime = 20.0;
-      proteinSpawnCount = 0;
-      vaccinationSpawnCount = 0;
-    } else {
-      switch (ExerciseTime.values.byName(key)) {
-        case ExerciseTime.thirtySeconds:
-          exerciseTime = 30.0;
-          proteinSpawnCount = 2;
-          vaccinationSpawnCount = 1;
-          break;
-        case ExerciseTime.fortyFiveSeconds:
-          exerciseTime = 45.0;
-          proteinSpawnCount = 3;
-          vaccinationSpawnCount = 2;
-          break;
-        case ExerciseTime.oneMinute:
-          exerciseTime = 60.0;
-          proteinSpawnCount = 4;
-          vaccinationSpawnCount = 3;
-          break;
-      }
-    }
-  }
-
-  void _setupWarmupTime(SharedPreferences preferences) {
-    String? key = preferences.getString(
-      KeyValueStorageKeys.warmupTime,
-    );
-    if (key == null) {
-      warmupTime = 5.0;
-      return;
-    }
-    switch (WarmupTime.values.byName(key)) {
-      case WarmupTime.fiveSeconds:
-        warmupTime = 5.0;
+    if (key == null) return;
+    switch (ExerciseTime.values.byName(key)) {
+      case ExerciseTime.thirtySeconds:
+        proteinSpawnCount = 2;
+        vaccinationSpawnCount = 1;
         break;
-      case WarmupTime.threeSeconds:
-        warmupTime = 3.0;
+      case ExerciseTime.fortyFiveSeconds:
+        proteinSpawnCount = 3;
+        vaccinationSpawnCount = 2;
         break;
-      case WarmupTime.zeroSeconds:
-        warmupTime = 0.0;
+      case ExerciseTime.oneMinute:
+        proteinSpawnCount = 4;
+        vaccinationSpawnCount = 3;
         break;
     }
   }
@@ -197,6 +181,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() async {
+    await super.onLoad();
     await Flame.device.fullScreen();
     await Flame.device.setPortrait();
     _sharedPreferences = await SharedPreferences.getInstance();
@@ -206,7 +191,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     _proteinSprite = await loadSprite(Globals.proteinSprite);
 
     _setupGameSound(_sharedPreferences);
-    _setupWarmupTime(_sharedPreferences);
     _setupGameTimeAndScore(_sharedPreferences);
     _setupGameDifficultyLevel(_sharedPreferences, _virusSprite);
 
@@ -245,25 +229,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       isGameSoundOn: isGameSoundOn,
     );
 
-    _gameStatusPanelComponent = GameStatusPanelComponent(
-      score: 0,
-      warmupTime: warmupTimeInString,
-      exerciseTime: exerciseTimeInString,
-      titleTextStyle: themeData.textTheme.titleSmall!.copyWith(
-        color: gameTheme.muscleGrowthBar,
-      ),
-      valueTextStyle: themeData.textTheme.titleSmall!.copyWith(
-        color: gameTheme.background,
-      ),
-      statusPanelSize: Vector2(size.x / 1.2, size.y * 0.09),
-      statusPanelPosition: Vector2(size.x / 2, 20),
-    );
-
     addAll(
       [
         _joystick,
         _player,
-        _gameStatusPanelComponent,
         // Any collision on the bounds of the view port
         ScreenHitbox(),
         DumbbellComponent(),
@@ -287,7 +256,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         ),
         SpawnComponent.periodRange(
           minPeriod: 5.0,
-          maxPeriod: exerciseTime,
+          maxPeriod: hudGameStatusCubit.state.exerciseTime,
           spawnCount: vaccinationSpawnCount,
           multiFactory: (_) {
             return [
@@ -301,7 +270,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         ),
         SpawnComponent.periodRange(
           minPeriod: 8.0,
-          maxPeriod: exerciseTime,
+          maxPeriod: hudGameStatusCubit.state.exerciseTime,
           spawnCount: proteinSpawnCount,
           multiFactory: (_) {
             return [
@@ -315,21 +284,22 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         ),
       ],
     );
-
-    super.onLoad();
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    if (warmupTime > 0.0) {
-      warmupTime -= dt;
-    } else {
-      exerciseTime -= dt;
-      if (exerciseTime <= 0.0 && !paused) {
+    _timeAccumulator += dt;
+    if (_timeAccumulator >= 1.0) {
+      if (!hudGameStatusCubit.isWarmupTimeCompleted) {
+        hudGameStatusCubit.decreaseWarmupTimeBy(1.0);
+      } else if (hudGameStatusCubit.isExerciseTimeCompleted && !paused) {
         pauseEngine();
         overlays.add(GameOverScreen.id);
+      } else {
+        hudGameStatusCubit.decreaseExerciseTimeBy(1.0);
       }
+      _timeAccumulator = 0;
     }
   }
 
@@ -339,10 +309,23 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   }
 
   void reset() {
-    gameScore = 0;
+    hudGameStatusCubit.reset(
+      warmupTime: DataUtils.warmupTime(
+        WarmupTime.values.byName(
+          Utils.getWarmupTimeKey(
+            _sharedPreferences,
+          ),
+        ),
+      ),
+      exerciseTime: DataUtils.gameTime(
+        ExerciseTime.values.byName(
+          Utils.getExerciseTimeKey(
+            _sharedPreferences,
+          ),
+        ),
+      ),
+    );
     _player.reset();
-    _gameStatusPanelComponent.reset();
-    _setupWarmupTime(_sharedPreferences);
     _setupGameTimeAndScore(_sharedPreferences);
   }
 
@@ -369,6 +352,11 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     reset();
     detach();
     overlays.remove(GameOverScreen.id);
+  }
+
+  void pauseGame() {
+    pauseEngine();
+    overlays.add(GamePauseScreen.id);
   }
 
   static void bounceBack({

@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "Raumenų\nkūrėjas",
   "startWorkout": "Pradėti treniruotę",
   "about": "Apie",
-  "appVersion": "Programos versija ${version}",
+  "appVersion": "Programos versija {version}",
   "@appVersion": {
     "description": "Programos versija",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "Piktogramos",
   "gameOver": "Žaidimas baigtas",
   "scoreTitle": "Taškai: ",
-  "proteinBonus": "Baltymų premija: ${bonus}",
+  "proteinBonus": "Baltymų premija: {bonus}",
   "@proteinBonus": {
     "description": "Papildomi taškai, kuriuos vartotojas gauna rinkdamas bonusinius objektus",
     "placeholders": {

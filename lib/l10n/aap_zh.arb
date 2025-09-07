@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "肌肉\n锻造者",
   "startWorkout": "开始锻炼",
   "about": "关于",
-  "appVersion": "应用版本 ${version}",
+  "appVersion": "应用版本 {version}",
   "@appVersion": {
     "description": "应用程序版本",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "图标",
   "gameOver": "游戏结束",
   "scoreTitle": "得分: ",
-  "proteinBonus": "蛋白质奖励: ${bonus}",
+  "proteinBonus": "蛋白质奖励: {bonus}",
   "@proteinBonus": {
     "description": "用户捡起奖励物品时获得的额外积分",
     "placeholders": {
