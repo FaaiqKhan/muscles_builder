@@ -146,7 +146,7 @@ class PlayerComponent extends SpriteComponent
       other.removeFromParent();
       // Generate number from 0 to 8
       int randomBonusScore = game.random.nextInt(9);
-      game.proteinBonus = randomBonusScore;
+      game.increaseProteinBonusBy(randomBonusScore);
       game.increaseScoreBy(randomBonusScore);
       if (_isGameSoundOn) {
         FlameAudio.play(Globals.proteinSound);

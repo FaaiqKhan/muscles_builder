@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "Tagapagtayo\nng kalamnan",
   "startWorkout": "Simulan ang workout",
   "about": "Tungkol",
-  "appVersion": "Bersyon ng app ${version}",
+  "appVersion": "Bersyon ng app {version}",
   "@appVersion": {
     "description": "Bersyon ng aplikasyon",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "Mga icon",
   "gameOver": "Tapos na ang laro",
   "scoreTitle": "Iskor: ",
-  "proteinBonus": "Protein bonus: ${bonus}",
+  "proteinBonus": "Protein bonus: {bonus}",
   "@proteinBonus": {
     "description": "Karagdagang puntos na nakukuha ng user kapag kumukuha ng bonus na bagay",
     "placeholders": {

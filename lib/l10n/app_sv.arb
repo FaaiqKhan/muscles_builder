@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "Muskel-\nbyggare",
   "startWorkout": "Starta träning",
   "about": "Om",
-  "appVersion": "Appversion ${version}",
+  "appVersion": "Appversion {version}",
   "@appVersion": {
     "description": "Applikationsversion",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "Ikoner",
   "gameOver": "Spelet över",
   "scoreTitle": "Poäng: ",
-  "proteinBonus": "Proteinbonus: ${bonus}",
+  "proteinBonus": "Proteinbonus: {bonus}",
   "@proteinBonus": {
     "description": "Extra poäng som användaren får när hen plockar upp bonusföremål",
     "placeholders": {

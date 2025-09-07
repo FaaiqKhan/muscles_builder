@@ -4,7 +4,7 @@
   "musclesBuilderTitle": "Строитель\nмышц",
   "startWorkout": "Начать тренировку",
   "about": "О программе",
-  "appVersion": "Версия приложения ${version}",
+  "appVersion": "Версия приложения {version}",
   "@appVersion": {
     "description": "Версия приложения",
     "placeholders": {
@@ -18,7 +18,7 @@
   "icons": "Иконки",
   "gameOver": "Игра окончена",
   "scoreTitle": "Счёт: ",
-  "proteinBonus": "Бонус белка: ${bonus}",
+  "proteinBonus": "Бонус белка: {bonus}",
   "@proteinBonus": {
     "description": "Дополнительные очки, которые пользователь получает, подбирая бонусные предметы",
     "placeholders": {

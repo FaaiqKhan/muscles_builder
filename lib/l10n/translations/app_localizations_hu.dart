@@ -22,7 +22,7 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String appVersion(String version) {
-    return 'Alkalmazás verzió \$$version';
+    return 'Alkalmazás verzió $version';
   }
 
   @override
@@ -39,7 +39,7 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String proteinBonus(int bonus) {
-    return 'Fehérje bónusz: \$$bonus';
+    return 'Fehérje bónusz: $bonus';
   }
 
   @override

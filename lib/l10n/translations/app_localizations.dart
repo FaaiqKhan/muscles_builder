@@ -159,7 +159,7 @@ abstract class AppLocalizations {
   /// Application version
   ///
   /// In en, this message translates to:
-  /// **'App version \${version}'**
+  /// **'App version {version}'**
   String appVersion(String version);
 
   /// No description provided for @contributors.
@@ -189,7 +189,7 @@ abstract class AppLocalizations {
   /// Extra points that user takes on picking bonus objects
   ///
   /// In en, this message translates to:
-  /// **'Protein Bonus: \${bonus}'**
+  /// **'Protein Bonus: {bonus}'**
   String proteinBonus(int bonus);
 
   /// No description provided for @again.

@@ -22,7 +22,7 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String appVersion(String version) {
-    return 'Bersyon ng app \$$version';
+    return 'Bersyon ng app $version';
   }
 
   @override
@@ -39,7 +39,7 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String proteinBonus(int bonus) {
-    return 'Protein bonus: \$$bonus';
+    return 'Protein bonus: $bonus';
   }
 
   @override

@@ -22,7 +22,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String appVersion(String version) {
-    return '应用版本 \$$version';
+    return '应用版本 $version';
   }
 
   @override
@@ -39,7 +39,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String proteinBonus(int bonus) {
-    return '蛋白质奖励: \$$bonus';
+    return '蛋白质奖励: $bonus';
   }
 
   @override
