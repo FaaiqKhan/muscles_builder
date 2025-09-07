@@ -1,0 +1,48 @@
+{
+  "@@locale": "fil",
+  "warmingUp": "Nag-iinit...",
+  "musclesBuilderTitle": "Tagapagtayo\nng kalamnan",
+  "startWorkout": "Simulan ang workout",
+  "about": "Tungkol",
+  "appVersion": "Bersyon ng app {version}",
+  "@appVersion": {
+    "description": "Bersyon ng aplikasyon",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Mga nag-ambag",
+  "icons": "Mga icon",
+  "gameOver": "Tapos na ang laro",
+  "scoreTitle": "Iskor: ",
+  "proteinBonus": "Protein bonus: {bonus}",
+  "@proteinBonus": {
+    "description": "Karagdagang puntos na nakukuha ng user kapag kumukuha ng bonus na bagay",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Muli",
+  "imTired": "Pagod na ako",
+  "backToGym": "Bumalik sa gym",
+  "gamePaused": "Laro\nnakapahinga",
+  "settings": "Mga setting",
+  "reset": "I-reset",
+  "beHappyStayHealthy": "Maging masaya\nManatiling malusog",
+  "applicationTheme": "Tema ng app",
+  "exerciseTime": "Oras ng ehersisyo",
+  "difficultyLevel": "Antas ng hirap",
+  "easy": "Madali",
+  "medium": "Katamtaman",
+  "hard": "Mahirap",
+  "gameSound": "Tunog ng laro",
+  "joystickPosition": "Posisyon ng joystick",
+  "timeTitle": "ORAS: ",
+  "warmupTitle": "PAGPAPAINIT: "
+}

@@ -1,0 +1,48 @@
+{
+  "@@locale": "tr",
+  "warmingUp": "Isınma...",
+  "musclesBuilderTitle": "Kas\nYapıcı",
+  "startWorkout": "Antrenmana başla",
+  "about": "Hakkında",
+  "appVersion": "Uygulama sürümü {version}",
+  "@appVersion": {
+    "description": "Uygulama sürümü",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Katkıda bulunanlar",
+  "icons": "Simgeler",
+  "gameOver": "Oyun bitti",
+  "scoreTitle": "Skor: ",
+  "proteinBonus": "Protein bonusu: {bonus}",
+  "@proteinBonus": {
+    "description": "Kullanıcının bonus nesneleri aldığında kazandığı ekstra puanlar",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Tekrar",
+  "imTired": "Yoruldum",
+  "backToGym": "Spor salonuna dön",
+  "gamePaused": "Oyun\nduraklatıldı",
+  "settings": "Ayarlar",
+  "reset": "Sıfırla",
+  "beHappyStayHealthy": "Mutlu ol\nSağlıklı kal",
+  "applicationTheme": "Uygulama teması",
+  "exerciseTime": "Egzersiz süresi",
+  "difficultyLevel": "Zorluk seviyesi",
+  "easy": "Kolay",
+  "medium": "Orta",
+  "hard": "Zor",
+  "gameSound": "Oyun sesi",
+  "joystickPosition": "Joystick konumu",
+  "timeTitle": "SÜRE: ",
+  "warmupTitle": "ISINMA: "
+}

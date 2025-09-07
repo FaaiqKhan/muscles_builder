@@ -1,0 +1,48 @@
+{
+  "@@locale": "lt",
+  "warmingUp": "Apšilimas...",
+  "musclesBuilderTitle": "Raumenų\nkūrėjas",
+  "startWorkout": "Pradėti treniruotę",
+  "about": "Apie",
+  "appVersion": "Programos versija {version}",
+  "@appVersion": {
+    "description": "Programos versija",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Prisidėję",
+  "icons": "Piktogramos",
+  "gameOver": "Žaidimas baigtas",
+  "scoreTitle": "Taškai: ",
+  "proteinBonus": "Baltymų premija: {bonus}",
+  "@proteinBonus": {
+    "description": "Papildomi taškai, kuriuos vartotojas gauna rinkdamas bonusinius objektus",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Dar kartą",
+  "imTired": "Aš pavargau",
+  "backToGym": "Grįžti į sporto salę",
+  "gamePaused": "Žaidimas\npristabdytas",
+  "settings": "Nustatymai",
+  "reset": "Atstatyti",
+  "beHappyStayHealthy": "Būk laimingas\nIšlik sveikas",
+  "applicationTheme": "Programos tema",
+  "exerciseTime": "Treniruotės laikas",
+  "difficultyLevel": "Sunkumo lygis",
+  "easy": "Lengvas",
+  "medium": "Vidutinis",
+  "hard": "Sunkus",
+  "gameSound": "Žaidimo garsas",
+  "joystickPosition": "Valdiklio padėtis",
+  "timeTitle": "LAIKAS: ",
+  "warmupTitle": "APŠILIMAS: "
+}

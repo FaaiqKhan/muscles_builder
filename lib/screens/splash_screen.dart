@@ -4,6 +4,7 @@ import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 import 'package:muscles_builder/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -85,7 +86,7 @@ class SplashScreen extends StatelessWidget {
               ),
               const SizedBox(height: Spacings.contentSpacingOf12),
               Text(
-                "Warming up...",
+                AppLocalizations.of(context).warmingUp,
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium

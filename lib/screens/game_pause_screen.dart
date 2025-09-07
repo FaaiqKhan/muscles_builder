@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
+import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 
 class GamePauseScreen extends StatelessWidget {
   const GamePauseScreen({super.key, required this.gameRef});
@@ -23,7 +24,7 @@ class GamePauseScreen extends StatelessWidget {
               children: <Widget>[
                 // Stroked text as border.
                 Text(
-                  "Game\nPaused",
+                  AppLocalizations.of(context).gamePaused,
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall
@@ -37,7 +38,7 @@ class GamePauseScreen extends StatelessWidget {
                 ),
                 // Solid text as fill.
                 Text(
-                  "Game\nPaused",
+                  AppLocalizations.of(context).gamePaused,
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall
@@ -55,7 +56,7 @@ class GamePauseScreen extends StatelessWidget {
                 gameRef.overlays.remove(GamePauseScreen.id);
               },
               child: Text(
-                "Back to Gym",
+                AppLocalizations.of(context).backToGym,
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Theme.of(context).colorScheme.secondary,
                     ),
@@ -70,7 +71,7 @@ class GamePauseScreen extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               child: Text(
-                "I'm tired",
+                AppLocalizations.of(context).imTired,
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Theme.of(context).colorScheme.secondary,
                     ),

@@ -1,0 +1,48 @@
+{
+  "@@locale": "ru",
+  "warmingUp": "Разминка...",
+  "musclesBuilderTitle": "Строитель\nмышц",
+  "startWorkout": "Начать тренировку",
+  "about": "О программе",
+  "appVersion": "Версия приложения {version}",
+  "@appVersion": {
+    "description": "Версия приложения",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Участники",
+  "icons": "Иконки",
+  "gameOver": "Игра окончена",
+  "scoreTitle": "Счёт: ",
+  "proteinBonus": "Бонус белка: {bonus}",
+  "@proteinBonus": {
+    "description": "Дополнительные очки, которые пользователь получает, подбирая бонусные предметы",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Снова",
+  "imTired": "Я устал",
+  "backToGym": "Вернуться в зал",
+  "gamePaused": "Игра\nприостановлена",
+  "settings": "Настройки",
+  "reset": "Сброс",
+  "beHappyStayHealthy": "Будь счастлив\nБудь здоров",
+  "applicationTheme": "Тема приложения",
+  "exerciseTime": "Время тренировки",
+  "difficultyLevel": "Уровень сложности",
+  "easy": "Лёгкий",
+  "medium": "Средний",
+  "hard": "Тяжёлый",
+  "gameSound": "Звук игры",
+  "joystickPosition": "Позиция джойстика",
+  "timeTitle": "ВРЕМЯ: ",
+  "warmupTitle": "РАЗМИНКА: "
+}

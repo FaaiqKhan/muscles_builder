@@ -1,0 +1,48 @@
+{
+  "@@locale": "ko",
+  "warmingUp": "준비 운동 중...",
+  "musclesBuilderTitle": "근육\n빌더",
+  "startWorkout": "운동 시작",
+  "about": "정보",
+  "appVersion": "앱 버전 {version}",
+  "@appVersion": {
+    "description": "애플리케이션 버전",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "기여자",
+  "icons": "아이콘",
+  "gameOver": "게임 오버",
+  "scoreTitle": "점수: ",
+  "proteinBonus": "단백질 보너스: {bonus}",
+  "@proteinBonus": {
+    "description": "사용자가 보너스 아이템을 집을 때 얻는 추가 점수",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "다시",
+  "imTired": "피곤해요",
+  "backToGym": "헬스장으로 돌아가기",
+  "gamePaused": "게임\n일시정지",
+  "settings": "설정",
+  "reset": "초기화",
+  "beHappyStayHealthy": "행복하세요\n건강하세요",
+  "applicationTheme": "앱 테마",
+  "exerciseTime": "운동 시간",
+  "difficultyLevel": "난이도",
+  "easy": "쉬움",
+  "medium": "보통",
+  "hard": "어려움",
+  "gameSound": "게임 사운드",
+  "joystickPosition": "조이스틱 위치",
+  "timeTitle": "시간: ",
+  "warmupTitle": "준비 운동: "
+}

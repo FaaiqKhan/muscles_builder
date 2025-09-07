@@ -1,0 +1,48 @@
+{
+  "@@locale": "cs",
+  "warmingUp": "Rozcvička...",
+  "musclesBuilderTitle": "Budovatel\nsvalů",
+  "startWorkout": "Začít trénink",
+  "about": "O aplikaci",
+  "appVersion": "Verze aplikace {version}",
+  "@appVersion": {
+    "description": "Verze aplikace",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Přispěvatelé",
+  "icons": "Ikony",
+  "gameOver": "Konec hry",
+  "scoreTitle": "Skóre: ",
+  "proteinBonus": "Proteinový bonus: {bonus}",
+  "@proteinBonus": {
+    "description": "Extra body, které uživatel získá při sbírání bonusových objektů",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Znovu",
+  "imTired": "Jsem unavený",
+  "backToGym": "Zpět do posilovny",
+  "gamePaused": "Hra\npozastavena",
+  "settings": "Nastavení",
+  "reset": "Obnovit",
+  "beHappyStayHealthy": "Buď šťastný\nZůstaň zdravý",
+  "applicationTheme": "Téma aplikace",
+  "exerciseTime": "Doba cvičení",
+  "difficultyLevel": "Úroveň obtížnosti",
+  "easy": "Lehká",
+  "medium": "Střední",
+  "hard": "Těžká",
+  "gameSound": "Zvuk hry",
+  "joystickPosition": "Poloha joysticku",
+  "timeTitle": "ČAS: ",
+  "warmupTitle": "ROZCVIČENÍ: "
+}

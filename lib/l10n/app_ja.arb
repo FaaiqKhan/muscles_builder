@@ -1,0 +1,48 @@
+{
+  "@@locale": "ja",
+  "warmingUp": "ウォームアップ中...",
+  "musclesBuilderTitle": "筋肉\nビルダー",
+  "startWorkout": "ワークアウト開始",
+  "about": "アプリについて",
+  "appVersion": "アプリバージョン {version}",
+  "@appVersion": {
+    "description": "アプリケーションバージョン",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "貢献者",
+  "icons": "アイコン",
+  "gameOver": "ゲームオーバー",
+  "scoreTitle": "スコア: ",
+  "proteinBonus": "プロテインボーナス: {bonus}",
+  "@proteinBonus": {
+    "description": "ユーザーがボーナスアイテムを取ったときに獲得する追加ポイント",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "もう一度",
+  "imTired": "疲れた",
+  "backToGym": "ジムに戻る",
+  "gamePaused": "ゲーム\n一時停止",
+  "settings": "設定",
+  "reset": "リセット",
+  "beHappyStayHealthy": "幸せに\n健康でいて",
+  "applicationTheme": "アプリテーマ",
+  "exerciseTime": "運動時間",
+  "difficultyLevel": "難易度",
+  "easy": "簡単",
+  "medium": "普通",
+  "hard": "難しい",
+  "gameSound": "ゲームサウンド",
+  "joystickPosition": "ジョイスティックの位置",
+  "timeTitle": "時間: ",
+  "warmupTitle": "ウォームアップ: "
+}

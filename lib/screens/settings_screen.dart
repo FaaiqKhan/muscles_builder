@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 import 'package:muscles_builder/widgets/app_theme_selection_widget.dart';
 import 'package:muscles_builder/widgets/exercise_time_widget.dart';
 import 'package:muscles_builder/widgets/game_difficulty_level.dart';
@@ -25,7 +26,7 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: context.musclesBuilderTheme.background,
         title: Text(
-          "Settings",
+          AppLocalizations.of(context).settings,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 color: context.musclesBuilderTheme.primaryText,
               ),
@@ -49,7 +50,7 @@ class SettingsScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () => context.read<SettingsCubit>().resetSettings(),
                 child: Text(
-                  "Reset",
+                  AppLocalizations.of(context).reset,
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         color: Theme.of(context).colorScheme.secondary,
                       ),

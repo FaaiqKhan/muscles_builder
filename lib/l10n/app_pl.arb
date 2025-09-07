@@ -1,0 +1,48 @@
+{
+  "@@locale": "pl",
+  "warmingUp": "Rozgrzewka...",
+  "musclesBuilderTitle": "Budowniczy\nmięśni",
+  "startWorkout": "Rozpocznij trening",
+  "about": "O aplikacji",
+  "appVersion": "Wersja aplikacji {version}",
+  "@appVersion": {
+    "description": "Wersja aplikacji",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Współtwórcy",
+  "icons": "Ikony",
+  "gameOver": "Koniec gry",
+  "scoreTitle": "Wynik: ",
+  "proteinBonus": "Premia białkowa: {bonus}",
+  "@proteinBonus": {
+    "description": "Dodatkowe punkty, które użytkownik zdobywa podnosząc przedmioty bonusowe",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Jeszcze raz",
+  "imTired": "Jestem zmęczony",
+  "backToGym": "Wróć na siłownię",
+  "gamePaused": "Gra\nwstrzymana",
+  "settings": "Ustawienia",
+  "reset": "Resetuj",
+  "beHappyStayHealthy": "Bądź szczęśliwy\nPozostań zdrowy",
+  "applicationTheme": "Motyw aplikacji",
+  "exerciseTime": "Czas ćwiczeń",
+  "difficultyLevel": "Poziom trudności",
+  "easy": "Łatwy",
+  "medium": "Średni",
+  "hard": "Trudny",
+  "gameSound": "Dźwięk gry",
+  "joystickPosition": "Pozycja joysticka",
+  "timeTitle": "CZAS: ",
+  "warmupTitle": "ROZGRZEWKA: "
+}

@@ -1,0 +1,48 @@
+{
+  "@@locale": "da",
+  "warmingUp": "Opvarmning...",
+  "musclesBuilderTitle": "Muskel-\nbygger",
+  "startWorkout": "Start træning",
+  "about": "Om",
+  "appVersion": "Applikationsversion {version}",
+  "@appVersion": {
+    "description": "Applikationsversion",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Bidragydere",
+  "icons": "Ikoner",
+  "gameOver": "Spillet er slut",
+  "scoreTitle": "Score: ",
+  "proteinBonus": "Proteinbonus: {bonus}",
+  "@proteinBonus": {
+    "description": "Ekstrapoint som brugeren får ved at samle bonusgenstande op",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Igen",
+  "imTired": "Jeg er træt",
+  "backToGym": "Tilbage til fitness",
+  "gamePaused": "Spil\npauset",
+  "settings": "Indstillinger",
+  "reset": "Nulstil",
+  "beHappyStayHealthy": "Vær glad\nBliv sund",
+  "applicationTheme": "App-tema",
+  "exerciseTime": "Træningstid",
+  "difficultyLevel": "Sværhedsgrad",
+  "easy": "Let",
+  "medium": "Mellem",
+  "hard": "Svær",
+  "gameSound": "Spillyd",
+  "joystickPosition": "Joystick-position",
+  "timeTitle": "TID: ",
+  "warmupTitle": "OPVARMNING: "
+}

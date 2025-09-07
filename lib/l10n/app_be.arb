@@ -1,0 +1,48 @@
+{
+  "@@locale": "be",
+  "warmingUp": "Разагрэў...",
+  "musclesBuilderTitle": "Будаўнік\nцягліц",
+  "startWorkout": "Пачаць трэніроўку",
+  "about": "Пра праграму",
+  "appVersion": "Версія праграмы {version}",
+  "@appVersion": {
+    "description": "Версія прыкладання",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Удзельнікі",
+  "icons": "Значкі",
+  "gameOver": "Гульня скончана",
+  "scoreTitle": "Ачкі: ",
+  "proteinBonus": "Бонус бялку: {bonus}",
+  "@proteinBonus": {
+    "description": "Дадатковыя ачкі, якія карыстальнік атрымлівае, падбіраючы бонусныя прадметы",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Яшчэ раз",
+  "imTired": "Я стаміўся",
+  "backToGym": "Вярнуцца ў спартзалу",
+  "gamePaused": "Гульня\nпрыпынена",
+  "settings": "Налады",
+  "reset": "Скід",
+  "beHappyStayHealthy": "Будзь шчаслівы\nБудзь здаровы",
+  "applicationTheme": "Тэма прыкладання",
+  "exerciseTime": "Час трэніроўкі",
+  "difficultyLevel": "Узровень складанасці",
+  "easy": "Лёгка",
+  "medium": "Сярэдні",
+  "hard": "Цяжкі",
+  "gameSound": "Гук гульні",
+  "joystickPosition": "Пазіцыя джойсціка",
+  "timeTitle": "ЧАС: ",
+  "warmupTitle": "РАЗАГРЭЎ: "
+}

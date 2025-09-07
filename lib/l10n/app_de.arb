@@ -1,0 +1,48 @@
+{
+  "@@locale": "de",
+  "warmingUp": "Aufwärmen...",
+  "musclesBuilderTitle": "Muskel-\nTrainer",
+  "startWorkout": "Training starten",
+  "about": "Über",
+  "appVersion": "Anwendungsversion {version}",
+  "@appVersion": {
+    "description": "Anwendungsversion",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Mitwirkende",
+  "icons": "Symbole",
+  "gameOver": "Spiel vorbei",
+  "scoreTitle": "Punkte: ",
+  "proteinBonus": "Protein-Bonus: {bonus}",
+  "@proteinBonus": {
+    "description": "Zusatzpunkte, die der Nutzer beim Aufheben von Bonusobjekten erhält",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Nochmal",
+  "imTired": "Ich bin müde",
+  "backToGym": "Zurück ins Fitnessstudio",
+  "gamePaused": "Spiel\npausiert",
+  "settings": "Einstellungen",
+  "reset": "Zurücksetzen",
+  "beHappyStayHealthy": "Sei glücklich\nBleib gesund",
+  "applicationTheme": "App-Design",
+  "exerciseTime": "Trainingszeit",
+  "difficultyLevel": "Schwierigkeitsgrad",
+  "easy": "Einfach",
+  "medium": "Mittel",
+  "hard": "Schwer",
+  "gameSound": "Spiel-Sound",
+  "joystickPosition": "Joystick-Position",
+  "timeTitle": "ZEIT: ",
+  "warmupTitle": "AUFWÄRMEN: "
+}

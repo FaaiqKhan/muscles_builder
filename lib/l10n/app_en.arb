@@ -1,0 +1,48 @@
+{
+  "@@locale": "en",
+  "warmingUp": "Warming up...",
+  "musclesBuilderTitle": "Muscles\nBuilder",
+  "startWorkout": "Start workout",
+  "about": "About",
+  "appVersion": "App version {version}",
+  "@appVersion": {
+    "description": "Application version",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0-1"
+      }
+    }
+  },
+  "contributors": "Contributors",
+  "icons": "Icons",
+  "gameOver": "Game Over",
+  "scoreTitle": "SCORE: ",
+  "proteinBonus": "Protein Bonus: {bonus}",
+  "@proteinBonus": {
+    "description": "Extra points that user takes on picking bonus objects",
+    "placeholders": {
+      "bonus": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "again": "Again",
+  "imTired": "I'm tired",
+  "backToGym": "Back to Gym",
+  "gamePaused": "Game\nPaused",
+  "settings": "Settings",
+  "reset": "Reset",
+  "beHappyStayHealthy": "Be Happy\nStay Healthy",
+  "applicationTheme": "Application theme",
+  "exerciseTime": "Exercise time",
+  "difficultyLevel": "Difficulty level",
+  "easy": "Easy",
+  "medium": "Medium",
+  "hard": "Hard",
+  "gameSound": "Game sound",
+  "joystickPosition": "Joystick position",
+  "timeTitle": "TIME: ",
+  "warmupTitle": "WARMUP: "
+}

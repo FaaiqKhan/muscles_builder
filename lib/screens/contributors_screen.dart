@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContributorsScreen extends StatelessWidget {
@@ -50,7 +51,7 @@ class ContributorsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: context.musclesBuilderTheme.background,
         title: Text(
-          "Contributors",
+          AppLocalizations.of(context).contributors,
           style: Theme.of(context)
               .textTheme
               .headlineSmall
@@ -66,7 +67,7 @@ class ContributorsScreen extends StatelessWidget {
           children: [
             ListTile(
               title: Text(
-                "Icons",
+                AppLocalizations.of(context).icons,
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium

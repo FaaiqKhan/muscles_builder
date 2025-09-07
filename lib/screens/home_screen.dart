@@ -3,14 +3,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/quotes.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_state.dart';
+import 'package:muscles_builder/cubits/hud_game_status/hud_game_status_cubit.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
+import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
 import 'package:muscles_builder/screens/settings_screen.dart';
+import 'package:muscles_builder/utils/data_utils.dart';
+import 'package:muscles_builder/utils/utils.dart';
 import 'package:muscles_builder/widgets/app_drawer_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,53 +31,20 @@ class HomeScreen extends StatelessWidget {
             children: <Widget>[
               // Stroked text as border.
               Text(
-                "MUSCLES",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayLarge
-                    ?.copyWith(
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 6
-                      ..color = context
-                          .musclesBuilderTheme.primaryText),
+                AppLocalizations.of(context).musclesBuilderTitle,
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 6
+                        ..color = context.musclesBuilderTheme.primaryText,
+                    ),
               ),
               // Solid text as fill.
               Text(
-                "MUSCLES",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayLarge
-                    ?.copyWith(
-                    color: context
-                        .musclesBuilderTheme.accentText),
-              ),
-            ],
-          ),
-          Stack(
-            children: <Widget>[
-              // Stroked text as border.
-              Text(
-                "BUILDER",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium
-                    ?.copyWith(
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 6
-                      ..color = context
-                          .musclesBuilderTheme.primaryText),
-              ),
-              // Solid text as fill.
-              Text(
-                "BUILDER",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium
-                    ?.copyWith(
-                    color: context
-                        .musclesBuilderTheme.accentText),
+                AppLocalizations.of(context).musclesBuilderTitle,
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                      color: context.musclesBuilderTheme.accentText,
+                    ),
               ),
             ],
           ),
@@ -121,14 +94,40 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      maintainState: false,
-                      builder: (_) => const MusclesBuilderGameScreen(),
-                    ),
-                  ),
+                  onPressed: () async {
+                    final instance = await SharedPreferences.getInstance();
+                    if (!context.mounted) return;
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        maintainState: false,
+                        builder: (_) => MultiBlocProvider(
+                          providers: [
+                            BlocProvider(
+                              create: (_) => HudGameStatusCubit(
+                                warmupTime: DataUtils.warmupTime(
+                                  WarmupTime.values.byName(
+                                    Utils.getWarmupTimeKey(
+                                      instance,
+                                    ),
+                                  ),
+                                ),
+                                exerciseTime: DataUtils.gameTime(
+                                  ExerciseTime.values.byName(
+                                    Utils.getExerciseTimeKey(
+                                      instance,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                          child: const MusclesBuilderGameScreen(),
+                        ),
+                      ),
+                    );
+                  },
                   child: Text(
-                    "Start workout",
+                    AppLocalizations.of(context).startWorkout,
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           color: Theme.of(context).colorScheme.secondary,
                         ),
