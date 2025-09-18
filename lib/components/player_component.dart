@@ -96,7 +96,25 @@ class PlayerComponent extends SpriteComponent
     _rightBounds = game.size.x - oneHalfOfSpriteWidth;
     _bottomBounds = game.size.y - oneHalfOfSpriteHeight;
 
-    add(RectangleHitbox());
+    // Main body polygon (torso & legs)
+    add(
+      PolygonHitbox([
+        Vector2(size.x * 0.25, size.y * 0.25), // left shoulder
+        Vector2(size.x * 0.75, size.y * 0.25), // right shoulder
+        Vector2(size.x * 0.65, size.y * 0.9),  // right leg
+        Vector2(size.x * 0.35, size.y * 0.9),  // left leg
+      ])
+        ..collisionType = CollisionType.passive,
+    );
+
+    // Head circle
+    add(
+      CircleHitbox.relative(
+        0.15, // radius relative to size
+        parentSize: size,
+        position: Vector2(size.x * 0.5, size.y * 0.1),
+      )..collisionType = CollisionType.passive,
+    );
   }
 
   @override
