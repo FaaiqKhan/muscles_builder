@@ -6,6 +6,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
+import 'package:muscles_builder/components/vaccine_timer_bar_component.dart';
 import 'package:muscles_builder/components/virus_component.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
@@ -27,6 +28,7 @@ class PlayerComponent extends SpriteComponent
   late double _topBounds;
   late double _rightBounds;
   late double _bottomBounds;
+  late double _vaccinationTime;
 
   late Sprite playerFit;
   late Sprite playerFever;
@@ -37,7 +39,6 @@ class PlayerComponent extends SpriteComponent
   bool _virusAttacked = false;
 
   double _freezeTime = 3.0;
-  double _vaccinationTime = 5.0;
 
   void _freezePlayer() {
     if (_isGameSoundOn) {
@@ -74,7 +75,7 @@ class PlayerComponent extends SpriteComponent
       _vaccinationTime -= dt;
     } else {
       _vaccinated = false;
-      _vaccinationTime = 5.0;
+      _vaccinationTime = game.vaccineTime;
     }
   }
 
@@ -101,8 +102,8 @@ class PlayerComponent extends SpriteComponent
       PolygonHitbox([
         Vector2(size.x * 0.25, size.y * 0.25), // left shoulder
         Vector2(size.x * 0.75, size.y * 0.25), // right shoulder
-        Vector2(size.x * 0.65, size.y * 0.9),  // right leg
-        Vector2(size.x * 0.35, size.y * 0.9),  // left leg
+        Vector2(size.x * 0.65, size.y * 0.9), // right leg
+        Vector2(size.x * 0.35, size.y * 0.9), // left leg
       ])
         ..collisionType = CollisionType.passive,
     );
@@ -156,7 +157,14 @@ class PlayerComponent extends SpriteComponent
     } else if (other is VaccineComponent && !_virusAttacked) {
       other.removeFromParent();
       _vaccinated = true;
-      _vaccinationTime = 5.0;
+      _vaccinationTime = game.vaccineTime;
+      game.add(
+        VaccineTimerBarComponent(
+          size: Vector2(game.size.x - 60, 10),
+          position: Vector2(30, 150),
+          totalTime: _vaccinationTime,
+        ),
+      );
       if (_isGameSoundOn) {
         FlameAudio.play(Globals.vaccineSound);
       }
