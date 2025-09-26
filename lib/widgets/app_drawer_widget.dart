@@ -30,6 +30,7 @@ class AppDrawerWidget extends StatelessWidget {
                         // Stroked text as border.
                         Text(
                           AppLocalizations.of(context).beHappyStayHealthy,
+                          textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge
@@ -43,6 +44,7 @@ class AppDrawerWidget extends StatelessWidget {
                         // Solid text as fill.
                         Text(
                           AppLocalizations.of(context).beHappyStayHealthy,
+                          textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge

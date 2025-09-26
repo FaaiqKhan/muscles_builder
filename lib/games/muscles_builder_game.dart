@@ -33,6 +33,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   });
 
   final HudGameStatusCubit hudGameStatusCubit;
+  final double vaccineTime = 5.0;
 
   late PlayerComponent _player;
   late JoystickComponent _joystick;
@@ -263,6 +264,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
               VaccineComponent(
                 screenSize: size,
                 sprite: _vaccineSprite,
+                vaccineTime: vaccineTime,
                 startPosition: generateRandomPosition(size),
               ),
             ];

@@ -9,6 +9,7 @@ class VaccineComponent extends SpriteComponent with CollisionCallbacks {
     required Sprite sprite,
     required this.screenSize,
     required Vector2 startPosition,
+    required double vaccineTime,
     Anchor? anchor,
     Vector2? size,
   }) : super(
@@ -16,18 +17,20 @@ class VaccineComponent extends SpriteComponent with CollisionCallbacks {
           position: startPosition,
           size: size ?? Vector2(60, 60),
           anchor: anchor ?? Anchor.center,
-        );
+        ) {
+    _vaccineVisibilityTime = vaccineTime;
+  }
 
   final Vector2 screenSize;
   final Vector2 _velocity = Vector2(200, 200);
 
-  // Vaccine visibility is for 5 seconds
-  double _vaccineVisibilityTime = 5.0;
+  late double _vaccineVisibilityTime;
 
   @override
   FutureOr<void> onLoad() async {
+    super.onLoad();
+
     add(RectangleHitbox());
-    await super.onLoad();
   }
 
   @override
