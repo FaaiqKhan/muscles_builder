@@ -1,8 +1,9 @@
 import 'dart:ui';
 
 import 'package:flame/components.dart';
-import 'package:flame/palette.dart';
+import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/rounded_rectangle_component.dart';
+import 'package:muscles_builder/theme/muscles_builder_theme.dart';
 
 class VaccineTimerBarComponent extends PositionComponent {
   final double totalTime;
@@ -16,10 +17,13 @@ class VaccineTimerBarComponent extends PositionComponent {
     required this.totalTime,
     required Vector2 size,
     required Vector2 position,
+    required this.gameTheme,
   }) : super(
           size: size,
           position: position,
         );
+
+  MusclesBuilderTheme gameTheme;
 
   @override
   Future<void> onLoad() async {
@@ -28,13 +32,17 @@ class VaccineTimerBarComponent extends PositionComponent {
     // Background (gray)
     backgroundBar = RoundedRectangleComponent(
       size: size,
-      paint: BasicPalette.gray.paint()..style = PaintingStyle.fill,
+      paint: Paint()
+        ..color = gameTheme.unselected
+        ..style = PaintingStyle.fill,
     );
 
     // Foreground (green) – represents remaining time
     foregroundBar = RoundedRectangleComponent(
       size: Vector2(size.x, size.y),
-      paint: BasicPalette.green.paint()..style = PaintingStyle.fill,
+      paint: Paint()
+        ..color = gameTheme.muscleGrowthBar
+        ..style = PaintingStyle.fill,
     );
 
     add(backgroundBar);

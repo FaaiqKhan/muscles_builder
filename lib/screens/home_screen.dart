@@ -59,6 +59,9 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: context.musclesBuilderTheme.background,
       appBar: AppBar(
         backgroundColor: context.musclesBuilderTheme.background,
+        iconTheme: IconThemeData(
+          color: context.musclesBuilderTheme.button,
+        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -70,6 +73,7 @@ class HomeScreen extends StatelessWidget {
             },
             icon: Icon(
               Icons.settings,
+              color: context.musclesBuilderTheme.button,
             ),
           ),
         ],

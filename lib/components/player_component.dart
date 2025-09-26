@@ -163,6 +163,7 @@ class PlayerComponent extends SpriteComponent
           size: Vector2(game.size.x - 60, 10),
           position: Vector2(30, 150),
           totalTime: _vaccinationTime,
+          gameTheme: game.gameTheme,
         ),
       );
       if (_isGameSoundOn) {
