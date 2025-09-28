@@ -2,29 +2,37 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
-class VirusComponent extends SpriteComponent with CollisionCallbacks {
-  VirusComponent({
-    required Sprite sprite,
+class VirusAnimatedComponent extends SpriteAnimationComponent
+    with CollisionCallbacks {
+  VirusAnimatedComponent({
     required this.screenSize,
     required Vector2 velocity,
+    required List<Image> sprite,
     required Vector2 startPosition,
-    Anchor? anchor,
-    Vector2? size,
   })  : _velocity = velocity,
         super(
-          sprite: sprite,
+          size: Vector2(60, 61),
+          anchor: Anchor.center,
           position: startPosition,
-          anchor: anchor ?? Anchor.center,
-          size: size ?? Vector2(60, 60),
+          animation: SpriteAnimation(
+            sprite
+                .map((img) => Sprite(img))
+                .map((sprite) => SpriteAnimationFrame(
+                      sprite,
+                      0.1,
+                    ))
+                .toList(),
+          ),
         );
 
   final Vector2 screenSize;
   final Vector2 _velocity;
 
   @override
-  FutureOr<void> onLoad() async {
+  FutureOr<void> onLoad() {
     add(CircleHitbox());
   }
 

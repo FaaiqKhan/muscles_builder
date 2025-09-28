@@ -36,10 +36,14 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - assets/audio/
-    - assets/images/
     - assets/gifs/
     - assets/icons/
+    - assets/audio/
+    - assets/images/
+    - assets/images/viruses/virus_low/
+    - assets/images/viruses/virus_medium/
+    - assets/images/viruses/virus_high/
+    - assets/images/viruses/virus_extreme/
   fonts:
     - family: Bungee-Regular
       fonts:

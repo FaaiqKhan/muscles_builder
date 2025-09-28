@@ -12,7 +12,7 @@ import 'package:muscles_builder/components/dumbbell_component.dart';
 import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
-import 'package:muscles_builder/components/virus_component.dart';
+import 'package:muscles_builder/components/virus_animated_component.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/constants/key_value_storage_keys.dart';
@@ -50,11 +50,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   double _timeAccumulator = 0;
 
-  late Sprite _virusSprite;
   late Sprite _vaccineSprite;
   late Sprite _proteinSprite;
-
-  late double virusSpeed;
 
   late int proteinSpawnCount;
   late int vaccinationSpawnCount;
@@ -128,34 +125,149 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     }
   }
 
-  void _setupGameDifficultyLevel(SharedPreferences preferences, Sprite virus) {
-    String? key = _sharedPreferences.getString(
+  // Set virus count and their speed according to the difficulty
+  Future<List<VirusAnimatedComponent>> _setupGameDifficultyLevel(
+    SharedPreferences preferences,
+  ) async {
+    final List<VirusAnimatedComponent> virusComponents = [];
+    String key = _sharedPreferences.getString(
       KeyValueStorageKeys.gameDifficultyLevel,
-    );
-    if (key == null) {
-      virusSpeed = 100.0;
-      return;
-    }
+    )!;
     switch (GameDifficultyLevel.values.byName(key)) {
       case GameDifficultyLevel.easy:
-        virusSpeed = 200.0;
+        virusComponents.add(
+          VirusAnimatedComponent(
+            screenSize: size,
+            velocity: moveSprite(Globals.virusSpeedLow),
+            startPosition: Vector2(
+              size.x / 4,
+              size.y / 2,
+            ),
+            sprite: await Future.wait(
+              List.generate(
+                7,
+                (i) => Flame.images.load(
+                  "${Globals.virusLowSprite}$i.png",
+                ),
+              ),
+            ),
+          ),
+        );
+        virusComponents.add(
+          VirusAnimatedComponent(
+            screenSize: size,
+            velocity: moveSprite(Globals.virusSpeedMedium),
+            startPosition: Vector2(
+              size.x / 3,
+              size.y / 3,
+            ),
+            sprite: await Future.wait(
+              List.generate(
+                7,
+                (i) => Flame.images.load(
+                  "${Globals.virusMediumSprite}$i.png",
+                ),
+              ),
+            ),
+          ),
+        );
         break;
       case GameDifficultyLevel.medium:
-        virusSpeed = 250.0;
+        virusComponents.add(
+          VirusAnimatedComponent(
+            screenSize: size,
+            velocity: moveSprite(Globals.virusSpeedMedium),
+            startPosition: Vector2(
+              size.x / 4,
+              size.y / 2,
+            ),
+            sprite: await Future.wait(
+              List.generate(
+                7,
+                (i) => Flame.images.load(
+                  "${Globals.virusMediumSprite}$i.png",
+                ),
+              ),
+            ),
+          ),
+        );
+        virusComponents.add(
+          VirusAnimatedComponent(
+            screenSize: size,
+            velocity: moveSprite(Globals.virusSpeedHigh),
+            startPosition: Vector2(
+              size.x / 3,
+              size.y / 3,
+            ),
+            sprite: await Future.wait(
+              List.generate(
+                7,
+                (i) => Flame.images.load(
+                  "${Globals.virusHighSprite}$i.png",
+                ),
+              ),
+            ),
+          ),
+        );
         break;
       case GameDifficultyLevel.hard:
-        virusSpeed = 300.0;
-        VirusComponent(
-          screenSize: size,
-          startPosition: Vector2(
-            random.nextInt(size.x.toInt()).toDouble(),
-            random.nextInt(size.y.toInt()).toDouble(),
+        virusComponents.add(
+          VirusAnimatedComponent(
+            screenSize: size,
+            velocity: moveSprite(Globals.virusSpeedMedium),
+            startPosition: Vector2(
+              size.x / 4,
+              size.y / 2,
+            ),
+            sprite: await Future.wait(
+              List.generate(
+                7,
+                (i) => Flame.images.load(
+                  "${Globals.virusMediumSprite}$i.png",
+                ),
+              ),
+            ),
           ),
-          velocity: moveSprite(virusSpeed),
-          sprite: virus,
+        );
+        virusComponents.add(
+          VirusAnimatedComponent(
+            screenSize: size,
+            velocity: moveSprite(Globals.virusSpeedHigh),
+            startPosition: Vector2(
+              size.x / 3,
+              size.y / 3,
+            ),
+            sprite: await Future.wait(
+              List.generate(
+                7,
+                (i) => Flame.images.load(
+                  "${Globals.virusHighSprite}$i.png",
+                ),
+              ),
+            ),
+          ),
+        );
+        virusComponents.add(
+          VirusAnimatedComponent(
+            screenSize: size,
+            velocity: moveSprite(Globals.virusSpeedExtreme),
+            startPosition: Vector2(
+              size.x / 5,
+              size.y / 2,
+            ),
+            sprite: await Future.wait(
+              List.generate(
+                7,
+                (i) => Flame.images.load(
+                  "${Globals.virusExtremeSprite}$i.png",
+                ),
+              ),
+            ),
+          ),
         );
         break;
     }
+    return virusComponents;
   }
 
   void _setupGameSound(SharedPreferences preferences) {
@@ -187,13 +299,12 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     await Flame.device.setPortrait();
     _sharedPreferences = await SharedPreferences.getInstance();
 
-    _virusSprite = await loadSprite(Globals.virusSprite);
     _vaccineSprite = await loadSprite(Globals.vaccineSprite);
     _proteinSprite = await loadSprite(Globals.proteinSprite);
 
     _setupGameSound(_sharedPreferences);
     _setupGameTimeAndScore(_sharedPreferences);
-    _setupGameDifficultyLevel(_sharedPreferences, _virusSprite);
+    final virus = await _setupGameDifficultyLevel(_sharedPreferences);
 
     final String position = _sharedPreferences.getString(
           KeyValueStorageKeys.joystickPosition,
@@ -234,27 +345,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       [
         _joystick,
         _player,
+        ...virus,
         // Any collision on the bounds of the view port
         ScreenHitbox(),
         DumbbellComponent(),
-        VirusComponent(
-          screenSize: size,
-          sprite: _virusSprite,
-          startPosition: Vector2(
-            size.x / 4,
-            size.y / 2,
-          ),
-          velocity: moveSprite(virusSpeed),
-        ),
-        VirusComponent(
-          screenSize: size,
-          sprite: _virusSprite,
-          startPosition: Vector2(
-            size.x / 3,
-            size.y / 3,
-          ),
-          velocity: moveSprite(virusSpeed),
-        ),
         SpawnComponent.periodRange(
           minPeriod: 5.0,
           maxPeriod: hudGameStatusCubit.state.exerciseTime,

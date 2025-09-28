@@ -7,7 +7,7 @@ import 'package:muscles_builder/components/dumbbell_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
 import 'package:muscles_builder/components/vaccine_timer_bar_component.dart';
-import 'package:muscles_builder/components/virus_component.dart';
+import 'package:muscles_builder/components/virus_animated_component.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
@@ -149,7 +149,7 @@ class PlayerComponent extends SpriteComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (other is VirusComponent &&
+    if (other is VirusAnimatedComponent &&
         !_vaccinated &&
         !_virusAttacked &&
         game.isWarmupCompleted) {

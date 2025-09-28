@@ -11,7 +11,6 @@ class Globals {
 
   // Images for Flame
   // Flame package has default assets path in the widgets
-  static const String virusSprite = "virus.png";
   static const String vaccineSprite = "vaccine.png";
   static const String playerFitSprite = "player_fit.png";
   static const String proteinSprite = "protein_shake.png";
@@ -23,6 +22,13 @@ class Globals {
   static const String dumbbellMediumSprite = "dumbbell_medium.png";
   static const String playerMuscularSprite = "player_muscular.png";
 
+  // Image Code
+  static const String virusLowSprite = "viruses/virus_low/virus_low_";
+  static const String virusMediumSprite = "viruses/virus_medium/virus_medium_";
+  static const String virusHighSprite = "viruses/virus_high/virus_high_";
+  static const String virusExtremeSprite =
+      "viruses/virus_extreme/virus_extreme_";
+
   // Gifs
   static const String splashScreenLoadingGIF = "assets/gifs/loading.gif";
   static const String splashScreenLoading2GIF = "assets/gifs/loading2.gif";
@@ -33,4 +39,10 @@ class Globals {
   static const String splashScreenLoading7GIF = "assets/gifs/loading7.gif";
   static const String splashScreenLoading8GIF = "assets/gifs/loading8.gif";
   static const String splashScreenLoading9GIF = "assets/gifs/loading9.gif";
+
+  // Virus speed according to their type
+  static const double virusSpeedLow = 200.0;
+  static const double virusSpeedMedium = 250.0;
+  static const double virusSpeedHigh = 275.0;
+  static const double virusSpeedExtreme = 300.0;
 }
