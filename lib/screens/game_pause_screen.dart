@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/constants/spacings.dart';
+import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 import 'package:muscles_builder/l10n/translations/app_localizations.dart';
@@ -25,26 +27,19 @@ class GamePauseScreen extends StatelessWidget {
                 // Stroked text as border.
                 Text(
                   AppLocalizations.of(context).gamePaused,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall
-                      ?.copyWith(
+                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
                       foreground: Paint()
                         ..style = PaintingStyle.stroke
                         ..strokeWidth = 6
-                        ..color = context
-                            .musclesBuilderTheme.primaryText),
+                        ..color = context.musclesBuilderTheme.primaryText),
                   textAlign: TextAlign.center,
                 ),
                 // Solid text as fill.
                 Text(
                   AppLocalizations.of(context).gamePaused,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall
-                      ?.copyWith(
-                      color: context
-                          .musclesBuilderTheme.accentText),
+                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                        color: context.musclesBuilderTheme.accentText,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -65,10 +60,12 @@ class GamePauseScreen extends StatelessWidget {
             const SizedBox(height: Spacings.contentSpacingOf12),
             ElevatedButton(
               onPressed: () {
-                gameRef.reset();
-                gameRef.resumeEngine();
-                gameRef.overlays.remove(GamePauseScreen.id);
-                Navigator.of(context).pop();
+                context.read<GoogleAdsCubit>().showInterstitialAd(() {
+                  gameRef.reset();
+                  gameRef.resumeEngine();
+                  gameRef.overlays.remove(GamePauseScreen.id);
+                  Navigator.of(context).pop();
+                });
               },
               child: Text(
                 AppLocalizations.of(context).imTired,

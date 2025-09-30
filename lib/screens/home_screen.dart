@@ -16,42 +16,11 @@ import 'package:muscles_builder/screens/settings_screen.dart';
 import 'package:muscles_builder/utils/data_utils.dart';
 import 'package:muscles_builder/utils/utils.dart';
 import 'package:muscles_builder/widgets/app_drawer_widget.dart';
+import 'package:muscles_builder/widgets/screen_title_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  Widget screenTitle(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Stack(
-            children: <Widget>[
-              // Stroked text as border.
-              Text(
-                AppLocalizations.of(context).musclesBuilderTitle,
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                      foreground: Paint()
-                        ..style = PaintingStyle.stroke
-                        ..strokeWidth = 6
-                        ..color = context.musclesBuilderTheme.primaryText,
-                    ),
-              ),
-              // Solid text as fill.
-              Text(
-                AppLocalizations.of(context).musclesBuilderTitle,
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                      color: context.musclesBuilderTheme.accentText,
-                    ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +53,9 @@ class HomeScreen extends StatelessWidget {
           children: [
             Column(
               children: [
-                screenTitle(context),
+                ScreenTitleWidget(
+                  title: AppLocalizations.of(context).musclesBuilderTitle,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: Spacings.contentSpacingOf32,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muscles_builder/constants/spacings.dart';
+import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/cubits/hud_game_status/hud_game_status_cubit.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/l10n/translations/app_localizations.dart';
-import 'package:muscles_builder/widgets/screen_title.dart';
+import 'package:muscles_builder/widgets/screen_title_widget.dart';
 
 class GameOverScreen extends StatelessWidget {
   static const String id = "game_over_menu_screen";
@@ -27,9 +28,13 @@ class GameOverScreen extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              ScreenTitle(
-                title: AppLocalizations.of(context).gameOver,
-                topPadding: 0.04,
+              Padding(
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.04,
+                ),
+                child: ScreenTitleWidget(
+                  title: AppLocalizations.of(context).gameOver,
+                ),
               ),
               Expanded(
                 child: Column(
@@ -92,7 +97,9 @@ class GameOverScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: Spacings.contentSpacingOf12),
                     ElevatedButton(
-                      onPressed: exitGame,
+                      onPressed: () => context
+                          .read<GoogleAdsCubit>()
+                          .showInterstitialAd(exitGame),
                       child: Text(
                         AppLocalizations.of(context).imTired,
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
