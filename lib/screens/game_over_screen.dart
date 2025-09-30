@@ -85,17 +85,26 @@ class GameOverScreen extends StatelessWidget {
                         );
                       },
                     ),
-                    const SizedBox(height: Spacings.contentSpacingOf32),
-                    ElevatedButton(
-                      onPressed: playAgain,
-                      child: Text(
-                        AppLocalizations.of(context).again,
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: Spacings.contentSpacingOf32,
+                        bottom: Spacings.contentSpacingOf12,
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () => context
+                            .read<GoogleAdsCubit>()
+                            .showInterstitialAd(playAgain),
+                        child: Text(
+                          AppLocalizations.of(context).again,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: Spacings.contentSpacingOf12),
                     ElevatedButton(
                       onPressed: () => context
                           .read<GoogleAdsCubit>()
