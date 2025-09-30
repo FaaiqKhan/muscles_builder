@@ -87,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                                 exerciseTime: DataUtils.gameTime(
-                                  ExerciseTime.values.byName(
+                                  GameExerciseTime.values.byName(
                                     Utils.getExerciseTimeKey(
                                       instance,
                                     ),

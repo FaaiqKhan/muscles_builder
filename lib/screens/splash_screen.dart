@@ -1,57 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
-import 'package:muscles_builder/constants/key_value_storage_keys.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 import 'package:muscles_builder/screens/home_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   Future<bool> init(BuildContext context) async {
-    final instance = await SharedPreferences.getInstance();
-    final gameSound = instance.getBool(KeyValueStorageKeys.gameSound);
-    if (gameSound == null) {
-      await instance.setBool(
-        KeyValueStorageKeys.gameSound,
-        true,
-      );
-    }
-    final gameDifficultyLevel = instance.getString(
-      KeyValueStorageKeys.gameDifficultyLevel,
-    );
-    if (gameDifficultyLevel == null) {
-      await instance.setString(
-        KeyValueStorageKeys.gameDifficultyLevel,
-        GameDifficultyLevel.easy.name,
-      );
-    }
-    final exerciseTime = instance.getString(
-      KeyValueStorageKeys.exerciseTime,
-    );
-    if (exerciseTime == null) {
-      await instance.setString(
-        KeyValueStorageKeys.exerciseTime,
-        ExerciseTime.thirtySeconds.name,
-      );
-    }
-    final joystickPosition = instance.getString(
-      KeyValueStorageKeys.joystickPosition,
-    );
-    if (joystickPosition == null) {
-      await instance.setString(
-        KeyValueStorageKeys.joystickPosition,
-        JoystickPosition.left.name,
-      );
-    }
-
-    /// Shared preferences are so fast that splash screen comes for
-    /// less then a second that's way using delay to show splash screen for 2
-    /// seconds event after the data has been loaded.
-    await Future.delayed(const Duration(seconds: 2));
+    /// Using delay to show splash screen for 1 seconds
+    await Future.delayed(const Duration(seconds: 1));
     return true;
   }
 

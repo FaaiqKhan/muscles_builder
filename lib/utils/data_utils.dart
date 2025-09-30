@@ -3,13 +3,13 @@ import 'package:muscles_builder/constants/enums.dart';
 class DataUtils {
   DataUtils._();
 
-  static double gameTime(ExerciseTime time) {
+  static double gameTime(GameExerciseTime time) {
     switch (time) {
-      case ExerciseTime.thirtySeconds:
+      case GameExerciseTime.thirtySeconds:
         return 30.0;
-      case ExerciseTime.fortyFiveSeconds:
+      case GameExerciseTime.fortyFiveSeconds:
         return 45.0;
-      case ExerciseTime.oneMinute:
+      case GameExerciseTime.oneMinute:
         return 60.0;
     }
   }

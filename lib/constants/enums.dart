@@ -1,13 +1,13 @@
-enum GameDifficultyLevel { easy, medium, hard }
+enum GameDifficulty { easy, medium, hard }
 
-enum ExerciseTime {
+enum GameExerciseTime {
   thirtySeconds("30 Secs"),
   fortyFiveSeconds("45 Secs"),
   oneMinute("1 Min");
 
   final String value;
 
-  const ExerciseTime(this.value);
+  const GameExerciseTime(this.value);
 }
 
 enum JoystickPosition {

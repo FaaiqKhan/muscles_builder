@@ -106,19 +106,19 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   void _setupGameTimeAndScore(SharedPreferences preferences) {
     String? key = preferences.getString(
-      KeyValueStorageKeys.exerciseTime,
+      KeyValueStorageKey.exerciseTime,
     );
     if (key == null) return;
-    switch (ExerciseTime.values.byName(key)) {
-      case ExerciseTime.thirtySeconds:
+    switch (GameExerciseTime.values.byName(key)) {
+      case GameExerciseTime.thirtySeconds:
         proteinSpawnCount = 2;
         vaccinationSpawnCount = 1;
         break;
-      case ExerciseTime.fortyFiveSeconds:
+      case GameExerciseTime.fortyFiveSeconds:
         proteinSpawnCount = 3;
         vaccinationSpawnCount = 2;
         break;
-      case ExerciseTime.oneMinute:
+      case GameExerciseTime.oneMinute:
         proteinSpawnCount = 4;
         vaccinationSpawnCount = 3;
         break;
@@ -131,10 +131,10 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   ) async {
     final List<VirusAnimatedComponent> virusComponents = [];
     String key = _sharedPreferences.getString(
-      KeyValueStorageKeys.gameDifficultyLevel,
+      KeyValueStorageKey.gameDifficultyLevel,
     )!;
-    switch (GameDifficultyLevel.values.byName(key)) {
-      case GameDifficultyLevel.easy:
+    switch (GameDifficulty.values.byName(key)) {
+      case GameDifficulty.easy:
         virusComponents.add(
           VirusAnimatedComponent(
             screenSize: size,
@@ -172,7 +172,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
           ),
         );
         break;
-      case GameDifficultyLevel.medium:
+      case GameDifficulty.medium:
         virusComponents.add(
           VirusAnimatedComponent(
             screenSize: size,
@@ -210,7 +210,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
           ),
         );
         break;
-      case GameDifficultyLevel.hard:
+      case GameDifficulty.hard:
         virusComponents.add(
           VirusAnimatedComponent(
             screenSize: size,
@@ -272,7 +272,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   void _setupGameSound(SharedPreferences preferences) {
     isGameSoundOn = preferences.getBool(
-          KeyValueStorageKeys.gameSound,
+          KeyValueStorageKey.gameSound,
         ) ??
         true;
     if (isGameSoundOn) {
@@ -307,7 +307,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     final virus = await _setupGameDifficultyLevel(_sharedPreferences);
 
     final String position = _sharedPreferences.getString(
-          KeyValueStorageKeys.joystickPosition,
+          KeyValueStorageKey.joystickPosition,
         ) ??
         JoystickPosition.left.name;
 
@@ -414,7 +414,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         ),
       ),
       exerciseTime: DataUtils.gameTime(
-        ExerciseTime.values.byName(
+        GameExerciseTime.values.byName(
           Utils.getExerciseTimeKey(
             _sharedPreferences,
           ),

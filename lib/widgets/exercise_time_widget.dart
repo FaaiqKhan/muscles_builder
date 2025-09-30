@@ -31,7 +31,7 @@ class ExerciseTimeWidget extends StatelessWidget {
                 previous.exerciseTime != current.exerciseTime,
             builder: (context, state) {
               return Row(
-                children: ExerciseTime.values
+                children: GameExerciseTime.values
                     .map(
                       (exerciseTime) => TextButton(
                         onPressed: () => context

@@ -1,56 +1,38 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:muscles_builder/constants/enums.dart';
-import 'package:muscles_builder/constants/key_value_storage_keys.dart';
+import 'package:muscles_builder/domain/repositories/game_settings_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
-  SettingsCubit() : super(const SettingsState()) {
+  SettingsCubit(this.gameSettingsRepository) : super(const SettingsState()) {
     _init();
   }
 
   String _appVersion = "";
+
   String get appVersion => _appVersion;
 
+  final GameSettingsRepository gameSettingsRepository;
+
   void _init() {
-    SharedPreferences.getInstance().then((instance) {
-      final gameSound = instance.getBool(KeyValueStorageKeys.gameSound) ?? true;
-      final gameDifficultyLevel =
-          instance.getString(KeyValueStorageKeys.gameDifficultyLevel) ??
-              GameDifficultyLevel.easy.name;
-      final exerciseTime =
-          instance.getString(KeyValueStorageKeys.exerciseTime) ??
-              ExerciseTime.thirtySeconds.name;
-      final playerControllerType =
-          instance.getString(KeyValueStorageKeys.joystickPosition) ??
-              JoystickPosition.left.name;
-      emit(
-        state.copyWith(
-          gameSoundSwitch: gameSound,
-          gameDifficultyLevel: GameDifficultyLevel.values.byName(
-            gameDifficultyLevel,
-          ),
-          exerciseTime: ExerciseTime.values.byName(
-            exerciseTime,
-          ),
-          joystickPosition: JoystickPosition.values.byName(
-            playerControllerType,
-          ),
-        ),
-      );
-    });
+    emit(
+      state.copyWith(
+        exerciseTime: gameSettingsRepository.getGameExerciseTime(),
+        gameSoundSwitch: gameSettingsRepository.getGameSoundState(),
+        gameDifficultyLevel: gameSettingsRepository.getGameDifficulty(),
+        joystickPosition: gameSettingsRepository.getGameJoystickPosition(),
+      ),
+    );
     PackageInfo.fromPlatform().then((info) {
       _appVersion = "${info.version}-${info.buildNumber}";
     });
   }
 
   void updateGameSoundSwitch(bool value) {
-    SharedPreferences.getInstance().then((instance) {
-      instance.setBool(KeyValueStorageKeys.gameSound, value);
-    });
+    gameSettingsRepository.setGameSoundState(value);
     emit(
       state.copyWith(
         gameSoundSwitch: value,
@@ -58,27 +40,17 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
-  void updateGameDifficultyLevel(GameDifficultyLevel difficultyLevel) {
-    SharedPreferences.getInstance().then((instance) {
-      instance.setString(
-        KeyValueStorageKeys.gameDifficultyLevel,
-        difficultyLevel.name,
-      );
-    });
+  void updateGameDifficultyLevel(GameDifficulty difficulty) {
+    gameSettingsRepository.setGameDifficulty(difficulty);
     emit(
       state.copyWith(
-        gameDifficultyLevel: difficultyLevel,
+        gameDifficultyLevel: difficulty,
       ),
     );
   }
 
-  void updateExerciseTime(ExerciseTime exerciseTime) {
-    SharedPreferences.getInstance().then((instance) {
-      instance.setString(
-        KeyValueStorageKeys.exerciseTime,
-        exerciseTime.name,
-      );
-    });
+  void updateExerciseTime(GameExerciseTime exerciseTime) {
+    gameSettingsRepository.setGameExerciseTime(exerciseTime);
     emit(
       state.copyWith(
         exerciseTime: exerciseTime,
@@ -87,12 +59,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   void updatePlayerControllerType(JoystickPosition position) {
-    SharedPreferences.getInstance().then((instance) {
-      instance.setString(
-        KeyValueStorageKeys.joystickPosition,
-        position.name,
-      );
-    });
+    gameSettingsRepository.setGameJoystickPosition(position);
     emit(
       state.copyWith(
         joystickPosition: position,
@@ -101,30 +68,13 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   void resetSettings() {
-    SharedPreferences.getInstance().then((instance) {
-      instance.setBool(
-        KeyValueStorageKeys.gameSound,
-        true,
-      );
-      instance.setString(
-        KeyValueStorageKeys.gameDifficultyLevel,
-        GameDifficultyLevel.easy.name,
-      );
-      instance.setString(
-        KeyValueStorageKeys.exerciseTime,
-        ExerciseTime.thirtySeconds.name,
-      );
-      instance.setString(
-        KeyValueStorageKeys.joystickPosition,
-        JoystickPosition.left.name,
-      );
-    });
+    gameSettingsRepository.resetSettings();
     emit(
       state.copyWith(
         gameSoundSwitch: true,
-        gameDifficultyLevel: GameDifficultyLevel.easy,
-        exerciseTime: ExerciseTime.thirtySeconds,
         joystickPosition: JoystickPosition.left,
+        gameDifficultyLevel: GameDifficulty.easy,
+        exerciseTime: GameExerciseTime.thirtySeconds,
       ),
     );
   }

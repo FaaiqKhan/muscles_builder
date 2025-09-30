@@ -33,14 +33,14 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                   TextButton(
                     onPressed: () => context
                         .read<SettingsCubit>()
-                        .updateGameDifficultyLevel(GameDifficultyLevel.easy),
+                        .updateGameDifficultyLevel(GameDifficulty.easy),
                     child: Text(
                       AppLocalizations.of(context).easy,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: UiUtils.selectedAndNonSelectedText(
                               context,
                               state.gameDifficultyLevel ==
-                                  GameDifficultyLevel.easy,
+                                  GameDifficulty.easy,
                             ),
                           ),
                     ),
@@ -48,14 +48,14 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                   TextButton(
                     onPressed: () => context
                         .read<SettingsCubit>()
-                        .updateGameDifficultyLevel(GameDifficultyLevel.medium),
+                        .updateGameDifficultyLevel(GameDifficulty.medium),
                     child: Text(
                       AppLocalizations.of(context).medium,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: UiUtils.selectedAndNonSelectedText(
                               context,
                               state.gameDifficultyLevel ==
-                                  GameDifficultyLevel.medium,
+                                  GameDifficulty.medium,
                             ),
                           ),
                     ),
@@ -63,14 +63,14 @@ class GameDifficultyLevelWidget extends StatelessWidget {
                   TextButton(
                     onPressed: () => context
                         .read<SettingsCubit>()
-                        .updateGameDifficultyLevel(GameDifficultyLevel.hard),
+                        .updateGameDifficultyLevel(GameDifficulty.hard),
                     child: Text(
                       AppLocalizations.of(context).hard,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: UiUtils.selectedAndNonSelectedText(
                               context,
                               state.gameDifficultyLevel ==
-                                  GameDifficultyLevel.hard,
+                                  GameDifficulty.hard,
                             ),
                           ),
                     ),

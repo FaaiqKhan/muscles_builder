@@ -3,20 +3,20 @@ part of 'settings_cubit.dart';
 class SettingsState extends Equatable {
   const SettingsState({
     this.gameSoundSwitch = true,
-    this.gameDifficultyLevel = GameDifficultyLevel.easy,
-    this.exerciseTime = ExerciseTime.thirtySeconds,
+    this.gameDifficultyLevel = GameDifficulty.easy,
+    this.exerciseTime = GameExerciseTime.thirtySeconds,
     this.joystickPosition = JoystickPosition.left,
   });
 
   final bool gameSoundSwitch;
-  final GameDifficultyLevel gameDifficultyLevel;
-  final ExerciseTime exerciseTime;
+  final GameDifficulty gameDifficultyLevel;
+  final GameExerciseTime exerciseTime;
   final JoystickPosition joystickPosition;
 
   SettingsState copyWith({
     bool? gameSoundSwitch,
-    GameDifficultyLevel? gameDifficultyLevel,
-    ExerciseTime? exerciseTime,
+    GameDifficulty? gameDifficultyLevel,
+    GameExerciseTime? exerciseTime,
     JoystickPosition? joystickPosition,
   }) {
     return SettingsState(
