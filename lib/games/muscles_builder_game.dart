@@ -15,30 +15,28 @@ import 'package:muscles_builder/components/vaccine_component.dart';
 import 'package:muscles_builder/components/virus_animated_component.dart';
 import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
-import 'package:muscles_builder/constants/key_value_storage_keys.dart';
 import 'package:muscles_builder/cubits/hud_game_status/hud_game_status_cubit.dart';
+import 'package:muscles_builder/domain/repositories/game_settings_repository.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/screens/game_over_screen.dart';
 import 'package:muscles_builder/screens/game_pause_screen.dart';
 import 'package:muscles_builder/theme/muscles_builder_theme.dart';
 import 'package:muscles_builder/utils/data_utils.dart';
-import 'package:muscles_builder/utils/utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   MusclesBuilderGame({
     required this.themeData,
     required this.gameTheme,
     required this.hudGameStatusCubit,
+    required this.gameSettingsRepository,
   });
 
+  final GameSettingsRepository gameSettingsRepository;
   final HudGameStatusCubit hudGameStatusCubit;
   final double vaccineTime = 5.0;
 
   late PlayerComponent _player;
   late JoystickComponent _joystick;
-
-  late bool isGameSoundOn;
 
   final Random random = Random();
 
@@ -55,8 +53,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   late int proteinSpawnCount;
   late int vaccinationSpawnCount;
-
-  late SharedPreferences _sharedPreferences;
 
   // Application theme instance because FlameGame cannot access buildContext
   final ThemeData themeData;
@@ -104,12 +100,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     return Vector2(x, y);
   }
 
-  void _setupGameTimeAndScore(SharedPreferences preferences) {
-    String? key = preferences.getString(
-      KeyValueStorageKey.exerciseTime,
-    );
-    if (key == null) return;
-    switch (GameExerciseTime.values.byName(key)) {
+  void _setupGameTimeAndScore() {
+    switch (gameSettingsRepository.getGameExerciseTime()) {
       case GameExerciseTime.thirtySeconds:
         proteinSpawnCount = 2;
         vaccinationSpawnCount = 1;
@@ -126,14 +118,9 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   }
 
   // Set virus count and their speed according to the difficulty
-  Future<List<VirusAnimatedComponent>> _setupGameDifficultyLevel(
-    SharedPreferences preferences,
-  ) async {
+  Future<List<VirusAnimatedComponent>> _setupGameDifficultyLevel() async {
     final List<VirusAnimatedComponent> virusComponents = [];
-    String key = _sharedPreferences.getString(
-      KeyValueStorageKey.gameDifficultyLevel,
-    )!;
-    switch (GameDifficulty.values.byName(key)) {
+    switch (gameSettingsRepository.getGameDifficulty()) {
       case GameDifficulty.easy:
         virusComponents.add(
           VirusAnimatedComponent(
@@ -270,12 +257,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     return virusComponents;
   }
 
-  void _setupGameSound(SharedPreferences preferences) {
-    isGameSoundOn = preferences.getBool(
-          KeyValueStorageKey.gameSound,
-        ) ??
-        true;
-    if (isGameSoundOn) {
+  void _setupGameSound() {
+    if (gameSettingsRepository.getGameSoundState()) {
       // Setup game sounds
       FlameAudio.audioCache.loadAll(
         [
@@ -297,19 +280,16 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     await super.onLoad();
     await Flame.device.fullScreen();
     await Flame.device.setPortrait();
-    _sharedPreferences = await SharedPreferences.getInstance();
 
     _vaccineSprite = await loadSprite(Globals.vaccineSprite);
     _proteinSprite = await loadSprite(Globals.proteinSprite);
 
-    _setupGameSound(_sharedPreferences);
-    _setupGameTimeAndScore(_sharedPreferences);
-    final virus = await _setupGameDifficultyLevel(_sharedPreferences);
+    _setupGameSound();
+    _setupGameTimeAndScore();
+    final virus = await _setupGameDifficultyLevel();
 
-    final String position = _sharedPreferences.getString(
-          KeyValueStorageKey.joystickPosition,
-        ) ??
-        JoystickPosition.left.name;
+    final JoystickPosition position =
+        gameSettingsRepository.getGameJoystickPosition();
 
     _joystick = JoystickComponent(
       knob: CircleComponent(
@@ -322,7 +302,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       ),
     );
 
-    switch (JoystickPosition.values.byName(position)) {
+    switch (position) {
       case JoystickPosition.left:
         _joystick.position = Vector2(
           size.x * 0.25,
@@ -338,7 +318,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     }
 
     _player = PlayerComponent(
-      isGameSoundOn: isGameSoundOn,
+      isGameSoundOn: gameSettingsRepository.getGameSoundState(),
     );
 
     addAll(
@@ -407,27 +387,19 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   void reset() {
     hudGameStatusCubit.reset(
       warmupTime: DataUtils.warmupTime(
-        WarmupTime.values.byName(
-          Utils.getWarmupTimeKey(
-            _sharedPreferences,
-          ),
-        ),
+        gameSettingsRepository.getWarmupTime(),
       ),
       exerciseTime: DataUtils.gameTime(
-        GameExerciseTime.values.byName(
-          Utils.getExerciseTimeKey(
-            _sharedPreferences,
-          ),
-        ),
+        gameSettingsRepository.getGameExerciseTime(),
       ),
     );
     _player.reset();
-    _setupGameTimeAndScore(_sharedPreferences);
+    _setupGameTimeAndScore();
   }
 
   @override
   void onRemove() {
-    if (isGameSoundOn) {
+    if (gameSettingsRepository.getGameSoundState()) {
       FlameAudio.audioCache.clearAll();
     }
     reset();

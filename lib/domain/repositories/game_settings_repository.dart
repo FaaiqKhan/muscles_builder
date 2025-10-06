@@ -19,6 +19,10 @@ abstract class GameSettingsRepository {
   JoystickPosition getGameJoystickPosition();
 
   Future<void> resetSettings();
+
+  Future<void> setWarmupTime(WarmupTime warmupTime);
+
+  WarmupTime getWarmupTime();
 }
 
 class GameSettingsRepositoryImpl implements GameSettingsRepository {
@@ -74,5 +78,15 @@ class GameSettingsRepositoryImpl implements GameSettingsRepository {
     localStorageDatasource.setGameDifficulty(GameDifficulty.easy);
     localStorageDatasource.setJoystickPosition(JoystickPosition.left);
     localStorageDatasource.setGameExerciseTime(GameExerciseTime.thirtySeconds);
+  }
+
+  @override
+  WarmupTime getWarmupTime() {
+    return localStorageDatasource.getGameWarmupTime() ?? WarmupTime.fiveSeconds;
+  }
+
+  @override
+  Future<void> setWarmupTime(WarmupTime warmupTime) async {
+    await localStorageDatasource.setGameWarmupTime(warmupTime);
   }
 }

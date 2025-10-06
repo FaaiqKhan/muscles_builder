@@ -3,21 +3,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/quotes.dart';
 import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_state.dart';
 import 'package:muscles_builder/cubits/hud_game_status/hud_game_status_cubit.dart';
+import 'package:muscles_builder/dependencyInjection/application_di.dart';
+import 'package:muscles_builder/domain/repositories/game_settings_repository.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
 import 'package:muscles_builder/screens/settings_screen.dart';
 import 'package:muscles_builder/utils/data_utils.dart';
-import 'package:muscles_builder/utils/utils.dart';
 import 'package:muscles_builder/widgets/app_drawer_widget.dart';
 import 'package:muscles_builder/widgets/screen_title_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -69,33 +68,21 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () async {
-                    final instance = await SharedPreferences.getInstance();
-                    if (!context.mounted) return;
+                  onPressed: () {
+                    final settingsRepo =
+                        serviceLocator.get<GameSettingsRepository>();
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         maintainState: false,
-                        builder: (_) => MultiBlocProvider(
-                          providers: [
-                            BlocProvider(
-                              create: (_) => HudGameStatusCubit(
-                                warmupTime: DataUtils.warmupTime(
-                                  WarmupTime.values.byName(
-                                    Utils.getWarmupTimeKey(
-                                      instance,
-                                    ),
-                                  ),
-                                ),
-                                exerciseTime: DataUtils.gameTime(
-                                  GameExerciseTime.values.byName(
-                                    Utils.getExerciseTimeKey(
-                                      instance,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+                        builder: (_) => BlocProvider(
+                          create: (_) => HudGameStatusCubit(
+                            warmupTime: DataUtils.warmupTime(
+                              settingsRepo.getWarmupTime(),
+                            ),
+                            exerciseTime: DataUtils.gameTime(
+                              settingsRepo.getGameExerciseTime(),
+                            ),
+                          ),
                           child: const MusclesBuilderGameScreen(),
                         ),
                       ),

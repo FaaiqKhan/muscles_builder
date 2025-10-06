@@ -78,4 +78,16 @@ class LocalStorageDatasource {
         ? null
         : DateTime.parse(dateTimeInIsoFormat);
   }
+
+  Future<void> setGameWarmupTime(WarmupTime warmupTime) async {
+    await preferences.setString(
+      KeyValueStorageKey.warmupTime,
+      warmupTime.name,
+    );
+  }
+
+  WarmupTime? getGameWarmupTime() {
+    String? warmupTime = preferences.getString(KeyValueStorageKey.warmupTime);
+    return warmupTime == null ? null : WarmupTime.values.byName(warmupTime);
+  }
 }
