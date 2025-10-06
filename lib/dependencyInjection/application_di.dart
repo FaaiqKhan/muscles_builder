@@ -3,16 +3,16 @@ import 'package:muscles_builder/data/datasource/local_storage_datasource.dart';
 import 'package:muscles_builder/domain/repositories/game_settings_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ApplicationDI {
-  ApplicationDI._();
+final serviceLocator = GetIt.instance;
 
-  static Future<void> init() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    LocalStorageDatasource localStorageDatasource = LocalStorageDatasource(
-      preferences,
-    );
-    GetIt.instance.registerSingleton(
-      () => GameSettingsRepositoryImpl(localStorageDatasource),
-    );
-  }
+Future<void> initDependencies() async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+
+  serviceLocator.registerLazySingleton<LocalStorageDatasource>(
+    () => LocalStorageDatasource(preferences),
+  );
+
+  serviceLocator.registerLazySingleton<GameSettingsRepository>(
+    () => GameSettingsRepositoryImpl(serviceLocator<LocalStorageDatasource>()),
+  );
 }

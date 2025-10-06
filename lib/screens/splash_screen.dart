@@ -9,8 +9,8 @@ class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   Future<bool> init(BuildContext context) async {
-    /// Using delay to show splash screen for 1 seconds
-    await Future.delayed(const Duration(seconds: 1));
+    /// Using delay to show splash screen for 2 seconds
+    await Future.delayed(const Duration(seconds: 2));
     return true;
   }
 

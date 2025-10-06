@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_cubit.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
@@ -23,7 +22,7 @@ void main() async {
   unawaited(MobileAds.instance.initialize());
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   Utils.licenseRegistrySetup();
-  await ApplicationDI.init();
+  await initDependencies();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -32,7 +31,7 @@ void main() async {
         ),
         BlocProvider.value(
           value: SettingsCubit(
-            GetIt.instance.get<GameSettingsRepository>(),
+            serviceLocator<GameSettingsRepository>(),
           ),
         ),
         BlocProvider.value(
