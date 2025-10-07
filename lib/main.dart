@@ -10,6 +10,7 @@ import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 import 'package:muscles_builder/cubits/theme/theme_cubit.dart';
 import 'package:muscles_builder/dependencyInjection/application_di.dart';
 import 'package:muscles_builder/domain/repositories/game_settings_repository.dart';
+import 'package:muscles_builder/domain/repositories/google_ads_repository.dart';
 import 'package:muscles_builder/screens/splash_screen.dart';
 import 'package:muscles_builder/theme/muscles_builder_theme.dart';
 import 'package:muscles_builder/theme/theme.dart';
@@ -35,7 +36,9 @@ void main() async {
           ),
         ),
         BlocProvider.value(
-          value: GoogleAdsCubit(),
+          value: GoogleAdsCubit(
+            serviceLocator<GoogleAdsRepository>(),
+          ),
         ),
       ],
       child: const MyApp(),

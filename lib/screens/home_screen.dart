@@ -107,6 +107,7 @@ class HomeScreen extends StatelessWidget {
               width: state.bannerAd.size.width.toDouble(),
               height: state.bannerAd.size.height.toDouble(),
               child: AdWidget(
+                key: UniqueKey(),
                 ad: state.bannerAd,
               ),
             );

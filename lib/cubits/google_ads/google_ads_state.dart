@@ -10,6 +10,13 @@ final class GoogleAdsInitial extends GoogleAdsState {
   List<Object> get props => [];
 }
 
+final class GoogleInterstitialAdLoading extends GoogleAdsState {
+  const GoogleInterstitialAdLoading();
+
+  @override
+  List<Object?> get props => [];
+}
+
 final class GoogleAdsLoaded extends GoogleAdsState {
   final BannerAd bannerAd;
 

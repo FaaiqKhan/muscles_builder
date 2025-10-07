@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/cubits/google_ads/google_ads_state.dart';
+import 'package:muscles_builder/domain/repositories/google_ads_repository.dart';
 
 class GoogleAdsCubit extends Cubit<GoogleAdsState> {
-  GoogleAdsCubit() : super(GoogleAdsInitial());
+  GoogleAdsCubit(this.googleAdsRepository) : super(GoogleAdsInitial());
 
+  final GoogleAdsRepository googleAdsRepository;
   BannerAd? _bannerAd;
-  InterstitialAd? _interstitialAd;
 
   void loadBannerAd() async {
     BannerAd(
@@ -29,53 +30,49 @@ class GoogleAdsCubit extends Cubit<GoogleAdsState> {
     ).load();
   }
 
-  void removeBannerAd() async {
-    await _bannerAd?.dispose();
-    _bannerAd = null;
-    emit(GoogleAdsInitial());
-  }
-
-  void loadInterstitialAd() {
+  void loadInterstitialAd(VoidCallback onAction) {
+    // Check whether 30 minutes passed from last ad or not
+    // if passed then show the ad.
+    if (googleAdsRepository.getInterstitialAdTime().isAfter(DateTime.now())) {
+      onAction();
+      return;
+    }
+    emit(GoogleInterstitialAdLoading());
     InterstitialAd.load(
       request: const AdRequest(),
       adUnitId: Globals.interstitialAdUnitId,
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
-          _interstitialAd = ad;
+          ad.fullScreenContentCallback = FullScreenContentCallback(
+            onAdFailedToShowFullScreenContent: (ad, _) {
+              emit(GoogleAdsInitial());
+              ad.dispose();
+              onAction();
+            },
+            onAdDismissedFullScreenContent: (ad) {
+              // After showing ad set the time ahead of 30 minutes
+              // to show the ad in every 30 minutes.
+              googleAdsRepository.updateInterstitialAdTime(
+                DateTime.now().add(
+                  const Duration(minutes: 30),
+                ),
+              );
+              emit(GoogleAdsInitial());
+              ad.dispose();
+              onAction();
+            },
+          );
+          ad.show();
         },
-        onAdFailedToLoad: (LoadAdError error) {
-          _interstitialAd = null;
-        },
+        onAdFailedToLoad: (_) => emit(GoogleAdsInitial()),
       ),
-    );
-  }
-
-  void showInterstitialAd(VoidCallback onAction) {
-    if (_interstitialAd == null) {
-      onAction();
-      return;
-    }
-    _interstitialAd?.fullScreenContentCallback = FullScreenContentCallback(
-      onAdFailedToShowFullScreenContent: (ad, err) {
-        onAction();
-        _interstitialAd?.dispose();
-        _interstitialAd = null;
-      },
-      onAdDismissedFullScreenContent: (ad) {
-        onAction();
-        _interstitialAd?.dispose();
-        _interstitialAd = null;
-      },
-    );
-    _interstitialAd?.show();
+    ).catchError((_) => emit(GoogleAdsInitial()));
   }
 
   @override
   Future<void> close() async {
     await _bannerAd?.dispose();
-    await _interstitialAd?.dispose();
     _bannerAd = null;
-    _interstitialAd = null;
-    await super.close();
+    return super.close();
   }
 }
