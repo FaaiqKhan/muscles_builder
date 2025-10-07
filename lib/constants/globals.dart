@@ -45,4 +45,9 @@ class Globals {
   static const double virusSpeedMedium = 250.0;
   static const double virusSpeedHigh = 275.0;
   static const double virusSpeedExtreme = 300.0;
+
+  static String get bannerAdUnitId => "ca-app-pub-1555928518606225/8073529817";
+
+  static String get interstitialAdUnitId =>
+      "ca-app-pub-1555928518606225/1855875944";
 }

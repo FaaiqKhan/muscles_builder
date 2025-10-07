@@ -27,8 +27,7 @@ class GameSoundWidget extends StatelessWidget {
               value: state.gameSoundSwitch,
               activeColor: context.musclesBuilderTheme.accentText,
               activeTrackColor: context.musclesBuilderTheme.primaryText,
-              inactiveTrackColor:
-                  context.musclesBuilderTheme.unselected,
+              inactiveTrackColor: context.musclesBuilderTheme.unselected,
               onChanged: context.read<SettingsCubit>().updateGameSoundSwitch,
             );
           },
