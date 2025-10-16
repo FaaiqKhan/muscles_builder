@@ -7,8 +7,8 @@ import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class DumbbellComponent extends SpriteComponent
     with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
-  final double desiredRatio = 0.13;
-  final double resizedWidth = 512;
+  final double desiredRatio = 0.3;
+  final double resizedWidth = 300;
   final int fontGapping = 20;
   late String dumbbell;
 
