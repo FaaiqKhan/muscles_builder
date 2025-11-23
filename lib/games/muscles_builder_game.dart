@@ -9,6 +9,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
+import 'package:muscles_builder/components/player2_component.dart';
 import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
@@ -35,7 +36,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   final HudGameStatusCubit hudGameStatusCubit;
   final double vaccineTime = 5.0;
 
-  late PlayerComponent _player;
+  late Player2Component _player;
   late JoystickComponent _joystick;
 
   final Random random = Random();
@@ -317,9 +318,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         break;
     }
 
-    _player = PlayerComponent(
-      isGameSoundOn: gameSettingsRepository.getGameSoundState(),
-    );
+    _player = Player2Component();
 
     addAll(
       [
@@ -393,7 +392,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         gameSettingsRepository.getGameExerciseTime(),
       ),
     );
-    _player.reset();
+    // _player.reset();
     _setupGameTimeAndScore();
   }
 
