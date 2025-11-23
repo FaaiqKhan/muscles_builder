@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
@@ -7,9 +6,12 @@ import 'package:muscles_builder/components/player_animations.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
+enum Direction { up, down, left, right, upLeft, upRight, downLeft, downRight }
+
 class Player2Component extends SpriteAnimationComponent
     with HasGameReference<MusclesBuilderGame> {
-  late PlayerAnimations animations;
+  late PlayerAnimations _animations;
+  late Direction _currentPlayerDirection;
 
   final double _playerMovementSpeed = 500;
 
@@ -24,34 +26,80 @@ class Player2Component extends SpriteAnimationComponent
       srcSize: Vector2(64, 64),
     );
 
-    animations = PlayerAnimations(sheet, frameCount);
+    _animations = PlayerAnimations(sheet, frameCount);
 
-    animation = animations.down; // starting direction
+    animation = _animations.down; // starting direction
+    _currentPlayerDirection = Direction.down;
     size = Vector2(90, 130); // exact game size
   }
 
-  void updateDirection(Vector2 move) {
-    final angle = move.angleToSigned(Vector2(0, -1));
-    final degrees = angle * 180 / pi;
+  void updateDirection(JoystickDirection direction) {
+    switch (direction) {
+      case JoystickDirection.up:
+        animation = _animations.up;
+        _currentPlayerDirection = Direction.up;
+        break;
+      case JoystickDirection.upLeft:
+        animation = _animations.upLeft;
+        _currentPlayerDirection = Direction.upLeft;
+        break;
+      case JoystickDirection.upRight:
+        animation = _animations.upRight;
+        _currentPlayerDirection = Direction.upRight;
+        break;
+      case JoystickDirection.right:
+        animation = _animations.right;
+        _currentPlayerDirection = Direction.right;
+        break;
+      case JoystickDirection.down:
+        animation = _animations.down;
+        _currentPlayerDirection = Direction.down;
+        break;
+      case JoystickDirection.downRight:
+        animation = _animations.downRight;
+        _currentPlayerDirection = Direction.downRight;
+        break;
+      case JoystickDirection.downLeft:
+        animation = _animations.downLeft;
+        _currentPlayerDirection = Direction.downLeft;
+        break;
+      case JoystickDirection.left:
+        animation = _animations.left;
+        _currentPlayerDirection = Direction.left;
+        break;
+      case JoystickDirection.idle:
+        idleAnimation(_currentPlayerDirection);
+        animationTicker?.reset();
+        break;
+    }
+  }
 
-    if (degrees > -80.0 && degrees < -10.0) {
-      animation = animations.upRight;
-    } else if (degrees >= -100.0 && degrees <= -80.0) {
-      animation = animations.right;
-    } else if (degrees > -170.0 && degrees < -100.0) {
-      animation = animations.downRight;
-    } else if (degrees >= -180.0 && degrees <= -170.0) {
-      animation = animations.down;
-    } else if (degrees >= 170.0 && degrees <= 180.0) {
-      animation = animations.down;
-    } else if (degrees < 170.0 && degrees >= 100.0) {
-      animation = animations.downLeft;
-    } else if (degrees < 100.0 && degrees >= 80.0) {
-      animation = animations.left;
-    } else if (degrees < 80.0 && degrees >= 10.0) {
-      animation = animations.upLeft;
-    } else {
-      animation = animations.up;
+  void idleAnimation(Direction direction) {
+    switch (direction) {
+      case Direction.up:
+        animation = _animations.idleUp;
+        break;
+      case Direction.down:
+        animation = _animations.idleDown;
+        break;
+      case Direction.left:
+        animation = _animations.idleLeft;
+        break;
+      case Direction.right:
+        animation = _animations.idleRight;
+        break;
+      case Direction.upLeft:
+        animation = _animations.idleUpLeft;
+        break;
+      case Direction.upRight:
+        animation = _animations.idleUpRight;
+        break;
+      case Direction.downLeft:
+        animation = _animations.idleDownLeft;
+        break;
+      case Direction.downRight:
+        animation = _animations.idleDownRight;
+        break;
     }
   }
 
@@ -59,16 +107,10 @@ class Player2Component extends SpriteAnimationComponent
   void update(double dt) async {
     super.update(dt);
 
-    if (game.joystickDirection == JoystickDirection.idle) {
-      return;
-    }
+    updateDirection(game.joystickDirection);
 
-    final move = game.joystickRelativeDelta;
-
-    updateDirection(move);
-
-    if (move.length != 0) {
-      position += move * _playerMovementSpeed * dt;
+    if (game.joystickRelativeDelta.length != 0) {
+      position += game.joystickRelativeDelta * _playerMovementSpeed * dt;
     }
   }
 }
