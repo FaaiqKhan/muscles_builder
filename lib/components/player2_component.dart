@@ -17,7 +17,7 @@ class Player2Component extends SpriteAnimationComponent
   FutureOr<void> onLoad() async {
     final image = await game.images.load(Globals.playerHelix);
 
-    final frameCount = image.width ~/ 64;
+    final frameCount = image.width ~/ 80;
 
     final sheet = SpriteSheet(
       image: image,
@@ -27,15 +27,10 @@ class Player2Component extends SpriteAnimationComponent
     animations = PlayerAnimations(sheet, frameCount);
 
     animation = animations.down; // starting direction
-    size = Vector2(64, 64); // exact game size
+    size = Vector2(90, 130); // exact game size
   }
 
   void updateDirection(Vector2 move) {
-    if (move == Vector2.zero()) {
-      animationTicker?.reset();
-      return;
-    }
-
     final angle = move.angleToSigned(Vector2(0, -1));
     final degrees = angle * 180 / pi;
 
