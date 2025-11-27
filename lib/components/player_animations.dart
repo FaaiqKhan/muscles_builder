@@ -20,7 +20,9 @@ class PlayerAnimations {
   late final SpriteAnimation left;
   late final SpriteAnimation upLeft;
 
-  Direction _currentPlayerDirection = Direction.down;
+  Direction currentPlayerDirection = Direction.down;
+
+  bool isPlayerInIdleState = true;
 
   PlayerAnimations(SpriteSheet sheet, int frameCount) {
     const stepTime = 0.1;
@@ -124,33 +126,35 @@ class PlayerAnimations {
   }
 
   SpriteAnimation updateDirection(JoystickDirection direction) {
+    isPlayerInIdleState = false;
     switch (direction) {
       case JoystickDirection.up:
-        _currentPlayerDirection = Direction.up;
+        currentPlayerDirection = Direction.up;
         return up;
       case JoystickDirection.upLeft:
-        _currentPlayerDirection = Direction.upLeft;
+        currentPlayerDirection = Direction.upLeft;
         return upLeft;
       case JoystickDirection.upRight:
-        _currentPlayerDirection = Direction.upRight;
+        currentPlayerDirection = Direction.upRight;
         return upRight;
       case JoystickDirection.right:
-        _currentPlayerDirection = Direction.right;
+        currentPlayerDirection = Direction.right;
         return right;
       case JoystickDirection.down:
-        _currentPlayerDirection = Direction.down;
+        currentPlayerDirection = Direction.down;
         return down;
       case JoystickDirection.downRight:
-        _currentPlayerDirection = Direction.downRight;
+        currentPlayerDirection = Direction.downRight;
         return downRight;
       case JoystickDirection.downLeft:
-        _currentPlayerDirection = Direction.downLeft;
+        currentPlayerDirection = Direction.downLeft;
         return downLeft;
       case JoystickDirection.left:
-        _currentPlayerDirection = Direction.left;
+        currentPlayerDirection = Direction.left;
         return left;
       case JoystickDirection.idle:
-        return idleAnimation(_currentPlayerDirection);
+        isPlayerInIdleState = true;
+        return idleAnimation(currentPlayerDirection);
     }
   }
 
