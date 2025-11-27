@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
 import 'package:muscles_builder/components/player2_component.dart';
-import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
 import 'package:muscles_builder/components/virus_animated_component.dart';
@@ -318,7 +317,9 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         break;
     }
 
-    _player = Player2Component();
+    _player = Player2Component(
+      isGameSoundOn: gameSettingsRepository.getGameSoundState(),
+    );
 
     addAll(
       [
