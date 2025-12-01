@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
-import 'package:muscles_builder/components/player2_component.dart';
+import 'package:muscles_builder/components/player_component.dart';
 
 class PlayerAnimations {
   late final SpriteAnimation idleUp;

@@ -9,7 +9,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
-import 'package:muscles_builder/components/player2_component.dart';
+import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
 import 'package:muscles_builder/components/virus_animated_component.dart';
@@ -22,6 +22,8 @@ import 'package:muscles_builder/screens/game_over_screen.dart';
 import 'package:muscles_builder/screens/game_pause_screen.dart';
 import 'package:muscles_builder/theme/muscles_builder_theme.dart';
 import 'package:muscles_builder/utils/data_utils.dart';
+
+import '../components/vaccine_timer_bar_component.dart';
 
 class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   MusclesBuilderGame({
@@ -317,9 +319,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         break;
     }
 
-    _player = Player2Component(
-      isGameSoundOn: gameSettingsRepository.getGameSoundState(),
-    );
+    _player = Player2Component();
 
     addAll(
       [
@@ -393,7 +393,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         gameSettingsRepository.getGameExerciseTime(),
       ),
     );
-    // _player.reset();
     _setupGameTimeAndScore();
   }
 
@@ -425,6 +424,54 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   void pauseGame() {
     pauseEngine();
     overlays.add(GamePauseScreen.id);
+  }
+
+  void showVaccineTimerBarComponent(double vaccineTime, Vector2 position) {
+    add(
+      VaccineTimerBarComponent(
+        size: Vector2(size.x - 60, 10),
+        position: position,
+        totalTime: vaccineTime,
+        gameTheme: gameTheme,
+      ),
+    );
+    if (gameSettingsRepository.getGameSoundState()) {
+      FlameAudio.play(Globals.vaccineSound);
+    }
+  }
+
+  void addProteinBonus() {
+    // Generate number from 0 to 8
+    int randomBonusScore = random.nextInt(9);
+    increaseProteinBonusBy(randomBonusScore);
+    increaseScoreBy(randomBonusScore);
+    if (gameSettingsRepository.getGameSoundState()) {
+      FlameAudio.play(Globals.proteinSound);
+    }
+  }
+
+  void dumbbellPicked(String dumbbell) {
+    switch (dumbbell) {
+      case Globals.dumbbellMediumSprite:
+        increaseScoreBy(2);
+        break;
+      case Globals.dumbbellHeavySprite:
+        increaseScoreBy(3);
+        break;
+      default:
+        increaseScoreBy(1);
+    }
+    if (gameSettingsRepository.getGameSoundState()) {
+      FlameAudio.play(Globals.dumbbellSound);
+    }
+    add(DumbbellComponent());
+  }
+
+  void virusAttacked() {
+    if (gameSettingsRepository.getGameSoundState()) {
+      FlameAudio.play(Globals.virusSound);
+    }
+    decreaseScoreBy(1);
   }
 
   static void bounceBack({

@@ -12,14 +12,10 @@ class Globals {
   // Images for Flame
   // Flame package has default assets path in the widgets
   static const String vaccineSprite = "vaccine.png";
-  static const String playerFitSprite = "player_fit.png";
   static const String proteinSprite = "protein_shake.png";
-  static const String playerFeverSprite = "player_fever.png";
-  static const String playerSkinnySprite = "player_skinny.png";
   static const String dumbbellLightSprite = "dumbbell_light.png";
   static const String dumbbellHeavySprite = "dumbbell_heavy.png";
   static const String dumbbellMediumSprite = "dumbbell_medium.png";
-  static const String playerMuscularSprite = "player_muscular.png";
   static const String playerHelix = "player/helix_full_sheet.png";
 
   // Image Code
