@@ -45,6 +45,7 @@ flutter:
     - assets/images/viruses/virus_medium/
     - assets/images/viruses/virus_high/
     - assets/images/viruses/virus_extreme/
+    - assets/images/player/
   fonts:
     - family: Bungee-Regular
       fonts:

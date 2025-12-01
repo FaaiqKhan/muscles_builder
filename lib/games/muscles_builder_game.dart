@@ -23,6 +23,8 @@ import 'package:muscles_builder/screens/game_pause_screen.dart';
 import 'package:muscles_builder/theme/muscles_builder_theme.dart';
 import 'package:muscles_builder/utils/data_utils.dart';
 
+import '../components/vaccine_timer_bar_component.dart';
+
 class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   MusclesBuilderGame({
     required this.themeData,
@@ -35,7 +37,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   final HudGameStatusCubit hudGameStatusCubit;
   final double vaccineTime = 5.0;
 
-  late PlayerComponent _player;
+  late Player2Component _player;
   late JoystickComponent _joystick;
 
   final Random random = Random();
@@ -317,9 +319,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         break;
     }
 
-    _player = PlayerComponent(
-      isGameSoundOn: gameSettingsRepository.getGameSoundState(),
-    );
+    _player = Player2Component();
 
     addAll(
       [
@@ -393,7 +393,6 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         gameSettingsRepository.getGameExerciseTime(),
       ),
     );
-    _player.reset();
     _setupGameTimeAndScore();
   }
 
@@ -425,6 +424,54 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   void pauseGame() {
     pauseEngine();
     overlays.add(GamePauseScreen.id);
+  }
+
+  void showVaccineTimerBarComponent(double vaccineTime, Vector2 position) {
+    add(
+      VaccineTimerBarComponent(
+        size: Vector2(size.x - 60, 10),
+        position: position,
+        totalTime: vaccineTime,
+        gameTheme: gameTheme,
+      ),
+    );
+    if (gameSettingsRepository.getGameSoundState()) {
+      FlameAudio.play(Globals.vaccineSound);
+    }
+  }
+
+  void addProteinBonus() {
+    // Generate number from 0 to 8
+    int randomBonusScore = random.nextInt(9);
+    increaseProteinBonusBy(randomBonusScore);
+    increaseScoreBy(randomBonusScore);
+    if (gameSettingsRepository.getGameSoundState()) {
+      FlameAudio.play(Globals.proteinSound);
+    }
+  }
+
+  void dumbbellPicked(String dumbbell) {
+    switch (dumbbell) {
+      case Globals.dumbbellMediumSprite:
+        increaseScoreBy(2);
+        break;
+      case Globals.dumbbellHeavySprite:
+        increaseScoreBy(3);
+        break;
+      default:
+        increaseScoreBy(1);
+    }
+    if (gameSettingsRepository.getGameSoundState()) {
+      FlameAudio.play(Globals.dumbbellSound);
+    }
+    add(DumbbellComponent());
+  }
+
+  void virusAttacked() {
+    if (gameSettingsRepository.getGameSoundState()) {
+      FlameAudio.play(Globals.virusSound);
+    }
+    decreaseScoreBy(1);
   }
 
   static void bounceBack({
