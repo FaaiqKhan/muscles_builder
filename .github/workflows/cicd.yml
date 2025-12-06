@@ -1,5 +1,7 @@
+# Defines the name of this specific workflow
 name: Test, build and deploy
 
+# Specifies the events on which to execute the workflow
 on:
   pull_request:
     branches:
@@ -8,12 +10,18 @@ on:
     branches:
       - develop
 
+# Defines the permission scope
 permissions: read-all
 
+# Lists the jobs that will run in this workflow
 jobs:
+  # Defines the unique identifier for the job
   example:
     name: Example of a job
+    # Specifies the OS for the machine on which the job will run
     runs-on: ubuntu-latest
+    # Lists the steps that will run in a predefined order
     steps:
+      # Defines the name of the step and command that will be executed
       - name: Echo test
         run: echo This\ is\ my\ first\ Github\ actions\ job
