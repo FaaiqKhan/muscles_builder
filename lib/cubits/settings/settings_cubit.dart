@@ -24,6 +24,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         gameSoundSwitch: gameSettingsRepository.getGameSoundState(),
         gameDifficultyLevel: gameSettingsRepository.getGameDifficulty(),
         joystickPosition: gameSettingsRepository.getGameJoystickPosition(),
+        warmupTime: gameSettingsRepository.getWarmupTime(),
       ),
     );
     PackageInfo.fromPlatform().then((info) {
@@ -67,6 +68,15 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
+  void updateWarmupTime(WarmupTime warmupTime) {
+    gameSettingsRepository.setWarmupTime(warmupTime);
+    emit(
+      state.copyWith(
+        warmupTime: warmupTime,
+      ),
+    );
+  }
+
   void resetSettings() {
     gameSettingsRepository.resetSettings();
     emit(
@@ -75,6 +85,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         joystickPosition: JoystickPosition.left,
         gameDifficultyLevel: GameDifficulty.easy,
         exerciseTime: GameExerciseTime.thirtySeconds,
+        warmupTime: WarmupTime.fiveSeconds,
       ),
     );
   }

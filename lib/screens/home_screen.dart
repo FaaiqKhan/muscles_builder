@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: context.musclesBuilderTheme.background,
         iconTheme: IconThemeData(
-          color: context.musclesBuilderTheme.button,
+          color: context.musclesBuilderTheme.primaryText,
         ),
         actions: [
           IconButton(
@@ -40,8 +40,8 @@ class HomeScreen extends StatelessWidget {
               );
             },
             icon: Icon(
-              Icons.settings,
-              color: context.musclesBuilderTheme.button,
+              Icons.settings_outlined,
+              color: context.musclesBuilderTheme.primaryText,
             ),
           ),
         ],
@@ -64,7 +64,9 @@ class HomeScreen extends StatelessWidget {
                     Quotes.quotes[Random().nextInt(Quotes.quotes.length)],
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: context.musclesBuilderTheme.primaryText),
+                          color: context.musclesBuilderTheme.secondaryText,
+                          fontStyle: FontStyle.italic,
+                        ),
                   ),
                 ),
                 ElevatedButton(
@@ -90,9 +92,7 @@ class HomeScreen extends StatelessWidget {
                   },
                   child: Text(
                     AppLocalizations.of(context).startWorkout,
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
+                    style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ),
               ],

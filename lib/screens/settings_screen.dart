@@ -9,6 +9,7 @@ import 'package:muscles_builder/widgets/exercise_time_widget.dart';
 import 'package:muscles_builder/widgets/game_difficulty_level.dart';
 import 'package:muscles_builder/widgets/game_sound_widget.dart';
 import 'package:muscles_builder/widgets/joystick_position_widget.dart';
+import 'package:muscles_builder/widgets/warmup_time_widget.dart';
 
 // TODO: Open settings screen
 /// Settings screen should include the following settings
@@ -25,6 +26,13 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.musclesBuilderTheme.background,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(
+            Icons.chevron_left,
+            color: context.musclesBuilderTheme.primaryText,
+          ),
+        ),
         title: Text(
           AppLocalizations.of(context).settings,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -40,20 +48,40 @@ class SettingsScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(Spacings.contentSpacingOf12),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const GameSoundWidget(),
+              const SizedBox(
+                height: Spacings.contentSpacingOf8,
+              ),
               const GameDifficultyLevelWidget(),
+              const SizedBox(
+                height: Spacings.contentSpacingOf8,
+              ),
               const ExerciseTimeWidget(),
+              const SizedBox(
+                height: Spacings.contentSpacingOf8,
+              ),
               const JoystickPositionWidget(),
+              const SizedBox(
+                height: Spacings.contentSpacingOf8,
+              ),
               const AppThemeSelectionWidget(),
+              const SizedBox(
+                height: Spacings.contentSpacingOf8,
+              ),
+              const WarmupTimeWidget(),
+              const SizedBox(
+                height: Spacings.contentSpacingOf8,
+              ),
               const Spacer(),
-              ElevatedButton(
-                onPressed: () => context.read<SettingsCubit>().resetSettings(),
-                child: Text(
-                  AppLocalizations.of(context).reset,
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
+              Center(
+                child: OutlinedButton(
+                  onPressed: () => context.read<SettingsCubit>().resetSettings(),
+                  child: Text(
+                    AppLocalizations.of(context).reset,
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
                 ),
               ),
             ],

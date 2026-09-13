@@ -45,6 +45,6 @@
   "joystickPosition": "操纵杆位置",
   "timeTitle": "时间: ",
   "warmupTitle": "热身: ",
-  "total": "总计"
+  "total": "总计",
+  "warmupTime": "热身时间"
 }
-

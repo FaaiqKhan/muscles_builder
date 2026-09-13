@@ -95,4 +95,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get total => 'Celkem';
+
+  @override
+  String get warmupTime => 'Doba rozcvičky';
 }

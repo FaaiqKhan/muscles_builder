@@ -45,5 +45,6 @@
   "joystickPosition": "Poloha joysticku",
   "timeTitle": "ČAS: ",
   "warmupTitle": "ROZCVIČENÍ: ",
-  "total": "Celkem"
+  "total": "Celkem",
+  "warmupTime": "Doba rozcvičky"
 }

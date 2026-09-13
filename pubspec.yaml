@@ -2,7 +2,7 @@ name: muscles_builder
 description: "Game for entertainment"
 publish_to: 'none'
 
-version: 1.0.6+18
+version: 1.0.8+19
 
 environment:
   sdk: ^3.5.4
@@ -19,8 +19,8 @@ dependencies:
   bloc: ^9.0.0
   flutter_bloc: ^9.1.1
   equatable: ^2.0.7
-  package_info_plus: ^8.3.0
-  google_mobile_ads: ^6.0.0
+  package_info_plus: ^10.2.1
+  google_mobile_ads: ^9.1.0
   url_launcher: ^6.3.2
   intl: ^0.20.2
   get_it: ^8.2.0
@@ -47,6 +47,27 @@ flutter:
     - assets/images/viruses/virus_extreme/
     - assets/images/player/
   fonts:
-    - family: Bungee-Regular
+    - family: Inter
       fonts:
-        - asset: assets/google_fonts/Bungee-Regular.ttf
+        - asset: assets/google_fonts/Inter.ttf
+          weight: 400
+        - asset: assets/google_fonts/Inter.ttf
+          weight: 500
+        - asset: assets/google_fonts/Inter.ttf
+          weight: 600
+        - asset: assets/google_fonts/Inter.ttf
+          weight: 700
+    - family: Fraunces
+      fonts:
+        - asset: assets/google_fonts/Fraunces.ttf
+          weight: 700
+        - asset: assets/google_fonts/Fraunces.ttf
+          weight: 800
+        - asset: assets/google_fonts/Fraunces.ttf
+          weight: 900
+    - family: JetBrains Mono
+      fonts:
+        - asset: assets/google_fonts/JetBrainsMono.ttf
+          weight: 600
+        - asset: assets/google_fonts/JetBrainsMono.ttf
+          weight: 700

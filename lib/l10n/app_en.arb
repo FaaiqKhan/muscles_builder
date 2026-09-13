@@ -45,5 +45,6 @@
   "joystickPosition": "Joystick position",
   "timeTitle": "TIME: ",
   "warmupTitle": "WARMUP: ",
-  "total": "Total"
+  "total": "Total",
+  "warmupTime": "Warmup time"
 }

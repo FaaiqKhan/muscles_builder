@@ -95,4 +95,7 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get total => 'Łącznie';
+
+  @override
+  String get warmupTime => 'Czas rozgrzewki';
 }

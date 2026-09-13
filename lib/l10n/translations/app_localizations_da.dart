@@ -95,4 +95,7 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get total => 'I alt';
+
+  @override
+  String get warmupTime => 'Opvarmningstid';
 }

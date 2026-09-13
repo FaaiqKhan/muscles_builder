@@ -45,5 +45,6 @@
   "joystickPosition": "Joystick konumu",
   "timeTitle": "SÜRE: ",
   "warmupTitle": "ISINMA: ",
-  "total": "Toplam"
+  "total": "Toplam",
+  "warmupTime": "Isınma süresi"
 }

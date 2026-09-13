@@ -51,22 +51,24 @@ class GamePauseScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: Spacings.contentSpacingOf32),
-                ElevatedButton(
-                  onPressed: backToGym,
-                  child: Text(
-                    AppLocalizations.of(context).backToGym,
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: Theme.of(context).colorScheme.secondary,
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: backToGym,
+                    child: Text(
+                      AppLocalizations.of(context).backToGym,
+                      style: Theme.of(context).textTheme.labelSmall,
                     ),
                   ),
                 ),
                 const SizedBox(height: Spacings.contentSpacingOf12),
-                ElevatedButton(
-                  onPressed: iMTired,
-                  child: Text(
-                    AppLocalizations.of(context).imTired,
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: Theme.of(context).colorScheme.secondary,
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton(
+                    onPressed: iMTired,
+                    child: Text(
+                      AppLocalizations.of(context).imTired,
+                      style: Theme.of(context).textTheme.labelSmall,
                     ),
                   ),
                 ),

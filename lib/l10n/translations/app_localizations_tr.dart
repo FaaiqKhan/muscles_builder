@@ -95,4 +95,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get total => 'Toplam';
+
+  @override
+  String get warmupTime => 'Isınma süresi';
 }

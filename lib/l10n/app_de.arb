@@ -45,5 +45,6 @@
   "joystickPosition": "Joystick-Position",
   "timeTitle": "ZEIT: ",
   "warmupTitle": "AUFWÄRMEN: ",
-  "total": "Gesamt"
+  "total": "Gesamt",
+  "warmupTime": "Aufwärmzeit"
 }

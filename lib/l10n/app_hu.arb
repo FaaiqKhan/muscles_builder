@@ -45,5 +45,6 @@
   "joystickPosition": "Joystick pozíció",
   "timeTitle": "IDŐ: ",
   "warmupTitle": "BEMELEGÍTÉS: ",
-  "total": "Összesen"
+  "total": "Összesen",
+  "warmupTime": "Bemelegítési idő"
 }

@@ -45,5 +45,6 @@
   "joystickPosition": "Joystick-position",
   "timeTitle": "TID: ",
   "warmupTitle": "OPVARMNING: ",
-  "total": "I alt"
+  "total": "I alt",
+  "warmupTime": "Opvarmningstid"
 }
