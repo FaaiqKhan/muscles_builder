@@ -37,6 +37,50 @@
             {
               "client_id": "556493263113-g8hfvnnd819do23oeocsjgkvuon74rok.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "556493263113-gjmkosmanavvk4o8mhm9o4s50i5djhc1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.localEntertainmentGames.musclesBuilder"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-1555928518606225~6774187758"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556493263113:android:ae4fa1d1b102d9eefbc3d8",
+        "android_client_info": {
+          "package_name": "com.localEntertainmentGames.muscles_builder.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556493263113-g8hfvnnd819do23oeocsjgkvuon74rok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4QPQFhViqOq_oBL1Q6e-n7ZD__Cddp4I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556493263113-g8hfvnnd819do23oeocsjgkvuon74rok.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "556493263113-gjmkosmanavvk4o8mhm9o4s50i5djhc1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.localEntertainmentGames.musclesBuilder"
+              }
             }
           ]
         }
