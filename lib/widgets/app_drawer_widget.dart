@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 import 'package:muscles_builder/screens/about_screen.dart';
-import 'package:muscles_builder/screens/contributors_screen.dart';
 
 class AppDrawerWidget extends StatelessWidget {
   const AppDrawerWidget({super.key});
@@ -63,27 +62,13 @@ class AppDrawerWidget extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text(
-                AppLocalizations.of(context).contributors,
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-              trailing: Icon(
-                Icons.chevron_right,
+              leading: Icon(
+                Icons.book_outlined,
                 color: context.musclesBuilderTheme.primaryText,
               ),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const ContributorsScreen(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
               title: Text(
                 AppLocalizations.of(context).about,
-                style: Theme.of(context).textTheme.labelSmall,
+                style: Theme.of(context).textTheme.labelLarge,
               ),
               trailing: Icon(
                 Icons.chevron_right,
