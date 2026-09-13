@@ -78,6 +78,7 @@ class GameSettingsRepositoryImpl implements GameSettingsRepository {
     localStorageDatasource.setGameDifficulty(GameDifficulty.easy);
     localStorageDatasource.setJoystickPosition(JoystickPosition.left);
     localStorageDatasource.setGameExerciseTime(GameExerciseTime.thirtySeconds);
+    localStorageDatasource.setGameWarmupTime(WarmupTime.fiveSeconds);
   }
 
   @override

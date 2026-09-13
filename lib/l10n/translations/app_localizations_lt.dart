@@ -98,7 +98,4 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get warmupTime => 'Apšilimo laikas';
-
-  @override
-  String get soon => 'Netrukus';
 }

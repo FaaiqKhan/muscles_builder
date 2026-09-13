@@ -98,7 +98,4 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get warmupTime => 'ウォームアップ時間';
-
-  @override
-  String get soon => '近日公開';
 }

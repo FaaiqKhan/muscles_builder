@@ -98,7 +98,4 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get warmupTime => 'Bemelegítési idő';
-
-  @override
-  String get soon => 'Hamarosan';
 }

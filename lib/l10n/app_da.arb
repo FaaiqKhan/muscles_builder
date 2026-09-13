@@ -46,6 +46,5 @@
   "timeTitle": "TID: ",
   "warmupTitle": "OPVARMNING: ",
   "total": "I alt",
-  "warmupTime": "Opvarmningstid",
-  "soon": "Snart"
+  "warmupTime": "Opvarmningstid"
 }

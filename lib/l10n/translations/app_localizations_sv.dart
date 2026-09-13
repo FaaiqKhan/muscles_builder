@@ -98,7 +98,4 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get warmupTime => 'Uppvärmningstid';
-
-  @override
-  String get soon => 'Snart';
 }

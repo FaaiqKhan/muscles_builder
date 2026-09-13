@@ -98,7 +98,4 @@ class AppLocalizationsBe extends AppLocalizations {
 
   @override
   String get warmupTime => 'Час разагрэву';
-
-  @override
-  String get soon => 'Хутка';
 }

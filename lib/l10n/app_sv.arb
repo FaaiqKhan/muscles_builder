@@ -46,6 +46,5 @@
   "timeTitle": "TID: ",
   "warmupTitle": "UPPVÄRMNING: ",
   "total": "Totalt",
-  "warmupTime": "Uppvärmningstid",
-  "soon": "Snart"
+  "warmupTime": "Uppvärmningstid"
 }
