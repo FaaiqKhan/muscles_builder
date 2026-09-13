@@ -45,5 +45,7 @@
   "joystickPosition": "Позиция джойстика",
   "timeTitle": "ВРЕМЯ: ",
   "warmupTitle": "РАЗМИНКА: ",
-  "total": "Итого"
+  "total": "Итого",
+  "warmupTime": "Время разминки",
+  "soon": "Скоро"
 }

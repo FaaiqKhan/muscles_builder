@@ -35,6 +35,8 @@ class AppDrawerWidget extends StatelessWidget {
                               .textTheme
                               .titleLarge
                               ?.copyWith(
+                                  fontFamily: "Fraunces",
+                                  fontWeight: FontWeight.w800,
                                   foreground: Paint()
                                     ..style = PaintingStyle.stroke
                                     ..strokeWidth = 6
@@ -49,6 +51,8 @@ class AppDrawerWidget extends StatelessWidget {
                               .textTheme
                               .titleLarge
                               ?.copyWith(
+                                  fontFamily: "Fraunces",
+                                  fontWeight: FontWeight.w800,
                                   color:
                                       context.musclesBuilderTheme.accentText),
                         ),
@@ -63,6 +67,10 @@ class AppDrawerWidget extends StatelessWidget {
                 AppLocalizations.of(context).contributors,
                 style: Theme.of(context).textTheme.labelSmall,
               ),
+              trailing: Icon(
+                Icons.chevron_right,
+                color: context.musclesBuilderTheme.primaryText,
+              ),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
@@ -76,6 +84,10 @@ class AppDrawerWidget extends StatelessWidget {
               title: Text(
                 AppLocalizations.of(context).about,
                 style: Theme.of(context).textTheme.labelSmall,
+              ),
+              trailing: Icon(
+                Icons.chevron_right,
+                color: context.musclesBuilderTheme.primaryText,
               ),
               onTap: () {
                 Navigator.of(context).pop();

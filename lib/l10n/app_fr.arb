@@ -45,5 +45,7 @@
   "joystickPosition": "Position du joystick",
   "timeTitle": "TEMPS: ",
   "warmupTitle": "ÉCHAUFFEMENT: ",
-  "total": "Total"
+  "total": "Total",
+  "warmupTime": "Temps d'échauffement",
+  "soon": "Bientôt"
 }

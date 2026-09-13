@@ -95,4 +95,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get total => '합계';
+
+  @override
+  String get warmupTime => '준비 운동 시간';
+
+  @override
+  String get soon => '곧 출시';
 }

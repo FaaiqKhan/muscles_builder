@@ -95,4 +95,10 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get total => 'Iš viso';
+
+  @override
+  String get warmupTime => 'Apšilimo laikas';
+
+  @override
+  String get soon => 'Netrukus';
 }

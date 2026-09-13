@@ -45,5 +45,7 @@
   "joystickPosition": "Posisyon ng joystick",
   "timeTitle": "ORAS: ",
   "warmupTitle": "PAGPAPAINIT: ",
-  "total": "Kabuuan"
+  "total": "Kabuuan",
+  "warmupTime": "Oras ng pagpapainit",
+  "soon": "Malapit na"
 }

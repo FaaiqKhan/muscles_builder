@@ -95,4 +95,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get total => 'Итого';
+
+  @override
+  String get warmupTime => 'Время разминки';
+
+  @override
+  String get soon => 'Скоро';
 }

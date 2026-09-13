@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/theme/muscles_builder_theme.dart';
 
+const _primaryAction = Color(0xFF246BFD);
+
 final ThemeData musclesBuilderThemeData = ThemeData(
   useMaterial3: true,
-  fontFamily: "Bungee-Regular",
+  fontFamily: "Inter",
   textTheme: const TextTheme(
-    // Large splashy titles (main menu, game over)
+    // Large splashy titles (main menu, game over) - stroke+fill treatment,
+    // always set in Fraunces regardless of the base Inter font family.
     displayLarge: TextStyle(
+      fontFamily: "Fraunces",
       fontSize: 36,
       fontWeight: FontWeight.w900,
     ),
     displayMedium: TextStyle(
+      fontFamily: "Fraunces",
       fontSize: 32,
       fontWeight: FontWeight.w800,
     ),
     displaySmall: TextStyle(
+      fontFamily: "Fraunces",
       fontSize: 28,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w700,
     ),
 
     // Section headers (pause, score, stats)
@@ -29,8 +35,9 @@ final ThemeData musclesBuilderThemeData = ThemeData(
       fontWeight: FontWeight.bold,
     ),
     headlineSmall: TextStyle(
+      fontFamily: "Fraunces",
       fontSize: 20,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
     ),
 
     // Titles (buttons, power-up labels)
@@ -72,22 +79,45 @@ final ThemeData musclesBuilderThemeData = ThemeData(
     ),
     labelSmall: TextStyle(
       fontSize: 12,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
+    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: _primaryAction,
+      foregroundColor: Colors.white,
+      shape: const StadiumBorder(),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+      elevation: 0,
+    ),
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      foregroundColor: _primaryAction,
+      side: const BorderSide(color: _primaryAction, width: 1.5),
+      shape: const StadiumBorder(),
+      padding: const EdgeInsets.symmetric(vertical: 14.5, horizontal: 32),
     ),
   ),
   extensions: const <ThemeExtension<MusclesBuilderTheme>>[
     MusclesBuilderTheme(
-      background: Color(0xFFDCDCDC),
-      primaryText: Color(0xFF3E3E3E),
-      accentText: Color(0xFFFEE60A),
-      button: Color(0xFF111111),
-      buttonHover: Color(0xFFFF4C4C),
+      background: Color(0xFFFFFFFF),
+      surface: Color(0xFFFAFAFA),
+      surface2: Color(0xFFF5F5F5),
+      border: Color(0xFFEEEEEE),
+      borderStrong: Color(0xFFE0E0E0),
+      primaryText: Color(0xFF212121),
+      secondaryText: Color(0xFF424242),
+      tertiaryText: Color(0xFF616161),
+      mutedText: Color(0xFF9E9E9E),
+      accentText: Color(0xFFFACC15),
+      primaryAction: _primaryAction,
       damageBar: Color(0xFFFF0000),
       healthBar: Color(0xFF00AA00),
       muscleGrowthBar: Color(0xFFFFE600),
       powerUpPurple: Color(0xFF9C27B0),
       powerUpBlue: Color(0xFF00BFFF),
-      unselected: Color(0xFFD3D3D3),
+      unselected: Color(0xFFE0E0E0),
       dialogBoxSurface: Color(0xFFF7F7F7),
     ),
   ],

@@ -45,5 +45,7 @@
   "joystickPosition": "ジョイスティックの位置",
   "timeTitle": "時間: ",
   "warmupTitle": "ウォームアップ: ",
-  "total": "合計"
+  "total": "合計",
+  "warmupTime": "ウォームアップ時間",
+  "soon": "近日公開"
 }

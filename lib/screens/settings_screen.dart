@@ -9,6 +9,7 @@ import 'package:muscles_builder/widgets/exercise_time_widget.dart';
 import 'package:muscles_builder/widgets/game_difficulty_level.dart';
 import 'package:muscles_builder/widgets/game_sound_widget.dart';
 import 'package:muscles_builder/widgets/joystick_position_widget.dart';
+import 'package:muscles_builder/widgets/warmup_time_widget.dart';
 
 // TODO: Open settings screen
 /// Settings screen should include the following settings
@@ -25,6 +26,13 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.musclesBuilderTheme.background,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(
+            Icons.chevron_left,
+            color: context.musclesBuilderTheme.primaryText,
+          ),
+        ),
         title: Text(
           AppLocalizations.of(context).settings,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -46,14 +54,13 @@ class SettingsScreen extends StatelessWidget {
               const ExerciseTimeWidget(),
               const JoystickPositionWidget(),
               const AppThemeSelectionWidget(),
+              const WarmupTimeWidget(),
               const Spacer(),
-              ElevatedButton(
+              OutlinedButton(
                 onPressed: () => context.read<SettingsCubit>().resetSettings(),
                 child: Text(
                   AppLocalizations.of(context).reset,
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
               ),
             ],
