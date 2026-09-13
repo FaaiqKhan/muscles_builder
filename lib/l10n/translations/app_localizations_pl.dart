@@ -98,7 +98,4 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get warmupTime => 'Czas rozgrzewki';
-
-  @override
-  String get soon => 'Wkrótce';
 }

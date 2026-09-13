@@ -48,19 +48,40 @@ class SettingsScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(Spacings.contentSpacingOf12),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const GameSoundWidget(),
+              const SizedBox(
+                height: Spacings.contentSpacingOf8,
+              ),
               const GameDifficultyLevelWidget(),
+              const SizedBox(
+                height: Spacings.contentSpacingOf8,
+              ),
               const ExerciseTimeWidget(),
+              const SizedBox(
+                height: Spacings.contentSpacingOf8,
+              ),
               const JoystickPositionWidget(),
+              const SizedBox(
+                height: Spacings.contentSpacingOf8,
+              ),
               const AppThemeSelectionWidget(),
+              const SizedBox(
+                height: Spacings.contentSpacingOf8,
+              ),
               const WarmupTimeWidget(),
+              const SizedBox(
+                height: Spacings.contentSpacingOf8,
+              ),
               const Spacer(),
-              OutlinedButton(
-                onPressed: () => context.read<SettingsCubit>().resetSettings(),
-                child: Text(
-                  AppLocalizations.of(context).reset,
-                  style: Theme.of(context).textTheme.labelSmall,
+              Center(
+                child: OutlinedButton(
+                  onPressed: () => context.read<SettingsCubit>().resetSettings(),
+                  child: Text(
+                    AppLocalizations.of(context).reset,
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
                 ),
               ),
             ],

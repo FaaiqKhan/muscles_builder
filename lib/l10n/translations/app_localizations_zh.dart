@@ -98,7 +98,4 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get warmupTime => '热身时间';
-
-  @override
-  String get soon => '即将推出';
 }

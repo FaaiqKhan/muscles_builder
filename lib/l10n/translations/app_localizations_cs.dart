@@ -98,7 +98,4 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get warmupTime => 'Doba rozcvičky';
-
-  @override
-  String get soon => 'Brzy';
 }
