@@ -47,6 +47,27 @@ flutter:
     - assets/images/viruses/virus_extreme/
     - assets/images/player/
   fonts:
-    - family: Bungee-Regular
+    - family: Inter
       fonts:
-        - asset: assets/google_fonts/Bungee-Regular.ttf
+        - asset: assets/google_fonts/Inter.ttf
+          weight: 400
+        - asset: assets/google_fonts/Inter.ttf
+          weight: 500
+        - asset: assets/google_fonts/Inter.ttf
+          weight: 600
+        - asset: assets/google_fonts/Inter.ttf
+          weight: 700
+    - family: Fraunces
+      fonts:
+        - asset: assets/google_fonts/Fraunces.ttf
+          weight: 700
+        - asset: assets/google_fonts/Fraunces.ttf
+          weight: 800
+        - asset: assets/google_fonts/Fraunces.ttf
+          weight: 900
+    - family: JetBrains Mono
+      fonts:
+        - asset: assets/google_fonts/JetBrainsMono.ttf
+          weight: 600
+        - asset: assets/google_fonts/JetBrainsMono.ttf
+          weight: 700

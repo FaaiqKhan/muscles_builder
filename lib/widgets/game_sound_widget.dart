@@ -14,10 +14,10 @@ class GameSoundWidget extends StatelessWidget {
       children: [
         Text(
           AppLocalizations.of(context).gameSound,
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium
-              ?.copyWith(color: context.musclesBuilderTheme.primaryText),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: context.musclesBuilderTheme.primaryText,
+                fontWeight: FontWeight.w600,
+              ),
         ),
         BlocBuilder<SettingsCubit, SettingsState>(
           buildWhen: (previous, current) =>
@@ -25,8 +25,9 @@ class GameSoundWidget extends StatelessWidget {
           builder: (context, state) {
             return Switch(
               value: state.gameSoundSwitch,
-              activeColor: context.musclesBuilderTheme.accentText,
-              activeTrackColor: context.musclesBuilderTheme.primaryText,
+              activeThumbColor: Colors.white,
+              activeTrackColor: context.musclesBuilderTheme.primaryAction,
+              inactiveThumbColor: Colors.white,
               inactiveTrackColor: context.musclesBuilderTheme.unselected,
               onChanged: context.read<SettingsCubit>().updateGameSoundSwitch,
             );

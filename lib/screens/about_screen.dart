@@ -13,6 +13,13 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.musclesBuilderTheme.background,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(
+            Icons.chevron_left,
+            color: context.musclesBuilderTheme.primaryText,
+          ),
+        ),
         title: Text(
           AppLocalizations.of(context).about,
           style: Theme.of(context)

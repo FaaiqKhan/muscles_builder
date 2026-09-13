@@ -95,4 +95,10 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get total => 'Totale';
+
+  @override
+  String get warmupTime => 'Tempo di riscaldamento';
+
+  @override
+  String get soon => 'Presto';
 }

@@ -92,31 +92,25 @@ class GameOverScreen extends StatelessWidget {
                             top: Spacings.contentSpacingOf32,
                             bottom: Spacings.contentSpacingOf12,
                           ),
-                          child: ElevatedButton(
-                            onPressed: playAgain,
-                            child: Text(
-                              AppLocalizations.of(context).again,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            child: ElevatedButton(
+                              onPressed: playAgain,
+                              child: Text(
+                                AppLocalizations.of(context).again,
+                                style: Theme.of(context).textTheme.labelSmall,
+                              ),
                             ),
                           ),
                         ),
-                        ElevatedButton(
-                          onPressed: exitGame,
-                          child: Text(
-                            AppLocalizations.of(context).imTired,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelSmall
-                                ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          child: OutlinedButton(
+                            onPressed: exitGame,
+                            child: Text(
+                              AppLocalizations.of(context).imTired,
+                              style: Theme.of(context).textTheme.labelSmall,
+                            ),
                           ),
                         ),
                       ],

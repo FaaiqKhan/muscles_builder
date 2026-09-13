@@ -95,4 +95,10 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get total => 'Összesen';
+
+  @override
+  String get warmupTime => 'Bemelegítési idő';
+
+  @override
+  String get soon => 'Hamarosan';
 }

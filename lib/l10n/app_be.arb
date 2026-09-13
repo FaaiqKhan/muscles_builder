@@ -45,5 +45,7 @@
   "joystickPosition": "Пазіцыя джойсціка",
   "timeTitle": "ЧАС: ",
   "warmupTitle": "РАЗАГРЭЎ: ",
-  "total": "Усяго"
+  "total": "Усяго",
+  "warmupTime": "Час разагрэву",
+  "soon": "Хутка"
 }

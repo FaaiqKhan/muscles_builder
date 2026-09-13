@@ -95,4 +95,10 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get total => 'Kabuuan';
+
+  @override
+  String get warmupTime => 'Oras ng pagpapainit';
+
+  @override
+  String get soon => 'Malapit na';
 }

@@ -45,5 +45,7 @@
   "joystickPosition": "Valdiklio padėtis",
   "timeTitle": "LAIKAS: ",
   "warmupTitle": "APŠILIMAS: ",
-  "total": "Iš viso"
+  "total": "Iš viso",
+  "warmupTime": "Apšilimo laikas",
+  "soon": "Netrukus"
 }

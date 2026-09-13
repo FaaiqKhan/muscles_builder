@@ -95,4 +95,10 @@ class AppLocalizationsBe extends AppLocalizations {
 
   @override
   String get total => 'Усяго';
+
+  @override
+  String get warmupTime => 'Час разагрэву';
+
+  @override
+  String get soon => 'Хутка';
 }
