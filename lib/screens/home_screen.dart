@@ -18,8 +18,19 @@ import 'package:muscles_builder/utils/data_utils.dart';
 import 'package:muscles_builder/widgets/app_drawer_widget.dart';
 import 'package:muscles_builder/widgets/screen_title_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<GoogleAdsCubit>().loadBannerAd();
+  }
 
   @override
   Widget build(BuildContext context) {

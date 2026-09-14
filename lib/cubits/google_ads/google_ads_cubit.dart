@@ -12,6 +12,8 @@ class GoogleAdsCubit extends Cubit<GoogleAdsState> {
   BannerAd? _bannerAd;
 
   void loadBannerAd() async {
+    _bannerAd?.dispose();
+    _bannerAd = null;
     BannerAd(
       size: AdSize.banner,
       adUnitId: Globals.bannerAdUnitId,
@@ -31,7 +33,7 @@ class GoogleAdsCubit extends Cubit<GoogleAdsState> {
   }
 
   void loadInterstitialAd(VoidCallback onAction) {
-    // Check whether 30 minutes passed from last ad or not
+    // Check whether 3 minutes passed from last ad or not
     // if passed then show the ad.
     if (googleAdsRepository.getInterstitialAdTime().isAfter(DateTime.now())) {
       onAction();
@@ -50,11 +52,11 @@ class GoogleAdsCubit extends Cubit<GoogleAdsState> {
               onAction();
             },
             onAdDismissedFullScreenContent: (ad) {
-              // After showing ad set the time ahead of 30 minutes
-              // to show the ad in every 30 minutes.
+              // After showing ad set the time ahead of 3 minutes
+              // to show the ad in every 3 minutes.
               googleAdsRepository.updateInterstitialAdTime(
                 DateTime.now().add(
-                  const Duration(minutes: 30),
+                  const Duration(minutes: 3),
                 ),
               );
               emit(GoogleAdsInitial());
