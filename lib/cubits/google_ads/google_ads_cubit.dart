@@ -48,7 +48,7 @@ class GoogleAdsCubit extends Cubit<GoogleAdsState> {
         onAdLoaded: (InterstitialAd ad) {
           ad.fullScreenContentCallback = FullScreenContentCallback(
             onAdFailedToShowFullScreenContent: (ad, _) {
-              emit(GoogleAdsInitial());
+              _restoreBannerState();
               ad.dispose();
               onAction();
             },
@@ -60,7 +60,7 @@ class GoogleAdsCubit extends Cubit<GoogleAdsState> {
                   const Duration(minutes: 3),
                 ),
               );
-              emit(GoogleAdsInitial());
+              _restoreBannerState();
               ad.dispose();
               onAction();
             },
@@ -69,10 +69,18 @@ class GoogleAdsCubit extends Cubit<GoogleAdsState> {
         },
         onAdFailedToLoad: (error) {
           debugPrint('Interstitial ad failed to load: $error');
-          emit(GoogleAdsInitial());
+          _restoreBannerState();
         },
       ),
-    ).catchError((_) => emit(GoogleAdsInitial()));
+    ).catchError((_) => _restoreBannerState());
+  }
+
+  // Interstitial ad flow shares this cubit's state with the banner ad, so
+  // finishing it must restore the banner state instead of resetting it,
+  // otherwise the banner disappears when returning to the home screen.
+  void _restoreBannerState() {
+    final bannerAd = _bannerAd;
+    emit(bannerAd != null ? GoogleAdsLoaded(bannerAd) : GoogleAdsInitial());
   }
 
   @override
