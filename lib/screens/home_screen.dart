@@ -15,6 +15,7 @@ import 'package:muscles_builder/l10n/translations/app_localizations.dart';
 import 'package:muscles_builder/screens/muscles_builder_game_screen.dart';
 import 'package:muscles_builder/screens/settings_screen.dart';
 import 'package:muscles_builder/utils/data_utils.dart';
+import 'package:muscles_builder/utils/utils.dart';
 import 'package:muscles_builder/widgets/app_drawer_widget.dart';
 import 'package:muscles_builder/widgets/screen_title_widget.dart';
 
@@ -25,10 +26,29 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with RouteAware {
   @override
   void initState() {
     super.initState();
+    context.read<GoogleAdsCubit>().loadBannerAd();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Utils.routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
+  }
+
+  @override
+  void dispose() {
+    Utils.routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    // Returned to the home screen from a pushed route (e.g. the game
+    // screen) - load a fresh banner ad instead of leaving the old one up.
     context.read<GoogleAdsCubit>().loadBannerAd();
   }
 

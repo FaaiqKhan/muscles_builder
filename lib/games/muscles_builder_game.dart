@@ -402,10 +402,8 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
       FlameAudio.audioCache.clearAll();
     }
     reset();
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual,
-      overlays: SystemUiOverlay.values,
-    );
+    // Fallback for exits that don't go through exitGame() (e.g. system back).
+    _restoreSystemUI();
     super.onRemove();
   }
 
@@ -418,7 +416,18 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   void exitGame() {
     reset();
     detach();
-    overlays.remove(GameOverScreen.id);
+    overlays.clear();
+    // Restore the system UI chrome now instead of waiting for onRemove(),
+    // which only fires once the pop transition finishes and otherwise makes
+    // the status/nav bars snap back in right as the home screen appears.
+    _restoreSystemUI();
+  }
+
+  void _restoreSystemUI() {
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: SystemUiOverlay.values,
+    );
   }
 
   void pauseGame() {

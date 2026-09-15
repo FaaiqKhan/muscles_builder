@@ -43,9 +43,7 @@ class MusclesBuilderGameScreen extends StatelessWidget {
             },
             iMTired: () {
               context.read<GoogleAdsCubit>().loadInterstitialAd(() {
-                gameRef.reset();
-                gameRef.resumeEngine();
-                gameRef.overlays.remove(GamePauseScreen.id);
+                gameRef.exitGame();
                 Navigator.of(context).pop();
               });
             },

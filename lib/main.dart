@@ -65,6 +65,7 @@ class MyApp extends StatelessWidget {
             ],
           ),
           themeMode: state.themeMode,
+          navigatorObservers: [Utils.routeObserver],
           home: const SplashScreen(),
         );
       },
