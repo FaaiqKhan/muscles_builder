@@ -23,6 +23,7 @@ class GoogleAdsCubit extends Cubit<GoogleAdsState> {
           emit(GoogleAdsLoaded(ad));
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          debugPrint('Banner ad failed to load: $error');
           ad.dispose();
           _bannerAd = null;
           emit(GoogleAdsInitial());
@@ -66,7 +67,10 @@ class GoogleAdsCubit extends Cubit<GoogleAdsState> {
           );
           ad.show();
         },
-        onAdFailedToLoad: (_) => emit(GoogleAdsInitial()),
+        onAdFailedToLoad: (error) {
+          debugPrint('Interstitial ad failed to load: $error');
+          emit(GoogleAdsInitial());
+        },
       ),
     ).catchError((_) => emit(GoogleAdsInitial()));
   }

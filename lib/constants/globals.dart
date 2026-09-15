@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class Globals {
   // Making constructor private to restrict instantiation of class object
   Globals._();
@@ -34,8 +36,15 @@ class Globals {
   static const double virusSpeedHigh = 275.0;
   static const double virusSpeedExtreme = 300.0;
 
-  static String get bannerAdUnitId => "ca-app-pub-1555928518606225/8073529817";
+  // Google's official test ad unit IDs are used in debug builds so ads are
+  // guaranteed to fill during development. Real ad units don't reliably
+  // serve to unverified development devices, so testing with the
+  // production IDs here would show a blank banner.
+  static String get bannerAdUnitId => kDebugMode
+      ? "ca-app-pub-3940256099942544/6300978111"
+      : "ca-app-pub-1555928518606225/8073529817";
 
-  static String get interstitialAdUnitId =>
-      "ca-app-pub-1555928518606225/1855875944";
+  static String get interstitialAdUnitId => kDebugMode
+      ? "ca-app-pub-3940256099942544/1033173712"
+      : "ca-app-pub-1555928518606225/1855875944";
 }
