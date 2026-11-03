@@ -12,9 +12,10 @@ class VirusAnimatedComponent extends SpriteAnimationComponent
     required Vector2 velocity,
     required List<Image> sprite,
     required Vector2 startPosition,
+    double width = 60,
   })  : _velocity = velocity,
         super(
-          size: Vector2(60, 61),
+          size: Vector2(width, width * 61 / 60),
           anchor: Anchor.center,
           position: startPosition,
           animation: SpriteAnimation(

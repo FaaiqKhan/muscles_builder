@@ -14,7 +14,7 @@ class ProteinComponent extends SpriteComponent with CollisionCallbacks {
   }) : super(
           sprite: sprite,
           position: startPosition,
-          size: size ?? Vector2(60, 60),
+          size: size ?? Vector2(30, 30),
           anchor: anchor ?? Anchor.center,
         );
 

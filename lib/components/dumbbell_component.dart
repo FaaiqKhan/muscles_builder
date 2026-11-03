@@ -3,12 +3,17 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/games/muscles_builder_game.dart';
 
 class DumbbellComponent extends SpriteComponent
     with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
-  final double desiredRatio = 0.3;
-  final double resizedWidth = 300;
+  // Sprite widths from the design (heavier dumbbells are slightly larger).
+  static const Map<String, double> _widthByType = {
+    Globals.dumbbellLightSprite: 34,
+    Globals.dumbbellMediumSprite: 38,
+    Globals.dumbbellHeavySprite: 42,
+  };
   final int fontGapping = 20;
   late String dumbbell;
 
@@ -31,10 +36,10 @@ class DumbbellComponent extends SpriteComponent
     dumbbell = game.dumbbells[randomValue];
 
     sprite = await game.loadSprite(dumbbell);
-    final resizeRatio = sprite!.srcSize.x / sprite!.srcSize.y;
+    final aspect = sprite!.srcSize.y / sprite!.srcSize.x;
 
-    width = resizedWidth * desiredRatio;
-    height = (sprite!.srcSize.y / resizeRatio) * desiredRatio;
+    width = _widthByType[dumbbell] ?? 34;
+    height = width * aspect;
     anchor = Anchor.center;
 
     add(RectangleHitbox());

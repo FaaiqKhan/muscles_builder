@@ -17,7 +17,7 @@ class Player2Component extends SpriteAnimationComponent
     with HasGameReference<MusclesBuilderGame>, CollisionCallbacks {
   Player2Component()
       : super(
-          size: Vector2(90, 130),
+          size: Vector2(56, 56),
           anchor: Anchor.center,
         );
 
@@ -142,10 +142,7 @@ class Player2Component extends SpriteAnimationComponent
       other.removeFromParent();
       _vaccinated = true;
       _vaccinationTime = game.vaccineTime;
-      game.showVaccineTimerBarComponent(
-        _vaccinationTime,
-        Vector2(30, game.hudBottom + 8),
-      );
+      game.showVaccineTimerBarComponent(_vaccinationTime, this);
     } else if (other is ProteinComponent && !_virusAttacked) {
       other.removeFromParent();
       game.addProteinBonus();

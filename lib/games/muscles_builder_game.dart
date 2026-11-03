@@ -126,6 +126,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         virusComponents.add(
           VirusAnimatedComponent(
             screenSize: size,
+            width: 36,
             velocity: moveSprite(Globals.virusSpeedLow),
             startPosition: Vector2(
               size.x / 4,
@@ -144,6 +145,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         virusComponents.add(
           VirusAnimatedComponent(
             screenSize: size,
+            width: 40,
             velocity: moveSprite(Globals.virusSpeedMedium),
             startPosition: Vector2(
               size.x / 3,
@@ -164,6 +166,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         virusComponents.add(
           VirusAnimatedComponent(
             screenSize: size,
+            width: 40,
             velocity: moveSprite(Globals.virusSpeedMedium),
             startPosition: Vector2(
               size.x / 4,
@@ -182,6 +185,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         virusComponents.add(
           VirusAnimatedComponent(
             screenSize: size,
+            width: 42,
             velocity: moveSprite(Globals.virusSpeedHigh),
             startPosition: Vector2(
               size.x / 3,
@@ -202,6 +206,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         virusComponents.add(
           VirusAnimatedComponent(
             screenSize: size,
+            width: 40,
             velocity: moveSprite(Globals.virusSpeedMedium),
             startPosition: Vector2(
               size.x / 4,
@@ -220,6 +225,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         virusComponents.add(
           VirusAnimatedComponent(
             screenSize: size,
+            width: 42,
             velocity: moveSprite(Globals.virusSpeedHigh),
             startPosition: Vector2(
               size.x / 3,
@@ -238,6 +244,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
         virusComponents.add(
           VirusAnimatedComponent(
             screenSize: size,
+            width: 44,
             velocity: moveSprite(Globals.virusSpeedExtreme),
             startPosition: Vector2(
               size.x / 5,
@@ -444,25 +451,19 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     );
   }
 
-  /// Y coordinate of the HUD card's bottom edge (status bar inset + 8px
-  /// margin + the card's ~86px height), used to dock the vaccine timer bar
-  /// directly beneath it.
-  double get hudBottom {
-    final view = WidgetsBinding.instance.platformDispatcher.views.first;
-    final topInset = view.padding.top / view.devicePixelRatio;
-    return topInset + 8 + 86;
-  }
-
   void pauseGame() {
     pauseEngine();
     overlays.add(GamePauseScreen.id);
   }
 
-  void showVaccineTimerBarComponent(double vaccineTime, Vector2 position) {
+  void showVaccineTimerBarComponent(
+    double vaccineTime,
+    PositionComponent target,
+  ) {
     add(
       VaccineTimerBarComponent(
-        size: Vector2(size.x - 60, 6),
-        position: position,
+        size: Vector2(56, 6),
+        target: target,
         totalTime: vaccineTime,
         gameTheme: gameTheme,
       ),

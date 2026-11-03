@@ -14,12 +14,22 @@ class VaccineTimerBarComponent extends PositionComponent {
   VaccineTimerBarComponent({
     required this.totalTime,
     required Vector2 size,
-    required Vector2 position,
+    required this.target,
     required this.gameTheme,
   }) : super(
           size: size,
-          position: position,
+          position: _positionAbove(target, size),
         );
+
+  /// The component the bar floats above (the vaccinated player).
+  final PositionComponent target;
+
+  static Vector2 _positionAbove(PositionComponent target, Vector2 size) {
+    return Vector2(
+      target.position.x - size.x / 2,
+      target.position.y - target.size.y / 2 - size.y - 12,
+    );
+  }
 
   MusclesBuilderTheme gameTheme;
 
@@ -52,6 +62,7 @@ class VaccineTimerBarComponent extends PositionComponent {
   @override
   void update(double dt) {
     super.update(dt);
+    position = _positionAbove(target, size);
     if (elapsed < totalTime) {
       elapsed += dt;
       double progress = (totalTime - elapsed) / totalTime;
