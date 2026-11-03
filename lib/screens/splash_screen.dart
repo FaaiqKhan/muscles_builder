@@ -29,9 +29,7 @@ class SplashScreen extends StatelessWidget {
             /// using this function to navigate when frames are rendered.
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (_) => HomeScreen(),
-                ),
+                MaterialPageRoute(builder: (_) => HomeScreen()),
               );
             });
           }
@@ -39,17 +37,14 @@ class SplashScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                scale: 0.7,
-                Globals.splashScreenLoadingGIF,
-              ),
+              Image.asset(scale: 0.7, Globals.splashScreenLoadingGIF),
               const SizedBox(height: Spacings.contentSpacingOf12),
               Text(
                 AppLocalizations.of(context).warmingUp,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(color: context.musclesBuilderTheme.primaryText),
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  color: context.musclesBuilderTheme.primaryText,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ],
           );

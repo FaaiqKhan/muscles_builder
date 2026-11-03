@@ -22,62 +22,55 @@ class GamePauseScreen extends StatelessWidget {
       backgroundColor: context.musclesBuilderTheme.background,
       body: Stack(
         children: [
-          AlertDialog(
-            backgroundColor: context.musclesBuilderTheme.dialogBoxSurface,
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Stack(
-                  children: <Widget>[
-                    // Stroked text as border.
-                    Text(
-                      AppLocalizations.of(context).gamePaused,
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 6
-                            ..color = context.musclesBuilderTheme.primaryText),
-                      textAlign: TextAlign.center,
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.78,
+              constraints: const BoxConstraints(maxWidth: 290),
+              padding: const EdgeInsets.fromLTRB(20, 28, 20, 20),
+              decoration: BoxDecoration(
+                color: context.musclesBuilderTheme.background,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: context.musclesBuilderTheme.border),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x29181A20),
+                    blurRadius: 32,
+                    offset: Offset(0, 12),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    AppLocalizations.of(context).gamePaused,
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                      color: context.musclesBuilderTheme.primaryText,
                     ),
-                    // Solid text as fill.
-                    Text(
-                      AppLocalizations.of(context).gamePaused,
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                        color: context.musclesBuilderTheme.accentText,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: Spacings.contentSpacingOf32),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: backToGym,
-                    child: Text(
-                      AppLocalizations.of(context).backToGym,
-                      style: Theme.of(context).textTheme.labelSmall,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: Spacings.contentSpacingOf24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: backToGym,
+                      child: Text(AppLocalizations.of(context).backToGym),
                     ),
                   ),
-                ),
-                const SizedBox(height: Spacings.contentSpacingOf12),
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                    onPressed: iMTired,
-                    child: Text(
-                      AppLocalizations.of(context).imTired,
-                      style: Theme.of(context).textTheme.labelSmall,
+                  const SizedBox(height: Spacings.contentSpacingOf12),
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton(
+                      onPressed: iMTired,
+                      child: Text(AppLocalizations.of(context).imTired),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-          GoogleInterstitialAdWidget(
-            key: UniqueKey(),
-          ),
+          GoogleInterstitialAdWidget(key: UniqueKey()),
         ],
       ),
     );

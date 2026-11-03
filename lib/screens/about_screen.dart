@@ -22,9 +22,7 @@ class AboutScreen extends StatelessWidget {
         ),
         title: Text(
           AppLocalizations.of(context).about,
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall
+          style: Theme.of(context).textTheme.headlineSmall
               ?.copyWith(color: context.musclesBuilderTheme.primaryText),
         ),
         iconTheme: IconThemeData(
@@ -34,16 +32,34 @@ class AboutScreen extends StatelessWidget {
       backgroundColor: context.musclesBuilderTheme.background,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(Spacings.contentSpacingOf12),
+          padding: const EdgeInsets.all(Spacings.contentSpacingOf24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Container(
+                width: 56,
+                height: 56,
+                margin: const EdgeInsets.only(
+                  bottom: Spacings.contentSpacingOf16,
+                ),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x1F181A20),
+                      blurRadius: 16,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Image.asset('assets/icons/app_icon.png'),
+              ),
               Text(
                 AppLocalizations.of(context)
                     .appVersion(context.read<SettingsCubit>().appVersion),
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
+                style: Theme.of(context).textTheme.bodyMedium
                     ?.copyWith(color: context.musclesBuilderTheme.primaryText),
               ),
             ],

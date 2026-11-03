@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:muscles_builder/constants/spacings.dart';
 import 'package:muscles_builder/cubits/settings/settings_cubit.dart';
 import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/l10n/translations/app_localizations.dart';
@@ -35,9 +34,8 @@ class SettingsScreen extends StatelessWidget {
         ),
         title: Text(
           AppLocalizations.of(context).settings,
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: context.musclesBuilderTheme.primaryText,
-              ),
+          style: Theme.of(context).textTheme.headlineSmall
+              ?.copyWith(color: context.musclesBuilderTheme.primaryText),
         ),
         iconTheme: IconThemeData(
           color: context.musclesBuilderTheme.primaryText,
@@ -46,42 +44,29 @@ class SettingsScreen extends StatelessWidget {
       backgroundColor: context.musclesBuilderTheme.background,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(Spacings.contentSpacingOf12),
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const GameSoundWidget(),
-              const SizedBox(
-                height: Spacings.contentSpacingOf8,
-              ),
+              const SizedBox(height: 26),
               const GameDifficultyLevelWidget(),
-              const SizedBox(
-                height: Spacings.contentSpacingOf8,
-              ),
+              const SizedBox(height: 26),
               const ExerciseTimeWidget(),
-              const SizedBox(
-                height: Spacings.contentSpacingOf8,
-              ),
+              const SizedBox(height: 26),
               const JoystickPositionWidget(),
-              const SizedBox(
-                height: Spacings.contentSpacingOf8,
-              ),
+              const SizedBox(height: 26),
               const AppThemeSelectionWidget(),
-              const SizedBox(
-                height: Spacings.contentSpacingOf8,
-              ),
+              const SizedBox(height: 26),
               const WarmupTimeWidget(),
-              const SizedBox(
-                height: Spacings.contentSpacingOf8,
-              ),
+              const SizedBox(height: 26),
               const Spacer(),
-              Center(
+              SizedBox(
+                width: double.infinity,
                 child: OutlinedButton(
-                  onPressed: () => context.read<SettingsCubit>().resetSettings(),
-                  child: Text(
-                    AppLocalizations.of(context).reset,
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
+                  onPressed: () =>
+                      context.read<SettingsCubit>().resetSettings(),
+                  child: Text(AppLocalizations.of(context).reset),
                 ),
               ),
             ],

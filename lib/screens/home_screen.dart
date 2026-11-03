@@ -64,11 +64,9 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => const SettingsScreen(),
-                ),
-              );
+              Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (_) => const SettingsScreen()));
             },
             icon: Icon(
               Icons.settings_outlined,
@@ -95,15 +93,17 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                     Quotes.quotes[Random().nextInt(Quotes.quotes.length)],
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: context.musclesBuilderTheme.secondaryText,
-                          fontStyle: FontStyle.italic,
-                        ),
+                      color: context.musclesBuilderTheme.tertiaryText,
+                      fontSize: 16,
+                      height: 1.6,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    final settingsRepo =
-                        serviceLocator.get<GameSettingsRepository>();
+                    final settingsRepo = serviceLocator
+                        .get<GameSettingsRepository>();
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         maintainState: false,
@@ -121,10 +121,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                       ),
                     );
                   },
-                  child: Text(
-                    AppLocalizations.of(context).startWorkout,
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
+                  child: Text(AppLocalizations.of(context).startWorkout),
                 ),
               ],
             ),
@@ -134,11 +131,10 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
       bottomNavigationBar: BlocBuilder<GoogleAdsCubit, GoogleAdsState>(
         builder: (context, state) {
           if (state is GoogleAdsLoaded) {
-            return SizedBox(
-              width: state.bannerAd.size.width.toDouble(),
-              height: state.bannerAd.size.height.toDouble(),
-              child: AdWidget(
-                key: UniqueKey(),
+            return SafeArea(
+              top: false,
+              child: _BannerAdView(
+                key: ObjectKey(state.bannerAd),
                 ad: state.bannerAd,
               ),
             );
@@ -147,6 +143,30 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
         },
       ),
       drawer: AppDrawerWidget(),
+    );
+  }
+}
+
+/// Holds a single [AdWidget] per ad instance so rebuilds of the parent (e.g.
+/// opening the drawer) never mount a second AdWidget for the same ad.
+class _BannerAdView extends StatefulWidget {
+  const _BannerAdView({super.key, required this.ad});
+
+  final BannerAd ad;
+
+  @override
+  State<_BannerAdView> createState() => _BannerAdViewState();
+}
+
+class _BannerAdViewState extends State<_BannerAdView> {
+  late final AdWidget _adWidget = AdWidget(ad: widget.ad);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: widget.ad.size.width.toDouble(),
+      height: widget.ad.size.height.toDouble(),
+      child: _adWidget,
     );
   }
 }

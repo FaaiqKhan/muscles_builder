@@ -31,11 +31,10 @@ class GameOverScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.04,
-                    ),
+                    padding: EdgeInsets.only(top: Spacings.contentSpacingOf32),
                     child: ScreenTitleWidget(
                       title: AppLocalizations.of(context).gameOver,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                   ),
                   Expanded(
@@ -53,36 +52,21 @@ class GameOverScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  "${AppLocalizations.of(context).total}: $total",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                        color: context
-                                            .musclesBuilderTheme.primaryText,
-                                      ),
+                                _StatLine(
+                                  label:
+                                      "${AppLocalizations.of(context).total}: ",
+                                  value: "$total",
                                 ),
-                                Text(
-                                  "${AppLocalizations.of(context).scoreTitle}: ${state.score}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                        color: context
-                                            .musclesBuilderTheme.primaryText,
-                                      ),
+                                _StatLine(
+                                  label:
+                                      "${AppLocalizations.of(context).scoreTitle}: ",
+                                  value: "${state.score}",
                                 ),
-                                Text(
+                                _StatLine.localized(
                                   AppLocalizations.of(context)
                                       .proteinBonus(state.proteinBonus),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          color: context
-                                              .musclesBuilderTheme.primaryText),
-                                )
+                                  "${state.proteinBonus}",
+                                ),
                               ],
                             );
                           },
@@ -96,10 +80,7 @@ class GameOverScreen extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * 0.7,
                             child: ElevatedButton(
                               onPressed: playAgain,
-                              child: Text(
-                                AppLocalizations.of(context).again,
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
+                              child: Text(AppLocalizations.of(context).again),
                             ),
                           ),
                         ),
@@ -107,10 +88,7 @@ class GameOverScreen extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.7,
                           child: OutlinedButton(
                             onPressed: exitGame,
-                            child: Text(
-                              AppLocalizations.of(context).imTired,
-                              style: Theme.of(context).textTheme.labelSmall,
-                            ),
+                            child: Text(AppLocalizations.of(context).imTired),
                           ),
                         ),
                       ],
@@ -120,8 +98,45 @@ class GameOverScreen extends StatelessWidget {
               ),
             ),
           ),
-          GoogleInterstitialAdWidget(
-            key: UniqueKey(),
+          GoogleInterstitialAdWidget(key: UniqueKey()),
+        ],
+      ),
+    );
+  }
+}
+
+/// A "Label: 12" line where the number is set in the monospace stat font.
+class _StatLine extends StatelessWidget {
+  const _StatLine({required this.label, required this.value});
+
+  /// Splits an already-localized sentence around the trailing [value].
+  factory _StatLine.localized(String text, String value) {
+    final idx = text.lastIndexOf(value);
+    if (idx < 0) return _StatLine(label: text, value: '');
+    return _StatLine(label: text.substring(0, idx), value: value);
+  }
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    final base = Theme.of(context).textTheme.bodyLarge?.copyWith(
+      color: context.musclesBuilderTheme.primaryText,
+      fontSize: 18,
+      height: 1.6,
+    );
+    return Text.rich(
+      TextSpan(
+        text: label,
+        style: base,
+        children: [
+          TextSpan(
+            text: value,
+            style: base?.copyWith(
+              fontFamily: "JetBrains Mono",
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),

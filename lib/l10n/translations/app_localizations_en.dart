@@ -16,7 +16,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get musclesBuilderTitle => 'Muscles\nBuilder';
 
   @override
-  String get startWorkout => 'Start workout';
+  String get startWorkout => 'Start Workout';
 
   @override
   String get about => 'About';

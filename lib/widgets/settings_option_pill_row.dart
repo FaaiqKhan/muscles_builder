@@ -29,9 +29,9 @@ class SettingsOptionPillRow<T> extends StatelessWidget {
         Text(
           label,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: context.musclesBuilderTheme.primaryText,
-                fontWeight: FontWeight.w600,
-              ),
+            color: context.musclesBuilderTheme.primaryText,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: Spacings.contentSpacingOf8),
@@ -70,23 +70,29 @@ class _OptionPill extends StatelessWidget {
     final theme = context.musclesBuilderTheme;
     return Material(
       color: selected ? theme.primaryAction : Colors.transparent,
+      elevation: selected ? 4 : 0,
+      shadowColor: const Color(0x3D246BFD),
       shape: StadiumBorder(
-        side: selected ? BorderSide.none : BorderSide(color: theme.border),
+        side: BorderSide(
+          color: selected ? theme.primaryAction : theme.borderStrong,
+          width: 1.5,
+        ),
       ),
       child: InkWell(
         customBorder: const StadiumBorder(),
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: Spacings.contentSpacingOf16,
+            horizontal: 18,
             vertical: Spacings.contentSpacingOf10,
           ),
           child: Text(
             label,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: selected ? Colors.white : theme.tertiaryText,
-                  fontWeight: FontWeight.w600,
-                ),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: selected ? Colors.white : theme.secondaryText,
+              height: 1.2,
+              fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
+            ),
           ),
         ),
       ),

@@ -3,37 +3,45 @@ import 'package:muscles_builder/theme/muscles_builder_theme.dart';
 
 const _primaryAction = Color(0xFF246BFD);
 
+const _buttonText = TextStyle(
+  fontFamily: "Inter",
+  fontSize: 16,
+  fontWeight: FontWeight.w700,
+  height: 1.4,
+  letterSpacing: 0.2,
+);
+
 final ThemeData musclesBuilderThemeData = ThemeData(
   useMaterial3: true,
   fontFamily: "Inter",
   textTheme: const TextTheme(
-    // Large splashy titles (main menu, game over) - stroke+fill treatment,
-    // always set in Fraunces regardless of the base Inter font family.
+    // Large titles (main menu, game over, pause) - solid Fraunces text,
+    // regardless of the base Inter font family.
     displayLarge: TextStyle(
       fontFamily: "Fraunces",
-      fontSize: 36,
-      fontWeight: FontWeight.w900,
+      fontSize: 48,
+      fontWeight: FontWeight.w700,
+      height: 1.1,
+      letterSpacing: -0.96,
     ),
     displayMedium: TextStyle(
       fontFamily: "Fraunces",
-      fontSize: 32,
-      fontWeight: FontWeight.w800,
+      fontSize: 40,
+      fontWeight: FontWeight.w700,
+      height: 1.1,
+      letterSpacing: -0.8,
     ),
     displaySmall: TextStyle(
       fontFamily: "Fraunces",
       fontSize: 28,
       fontWeight: FontWeight.w700,
+      height: 1.1,
+      letterSpacing: -0.56,
     ),
 
     // Section headers (pause, score, stats)
-    headlineLarge: TextStyle(
-      fontSize: 24,
-      fontWeight: FontWeight.bold,
-    ),
-    headlineMedium: TextStyle(
-      fontSize: 22,
-      fontWeight: FontWeight.bold,
-    ),
+    headlineLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    headlineMedium: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
     headlineSmall: TextStyle(
       fontFamily: "Fraunces",
       fontSize: 20,
@@ -41,54 +49,29 @@ final ThemeData musclesBuilderThemeData = ThemeData(
     ),
 
     // Titles (buttons, power-up labels)
-    titleLarge: TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.w600,
-    ),
-    titleMedium: TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w500,
-    ),
-    titleSmall: TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w500,
-    ),
+    titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+    titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+    titleSmall: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
 
     // Paragraph / messages
-    bodyLarge: TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.normal,
-    ),
-    bodyMedium: TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.normal,
-    ),
-    bodySmall: TextStyle(
-      fontSize: 12,
-      fontWeight: FontWeight.normal,
-    ),
+    bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+    bodyMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+    bodySmall: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
 
     // Labels (timers, UI elements)
-    labelLarge: TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-    ),
-    labelMedium: TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.w500,
-    ),
-    labelSmall: TextStyle(
-      fontSize: 12,
-      fontWeight: FontWeight.w600,
-    ),
+    labelLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+    labelMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+    labelSmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: _primaryAction,
       foregroundColor: Colors.white,
       shape: const StadiumBorder(),
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-      elevation: 0,
+      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 32),
+      textStyle: _buttonText,
+      elevation: 8,
+      shadowColor: const Color(0x3D246BFD),
     ),
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
@@ -96,7 +79,8 @@ final ThemeData musclesBuilderThemeData = ThemeData(
       foregroundColor: _primaryAction,
       side: const BorderSide(color: _primaryAction, width: 1.5),
       shape: const StadiumBorder(),
-      padding: const EdgeInsets.symmetric(vertical: 14.5, horizontal: 32),
+      padding: const EdgeInsets.symmetric(vertical: 16.5, horizontal: 32),
+      textStyle: _buttonText,
     ),
   ),
   extensions: const <ThemeExtension<MusclesBuilderTheme>>[

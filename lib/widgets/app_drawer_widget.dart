@@ -14,61 +14,59 @@ class AppDrawerWidget extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
-              padding: EdgeInsets.zero,
+            Container(
+              margin: const EdgeInsets.fromLTRB(16, 24, 16, 16),
+              padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
               decoration: BoxDecoration(
-                color: context.musclesBuilderTheme.background,
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Stack(
-                      children: <Widget>[
-                        // Stroked text as border.
-                        Text(
-                          AppLocalizations.of(context).beHappyStayHealthy,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(
-                                  fontFamily: "Fraunces",
-                                  fontWeight: FontWeight.w800,
-                                  foreground: Paint()
-                                    ..style = PaintingStyle.stroke
-                                    ..strokeWidth = 6
-                                    ..color = context
-                                        .musclesBuilderTheme.primaryText),
-                        ),
-                        // Solid text as fill.
-                        Text(
-                          AppLocalizations.of(context).beHappyStayHealthy,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(
-                                  fontFamily: "Fraunces",
-                                  fontWeight: FontWeight.w800,
-                                  color:
-                                      context.musclesBuilderTheme.accentText),
-                        ),
-                      ],
-                    ),
-                  ],
+                borderRadius: BorderRadius.circular(20),
+                gradient: const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFF6949FF), Color(0xFF876DFF)],
                 ),
+              ),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Positioned(
+                    top: -18,
+                    right: -6,
+                    child: Icon(
+                      Icons.star_rounded,
+                      size: 22,
+                      color: Colors.white.withValues(alpha: 0.5),
+                    ),
+                  ),
+                  Positioned(
+                    top: 10,
+                    right: 22,
+                    child: Icon(
+                      Icons.star_rounded,
+                      size: 14,
+                      color: Colors.white.withValues(alpha: 0.35),
+                    ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      AppLocalizations.of(context).beHappyStayHealthy,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                        fontSize: 24,
+                        letterSpacing: -0.48,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             ListTile(
-              leading: Icon(
-                Icons.book_outlined,
-                color: context.musclesBuilderTheme.primaryText,
-              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 24),
               title: Text(
                 AppLocalizations.of(context).about,
-                style: Theme.of(context).textTheme.labelLarge,
+                style: Theme.of(context).textTheme.labelLarge
+                    ?.copyWith(color: context.musclesBuilderTheme.primaryText),
               ),
               trailing: Icon(
                 Icons.chevron_right,
@@ -76,11 +74,9 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const AboutScreen(),
-                  ),
-                );
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (_) => const AboutScreen()));
               },
             ),
           ],

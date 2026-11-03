@@ -147,7 +147,7 @@ abstract class AppLocalizations {
   /// No description provided for @startWorkout.
   ///
   /// In en, this message translates to:
-  /// **'Start workout'**
+  /// **'Start Workout'**
   String get startWorkout;
 
   /// No description provided for @about.
