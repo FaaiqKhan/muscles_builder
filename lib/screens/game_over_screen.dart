@@ -59,7 +59,7 @@ class GameOverScreen extends StatelessWidget {
                                 ),
                                 _StatLine(
                                   label:
-                                      "${AppLocalizations.of(context).scoreTitle}: ",
+                                      "${AppLocalizations.of(context).scoreTitle.replaceAll(RegExp(r'[:\s]+$'), '')}: ",
                                   value: "${state.score}",
                                 ),
                                 _StatLine.localized(

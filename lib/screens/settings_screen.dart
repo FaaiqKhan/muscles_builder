@@ -43,33 +43,42 @@ class SettingsScreen extends StatelessWidget {
       ),
       backgroundColor: context.musclesBuilderTheme.background,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const GameSoundWidget(),
-              const SizedBox(height: 26),
-              const GameDifficultyLevelWidget(),
-              const SizedBox(height: 26),
-              const ExerciseTimeWidget(),
-              const SizedBox(height: 26),
-              const JoystickPositionWidget(),
-              const SizedBox(height: 26),
-              const AppThemeSelectionWidget(),
-              const SizedBox(height: 26),
-              const WarmupTimeWidget(),
-              const SizedBox(height: 26),
-              const Spacer(),
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () =>
-                      context.read<SettingsCubit>().resetSettings(),
-                  child: Text(AppLocalizations.of(context).reset),
+        child: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight - 36,
+              ),
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const GameSoundWidget(),
+                    const SizedBox(height: 26),
+                    const GameDifficultyLevelWidget(),
+                    const SizedBox(height: 26),
+                    const ExerciseTimeWidget(),
+                    const SizedBox(height: 26),
+                    const JoystickPositionWidget(),
+                    const SizedBox(height: 26),
+                    const AppThemeSelectionWidget(),
+                    const SizedBox(height: 26),
+                    const WarmupTimeWidget(),
+                    const SizedBox(height: 26),
+                    const Spacer(),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () =>
+                            context.read<SettingsCubit>().resetSettings(),
+                        child: Text(AppLocalizations.of(context).reset),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
         ),
       ),

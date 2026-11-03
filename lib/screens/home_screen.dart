@@ -27,6 +27,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with RouteAware {
+  late String _quote = _randomQuote();
+
+  String _randomQuote() =>
+      Quotes.quotes[Random().nextInt(Quotes.quotes.length)];
+
   @override
   void initState() {
     super.initState();
@@ -49,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
   void didPopNext() {
     // Returned to the home screen from a pushed route (e.g. the game
     // screen) - load a fresh banner ad instead of leaving the old one up.
+    setState(() => _quote = _randomQuote());
     context.read<GoogleAdsCubit>().loadBannerAd();
   }
 
@@ -90,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                     vertical: Spacings.contentSpacingOf32,
                   ),
                   child: Text(
-                    Quotes.quotes[Random().nextInt(Quotes.quotes.length)],
+                    _quote,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       color: context.musclesBuilderTheme.tertiaryText,
