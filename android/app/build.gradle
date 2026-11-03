@@ -1,14 +1,5 @@
 plugins {
     id "com.android.application"
-    // AGP 9's built-in Kotlin currently bundles KGP 2.2.10 on every released
-    // version (through at least 9.4.0), below Flutter's minimum supported
-    // 2.2.20 - this isn't overridable from app code (flutter/flutter#183910).
-    // Flutter's own tooling defaults to the same workaround: keep applying
-    // the legacy Kotlin Gradle Plugin here and leave built-in Kotlin off
-    // (android.builtInKotlin=false in gradle.properties) until AGP bumps its
-    // bundled Kotlin version.
-    // See https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin
-    id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
     id 'com.google.gms.google-services'
@@ -28,10 +19,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_21.toString()
     }
 
     buildFeatures {
@@ -79,6 +66,12 @@ android {
             dimension = "default"
             resValue "string", "app_name", "Muscles Builder"
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
     }
 }
 
