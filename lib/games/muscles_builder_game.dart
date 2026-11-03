@@ -4,11 +4,11 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
-import 'package:flame/palette.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:muscles_builder/components/dumbbell_component.dart';
+import 'package:muscles_builder/components/gameplay_background_component.dart';
 import 'package:muscles_builder/components/player_component.dart';
 import 'package:muscles_builder/components/protein_component.dart';
 import 'package:muscles_builder/components/vaccine_component.dart';
@@ -17,7 +17,6 @@ import 'package:muscles_builder/constants/enums.dart';
 import 'package:muscles_builder/constants/globals.dart';
 import 'package:muscles_builder/cubits/hud_game_status/hud_game_status_cubit.dart';
 import 'package:muscles_builder/domain/repositories/game_settings_repository.dart';
-import 'package:muscles_builder/extensions/muscles_builder_theme_context.dart';
 import 'package:muscles_builder/screens/game_over_screen.dart';
 import 'package:muscles_builder/screens/game_pause_screen.dart';
 import 'package:muscles_builder/theme/muscles_builder_theme.dart';
@@ -293,28 +292,42 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     final JoystickPosition position =
         gameSettingsRepository.getGameJoystickPosition();
 
+    const double joystickRadius = 56;
+    const double joystickEdgeInset = 24;
+    const double joystickBottomInset = 28;
+
     _joystick = JoystickComponent(
       knob: CircleComponent(
-        radius: 30,
-        paint: BasicPalette.red.withAlpha(200).paint(),
+        radius: 24,
+        paint: Paint()..color = Colors.white.withValues(alpha: 0.92),
       ),
       background: CircleComponent(
-        radius: 80,
-        paint: BasicPalette.gray.withAlpha(100).paint(),
+        radius: joystickRadius,
+        paint: Paint()..color = Colors.white.withValues(alpha: 0.18),
+        children: [
+          CircleComponent(
+            radius: joystickRadius,
+            paint: Paint()
+              ..color = Colors.white.withValues(alpha: 0.35)
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 2,
+          ),
+        ],
       ),
     );
 
+    final joystickY = size.y - joystickBottomInset - joystickRadius;
     switch (position) {
       case JoystickPosition.left:
         _joystick.position = Vector2(
-          size.x * 0.25,
-          size.y - (size.y * 0.12),
+          joystickEdgeInset + joystickRadius,
+          joystickY,
         );
         break;
       case JoystickPosition.right:
         _joystick.position = Vector2(
-          size.x - size.x * 0.25,
-          size.y - size.y * 0.12,
+          size.x - joystickEdgeInset - joystickRadius,
+          joystickY,
         );
         break;
     }
@@ -323,6 +336,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
     addAll(
       [
+        GameplayBackgroundComponent(),
         _joystick,
         _player,
         ...virus,
@@ -381,7 +395,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
 
   @override
   Color backgroundColor() {
-    return buildContext?.musclesBuilderTheme.background ?? Colors.white;
+    return GameplayBackgroundComponent.baseColor;
   }
 
   void reset() {
@@ -430,6 +444,15 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
     );
   }
 
+  /// Y coordinate of the HUD card's bottom edge (status bar inset + 8px
+  /// margin + the card's ~86px height), used to dock the vaccine timer bar
+  /// directly beneath it.
+  double get hudBottom {
+    final view = WidgetsBinding.instance.platformDispatcher.views.first;
+    final topInset = view.padding.top / view.devicePixelRatio;
+    return topInset + 8 + 86;
+  }
+
   void pauseGame() {
     pauseEngine();
     overlays.add(GamePauseScreen.id);
@@ -438,7 +461,7 @@ class MusclesBuilderGame extends FlameGame with HasCollisionDetection {
   void showVaccineTimerBarComponent(double vaccineTime, Vector2 position) {
     add(
       VaccineTimerBarComponent(
-        size: Vector2(size.x - 60, 10),
+        size: Vector2(size.x - 60, 6),
         position: position,
         totalTime: vaccineTime,
         gameTheme: gameTheme,

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:muscles_builder/components/rounded_rectangle_component.dart';
@@ -32,16 +30,18 @@ class VaccineTimerBarComponent extends PositionComponent {
     // Background (gray)
     backgroundBar = RoundedRectangleComponent(
       size: size,
+      borderRadius: 4,
       paint: Paint()
-        ..color = gameTheme.unselected
+        ..color = Colors.white.withValues(alpha: 0.25)
         ..style = PaintingStyle.fill,
     );
 
     // Foreground (green) – represents remaining time
     foregroundBar = RoundedRectangleComponent(
       size: Vector2(size.x, size.y),
+      borderRadius: 4,
       paint: Paint()
-        ..color = gameTheme.muscleGrowthBar
+        ..color = const Color(0xFF12D18E)
         ..style = PaintingStyle.fill,
     );
 

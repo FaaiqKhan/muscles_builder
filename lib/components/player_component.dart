@@ -144,7 +144,7 @@ class Player2Component extends SpriteAnimationComponent
       _vaccinationTime = game.vaccineTime;
       game.showVaccineTimerBarComponent(
         _vaccinationTime,
-        Vector2(30, 150),
+        Vector2(30, game.hudBottom + 8),
       );
     } else if (other is ProteinComponent && !_virusAttacked) {
       other.removeFromParent();

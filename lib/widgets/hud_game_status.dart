@@ -27,6 +27,7 @@ class HudGameStatusWidget extends StatelessWidget {
       fontSize: 13,
       fontWeight: FontWeight.w700,
       height: 1.4,
+      decoration: TextDecoration.none,
     );
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -35,10 +36,7 @@ class HudGameStatusWidget extends StatelessWidget {
           title,
           style: style.copyWith(color: context.musclesBuilderTheme.accentText),
         ),
-        Text(
-          value,
-          style: style.copyWith(color: Colors.white),
-        ),
+        Text(value, style: style.copyWith(color: Colors.white)),
       ],
     );
   }
@@ -47,8 +45,11 @@ class HudGameStatusWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.symmetric(
-          horizontal: Spacings.contentSpacingOf16,
+        margin: const EdgeInsets.fromLTRB(
+          Spacings.contentSpacingOf16,
+          Spacings.contentSpacingOf8,
+          Spacings.contentSpacingOf16,
+          0,
         ),
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
@@ -56,14 +57,14 @@ class HudGameStatusWidget extends StatelessWidget {
             width: 1.5,
             color: Colors.white.withValues(alpha: 0.25),
           ),
-          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
         ),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
           child: Container(
             padding: const EdgeInsets.symmetric(
-              horizontal: Spacings.contentSpacingOf12,
-              vertical: Spacings.contentSpacingOf10,
+              horizontal: 14,
+              vertical: Spacings.contentSpacingOf12,
             ),
             color: const Color(0xFF0F110D).withValues(alpha: 0.55),
             child: BlocBuilder<HudGameStatusCubit, HudGameStatusState>(
@@ -81,11 +82,13 @@ class HudGameStatusWidget extends StatelessWidget {
                           title: AppLocalizations.of(context).scoreTitle,
                           value: state.score.toString(),
                         ),
+                        const SizedBox(height: 2),
                         titleWidget(
                           context,
                           title: AppLocalizations.of(context).timeTitle,
                           value: state.exerciseTime.toStringAsFixed(0),
                         ),
+                        const SizedBox(height: 2),
                         titleWidget(
                           context,
                           title: AppLocalizations.of(context).warmupTitle,
@@ -93,18 +96,19 @@ class HudGameStatusWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Flexible(
-                      child: IconButton(
-                        onPressed: onPause,
-                        icon: const Icon(
-                          Icons.pause,
-                          color: Colors.black87,
+                    IconButton(
+                      onPressed: onPause,
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints.tightFor(
+                        width: 42,
+                        height: 42,
+                      ),
+                      icon: const _PauseGlyph(),
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(
+                          Colors.white.withValues(alpha: 0.92),
                         ),
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                            (_) => Colors.white.withValues(alpha: 0.92),
-                          ),
-                        ),
+                        shape: WidgetStateProperty.all(const CircleBorder()),
                       ),
                     ),
                   ],
@@ -114,6 +118,27 @@ class HudGameStatusWidget extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Two rounded bars, matching the pause glyph in the design.
+class _PauseGlyph extends StatelessWidget {
+  const _PauseGlyph();
+
+  @override
+  Widget build(BuildContext context) {
+    Widget bar() => Container(
+      width: 2.7,
+      height: 9.3,
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.circular(1),
+      ),
+    );
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [bar(), const SizedBox(width: 2.7), bar()],
     );
   }
 }
